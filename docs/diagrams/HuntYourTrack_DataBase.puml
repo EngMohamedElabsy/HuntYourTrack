@@ -1,0 +1,142 @@
+@startuml
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 80
+skinparam entity {
+    BackgroundColor White
+    HeaderBackgroundColor #fdf5e6
+    BorderColor #e2d2c1
+    ArrowColor #888888
+}
+
+' ================= Main Entities =================
+
+entity "ADMIN" as Admin {
+    * id : int <<PK>>
+    --
+    username : string
+    email : string
+    role : string
+}
+
+entity "EMPLOYER" as Employer {
+    * id : int <<PK>>
+    --
+    name : string
+    entity_type : string
+    email : string
+}
+
+entity "STUDENT" as Student {
+    * id : int <<PK>>
+    --
+    name : string
+    faculty : string
+    email : string
+    cv_url : string
+}
+
+entity "ROADMAP" as Roadmap {
+    * id : int <<PK>>
+    --
+    student_id : int <<FK>>
+    ai_analysis : string
+    created_at : date
+}
+
+entity "INTERNSHIP" as Internship {
+    * id : int <<PK>>
+    --
+    employer_id : int <<FK>>
+    title : string
+    track : string
+    is_free : bool
+    deadline : date
+}
+
+entity "COURSE" as Course {
+    * id : int <<PK>>
+    --
+    title : string
+    provider : string
+    duration : string
+    link_url : string
+}
+
+entity "SKILL" as Skill {
+    * id : int <<PK>>
+    --
+    name : string
+    category : string
+}
+
+' ================= Transaction / Action Tables =================
+
+entity "APPLICATION" as Application {
+    * id : int <<PK>>
+    --
+    student_id : int <<FK>>
+    internship_id : int <<FK>>
+    app_status : string
+    app_date : date
+}
+
+entity "ENROLLMENT" as Enrollment {
+    * id : int <<PK>>
+    --
+    student_id : int <<FK>>
+    course_id : int <<FK>>
+    enroll_date : date
+}
+
+' ================= Junction Tables for M:N Relationships =================
+
+entity "STUDENT_SKILL" as StudentSkill {
+    * student_id : int <<PK, FK>>
+    * skill_id : int <<PK, FK>>
+    --
+    student_level : string
+}
+
+entity "INTERNSHIP_SKILL" as InternshipSkill {
+    * internship_id : int <<PK, FK>>
+    * skill_id : int <<PK, FK>>
+    --
+    required_level : string
+}
+
+entity "COURSE_SKILL" as CourseSkill {
+    * course_id : int <<PK, FK>>
+    * skill_id : int <<PK, FK>>
+}
+
+entity "ROADMAP_COURSE" as RoadmapCourse {
+    * roadmap_id : int <<PK, FK>>
+    * course_id : int <<PK, FK>>
+}
+
+' ================= Relationships (Crow's Foot Notation) =================
+
+Admin ||--o{ Employer : manages
+Employer ||--o{ Internship : posts
+
+Student ||--|| Roadmap : generates
+Roadmap ||--o{ RoadmapCourse : suggests
+Course ||--o{ RoadmapCourse : suggested in
+
+Student ||--o{ Application : submits
+Internship ||--o{ Application : receives
+
+Student ||--o{ Enrollment : enrolls in
+Course ||--o{ Enrollment : has
+
+Student ||--o{ StudentSkill : possesses
+Skill ||--o{ StudentSkill : defined by
+
+Internship ||--o{ InternshipSkill : requires
+Skill ||--o{ InternshipSkill : defined by
+
+Course ||--o{ CourseSkill : teaches
+Skill ||--o{ CourseSkill : defined by
+
+@enduml

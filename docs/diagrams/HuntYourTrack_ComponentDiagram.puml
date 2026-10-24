@@ -1,0 +1,109 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam componentStyle uml2
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 70
+skinparam monochrome false
+
+' إعدادات الألوان لكل طبقة
+skinparam package {
+    BackgroundColor #f8f9fa
+    BorderColor #6c757d
+}
+skinparam component {
+    BackgroundColor White
+    BorderColor #00509e
+}
+skinparam database {
+    BackgroundColor #e8f5e9
+    BorderColor #4caf50
+}
+
+' ================= طبقة واجهة المستخدم (Frontend) =================
+package "Frontend (React / Web App) - S3 Hosted" {
+    
+    component "UI Router" as UIRouter
+    component "State Management (Redux/Context)" as State
+    component "API Client (Axios/Fetch)" as APIClient
+
+    component "Frontend Modules" {
+        [Auth & Profile UI] as FrontAuth
+        [Student Dashboard] as FrontStudent
+        [Employer Dashboard] as FrontEmployer
+        [Roadmap Visualizer] as FrontRoadmap
+        [Internship & Course Catalog] as FrontCatalog
+    }
+
+    UIRouter --> FrontAuth
+    UIRouter --> FrontStudent
+    UIRouter --> FrontEmployer
+    UIRouter --> FrontRoadmap
+    UIRouter --> FrontCatalog
+
+    FrontAuth --> State
+    FrontStudent --> State
+    FrontEmployer --> State
+    FrontRoadmap --> State
+    FrontCatalog --> State
+
+    State --> APIClient
+}
+
+' ================= طبقة الخوادم والمنطق (Backend) =================
+package "Backend (Node.js / Python) - K8s Pods" {
+    
+    component "API Gateway / Express Router" as BackRouter
+    
+    component "Business Logic Services" {
+        [Auth & JWT Service] as AuthService
+        [AI CV Matching Engine] as MatchingService
+        [Roadmap Generator Service] as RoadmapService
+        [Entity Manager (Students/Employers)] as EntityService
+        [Application & Enrollment Service] as AppService
+    }
+
+    component "Data Access Layer (DAL)" {
+        [Mongoose / PyMongo Models] as Repositories
+    }
+
+    BackRouter --> AuthService
+    BackRouter --> MatchingService
+    BackRouter --> RoadmapService
+    BackRouter --> EntityService
+    BackRouter --> AppService
+
+    AuthService --> Repositories
+    MatchingService --> Repositories
+    RoadmapService --> Repositories
+    EntityService --> Repositories
+    AppService --> Repositories
+}
+
+' ================= الأتمتة والذكاء الاصطناعي (Automation & AI) =================
+package "Automation & Integrations" {
+    [n8n Workflow Engine] as n8n
+    [Web Scrapers / Job APIs] as Scraper
+}
+
+' ================= قاعدة البيانات والخدمات الخارجية =================
+database "MongoDB Atlas" as DB
+cloud "Gemini API" as Gemini
+
+' ================= الروابط (Connections) =================
+
+' ربط الـ Front بالـ Back
+APIClient =down=> BackRouter : "REST APIs / JSON (HTTPS)"
+
+' ربط الـ Back بقاعدة البيانات
+Repositories =down=> DB : "CRUD Operations"
+
+' ربط الـ Back بالذكاء الاصطناعي
+MatchingService =right=> Gemini : "Send CV Text"
+RoadmapService =right=> Gemini : "Generate Learning Path"
+
+' ربط الأتمتة بالـ Backend
+Scraper -down-> n8n : "Fetch Jobs Raw Data"
+n8n =up=> BackRouter : "POST New Internships (Webhook)"
+
+@enduml

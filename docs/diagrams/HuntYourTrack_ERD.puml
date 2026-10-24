@@ -1,0 +1,149 @@
+@startuml
+top to bottom direction
+skinparam defaultFontName Arial
+skinparam nodesep 50
+skinparam ranksep 80
+skinparam linetype polyline
+skinparam monochrome false
+skinparam shadowing false
+
+skinparam rectangle {
+    BackgroundColor #c9daf8
+    BorderColor #3c78d8
+}
+skinparam hexagon {
+    BackgroundColor #fce5cd
+    BorderColor #e69138
+}
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+}
+
+' ================= 1. Entities =================
+rectangle "1. Admin" as Admin
+rectangle "2. Employer" as Employer
+rectangle "3. Internship" as Internship
+rectangle "4. Student" as Student
+rectangle "5. Course" as Course
+rectangle "6. Roadmap" as Roadmap
+rectangle "7. Skill" as Skill
+
+' ================= 2. Relationships =================
+hexagon "Manages" as rel_manages
+hexagon "Posts" as rel_posts
+hexagon "Applies To" as rel_applies
+hexagon "Enrolls In" as rel_enrolls
+hexagon "Generates" as rel_generates
+hexagon "Suggests" as rel_suggests
+hexagon "Possesses" as rel_possesses
+hexagon "Requires" as rel_requires
+hexagon "Teaches" as rel_teaches
+
+' ================= 3. Main Tree Structure =================
+Admin "1" --- rel_manages
+rel_manages --- "N" Employer
+
+Employer "1" --- rel_posts
+rel_posts --- "N" Internship
+
+Student "M" --- rel_applies
+rel_applies --- "N" Internship
+
+Student "M" --- rel_enrolls
+rel_enrolls --- "N" Course
+
+Student "1" --- rel_generates
+rel_generates --- "1" Roadmap
+
+Roadmap "M" --- rel_suggests
+rel_suggests --- "N" Course
+
+Student "M" --- rel_possesses
+rel_possesses --- "N" Skill
+
+Internship "M" --- rel_requires
+rel_requires --- "N" Skill
+
+Course "M" --- rel_teaches
+rel_teaches --- "N" Skill
+
+' ================= 4. Attributes & Primary Keys =================
+
+' Admin
+usecase "<u>admin id</u>" as a_id #fff2cc
+usecase "username" as a_user
+usecase "role" as a_role
+Admin -- a_id
+Admin -- a_user
+Admin -- a_role
+
+' Employer
+usecase "<u>employer id</u>" as e_id #fff2cc
+usecase "name" as e_name
+usecase "entity type" as e_type
+usecase "email" as e_email
+Employer -- e_id
+Employer -- e_name
+Employer -- e_type
+Employer -- e_email
+
+' Internship
+usecase "<u>internship id</u>" as i_id #fff2cc
+usecase "title" as i_title
+usecase "track" as i_track
+usecase "is free" as i_free
+Internship -- i_id
+Internship -- i_title
+Internship -- i_track
+Internship -- i_free
+
+' Student
+usecase "<u>student id</u>" as s_id #fff2cc
+usecase "name" as s_name
+usecase "faculty" as s_fac
+usecase "cv url" as s_cv
+Student -- s_id
+Student -- s_name
+Student -- s_fac
+Student -- s_cv
+
+' Course
+usecase "<u>course id</u>" as co_id #fff2cc
+usecase "title" as co_title
+usecase "provider" as co_prov
+Course -- co_id
+Course -- co_title
+Course -- co_prov
+
+' Roadmap
+usecase "<u>roadmap id</u>" as r_id #fff2cc
+usecase "ai analysis" as r_ai
+usecase "created at" as r_date
+Roadmap -- r_id
+Roadmap -- r_ai
+Roadmap -- r_date
+
+' Skill
+usecase "<u>skill id</u>" as sk_id #fff2cc
+usecase "name" as sk_name
+usecase "category" as sk_cat
+Skill -- sk_id
+Skill -- sk_name
+Skill -- sk_cat
+
+' ================= 5. Relationship Attributes =================
+' Attributes for Application
+usecase "app status" as rel_app_stat
+usecase "app date" as rel_app_date
+rel_applies .. rel_app_stat
+rel_applies .. rel_app_date
+
+' Attributes for Skills (Proficiency Levels)
+usecase "student level" as rel_sk_lvl_stu
+rel_possesses .. rel_sk_lvl_stu
+
+usecase "required level" as rel_sk_lvl_int
+rel_requires .. rel_sk_lvl_int
+
+@enduml

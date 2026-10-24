@@ -1,0 +1,73 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam nodesep 50
+skinparam ranksep 60
+skinparam componentStyle uml2
+skinparam linetype ortho
+
+' Colors for different cloud providers/zones
+skinparam cloud {
+    BackgroundColor #f8f9fa
+    BorderColor #6c757d
+}
+skinparam node {
+    BackgroundColor #e3f2fd
+    BorderColor #2196f3
+}
+skinparam database {
+    BackgroundColor #e8f5e9
+    BorderColor #4caf50
+}
+
+' ================= Actors =================
+actor "Student / Employer" as Client
+
+' ================= AWS Cloud (Storage) =================
+cloud "AWS Cloud" {
+    storage "Amazon S3\n[Static Website Hosting]" as S3Bucket {
+        component "Frontend UI\n[Web App]" as Frontend
+    }
+}
+
+' ================= Kubernetes Cluster =================
+node "Kubernetes Cluster" as K8sCluster {
+    interface "Ingress Controller" as Ingress
+    
+    node "Backend Microservices" {
+        component "Core API Service" as BackendAPI
+    }
+    
+    node "Automation Jobs" {
+        component "n8n Workflow Pod" as N8nEngine
+    }
+}
+
+' ================= Database Cloud =================
+cloud "Database Provider" {
+    database "MongoDB Atlas\n[NoSQL Database]" as MongoDB
+}
+
+' ================= External APIs =================
+cloud "External Services" {
+    component "AI Provider API\n[OpenRouter / Gemini]" as AiAPI
+    component "Jobs Data API\n[RapidAPI / Adzuna]" as JobsAPI
+}
+
+' ================= Connections & Data Flow =================
+
+' User Interaction
+Client =down=> Frontend : "HTTPS Request"
+
+' Frontend to Backend
+Frontend =down=> Ingress : "REST API Calls"
+Ingress -right-> BackendAPI : "Routes Traffic"
+
+' Backend Logic & Storage
+BackendAPI =down=> MongoDB : "Read/Write (JSON)"
+BackendAPI =right=> AiAPI : "CV Analysis & Matching"
+
+' Automation Workflow
+N8nEngine =up=> JobsAPI : "Fetch New Internships (Cron)"
+N8nEngine =down=> MongoDB : "Save to Database"
+
+@enduml

@@ -1,0 +1,104 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam class {
+    BackgroundColor #f8f9fa
+    ArrowColor #343a40
+    BorderColor #007bff
+}
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 60
+
+' ================= Classes =================
+
+class Admin {
+    - adminId: UUID
+    - username: String
+    - role: String
+    + approveEmployer(): Boolean
+    + managePlatform(): void
+}
+
+class Employer {
+    - employerId: UUID
+    - name: String
+    - entityType: String
+    - email: String
+    + postInternship(details: Object): Internship
+    + reviewApplications(): List<Application>
+}
+
+class Student {
+    - studentId: UUID
+    - name: String
+    - faculty: String
+    - cvUrl: String
+    + uploadCV(file: File): Boolean
+    + applyForInternship(internshipId: UUID): Application
+    + enrollInCourse(courseId: UUID): void
+    + generateRoadmap(): Roadmap
+}
+
+class Internship {
+    - internshipId: UUID
+    - title: String
+    - track: String
+    - isFree: Boolean
+    - deadline: Date
+    + getRequiredSkills(): List<Skill>
+    + getApplications(): List<Application>
+}
+
+class Course {
+    - courseId: UUID
+    - title: String
+    - provider: String
+    - duration: String
+    - linkUrl: String
+    + getTaughtSkills(): List<Skill>
+}
+
+class Roadmap {
+    - roadmapId: UUID
+    - targetTrack: String
+    - aiAnalysisResult: JSON
+    - createdAt: Date
+    + suggestCourses(): List<Course>
+    + updateRoadmapProgress(): void
+}
+
+class Skill {
+    - skillId: UUID
+    - name: String
+    - category: String
+}
+
+class Application {
+    - status: String
+    - appliedDate: Date
+    + updateStatus(newStatus: String): void
+}
+
+' ================= Relationships =================
+
+' Association
+Admin "1" --> "*" Employer : manages
+Employer "1" --> "*" Internship : posts
+Roadmap "1" --> "*" Course : suggests
+
+' Composition (Roadmap cannot exist without Student)
+Student "1" *-- "1" Roadmap : owns
+
+' Association Class (M:N mapping for Applications)
+Student "1" --> "*" Application : submits
+Application "*" <-- "1" Internship : receives
+
+' M:N with Skills
+Student "*" --> "*" Skill : possesses
+Internship "*" --> "*" Skill : requires
+Course "*" --> "*" Skill : teaches
+
+' M:N for Course Enrollment
+Student "*" --> "*" Course : enrolls
+
+@enduml
