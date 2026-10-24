@@ -25,8 +25,8 @@ HuntYourTrack is an AI-powered platform bridging the gap between students and em
 - [x] Repository initialized.
 - [x] Documentation (docs/) uploaded to GitHub.
 - [x] CLAUDE.md initialized for project memory.
-- [ ] Initialize Frontend structure.
-- [ ] Initialize Backend API.
+- [x] Initialize Frontend structure.
+- [x] Initialize Backend API.
 - [ ] Configure MongoDB Atlas connection.
 - [ ] Integrate Gemini API.
 - [ ] Setup n8n workflows.
