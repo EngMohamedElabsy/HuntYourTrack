@@ -39,3 +39,4 @@ HuntYourTrack is an AI-powered platform bridging the gap between students and em
 ## AI Core Directives
 1. **Always Update:** After successfully implementing any new feature, fixing a bug, or modifying the architecture, you MUST automatically edit this `CLAUDE.md` file to update the "Active Changelog & Task Tracker".
 2. **Context First:** Always read this file silently before executing any new tasks to ensure alignment with the project architecture.
+3. **Version Control & GitHub Sync:** After completing any task, adding a feature, or updating this tracking file, you MUST automatically use local `git` commands (`git add .`, `git commit -m "descriptive message"`) to commit your changes, and then immediately execute `git push origin main` to sync the work with the remote GitHub repository.
