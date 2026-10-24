@@ -6,7 +6,6 @@ skinparam nodesep 60
 skinparam ranksep 70
 skinparam monochrome false
 
-' إعدادات الألوان لكل طبقة
 skinparam package {
     BackgroundColor #f8f9fa
     BorderColor #6c757d
@@ -20,7 +19,6 @@ skinparam database {
     BorderColor #4caf50
 }
 
-' ================= طبقة واجهة المستخدم (Frontend) =================
 package "Frontend (React / Web App) - S3 Hosted" {
     
     component "UI Router" as UIRouter
@@ -50,7 +48,6 @@ package "Frontend (React / Web App) - S3 Hosted" {
     State --> APIClient
 }
 
-' ================= طبقة الخوادم والمنطق (Backend) =================
 package "Backend (Node.js / Python) - K8s Pods" {
     
     component "API Gateway / Express Router" as BackRouter
@@ -80,29 +77,22 @@ package "Backend (Node.js / Python) - K8s Pods" {
     AppService --> Repositories
 }
 
-' ================= الأتمتة والذكاء الاصطناعي (Automation & AI) =================
 package "Automation & Integrations" {
     [n8n Workflow Engine] as n8n
     [Web Scrapers / Job APIs] as Scraper
 }
 
-' ================= قاعدة البيانات والخدمات الخارجية =================
 database "MongoDB Atlas" as DB
 cloud "Gemini API" as Gemini
 
-' ================= الروابط (Connections) =================
 
-' ربط الـ Front بالـ Back
 APIClient =down=> BackRouter : "REST APIs / JSON (HTTPS)"
 
-' ربط الـ Back بقاعدة البيانات
 Repositories =down=> DB : "CRUD Operations"
 
-' ربط الـ Back بالذكاء الاصطناعي
 MatchingService =right=> Gemini : "Send CV Text"
 RoadmapService =right=> Gemini : "Generate Learning Path"
 
-' ربط الأتمتة بالـ Backend
 Scraper -down-> n8n : "Fetch Jobs Raw Data"
 n8n =up=> BackRouter : "POST New Internships (Webhook)"
 

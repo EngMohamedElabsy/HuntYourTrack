@@ -9,7 +9,6 @@ skinparam entity {
     ArrowColor #888888
 }
 
-' ================= Main Entities =================
 
 entity "ADMIN" as Admin {
     * id : int <<PK>>
@@ -70,7 +69,6 @@ entity "SKILL" as Skill {
     category : string
 }
 
-' ================= Transaction / Action Tables =================
 
 entity "APPLICATION" as Application {
     * id : int <<PK>>
@@ -89,7 +87,6 @@ entity "ENROLLMENT" as Enrollment {
     enroll_date : date
 }
 
-' ================= Junction Tables for M:N Relationships =================
 
 entity "STUDENT_SKILL" as StudentSkill {
     * student_id : int <<PK, FK>>
@@ -115,7 +112,6 @@ entity "ROADMAP_COURSE" as RoadmapCourse {
     * course_id : int <<PK, FK>>
 }
 
-' ================= Relationships (Crow's Foot Notation) =================
 
 Admin ||--o{ Employer : manages
 Employer ||--o{ Internship : posts
