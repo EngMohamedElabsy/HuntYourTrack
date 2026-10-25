@@ -70,3 +70,24 @@ HuntYourTrack is an AI-powered platform bridging the gap between students and em
 ### Configuration
 - **VPN/Proxy:** User uses Nekobox.
 - **Git Settings:** `http.sslVerify false` and `http.postBuffer 524288000` are required for stable connection.
+
+## Tooling & Environment (Comprehensive)
+### MCP Servers & Plugins
+- **aws-core**: AWS management, S3, K8s, and infrastructure.
+- **databases-on-aws (aurora-dsql)**: Advanced SQL and database management.
+- **browser-use**: Direct browser control via CDP for automation and scraping.
+- **figma**: Design-to-code, Figma API, and design system sync.
+- **canva**: Brand assets, creative design, and template management.
+- **playwright**: Browser automation and testing.
+
+### Essential Skills
+- **ui-ux-pro-max**: AI-driven UI/UX design intelligence for web/mobile.
+- **impeccable**: Frontend polishing, UX auditing, and visual hardening.
+- **frontend-design**: Structural frontend layouts and design guidance.
+- **superpowers**: Parallel agent orchestration and systematic debugging.
+- **claude-security**: Full repository security scanning and patching.
+- **dataviz**: Professional data visualization and dashboard design.
+- **workflow-authoring**: Creating complex multi-agent orchestration scripts.
+
+### Project Configuration
+- **Standard:** All code must be Clean Code, English only, and synchronized via GitHub.
