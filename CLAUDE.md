@@ -35,6 +35,11 @@ HuntYourTrack is an AI-powered platform bridging the gap between students and em
 - Enterprise Software Architecture patterns are to be followed.
 - Scalability managed via K8s.
 - AI integration via Gemini for intelligent tracking/analysis.
+- **Clean Code Standard:** 
+  - All code must adhere to "Clean Code" principles (meaningful naming, single responsibility, and modularity).
+  - Code must be continuously refactored for clarity and efficiency.
+  - **Strict Language Policy:** No Arabic text is allowed in the code, variable names, or comments. All comments and documentation within the code MUST be written in professional English.
+
 
 ## AI Core Directives
 1. **Always Update:** After successfully implementing any new feature, fixing a bug, or modifying the architecture, you MUST automatically edit this `CLAUDE.md` file to update the "Active Changelog & Task Tracker".
