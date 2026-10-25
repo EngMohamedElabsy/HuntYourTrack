@@ -51,3 +51,22 @@ HuntYourTrack is an AI-powered platform bridging the gap between students and em
    - **Impact:** How this affects other team members or project components.
    The mandatory sequence is: `Implement` $\rightarrow$ `Update Tracker` $\rightarrow$ `Write Final Report in CLAUDE.md` $\rightarrow$ `Commit` $\rightarrow$ `Push`.
 5. **Cross-Session Synchronization:** Upon starting any task, the agent MUST perform a differential analysis between the current codebase and the `Active Changelog` in `CLAUDE.md`. If discrepancies are found, the agent MUST first reconcile the state and update the tracker before proceeding.
+
+## Tooling & Environment
+### MCP Servers & Plugins
+- **aws-core**: AWS management and infrastructure.
+- **databases-on-aws (aurora-dsql)**: Database management.
+- **browser-use**: Web interaction and automation.
+- **figma**: Design to code and design system management.
+- **canva**: Brand assets and creative design.
+
+### Essential Skills
+- **ui-ux-pro-max**: For high-end UI/UX design and implementation.
+- **impeccable**: For frontend polishing and UX auditing.
+- **frontend-design**: For structural frontend layout.
+- **superpowers**: For advanced agent orchestration and task execution.
+- **claude-security**: For security scanning and patching.
+
+### Configuration
+- **VPN/Proxy:** User uses Nekobox.
+- **Git Settings:** `http.sslVerify false` and `http.postBuffer 524288000` are required for stable connection.
