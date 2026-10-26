@@ -1,18 +1,18 @@
 /* HuntYourTrack Design System - Global Styles */
 :root {
-    --color-primary: #6366F1;
-    --color-secondary: #818CF8;
-    --color-accent: #16A34A;
-    --color-background: #EEF2FF;
-    --color-foreground: #312E81;
+    --color-primary: #4F46E5;
+    --color-secondary: #6366F1;
+    --color-accent: #15803D;
+    --color-background: #F8FAFC;
+    --color-foreground: #1E1B4B;
     --color-card: #FFFFFF;
-    --color-card-foreground: #312E81;
-    --color-muted: #EBEFF9;
+    --color-card-foreground: #1E1B4B;
+    --color-muted: #F1F5F9;
     --color-muted-foreground: #475569;
-    --color-border: #C7D2FE;
-    --color-destructive: #DC2626;
-    --color-on-primary: #000000;
-    --font-main: 'Open Sans', sans-serif;
+    --color-border: #CBD5E1;
+    --color-destructive: #B91C1C;
+    --color-on-primary: #FFFFFF;
+    --font-main: 'Montserrat', sans-serif;
     --font-heading: 'Poppins', sans-serif;
 }
 
@@ -85,7 +85,7 @@ body {
 
 .header h1 {
     font-family: var(--font-heading);
-    font-size: 2.5rem; /* Stronger Hierarchy */
+    font-size: 2.5rem;
     font-weight: 700;
     color: var(--color-foreground);
 }
@@ -101,7 +101,7 @@ body {
 
 .card h2 {
     font-family: var(--font-heading);
-    font-size: 1.75rem; /* Stronger Hierarchy */
+    font-size: 1.75rem;
     font-weight: 600;
     color: var(--color-foreground);
     margin-bottom: 1.5rem;
@@ -132,7 +132,7 @@ body {
 .form-control:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
 .btn {
