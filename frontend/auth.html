@@ -3,95 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to HuntYourTrack | AI Career Matcher</title>
+    <title>HuntYourTrack | AI Career Matcher</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
-        /* Custom Layout for Auth Page */
-        .auth-page {
+        :root {
+            --primary-color: #4F46E5;
+            --primary-dark: #312E81;
+            --accent-color: #10B981;
+            --accent-dark: #059669;
+            --bg-light: #F8FAFC;
+            --card-bg: #FFFFFF;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: var(--font-main);
+            background-color: var(--bg-light);
+        }
+
+        .auth-wrapper {
             display: flex;
             width: 100vw;
             height: 100vh;
-            background-color: var(--color-background);
+            position: relative;
             overflow: hidden;
+            background-color: var(--bg-light);
         }
 
-        .auth-visual-section {
-            flex: 1.2;
-            /* Darkened Gradient for WCAG AA Contrast Compliance (Deep Indigo) */
-            background: linear-gradient(135deg, #3730A3, #312E81);
+        /*
+           PANELS: Using strict 50% widths and absolute positioning
+           to prevent any overlap or "stopping in the middle".
+        */
+        .visual-panel {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #4F46E5 0%, #312E81 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #FFFFFF;
+            color: white;
             padding: 4rem;
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            z-index: 1;
+            left: 0;
+            will-change: transform, background;
         }
 
-        /* Decorative elements */
-        .auth-visual-section::before {
-            content: '';
+        .form-panel {
             position: absolute;
-            top: -10%;
-            left: -10%;
-            width: 40%;
-            height: 40%;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            filter: blur(50px);
-        }
-
-        .auth-visual-section h1 {
-            font-family: var(--font-heading);
-            font-size: 4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #FFFFFF;
-            line-height: 1.1;
-            z-index: 1;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .auth-visual-section p {
-            font-size: 1.25rem;
-            max-width: 600px;
-            color: #F8FAFC; /* High contrast white */
-            margin-bottom: 2rem;
-            z-index: 1;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-
-        .auth-form-section {
-            flex: 1;
+            width: 50%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: transparent;
             padding: 2rem;
+            z-index: 2;
+            left: 50%;
+            will-change: transform;
+        }
+
+        .visual-panel h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .visual-panel p {
+            font-size: 1.1rem;
+            max-width: 450px;
+            color: #E0E7FF;
+            margin-bottom: 2rem;
         }
 
         .auth-card {
-            background: var(--color-card);
+            background: var(--card-bg);
             width: 100%;
-            max-width: 480px;
-            padding: 3.5rem;
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--color-border);
-            animation: slideUp 0.6s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            max-width: 400px;
+            padding: 3rem;
+            border-radius: 32px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 10;
         }
 
         .auth-card h2 {
             font-family: var(--font-heading);
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
             color: var(--color-foreground);
             text-align: center;
@@ -100,151 +109,212 @@
         .auth-card .subtitle {
             text-align: center;
             color: var(--color-muted-foreground);
-            margin-bottom: 2.5rem;
-            font-size: 1rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
         }
 
-        .auth-tabs {
+        .tab-container {
             display: flex;
-            background: var(--color-muted);
-            padding: 0.4rem;
-            border-radius: var(--radius-md);
-            margin-bottom: 2.5rem;
+            background: #F1F5F9;
+            padding: 6px;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            position: relative;
         }
 
-        .tab {
+        .tab-btn {
             flex: 1;
             text-align: center;
-            padding: 0.7rem;
+            padding: 0.8rem;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.95rem;
-            border-radius: calc(var(--radius-md) - 4px);
-            transition: all 0.3s ease;
-            color: var(--color-muted-foreground);
+            font-size: 0.85rem;
+            border-radius: 12px;
+            transition: color 0.3s ease;
+            color: #64748B;
+            z-index: 1;
+            user-select: none;
         }
 
-        .tab.active {
-            background: var(--color-card);
-            color: var(--color-primary);
-            box-shadow: var(--shadow-sm);
+        .tab-btn.active {
+            color: var(--primary-color);
+        }
+
+        .tab-slider {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: calc(50% - 6px);
+            height: calc(100% - 12px);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 0;
+        }
+
+        .form-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .form-content {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
         }
 
         .form-hidden {
             display: none;
+            opacity: 0;
+            pointer-events: none;
         }
 
         .auth-footer {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             text-align: center;
-            font-size: 0.9rem;
-            color: var(--color-muted-foreground);
+            font-size: 0.85rem;
+            color: #64748B;
         }
 
         .auth-footer a {
-            color: var(--color-primary);
+            color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
         }
 
         @media (max-width: 1024px) {
-            .auth-page {
-                flex-direction: column;
-            }
-            .auth-visual-section {
-                padding: 3rem 2rem;
-                min-height: 40vh;
-            }
-            .auth-visual-section h1 {
-                font-size: 2.5rem;
-            }
-            .auth-form-section {
-                min-height: 60vh;
-            }
+            .auth-wrapper { flex-direction: column; }
+            .visual-panel, .form-panel { width: 100%; height: 50%; position: relative; left: 0 !important; transform: none !important; }
+            .visual-panel h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
-<body style="background: var(--color-background);">
-    <div class="auth-page">
-        <!-- Visual Side -->
-        <section class="auth-visual-section">
-            <h1 style="color: #FFFFFF;">HuntYourTrack</h1>
-            <p>Empowering students to discover their potential and bridging the gap to professional excellence through AI-driven roadmaps.</p>
-            <div style="font-size: 0.9rem; color: #E0E7FF; font-weight: 500; z-index: 1;">GRADUATION PROJECT 2026</div>
+<body>
+    <div class="auth-wrapper" id="auth-wrapper">
+        <section class="visual-panel" id="visual-panel">
+            <h1 id="visual-title">HuntYourTrack</h1>
+            <p id="visual-desc">Empowering students to discover their potential and bridging the gap to professional excellence.</p>
+            <div style="font-size: 0.8rem; color: #E0E7FF; font-weight: 600; letter-spacing: 2px;">GRADUATION PROJECT 2026</div>
         </section>
 
-        <!-- Form Side -->
-        <section class="auth-form-section">
+        <section class="form-panel" id="form-panel">
             <div class="auth-card">
-                <div class="auth-tabs">
-                    <div class="tab active" id="tab-login" onclick="switchTab('login')">Sign In</div>
-                    <div class="tab" id="tab-signup" onclick="switchTab('signup')">Create Account</div>
+                <h2 id="form-title">Welcome Back</h2>
+                <p class="subtitle" id="form-subtitle">Access your personalized career path.</p>
+
+                <div class="tab-container">
+                    <div class="tab-slider" id="slider"></div>
+                    <div class="tab-btn active" id="btn-login" onclick="switchTab('login')">Sign In</div>
+                    <div class="tab-btn" id="btn-signup" onclick="switchTab('signup')">Create Account</div>
                 </div>
 
-                <!-- Login Form -->
-                <form id="login-form" class="auth-form">
-                    <h2 style="color: var(--color-foreground);">Welcome Back</h2>
-                    <p class="subtitle">Access your personalized career path.</p>
-                    <div class="form-group">
-                        <label>University Email</label>
-                        <input type="email" class="form-control" placeholder="student@university.edu" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" placeholder="••••••••" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; font-size: 1.1rem; color: white;">Enter Platform</button>
-                    <div class="auth-footer">
-                        <a href="#">Forgot Password?</a>
-                    </div>
-                </form>
+                <div class="form-container">
+                    <form id="login-form" class="form-content">
+                        <div class="form-group">
+                            <label>University Email</label>
+                            <input type="email" class="form-control" placeholder="student@university.edu" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; font-size: 1.1rem;">Enter Platform</button>
+                        <div class="auth-footer">
+                            <a href="#">Forgot Password?</a>
+                        </div>
+                    </form>
 
-                <!-- Signup Form -->
-                <form id="signup-form" class="auth-form form-hidden">
-                    <h2 style="color: var(--color-foreground);">Join the Future</h2>
-                    <p class="subtitle">Create an account to start your journey.</p>
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" class="form-control" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>University Email</label>
-                        <input type="email" class="form-control" placeholder="student@university.edu" required>
-                    </div>
-                    <div class="form-group">
-                        <label>I am a...</label>
-                        <select class="form-control" required>
-                            <option value="student">🎓 Student</option>
-                            <option value="employer">💼 Employer</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" placeholder="Create a strong password" required>
-                    </div>
-                    <button type="submit" class="btn btn-accent" style="width: 100%; margin-top: 1rem; font-size: 1.1rem; color: white;">Create Account</button>
-                </form>
+                    <form id="signup-form" class="form-content form-hidden">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>University Email</label>
+                            <input type="email" class="form-control" placeholder="student@university.edu" required>
+                        </div>
+                        <div class="form-group">
+                            <label>I am a...</label>
+                            <select class="form-control" required>
+                                <option value="student">🎓 Student</option>
+                                <option value="employer">💼 Employer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Create a strong password" required>
+                        </div>
+                        <button type="submit" class="btn btn-accent" style="width: 100%; margin-top: 1rem; font-size: 1.1rem;">Create Account</button>
+                    </form>
+                </div>
             </div>
         </section>
     </div>
 
     <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            gsap.from(".visual-panel h1", { opacity: 0, x: -50, duration: 1, ease: "power4.out" });
+            gsap.from(".visual-panel p", { opacity: 0, y: 20, duration: 0.8, ease: "power3.out", delay: 0.3 });
+            gsap.from(".auth-card", { opacity: 0, scale: 0.9, duration: 0.8, ease: "back.out(1.7)", delay: 0.5 });
+        });
+
         function switchTab(type) {
             const loginForm = document.getElementById('login-form');
             const signupForm = document.getElementById('signup-form');
-            const tabLogin = document.getElementById('tab-login');
-            const tabSignup = document.getElementById('tab-signup');
+            const btnLogin = document.getElementById('btn-login');
+            const btnSignup = document.getElementById('btn-signup');
+            const slider = document.getElementById('slider');
+            const formTitle = document.getElementById('form-title');
+            const formSubtitle = document.getElementById('form-subtitle');
+            const visualPanel = document.getElementById('visual-panel');
+            const formPanel = document.getElementById('form-panel');
 
             if (type === 'login') {
-                loginForm.classList.remove('form-hidden');
-                signupForm.classList.add('form-hidden');
-                tabLogin.classList.add('active');
-                tabSignup.classList.remove('active');
+                // 1. UI State
+                btnLogin.classList.add('active');
+                btnSignup.classList.remove('active');
+                slider.style.left = '6px';
+
+                // 2. Cinematic Panel Swap - Slide to Original Positions (0% and 50%)
+                gsap.to(visualPanel, { x: 0, duration: 1.0, ease: "power3.inOut" });
+                gsap.to(formPanel, { x: 0, duration: 1.0, ease: "power3.inOut" });
+                gsap.to(visualPanel, { background: 'linear-gradient(135deg, #4F46E5 0%, #312E81 100%)', duration: 1.0 });
+
+                // 3. Form Transition
+                gsap.to(signupForm, { opacity: 0, x: 20, duration: 0.3, onComplete: () => {
+                    signupForm.style.display = 'none';
+                    gsap.set(loginForm, { display: 'block', opacity: 0, x: -20 });
+                    gsap.to(loginForm, { opacity: 1, x: 0, duration: 0.4 });
+                }});
+
+                formTitle.innerText = "Welcome Back";
+                formSubtitle.innerText = "Access your personalized career path.";
             } else {
-                loginForm.classList.add('form-hidden');
-                signupForm.classList.remove('form-hidden');
-                tabLogin.classList.remove('active');
-                tabSignup.classList.add('active');
+                // 1. UI State
+                btnSignup.classList.add('active');
+                btnLogin.classList.remove('active');
+                slider.style.left = 'calc(50% + 6px)';
+
+                // 2. Cinematic Panel Swap - Slide to Opposite Sides
+                // Visual Panel moves from 0% to 50%
+                gsap.to(visualPanel, { x: '50%', duration: 1.0, ease: "power3.inOut" });
+                // Form Panel moves from 50% to 0%
+                gsap.to(formPanel, { x: '-50%', duration: 1.0, ease: "power3.inOut" });
+                gsap.to(visualPanel, { background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)', duration: 1.0 });
+
+                // 3. Form Transition
+                gsap.to(loginForm, { opacity: 0, x: -20, duration: 0.3, onComplete: () => {
+                    loginForm.style.display = 'none';
+                    gsap.set(signupForm, { display: 'block', opacity: 0, x: 20 });
+                    gsap.to(signupForm, { opacity: 1, x: 0, duration: 0.4 });
+                }});
+
+                formTitle.innerText = "Join the Future";
+                formSubtitle.innerText = "Create an account to start your journey.";
             }
         }
     </script>
