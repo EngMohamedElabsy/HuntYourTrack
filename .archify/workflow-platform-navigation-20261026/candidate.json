@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Planned HuntYourTrack Navigation",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": ".archify/workflow-platform-navigation-20261026/platform-navigation.html"
+  },
+  "lanes": [
+    { "id": "public", "label": "Visitor" },
+    { "id": "student", "label": "Student" },
+    { "id": "employer", "label": "Employer" },
+    { "id": "admin", "label": "Admin" }
+  ],
+  "phases": [
+    { "id": "entry", "label": "Public entry", "fromCol": 0, "toCol": 3 },
+    { "id": "role_routes", "label": "Role-specific workspace", "fromCol": 4, "toCol": 5, "variant": "emphasis" }
+  ],
+  "mainPath": ["visitor", "landing", "auth", "role_choice", "student_dashboard", "student_actions"],
+  "nodes": [
+    { "id": "visitor", "lane": "public", "col": 0, "type": "external", "label": "Visitor", "icon": "start" },
+    { "id": "landing", "lane": "public", "col": 1, "type": "frontend", "label": "Home", "sublabel": "Value + CTA" },
+    { "id": "auth", "lane": "public", "col": 2, "type": "frontend", "label": "Authentication", "sublabel": "Sign in / join" },
+    { "id": "role_choice", "lane": "public", "col": 3, "type": "frontend", "label": "Role?", "icon": "decision" },
+    { "id": "student_dashboard", "lane": "student", "col": 4, "type": "frontend", "label": "Student Home", "sublabel": "Progress / tasks" },
+    { "id": "student_actions", "lane": "student", "col": 5, "type": "frontend", "label": "Student Tools", "sublabel": "CV / matches / roadmap" },
+    { "id": "employer_dashboard", "lane": "employer", "col": 4, "type": "frontend", "label": "Employer Home", "sublabel": "Posts / applicants" },
+    { "id": "employer_actions", "lane": "employer", "col": 5, "type": "frontend", "label": "Hiring Tools", "sublabel": "Post / review" },
+    { "id": "admin_dashboard", "lane": "admin", "col": 4, "type": "frontend", "label": "Admin Home", "sublabel": "Users / activity" },
+    { "id": "admin_actions", "lane": "admin", "col": 5, "type": "frontend", "label": "Verify Queue", "sublabel": "Review / decide" }
+  ],
+  "edges": [
+    { "id": "visitor-landing", "from": "visitor", "to": "landing", "role": "main" },
+    { "id": "landing-auth", "from": "landing", "to": "auth", "label": "get started", "role": "main" },
+    { "id": "auth-role", "from": "auth", "to": "role_choice", "label": "authenticated", "role": "main" },
+    { "id": "role-student", "from": "role_choice", "to": "student_dashboard", "label": "student", "role": "branch" },
+    { "id": "role-employer", "from": "role_choice", "to": "employer_dashboard", "label": "employer", "role": "branch" },
+    { "id": "role-admin", "from": "role_choice", "to": "admin_dashboard", "label": "admin", "role": "branch" },
+    { "id": "student-destinations", "from": "student_dashboard", "to": "student_actions", "label": "navigate", "role": "main" },
+    { "id": "employer-destinations", "from": "employer_dashboard", "to": "employer_actions", "label": "manage hiring", "role": "branch" },
+    { "id": "admin-destinations", "from": "admin_dashboard", "to": "admin_actions", "label": "verify employers", "role": "branch" }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Planned route map",
+      "items": [
+        "Dashboard routes and the shared navigation shell are not implemented in this checkout.",
+        "The current index page redirects to authentication; the post-login route requires backend role and session support."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Issue numbering",
+      "items": [
+        "GitHub US02 #40 covers navigation architecture; GitHub US03 #41 covers reusable UI components.",
+        "The user calls student authentication US01; the current GitHub issue list labels it US08 #46."
+      ]
+    }
+  ]
+}

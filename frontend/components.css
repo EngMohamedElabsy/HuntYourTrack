@@ -1,0 +1,39 @@
+.component-showcase {
+    width: min(1100px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 3rem 0;
+}
+
+.component-showcase > header { margin-bottom: 2rem; }
+.component-showcase h1,
+.component-showcase h2 { font-family: var(--font-heading); }
+.component-showcase > header p { max-width: 42rem; margin-top: 0.5rem; color: var(--color-muted-foreground); }
+
+.component-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 1rem;
+}
+
+.component-demo {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: #FFFFFF;
+}
+
+.component-demo h2 { font-size: 1.15rem; }
+.component-demo .button-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.component-demo .form-group { margin: 0; }
+.component-demo .card { box-shadow: none; }
+.component-demo .form-message { min-height: 1.25rem; color: #B91C1C; font-size: 0.85rem; }
+.component-demo .demo-tooltip { width: fit-content; }
+
+.showcase-back-link { display: inline-block; margin-top: 2rem; color: var(--color-primary); }
+
+@media (max-width: 600px) {
+    .component-showcase { padding: 1.5rem 0; }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "hunt-your-track",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "python3 -m http.server 8080 --directory frontend",
+    "test:auth": "node scripts/frontend-smoke-test.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}

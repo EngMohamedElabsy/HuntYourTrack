@@ -1,6 +1,11 @@
 # Dependencies
 node_modules/
 .pnpm-store/
+.archify/*
+!.archify/workflow-platform-navigation-20261026/
+.archify/workflow-platform-navigation-20261026/*
+!.archify/workflow-platform-navigation-20261026/candidate.json
+!.archify/workflow-platform-navigation-20261026/platform-navigation.html
 
 # Environment
 .env

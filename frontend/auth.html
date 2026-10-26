@@ -5,200 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HuntYourTrack | AI Career Matcher</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <style>
-        :root {
-            --primary-color: #4F46E5;
-            --primary-dark: #312E81;
-            --accent-color: #10B981;
-            --accent-dark: #059669;
-            --bg-light: #F8FAFC;
-            --card-bg: #FFFFFF;
-        }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: var(--font-main);
-            background-color: var(--bg-light);
-        }
-
-        .auth-wrapper {
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            background-color: var(--bg-light);
-        }
-
-        /*
-           PANELS: Using strict 50% widths and absolute positioning
-           to prevent any overlap or "stopping in the middle".
-        */
-        .visual-panel {
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(135deg, #4F46E5 0%, #312E81 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            padding: 4rem;
-            text-align: center;
-            z-index: 1;
-            left: 0;
-            will-change: transform, background;
-        }
-
-        .form-panel {
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: transparent;
-            padding: 2rem;
-            z-index: 2;
-            left: 50%;
-            will-change: transform;
-        }
-
-        .visual-panel h1 {
-            font-family: var(--font-heading);
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-
-        .visual-panel p {
-            font-size: 1.1rem;
-            max-width: 450px;
-            color: #E0E7FF;
-            margin-bottom: 2rem;
-        }
-
-        .auth-card {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 400px;
-            padding: 3rem;
-            border-radius: 32px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-            z-index: 10;
-        }
-
-        .auth-card h2 {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: var(--color-foreground);
-            text-align: center;
-        }
-
-        .auth-card .subtitle {
-            text-align: center;
-            color: var(--color-muted-foreground);
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-        }
-
-        .tab-container {
-            display: flex;
-            background: #F1F5F9;
-            padding: 6px;
-            border-radius: 16px;
-            margin-bottom: 2rem;
-            position: relative;
-        }
-
-        .tab-btn {
-            flex: 1;
-            text-align: center;
-            padding: 0.8rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            border-radius: 12px;
-            transition: color 0.3s ease;
-            color: #64748B;
-            z-index: 1;
-            user-select: none;
-        }
-
-        .tab-btn.active {
-            color: var(--primary-color);
-        }
-
-        .tab-slider {
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            width: calc(50% - 6px);
-            height: calc(100% - 12px);
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 0;
-        }
-
-        .form-container {
-            position: relative;
-            width: 100%;
-            height: 350px;
-            overflow: hidden;
-        }
-
-        .form-content {
-            position: absolute;
-            width: 100%;
-            top: 0;
-            left: 0;
-        }
-
-        .form-hidden {
-            display: none;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .auth-footer {
-            margin-top: 1.5rem;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #64748B;
-        }
-
-        .auth-footer a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        @media (max-width: 1024px) {
-            .auth-wrapper { flex-direction: column; }
-            .visual-panel, .form-panel { width: 100%; height: 50%; position: relative; left: 0 !important; transform: none !important; }
-            .visual-panel h1 { font-size: 2.2rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="auth.css">
 </head>
 <body>
     <div class="auth-wrapper" id="auth-wrapper">
         <section class="visual-panel" id="visual-panel">
             <h1 id="visual-title">HuntYourTrack</h1>
             <p id="visual-desc">Empowering students to discover their potential and bridging the gap to professional excellence.</p>
-            <div style="font-size: 0.8rem; color: #E0E7FF; font-weight: 600; letter-spacing: 2px;">GRADUATION PROJECT 2026</div>
+            <div class="visual-eyebrow">GRADUATION PROJECT 2026</div>
         </section>
 
         <section class="form-panel" id="form-panel">
@@ -208,115 +24,65 @@
 
                 <div class="tab-container">
                     <div class="tab-slider" id="slider"></div>
-                    <div class="tab-btn active" id="btn-login" onclick="switchTab('login')">Sign In</div>
-                    <div class="tab-btn" id="btn-signup" onclick="switchTab('signup')">Create Account</div>
+                    <button class="tab-btn active" id="btn-login" type="button" aria-pressed="true" onclick="switchTab('login')">Sign In</button>
+                    <button class="tab-btn" id="btn-signup" type="button" aria-pressed="false" onclick="switchTab('signup')">Create Account</button>
                 </div>
 
                 <div class="form-container">
-                    <form id="login-form" class="form-content">
+                    <form id="login-form" class="form-content" data-auth-mode="login">
                         <div class="form-group">
-                            <label>University Email</label>
-                            <input type="email" class="form-control" placeholder="student@university.edu" required>
+                            <label for="login-email">University Email</label>
+                            <input id="login-email" name="email" type="email" class="form-control" placeholder="student@university.edu" autocomplete="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" placeholder="••••••••" required>
+                            <label for="login-password">Password</label>
+                            <input id="login-password" name="password" type="password" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; font-size: 1.1rem;">Enter Platform</button>
+                        <button type="submit" class="btn btn-primary auth-submit">Enter Platform</button>
                         <div class="auth-footer">
-                            <a href="#">Forgot Password?</a>
+                            <a href="#" id="forgot-password-link">Forgot Password?</a>
                         </div>
                     </form>
 
-                    <form id="signup-form" class="form-content form-hidden">
+                    <form id="signup-form" class="form-content form-hidden" data-auth-mode="register" aria-hidden="true" inert>
                         <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" class="form-control" placeholder="Enter your full name" required>
+                            <label for="signup-name">Full Name</label>
+                            <input id="signup-name" name="name" type="text" class="form-control" placeholder="Enter your full name" autocomplete="name" required>
                         </div>
                         <div class="form-group">
-                            <label>University Email</label>
-                            <input type="email" class="form-control" placeholder="student@university.edu" required>
+                            <label for="signup-email">University Email</label>
+                            <input id="signup-email" name="email" type="email" class="form-control" placeholder="student@university.edu" autocomplete="email" required>
                         </div>
                         <div class="form-group">
-                            <label>I am a...</label>
-                            <select class="form-control" required>
-                                <option value="student">🎓 Student</option>
-                                <option value="employer">💼 Employer</option>
-                            </select>
+                            <label for="signup-faculty">Faculty</label>
+                            <input id="signup-faculty" name="faculty" type="text" class="form-control" placeholder="Enter your faculty" autocomplete="organization-title" required>
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Create a strong password" required>
+                            <label for="signup-password">Password</label>
+                            <input id="signup-password" name="password" type="password" class="form-control" placeholder="Create a strong password (8+ characters)" autocomplete="new-password" minlength="8" required>
                         </div>
-                        <button type="submit" class="btn btn-accent" style="width: 100%; margin-top: 1rem; font-size: 1.1rem;">Create Account</button>
+                        <button type="submit" class="btn btn-accent auth-submit">Create Account</button>
                     </form>
                 </div>
+                <p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
             </div>
         </section>
     </div>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            gsap.from(".visual-panel h1", { opacity: 0, x: -50, duration: 1, ease: "power4.out" });
-            gsap.from(".visual-panel p", { opacity: 0, y: 20, duration: 0.8, ease: "power3.out", delay: 0.3 });
-            gsap.from(".auth-card", { opacity: 0, scale: 0.9, duration: 0.8, ease: "back.out(1.7)", delay: 0.5 });
-        });
+    <dialog class="auth-dialog" id="forgot-password-dialog" aria-labelledby="forgot-password-title">
+        <form id="forgot-password-form" data-auth-mode="password-reset">
+            <h2 id="forgot-password-title">Reset your password</h2>
+            <p class="subtitle">Enter your university email and we will send a reset link.</p>
+            <div class="form-group">
+                <label for="reset-email">University Email</label>
+                <input id="reset-email" name="email" type="email" class="form-control" autocomplete="email" required>
+            </div>
+            <button type="submit" class="btn btn-primary auth-submit">Send reset link</button>
+            <button type="button" class="btn btn-secondary" id="close-reset-dialog">Cancel</button>
+            <p class="auth-status" role="status" aria-live="polite"></p>
+        </form>
+    </dialog>
 
-        function switchTab(type) {
-            const loginForm = document.getElementById('login-form');
-            const signupForm = document.getElementById('signup-form');
-            const btnLogin = document.getElementById('btn-login');
-            const btnSignup = document.getElementById('btn-signup');
-            const slider = document.getElementById('slider');
-            const formTitle = document.getElementById('form-title');
-            const formSubtitle = document.getElementById('form-subtitle');
-            const visualPanel = document.getElementById('visual-panel');
-            const formPanel = document.getElementById('form-panel');
-
-            if (type === 'login') {
-                // 1. UI State
-                btnLogin.classList.add('active');
-                btnSignup.classList.remove('active');
-                slider.style.left = '6px';
-
-                // 2. Cinematic Panel Swap - Slide to Original Positions (0% and 50%)
-                gsap.to(visualPanel, { x: 0, duration: 1.0, ease: "power3.inOut" });
-                gsap.to(formPanel, { x: 0, duration: 1.0, ease: "power3.inOut" });
-                gsap.to(visualPanel, { background: 'linear-gradient(135deg, #4F46E5 0%, #312E81 100%)', duration: 1.0 });
-
-                // 3. Form Transition
-                gsap.to(signupForm, { opacity: 0, x: 20, duration: 0.3, onComplete: () => {
-                    signupForm.style.display = 'none';
-                    gsap.set(loginForm, { display: 'block', opacity: 0, x: -20 });
-                    gsap.to(loginForm, { opacity: 1, x: 0, duration: 0.4 });
-                }});
-
-                formTitle.innerText = "Welcome Back";
-                formSubtitle.innerText = "Access your personalized career path.";
-            } else {
-                // 1. UI State
-                btnSignup.classList.add('active');
-                btnLogin.classList.remove('active');
-                slider.style.left = 'calc(50% + 6px)';
-
-                // 2. Cinematic Panel Swap - Slide to Opposite Sides
-                // Visual Panel moves from 0% to 50%
-                gsap.to(visualPanel, { x: '50%', duration: 1.0, ease: "power3.inOut" });
-                // Form Panel moves from 50% to 0%
-                gsap.to(formPanel, { x: '-50%', duration: 1.0, ease: "power3.inOut" });
-                gsap.to(visualPanel, { background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)', duration: 1.0 });
-
-                // 3. Form Transition
-                gsap.to(loginForm, { opacity: 0, x: -20, duration: 0.3, onComplete: () => {
-                    loginForm.style.display = 'none';
-                    gsap.set(signupForm, { display: 'block', opacity: 0, x: 20 });
-                    gsap.to(signupForm, { opacity: 1, x: 0, duration: 0.4 });
-                }});
-
-                formTitle.innerText = "Join the Future";
-                formSubtitle.innerText = "Create an account to start your journey.";
-            }
-        }
-    </script>
+    <script src="auth.js"></script>
 </body>
 </html>

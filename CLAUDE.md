@@ -1,40 +1,45 @@
 # HuntYourTrack - Software Engineering Graduation Project
 
 ## Project Overview
-HuntYourTrack is an AI-powered platform bridging the gap between students and employers by intelligently matching student CVs with internship requirements and generating personalized learning roadmaps to cover skill gaps. It is designed as a graduation project for Software Engineering, requiring high standards of architecture and documentation.
+HuntYourTrack is a career-platform graduation project for matching students with internships and personalized learning roadmaps. This repository currently contains a static authentication frontend and project design documents; backend services, session handling, and the rest of the product UI are planned work.
 
-## Tech Stack
-- **Frontend:** React (Deployed on AWS S3)
-- **Backend:** Node.js / Python (Orchestrated via Kubernetes - K8s)
-- **Database:** MongoDB Atlas
-- **Workflow Automation:** n8n
-- **AI Engine:** Gemini API
+## Current and Planned Stack
+- **Implemented frontend:** HTML, CSS, browser JavaScript, GSAP via CDN.
+- **Frontend hosting:** Static host (AWS S3 is planned; not configured here).
+- **Planned backend:** Node.js or Python; no backend source is currently present.
+- **Planned services:** MongoDB Atlas, Kubernetes, n8n, Gemini API; no active configuration is present.
 
-## Build & Run Commands
-- **Frontend:**
-  - Install: `npm install`
-  - Run: `npm start`
-  - Build: `npm run build`
-- **Backend:**
-  - Setup: (To be defined based on Node.js/Python specific setup)
-  - Run: (To be defined)
-- **Deployment:**
-  - K8s Cluster: `kubectl apply -f k8s/`
+## Run and Verify
+- Install browser tooling: `npm install`
+- Run static frontend: `npm start` (serves `frontend/` on port 8080).
+- Run auth browser check: `npm run test:auth` (Playwright Chromium required).
+- There is no build command or backend start command yet.
 
 ## Active Changelog & Task Tracker
 - [x] Repository initialized.
 - [x] Documentation (docs/) uploaded to GitHub.
 - [x] CLAUDE.md initialized for project memory.
 - [x] Initialize Frontend structure.
-- [x] Initialize Backend API.
+- [ ] Implement backend API and session handling (no backend source exists yet).
 - [ ] Configure MongoDB Atlas connection.
 - [ ] Integrate Gemini API.
 - [ ] Setup n8n workflows.
+- [x] Requested US01 authentication frontend: responsive sign-in/sign-up, validation, status feedback, and password-reset request UI.
+- [ ] Authentication backend: implement `/api/auth/login`, `/api/auth/register`, `/api/auth/password-reset`, and secure session handling.
+- [-] GitHub US02 (#40): navigation hierarchy and mobile shell behavior documented; actual shell screens remain unimplemented.
+- [-] GitHub US03 (#41): shared frontend component classes and a preview page exist; the Figma library and full card variants remain pending.
+- [ ] GitHub US01 (#39): base palette and typography match the global CSS; dark theme and shared style-guide review remain open.
+- [ ] Do not change or close GitHub issues unless the user explicitly asks.
+
+### GitHub Story Number Crosswalk
+- Student authentication UI is US08 (#46) in the current GitHub issue list; the user refers to login as US01 for this task.
+- GitHub US01 (#39) is the global design system. GitHub US02 (#40) is the navigation map. GitHub US03 (#41) is the reusable component library.
+- Keep user-requested names in conversation and repository notes separate from upstream issue numbers until the user confirms the intended mapping.
 
 ## Architecture Notes
-- Enterprise Software Architecture patterns are to be followed.
-- Scalability managed via K8s.
-- AI integration via Gemini for intelligent tracking/analysis.
+- The current frontend is static and runs without a build step.
+- The auth page sends same-origin JSON requests to `/api/auth/*`; the endpoint contract and cookie/session implementation remain backend work.
+- AWS, Kubernetes, MongoDB, n8n, and Gemini references describe planned architecture, not currently connected services.
 - **Clean Code Standard:** 
   - All code must adhere to "Clean Code" principles (meaningful naming, single responsibility, and modularity).
   - Code must be continuously refactored for clarity and efficiency.
@@ -52,42 +57,13 @@ HuntYourTrack is an AI-powered platform bridging the gap between students and em
    The mandatory sequence is: `Implement` $\rightarrow$ `Update Tracker` $\rightarrow$ `Write Final Report in CLAUDE.md` $\rightarrow$ `Commit` $\rightarrow$ `Push`.
 5. **Cross-Session Synchronization:** Upon starting any task, the agent MUST perform a differential analysis between the current codebase and the `Active Changelog` in `CLAUDE.md`. If discrepancies are found, the agent MUST first reconcile the state and update the tracker before proceeding.
 
-## Tooling & Environment
-### MCP Servers & Plugins
-- **aws-core**: AWS management and infrastructure.
-- **databases-on-aws (aurora-dsql)**: Database management.
-- **browser-use**: Web interaction and automation.
-- **figma**: Design to code and design system management.
-- **canva**: Brand assets and creative design.
+## Project Skills and Tools
+- Repository-specific Codex guidance lives in `skills/huntyourtrack-frontend/SKILL.md`.
+- Project skill instructions supplement the agent's installed tools; they do not copy or replace global skills.
+- Keep code, comments, and project-maintained technical docs in English.
+- Do not disable Git TLS verification to work around network failures.
 
-### Essential Skills
-- **ui-ux-pro-max**: For high-end UI/UX design and implementation.
-- **impeccable**: For frontend polishing and UX auditing.
-- **frontend-design**: For structural frontend layout.
-- **superpowers**: For advanced agent orchestration and task execution.
-- **claude-security**: For security scanning and patching.
-
-### Configuration
-- **VPN/Proxy:** User uses Nekobox.
-- **Git Settings:** `http.sslVerify false` and `http.postBuffer 524288000` are required for stable connection.
-
-## Tooling & Environment (Comprehensive)
-### MCP Servers & Plugins
-- **aws-core**: AWS management, S3, K8s, and infrastructure.
-- **databases-on-aws (aurora-dsql)**: Advanced SQL and database management.
-- **browser-use**: Direct browser control via CDP for automation and scraping.
-- **figma**: Design-to-code, Figma API, and design system sync.
-- **canva**: Brand assets, creative design, and template management.
-- **playwright**: Browser automation and testing.
-
-### Essential Skills
-- **ui-ux-pro-max**: AI-driven UI/UX design intelligence for web/mobile.
-- **impeccable**: Frontend polishing, UX auditing, and visual hardening.
-- **frontend-design**: Structural frontend layouts and design guidance.
-- **superpowers**: Parallel agent orchestration and systematic debugging.
-- **claude-security**: Full repository security scanning and patching.
-- **dataviz**: Professional data visualization and dashboard design.
-- **workflow-authoring**: Creating complex multi-agent orchestration scripts.
-
-### Project Configuration
-- **Standard:** All code must be Clean Code, English only, and synchronized via GitHub.
+## Final Update Report — Authentication and Repository Organization
+- **What changed:** Split the auth page into HTML/CSS/JS files; added responsive desktop/mobile panel switching, student faculty signup validation, accessible status states, password-reset request UI, same-origin API handling, and a Playwright smoke check. Added shared component classes and a preview page, the planned navigation map, project run/test commands, a repository map, and project-specific frontend skill guidance.
+- **Reasoning:** The earlier panel animation used half-panel travel and was disabled at tablet sizes. Project documentation also claimed an implemented React frontend and backend despite the repository containing only a static page. GitHub story IDs differ from the user's requested numbering, so the mapping is documented without changing issue states.
+- **Impact:** The UI and test setup can be reviewed and run locally. The backend still must implement authentication, secure cookies/sessions, and reset delivery. GitHub issues remain open.
