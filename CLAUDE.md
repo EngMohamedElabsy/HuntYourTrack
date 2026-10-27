@@ -87,17 +87,18 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-27 21:36:00 UTC+3
-- **Task:** Dynamic Cross-Platform Skills Setup Script (Linux/Windows/macOS)
+- **Date & Timestamp:** 2026-10-27 21:42:00 UTC+3
+- **Task:** Complete node_modules Purge, Clean package.json, and README Overhaul
 - **What was modified:**
-  1. **Dynamic Resolution in `scripts/setup-skills.js`:**
-     - Uses `os.homedir()` to dynamically determine the user home path across Linux, macOS, and Windows.
-     - Automatically creates target directory if missing.
-     - Uses Windows directory `junction` on `win32` to bypass admin privilege requirements.
-     - Uses POSIX directory `symlink` on Linux/macOS.
-     - Added robust inspection and safe unlinking/cleaning of existing links.
-  2. **Team Documentation:**
-     - Updated `CLAUDE.md` to instruct all teammates across all OS platforms to use `npm run setup:skills`.
+  1. **Absolute Dependency Purge (Phase 1):**
+     - Completely deleted `node_modules/` and `package-lock.json` from the repository root.
+     - Cleaned `package.json` to zero dependencies and zero devDependencies; removed `playwright` and all package bloat.
+     - Retained only lightweight scripts: `"setup:skills": "node scripts/setup-skills.js"` and `"start": "python3 -m http.server 8080 --directory frontend"`.
+  2. **Comprehensive README.md Refactoring (Phase 2):**
+     - Fully rewritten for university evaluators and teammates.
+     - Highlights graduation project goals, lightweight pure HTML/CSS/JS architecture, file organization, cross-platform onboarding guide, and simulation specs.
+  3. **Verification & Hygiene:**
+     - Confirmed project root is clean, ultra-lightweight, and ready for immediate evaluation without running `npm install`.
   1. **Complete Local Skills Removal (Phase 1):**
      - Moved all remaining local skills (`design-system`, `huntyourtrack-frontend`) into host global directory (`~/.global_ai_skills`).
      - Deleted local `skills/` directory entirely from repository root.
