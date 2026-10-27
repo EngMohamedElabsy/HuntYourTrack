@@ -83,7 +83,8 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-27 21:23:00 UTC+3
+- **Date & Timestamp:** 2026-10-27 21:28:00 UTC+3
+- **Status:** Cleaned up botched migration. Moved archify, automation, design-system, and huntyourtrack-frontend out of the project root and into the global skills directory.
 - **Task:** Complete Skills Migration to Global Symlink & Zero Local Skills
 - **What was modified:**
   1. **Complete Local Skills Removal (Phase 1):**
