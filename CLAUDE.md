@@ -87,10 +87,14 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-27 21:47:00 UTC+3
-- **Status:** Corrected README.md (Fixed university affiliation to Damanhour University FCI-CS, updated structure, removed node_modules references, and cleaned User Story IDs).
-- **Task:** Academic Accuracy Overhaul & Clean Documentation
+- **Date & Timestamp:** 2026-10-27 21:54:00 UTC+3
+- **Status:** Enhanced Auth Form UI & Custom Scrollbar Styling (US01 / US08).
+- **Task:** Auth UI Scrollbar & Spacing Polish
 - **What was modified:**
+  1. **Custom Sleek Scrollbar in `frontend/auth.css`:**
+     - Added modern custom scrollbar styling (`::-webkit-scrollbar`, `scrollbar-width: thin`, rounded tracks/thumbs with subtle slate colors).
+     - Added `padding-right: 6px` to prevent scrollbar from overlapping inputs.
+     - Adjusted card height and vertical spacing so the registration form fits comfortably while scrolling smoothly and elegantly when the screen height is constrained.
   1. **Academic Affiliation Correction:**
      - Updated institution to Faculty of Computers and Information, Damanhour University (CS Department).
      - Set Lead Developer to Mohamed Yasser Elabsy (@EngMohamedElabsy).

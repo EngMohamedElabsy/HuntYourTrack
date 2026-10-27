@@ -85,12 +85,12 @@ body, html {
 .auth-card {
     background: var(--card-bg);
     width: 100%;
-    max-width: 400px;
-    height: min(680px, calc(100vh - 4rem));
-    padding: 3rem;
+    max-width: 410px;
+    height: min(690px, calc(100vh - 3.5rem));
+    padding: 2.75rem 2.5rem;
     border-radius: 32px;
-    box-shadow: none;
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.12);
     position: relative;
     z-index: 10;
     display: flex;
@@ -110,7 +110,7 @@ body, html {
 .auth-card .subtitle {
     text-align: center;
     color: var(--color-muted-foreground);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     font-size: 0.95rem;
     flex: 0 0 auto;
 }
@@ -120,7 +120,7 @@ body, html {
     background: #F1F5F9;
     padding: 6px;
     border-radius: 16px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     position: relative;
     flex: 0 0 auto;
 }
@@ -172,6 +172,31 @@ body, html {
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 transparent;
+    scroll-behavior: smooth;
+}
+
+/* Custom sleek modern scrollbar */
+.form-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.form-content::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 999px;
+}
+
+.form-content::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
+}
+
+.form-content::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
 }
 
 .form-hidden {
