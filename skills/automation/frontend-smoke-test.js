@@ -4,7 +4,7 @@ const http = require('node:http');
 const path = require('node:path');
 const { chromium } = require('playwright');
 
-const frontendDirectory = path.resolve(__dirname, '../frontend');
+const frontendDirectory = path.resolve(__dirname, '../../frontend');
 const requests = [];
 const mimeTypes = {
     '.css': 'text/css; charset=utf-8',

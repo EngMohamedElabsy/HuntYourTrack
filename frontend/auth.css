@@ -86,12 +86,16 @@ body, html {
     background: var(--card-bg);
     width: 100%;
     max-width: 400px;
+    height: min(680px, calc(100vh - 4rem));
     padding: 3rem;
     border-radius: 32px;
     box-shadow: none;
     border: 1px solid rgba(0,0,0,0.05);
     position: relative;
     z-index: 10;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .auth-card h2 {
@@ -100,6 +104,7 @@ body, html {
     margin-bottom: 0.5rem;
     color: var(--color-foreground);
     text-align: center;
+    flex: 0 0 auto;
 }
 
 .auth-card .subtitle {
@@ -107,6 +112,7 @@ body, html {
     color: var(--color-muted-foreground);
     margin-bottom: 2rem;
     font-size: 0.95rem;
+    flex: 0 0 auto;
 }
 
 .tab-container {
@@ -116,6 +122,7 @@ body, html {
     border-radius: 16px;
     margin-bottom: 2rem;
     position: relative;
+    flex: 0 0 auto;
 }
 
 .tab-btn {
@@ -154,19 +161,24 @@ body, html {
 .form-container {
     position: relative;
     width: 100%;
-    min-height: 350px;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
 }
 
 .form-content {
-    position: relative;
+    position: absolute;
+    inset: 0;
     width: 100%;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .form-hidden {
     display: none;
 }
 
-.auth-status { min-height: 1.25rem; margin-top: 0.75rem; color: #B91C1C; font-size: 0.9rem; }
+.auth-status { min-height: 1.25rem; margin-top: 0.75rem; color: #B91C1C; font-size: 0.9rem; flex: 0 0 auto; }
 .auth-status[data-state="success"] { color: #047857; }
 .auth-submit:disabled { cursor: wait; opacity: 0.7; }
 .auth-submit { width: 100%; margin-top: 1rem; font-size: 1.1rem; }
@@ -203,17 +215,16 @@ body, html {
     .form-panel { width: 100%; height: 50%; left: 0; top: 50%; padding: 0.75rem; }
     .visual-panel h1 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
     .visual-panel p { font-size: 0.9rem; margin-bottom: 0.75rem; }
-    .auth-card { max-height: 100%; overflow-y: auto; padding: 1rem; border-radius: 20px; }
+    .auth-card { height: 100%; max-height: none; min-height: 0; overflow: hidden; padding: 1rem; border-radius: 20px; }
     .auth-card h2 { font-size: 1.5rem; }
     .auth-card .subtitle { margin-bottom: 1rem; }
-    .form-container { min-height: 300px; }
+    .form-container { min-height: 0; }
     .form-group { margin-bottom: 0.75rem; }
     .tab-container { margin-bottom: 1rem; }
     .auth-dialog { padding: 1.25rem; }
 }
 
 @media (max-width: 360px) {
-    .form-container { min-height: 320px; }
     .tab-btn { padding: 0.65rem 0.25rem; font-size: 0.75rem; }
     .auth-card { padding: 0.75rem; }
 }

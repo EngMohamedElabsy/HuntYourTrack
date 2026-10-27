@@ -1,11 +1,12 @@
 # Dependencies
 node_modules/
 .pnpm-store/
-.archify/*
-!.archify/workflow-platform-navigation-20261026/
-.archify/workflow-platform-navigation-20261026/*
-!.archify/workflow-platform-navigation-20261026/candidate.json
-!.archify/workflow-platform-navigation-20261026/platform-navigation.html
+.archify/
+skills/archify/*
+!skills/archify/workflow-platform-navigation-20261026/
+skills/archify/workflow-platform-navigation-20261026/*
+!skills/archify/workflow-platform-navigation-20261026/candidate.json
+!skills/archify/workflow-platform-navigation-20261026/platform-navigation.html
 
 # Environment
 .env
@@ -24,6 +25,10 @@ build/
 .directory
 .DS_Store
 Thumbs.db
+.impeccable/
+.serena/
+skills/.impeccable/
+skills/.serena/
 
 # Logs
 npm-debug.log*

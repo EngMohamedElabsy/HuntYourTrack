@@ -5,7 +5,7 @@
     "title": "Planned HuntYourTrack Navigation",
     "locale": "en",
     "quality_profile": "showcase",
-    "output": ".archify/workflow-platform-navigation-20261026/platform-navigation.html"
+    "output": "skills/archify/workflow-platform-navigation-20261026/platform-navigation.html"
   },
   "lanes": [
     { "id": "public", "label": "Visitor" },

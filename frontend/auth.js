@@ -68,6 +68,7 @@ function switchTab(type) {
     fromForm.classList.add('form-hidden');
     fromForm.style.opacity = '0';
     toForm.classList.remove('form-hidden');
+    toForm.scrollTop = 0;
     gsap.set(toForm, { opacity: 0, x: direction * 16 });
     authAnimation = gsap.timeline();
     authAnimation.to(visualPanel, {

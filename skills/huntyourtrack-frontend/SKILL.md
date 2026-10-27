@@ -12,7 +12,8 @@ description: Maintain HuntYourTrack's static frontend, authentication UI, shared
 - The repository has no backend implementation. The auth UI expects same-origin JSON endpoints under `/api/auth`; do not describe authentication or session handling as end-to-end until server routes exist.
 - Run the static frontend with `npm start` and the browser smoke check with `npm run test:auth` when the relevant frontend files change.
 - `frontend/components.html` is the shared UI preview; `docs/specs/navigation-map.md` records planned routes and shell behavior.
-- Refer to `design-system/huntyourtrack/MASTER.md` for visual tokens and `docs/` for architecture artifacts. Keep those sources consistent with the implemented frontend.
+- Refer to `skills/design-system/huntyourtrack/MASTER.md` for visual tokens and `docs/` for architecture artifacts. Keep those sources consistent with the implemented frontend.
+- Shared auth-card and form-container dimensions must remain unchanged when switching between sign-in and registration; make the form viewport scrollable when content exceeds the fixed height.
 
 ## Authentication invariants
 
