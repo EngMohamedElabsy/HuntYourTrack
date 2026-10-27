@@ -2,11 +2,6 @@
 node_modules/
 .pnpm-store/
 .archify/
-skills/archify/*
-!skills/archify/workflow-platform-navigation-20261026/
-skills/archify/workflow-platform-navigation-20261026/*
-!skills/archify/workflow-platform-navigation-20261026/candidate.json
-!skills/archify/workflow-platform-navigation-20261026/platform-navigation.html
 
 # Environment
 .env

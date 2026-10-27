@@ -60,7 +60,7 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Authentication state is simulated using browser `localStorage`:
   - `localStorage.getItem('user') === 'student'`
   - `localStorage.getItem('auth_token')`
-- Heavy AI tools, local caches (`.impeccable`, `.serena`), and bulky scripts are purged from the repository and accessed via the `.global_skills` host symlink.
+- **Global Skills Architecture:** The local `skills/` folder is intentionally removed from the repository. All project skills, AI metadata, automation scripts, and design guidelines are now accessed exclusively through the `.global_skills` symlink mapped to the developer's host machine (`~/.global_ai_skills`). This guarantees zero repository bloat across teams while maintaining dynamic tooling access.
 - **Clean Code Standard:** 
   - All code must adhere to "Clean Code" principles (meaningful naming, single responsibility, and modularity).
   - **Strict Language Policy:** No Arabic text is allowed in the code, variable names, or comments. All comments and documentation within the code MUST be written in professional English.
@@ -74,28 +74,26 @@ HuntYourTrack is a career-platform graduation project for matching students with
 5. **Cross-Session Synchronization:** Upon starting any task, the agent MUST perform a differential analysis between the current codebase and the `Active Changelog` in `CLAUDE.md`. If discrepancies are found, the agent MUST first reconcile the state and update the tracker before proceeding.
 
 ## Project Skills and Tools
-- Lightweight project-specific skill instructions remain under `skills/`:
-  - `skills/huntyourtrack-frontend/SKILL.md` (frontend conventions and layout invariants).
-  - `skills/design-system/huntyourtrack/MASTER.md` (color palette and design tokens).
-- Dynamic AI tools, browser automation, and navigation maps are linked through `.global_skills` via `npm run setup:skills`.
+- The project has **ZERO** local skills directories (`skills/` is deleted).
+- All project skills, design references, and browser helpers reside in `.global_skills/`:
+  - `.global_skills/huntyourtrack-frontend/SKILL.md` (frontend conventions and layout invariants).
+  - `.global_skills/design-system/huntyourtrack/MASTER.md` (color palette and design tokens).
+  - `.global_skills/automation/frontend-smoke-test.js` (browser smoke test).
+- Run `npm run setup:skills` to configure or refresh the `.global_skills` symlink on any machine.
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-27 21:16:00 UTC+3
-- **US01:** Implemented Frontend Mocking. Removed Backend.
-- **Task:** Strict Workflow & GitHub Sync — Frontend Mocking (US01) & Team Handoff
+- **Date & Timestamp:** 2026-10-27 21:23:00 UTC+3
+- **Task:** Complete Skills Migration to Global Symlink & Zero Local Skills
 - **What was modified:**
-  1. **Purged Heavy Local Assets & AI Metadata (Phase 1):**
-     - Removed bulky directories and caches (`.impeccable`, `.serena`, local `skills/automation`, `skills/archify`).
-     - Preserved only lightweight documentation context files in `skills/` (`skills/huntyourtrack-frontend/SKILL.md` and `skills/design-system/huntyourtrack/MASTER.md`).
-  2. **Global Skills Dynamic Linker (Phase 2):**
-     - Created `scripts/setup-skills.js`: cross-platform Node script that symlinks `.global_skills` to `~/.global_ai_skills` on the developer's host machine.
-     - Added `.global_skills` and `.global_skills/*` to `.gitignore`.
-     - Added `"setup:skills": "node scripts/setup-skills.js"` to `package.json`.
-  3. **Backend Removal & Clean Prototyping (Phase 2 & 3):**
-     - Completely deleted `backend/` directory.
-     - Uninstalled backend packages (`express`, `cors`, `bcrypt`, `jsonwebtoken`, `cookie-parser`).
-     - Removed backend npm scripts (`start:backend`, `test:backend`).
+  1. **Complete Local Skills Removal (Phase 1):**
+     - Moved all remaining local skills (`design-system`, `huntyourtrack-frontend`) into host global directory (`~/.global_ai_skills`).
+     - Deleted local `skills/` directory entirely from repository root.
+     - Confirmed project root now strictly contains `.global_skills` symlink with zero local skills folders.
+  2. **Memory & Architecture Documentation (Phase 2):**
+     - Updated `CLAUDE.md` architecture and skills references to reflect that all skills are accessed exclusively via `.global_skills`.
+  3. **Verification & Smoke Testing:**
+     - Ran `npm run test:auth` successfully via `.global_skills/automation/frontend-smoke-test.js` (100% passing).
   4. **Frontend Mock Implementation in `frontend/auth.js` (Phase 3):**
      - Removed all network `fetch` calls to backend endpoints.
      - Implemented pure client-side validation for email formatting, password length, and required student fields.
