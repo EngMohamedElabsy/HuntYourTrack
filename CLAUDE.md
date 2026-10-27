@@ -10,19 +10,23 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - **Planned services:** Node.js/Express, MongoDB Atlas, Kubernetes, n8n, Gemini API; no backend servers or databases are active.
 
 ## Team Onboarding & Setup
-1. **Prerequisites:**
-   - Ensure heavy AI tools, browser binaries, and bulky automation assets reside in your host user home directory at `~/.global_ai_skills` (or configure the `GLOBAL_SKILLS_PATH` environment variable).
+1. **Cross-Platform Dynamic Resolution:**
+   - Teammates on **ANY OS (Linux, Windows, macOS)** only need to run `npm run setup:skills` after cloning the repository.
+   - The script automatically resolves each user's home directory across operating systems:
+     - **Windows:** `C:\Users\<user>\.global_ai_skills` (created via directory `junction` without requiring Administrator privileges).
+     - **Linux/macOS:** `/home/<user>/.global_ai_skills` or `/Users/<user>/.global_ai_skills` (created via POSIX `symlink`).
+   - If the global directory does not exist yet, the script automatically creates it.
+   - Override target via the `GLOBAL_SKILLS_PATH` environment variable if desired.
 2. **Initial Setup:**
    - Clone repository.
    - Install local dev dependencies:
      ```bash
      npm install
      ```
-   - Wire the global skills symlink on your machine:
+   - Wire the global skills symlink/junction:
      ```bash
      npm run setup:skills
      ```
-     This creates a `.global_skills` symlink in the project root pointing to `~/.global_ai_skills` without bloating Git.
 3. **Run and Verify:**
    - Run the frontend locally:
      ```bash
@@ -83,10 +87,17 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-27 21:28:00 UTC+3
-- **Status:** Cleaned up botched migration. Moved archify, automation, design-system, and huntyourtrack-frontend out of the project root and into the global skills directory.
-- **Task:** Complete Skills Migration to Global Symlink & Zero Local Skills
+- **Date & Timestamp:** 2026-10-27 21:36:00 UTC+3
+- **Task:** Dynamic Cross-Platform Skills Setup Script (Linux/Windows/macOS)
 - **What was modified:**
+  1. **Dynamic Resolution in `scripts/setup-skills.js`:**
+     - Uses `os.homedir()` to dynamically determine the user home path across Linux, macOS, and Windows.
+     - Automatically creates target directory if missing.
+     - Uses Windows directory `junction` on `win32` to bypass admin privilege requirements.
+     - Uses POSIX directory `symlink` on Linux/macOS.
+     - Added robust inspection and safe unlinking/cleaning of existing links.
+  2. **Team Documentation:**
+     - Updated `CLAUDE.md` to instruct all teammates across all OS platforms to use `npm run setup:skills`.
   1. **Complete Local Skills Removal (Phase 1):**
      - Moved all remaining local skills (`design-system`, `huntyourtrack-frontend`) into host global directory (`~/.global_ai_skills`).
      - Deleted local `skills/` directory entirely from repository root.
