@@ -1,7 +1,9 @@
 window.addEventListener('DOMContentLoaded', () => {
-    gsap.from(".visual-panel h1", { opacity: 0, x: -50, duration: 1, ease: "power4.out" });
-    gsap.from(".visual-panel p", { opacity: 0, y: 20, duration: 0.8, ease: "power3.out", delay: 0.3 });
-    gsap.from(".auth-card", { opacity: 0, scale: 0.9, duration: 0.8, ease: "back.out(1.7)", delay: 0.5 });
+    if (window.gsap && typeof gsap.from === 'function') {
+        gsap.from(".visual-panel h1", { opacity: 0, x: -50, duration: 1, ease: "power4.out" });
+        gsap.from(".visual-panel p", { opacity: 0, y: 20, duration: 0.8, ease: "power3.out", delay: 0.3 });
+        gsap.from(".auth-card", { opacity: 0, scale: 0.9, duration: 0.8, ease: "back.out(1.7)", delay: 0.5 });
+    }
 });
 
 let activeAuthMode = 'login';
@@ -13,10 +15,18 @@ function setPanelPositions(mode) {
     const axis = mobileLayout.matches ? 'yPercent' : 'xPercent';
     const visual = document.getElementById('visual-panel');
     const form = document.getElementById('form-panel');
-    gsap.set([visual, form], { xPercent: 0, yPercent: 0 });
-    if (signup) {
-        gsap.set(visual, { [axis]: 100 });
-        gsap.set(form, { [axis]: -100 });
+    if (!visual || !form) return;
+
+    if (window.gsap) {
+        gsap.set([visual, form], { xPercent: 0, yPercent: 0 });
+        if (signup) {
+            gsap.set(visual, { [axis]: 100 });
+            gsap.set(form, { [axis]: -100 });
+        }
+    } else {
+        const transProp = mobileLayout.matches ? 'translateY' : 'translateX';
+        visual.style.transform = signup ? `${transProp}(100%)` : `${transProp}(0%)`;
+        form.style.transform = signup ? `${transProp}(-100%)` : `${transProp}(0%)`;
     }
 }
 
@@ -40,8 +50,10 @@ function switchTab(type) {
     const axis = mobileLayout.matches ? 'yPercent' : 'xPercent';
     const direction = type === 'signup' ? 1 : -1;
 
-    gsap.killTweensOf([visualPanel, formPanel, fromForm, toForm]);
-    if (authAnimation) authAnimation.kill();
+    if (window.gsap) {
+        gsap.killTweensOf([visualPanel, formPanel, fromForm, toForm]);
+        if (authAnimation) authAnimation.kill();
+    }
 
     btnLogin.setAttribute('aria-pressed', String(type === 'login'));
     btnSignup.setAttribute('aria-pressed', String(type === 'signup'));
@@ -69,21 +81,30 @@ function switchTab(type) {
     fromForm.style.opacity = '0';
     toForm.classList.remove('form-hidden');
     toForm.scrollTop = 0;
-    gsap.set(toForm, { opacity: 0, x: direction * 16 });
-    authAnimation = gsap.timeline();
-    authAnimation.to(visualPanel, {
-        [axis]: type === 'signup' ? 100 : 0,
-        duration: 1.0,
-        ease: 'power3.inOut'
-    }, 0).to(formPanel, {
-        [axis]: type === 'signup' ? -100 : 0,
-        duration: 1.0,
-        ease: 'power3.inOut'
-    }, 0).to(visualPanel, {
-        background: type === 'signup' ? '#16A34A' : '#6366F1',
-        duration: 1.0,
-        ease: 'power3.inOut'
-    }, 0).to(toForm, { opacity: 1, x: 0, duration: 0.35, ease: 'power2.out' }, 0.25);
+
+    if (window.gsap) {
+        gsap.set(toForm, { opacity: 0, x: direction * 16 });
+        authAnimation = gsap.timeline();
+        authAnimation.to(visualPanel, {
+            [axis]: type === 'signup' ? 100 : 0,
+            duration: 1.0,
+            ease: 'power3.inOut'
+        }, 0).to(formPanel, {
+            [axis]: type === 'signup' ? -100 : 0,
+            duration: 1.0,
+            ease: 'power3.inOut'
+        }, 0).to(visualPanel, {
+            background: type === 'signup' ? '#16A34A' : '#6366F1',
+            duration: 1.0,
+            ease: 'power3.inOut'
+        }, 0).to(toForm, { opacity: 1, x: 0, duration: 0.35, ease: 'power2.out' }, 0.25);
+    } else {
+        const transProp = mobileLayout.matches ? 'translateY' : 'translateX';
+        visualPanel.style.transform = type === 'signup' ? `${transProp}(100%)` : `${transProp}(0%)`;
+        formPanel.style.transform = type === 'signup' ? `${transProp}(-100%)` : `${transProp}(0%)`;
+        visualPanel.style.background = type === 'signup' ? '#16A34A' : '#6366F1';
+        toForm.style.opacity = '1';
+    }
 }
 
 const resetDialog = document.getElementById('forgot-password-dialog');

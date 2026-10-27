@@ -87,16 +87,31 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-27 21:54:00 UTC+3
-- **Status:** Enhanced Auth Form UI & Custom Scrollbar Styling (US01 / US08).
-- **Task:** Auth UI Scrollbar & Spacing Polish
+- **Date & Timestamp:** 2026-10-27 22:05:00 UTC+3
+- **Status:** Complete Auth/Dashboard Flow, GSAP Offline Resilience, High-Contrast Scrollbar & Live View Active.
 - **What was modified:**
-  1. **Custom Sleek Scrollbar in `frontend/auth.css`:**
-     - Added modern custom scrollbar styling (`::-webkit-scrollbar`, `scrollbar-width: thin`, rounded tracks/thumbs with subtle slate colors).
-     - Added `padding-right: 6px` to prevent scrollbar from overlapping inputs.
-     - Adjusted card height and vertical spacing so the registration form fits comfortably while scrolling smoothly and elegantly when the screen height is constrained.
-  1. **Academic Affiliation Correction:**
-     - Updated institution to Faculty of Computers and Information, Damanhour University (CS Department).
+  1. **Student Dashboard Implemented in `frontend/index.html`:**
+     - Replaced redirect placeholder with a full-featured Student Dashboard prototype.
+     - Resolved the critical infinite redirect loop (logging in now lands on the dashboard and stays there).
+     - Features Damanhour University CS affiliation, student session greeting from `localStorage`, AI Track Match (94%), matched internship cards with application triggers, learning milestones progress, and a sign-out button.
+  2. **GSAP Offline Resilience in `frontend/auth.js`:**
+     - Wrapped all `window.gsap` calls (`from`, `set`, `timeline`, `killTweensOf`) with safe CSS fallback transitions.
+     - Ensures panel sliding works smoothly offline even if CDN is inaccessible.
+  3. **High-Contrast Modern Scrollbar in `frontend/auth.css`:**
+     - Upgraded scrollbar thumb to prominent brand indigo (`#6366F1`) with track `#E2E8F0`.
+     - Increased thumb width to 7px with 8px right padding to ensure clear visibility and avoid overlapping form inputs.
+  4. **Active Live View Verification:**
+     - Static HTTP server running live on port 8080 (`python3 -m http.server 8080 --directory frontend`).
+     - Verified HTTP 200 responses on both `/auth.html` and `/index.html`.
+  5. **Cross-Platform Dynamic Skills Architecture:**
+     - Confirmed `scripts/setup-skills.js` dynamically detects Linux, Windows, or macOS home directory (`~/.global_ai_skills`) and creates symlink/junction with zero repository bloat.
+
+- **Previous Updates (Archive):**
+  - **Date & Timestamp:** 2026-10-27 21:54:00 UTC+3
+  - **Task:** Auth UI Scrollbar & Spacing Polish
+  - **What was modified:**
+    - Custom sleek scrollbar added to `frontend/auth.css`.
+    - Academic affiliation corrected to Faculty of Computers and Information, Damanhour University (CS Department).
      - Set Lead Developer to Mohamed Yasser Elabsy (@EngMohamedElabsy).
   2. **Structure & Story Mapping Cleanup:**
      - Updated project structure to accurately map `docs/` (`specs/`, `diagrams/`, `pdf_exports/`, `guidelines/`).

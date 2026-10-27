@@ -173,30 +173,32 @@ body, html {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-right: 6px;
+    padding-right: 8px;
     scrollbar-width: thin;
-    scrollbar-color: #CBD5E1 transparent;
+    scrollbar-color: #6366F1 #E2E8F0;
     scroll-behavior: smooth;
 }
 
-/* Custom sleek modern scrollbar */
+/* Custom sleek modern visible scrollbar */
 .form-content::-webkit-scrollbar {
-    width: 6px;
+    width: 7px;
 }
 
 .form-content::-webkit-scrollbar-track {
-    background: transparent;
+    background: #E2E8F0;
     border-radius: 999px;
+    margin: 6px 0;
 }
 
 .form-content::-webkit-scrollbar-thumb {
-    background: #CBD5E1;
+    background: #6366F1;
     border-radius: 999px;
-    transition: background-color 0.2s ease;
+    border: 1px solid #CBD5E1;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .form-content::-webkit-scrollbar-thumb:hover {
-    background: #94A3B8;
+    background: #4F46E5;
 }
 
 .form-hidden {
