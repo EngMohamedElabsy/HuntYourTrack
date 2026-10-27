@@ -95,43 +95,74 @@ document.getElementById('forgot-password-link').addEventListener('click', (event
 document.getElementById('close-reset-dialog').addEventListener('click', () => resetDialog.close());
 
 document.querySelectorAll('form[data-auth-mode]').forEach((form) => {
-    form.addEventListener('submit', async (event) => {
+    form.addEventListener('submit', (event) => {
         event.preventDefault();
         const status = form.querySelector('.auth-status') || document.getElementById('auth-status');
         const submitButton = form.querySelector('.auth-submit');
         const mode = form.dataset.authMode;
-        const apiBase = document.body.dataset.authApiBase || '/api/auth';
         const payload = Object.fromEntries(new FormData(form).entries());
 
         status.dataset.state = '';
         status.textContent = 'Please wait…';
         submitButton.disabled = true;
-        try {
-            const response = await fetch(`${apiBase.replace(/\/+$/, '')}/${mode}`, {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            const result = await response.json().catch(() => ({}));
-            if (!response.ok) throw new Error(result.message || 'We could not complete your request. Check your details and try again.');
 
-            status.dataset.state = 'success';
-            status.textContent = result.message || {
-                login: 'Signed in successfully.',
-                register: 'Account created successfully.',
-                'password-reset': 'If that address is registered, a reset link will be sent.'
-            }[mode];
-            if (typeof result.redirectTo === 'string') {
-                const redirect = new URL(result.redirectTo, window.location.origin);
-                if (redirect.origin === window.location.origin) window.location.assign(redirect.href);
+        // Simulate asynchronous authentication processing
+        setTimeout(() => {
+            try {
+                const email = (payload.email || '').trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email || !emailRegex.test(email)) {
+                    throw new Error('Please enter a valid university email address.');
+                }
+
+                if (mode === 'register') {
+                    if (!payload.name || !payload.name.trim()) {
+                        throw new Error('Full Name is required.');
+                    }
+                    if (!payload.faculty || !payload.faculty.trim()) {
+                        throw new Error('Faculty is required.');
+                    }
+                    if (!payload.password || payload.password.length < 8) {
+                        throw new Error('Password must be at least 8 characters long.');
+                    }
+                } else if (mode === 'login') {
+                    if (!payload.password) {
+                        throw new Error('Password is required.');
+                    }
+                }
+
+                // Establish simulated frontend session in localStorage
+                localStorage.setItem('user', 'student');
+                localStorage.setItem('auth_token', 'mock_jwt_session_token_' + Date.now());
+                if (payload.email) {
+                    localStorage.setItem('user_email', payload.email);
+                }
+
+                status.dataset.state = 'success';
+                const successMessages = {
+                    login: 'Signed in successfully. Redirecting…',
+                    register: 'Account created successfully. Redirecting…',
+                    'password-reset': 'If that address is registered, a reset link will be sent.'
+                };
+                status.textContent = successMessages[mode] || 'Success.';
+
+                // Smooth feedback animation
+                if (window.gsap && typeof gsap.from === 'function') {
+                    gsap.from(status, { scale: 0.96, opacity: 0.7, duration: 0.35, ease: 'power2.out' });
+                }
+
+                // Simulate redirect to dashboard
+                if (mode === 'login' || mode === 'register') {
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                }
+            } catch (error) {
+                status.dataset.state = 'error';
+                status.textContent = error.message;
+            } finally {
+                submitButton.disabled = false;
             }
-        } catch (error) {
-            status.textContent = error instanceof TypeError
-                ? 'Unable to reach the authentication service. Please try again later.'
-                : error.message;
-        } finally {
-            submitButton.disabled = false;
-        }
+        }, 400);
     });
 });

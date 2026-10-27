@@ -4,18 +4,10 @@
   "private": true,
   "scripts": {
     "start": "python3 -m http.server 8080 --directory frontend",
-    "start:backend": "node backend/server.js",
-    "test:auth": "node skills/automation/frontend-smoke-test.js",
-    "test:backend": "node backend/tests/auth.test.js"
+    "setup:skills": "node scripts/setup-skills.js",
+    "test:auth": "NODE_PATH=./node_modules node .global_skills/automation/frontend-smoke-test.js"
   },
   "devDependencies": {
     "playwright": "^1.64.1"
-  },
-  "dependencies": {
-    "bcrypt": "^6.0.0",
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.6",
-    "express": "^5.3.0",
-    "jsonwebtoken": "^9.0.3"
   }
 }

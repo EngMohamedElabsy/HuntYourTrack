@@ -30,6 +30,10 @@ Thumbs.db
 skills/.impeccable/
 skills/.serena/
 
+# Global Skills Symlink
+.global_skills
+.global_skills/*
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
