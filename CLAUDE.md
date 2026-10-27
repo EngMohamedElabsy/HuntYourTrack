@@ -43,16 +43,20 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - [x] Documentation (docs/) uploaded to GitHub.
 - [x] CLAUDE.md initialized for project memory.
 - [x] Initialize Frontend structure.
-- [x] US01 / US08 Authentication Frontend & Mock Simulation:
-  - Dual-panel responsive sign-in/sign-up UI with cinematic GSAP panel sliding.
-  - Pure JavaScript client-side input validation (email formatting, password length, required fields).
-  - Simulated session management via `localStorage` (`user='student'`, mock token).
-  - Realistic status feedback and delayed dashboard redirect simulation (`index.html`).
+- [x] GitHub US01 (#39): Global Design System & UI Kit (`frontend/style.css`) - CLOSED (Done).
+- [x] GitHub US02 (#40): Layout Architecture & Navigation Map (`docs/specs/navigation-map.md`) - CLOSED (Done).
+- [x] GitHub US03 (#41): Core Component Library (`frontend/components.html`, `.css`, `.js`) - CLOSED (Done).
+- [ ] GitHub US08 (#46): Student Authentication UI (`frontend/auth.html`, `.css`, `.js`) - OPEN (`toprogram`) for Hager review.
+- [ ] GitHub US09 (#47): Student Dashboard Layout (`frontend/index.html`) - OPEN (`toprogram`) for Hager review.
+- [ ] GitHub US04 (#42): Admin Control Panel Core UI - OPEN (`toprogram`) assigned to Mohamed.
+- [ ] GitHub US05 (#43): Employer Verification Workflow UI - OPEN (`Todo`) assigned to Mohamed.
+- [ ] GitHub US06 (#44): Final Design Prototype Review - OPEN (`Todo`) assigned to Mohamed.
+- [ ] GitHub US07 (#45): Student Landing Page Wireframe - OPEN (`Todo`) assigned to Hager.
+- [ ] GitHub US10 (#48): Employer Dashboard Main UI - OPEN (`Todo`) assigned to Abdulrahman.
+- [ ] GitHub US11 (#49): Internship Posting Form UI - OPEN (`Todo`) assigned to Abdulrahman.
+- [ ] GitHub US12 (#50): Applicant Review Interface - OPEN (`Todo`) assigned to Abdulrahman.
+- [x] Sprint 1 Milestone established on GitHub (Deadline: Sunday Nov 1, 2026).
 - [ ] Backend implementation (Deferred: strictly frontend prototyping phase per project requirements).
-- [-] GitHub US02 (#40): navigation hierarchy and mobile shell behavior documented; actual shell screens remain pending.
-- [-] GitHub US03 (#41): shared frontend component classes and preview page (`frontend/components.html`) exist.
-- [ ] GitHub US01 (#39): global design tokens and typography defined in `frontend/style.css`.
-- [ ] Do not change or close GitHub issues unless the user explicitly asks.
 
 ### GitHub Story Number Crosswalk
 - Student authentication UI is US08 (#46) in the GitHub issue list; referred to conversationally as US01.
