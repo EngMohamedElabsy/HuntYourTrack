@@ -87,9 +87,17 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-27 21:42:00 UTC+3
-- **Task:** Complete node_modules Purge, Clean package.json, and README Overhaul
+- **Date & Timestamp:** 2026-10-27 21:47:00 UTC+3
+- **Status:** Corrected README.md (Fixed university affiliation to Damanhour University FCI-CS, updated structure, removed node_modules references, and cleaned User Story IDs).
+- **Task:** Academic Accuracy Overhaul & Clean Documentation
 - **What was modified:**
+  1. **Academic Affiliation Correction:**
+     - Updated institution to Faculty of Computers and Information, Damanhour University (CS Department).
+     - Set Lead Developer to Mohamed Yasser Elabsy (@EngMohamedElabsy).
+  2. **Structure & Story Mapping Cleanup:**
+     - Updated project structure to accurately map `docs/` (`specs/`, `diagrams/`, `pdf_exports/`, `guidelines/`).
+     - Aligned User Story table IDs cleanly without duplicate rows.
+     - Documented pure static frontend execution without server dependencies.
   1. **Absolute Dependency Purge (Phase 1):**
      - Completely deleted `node_modules/` and `package-lock.json` from the repository root.
      - Cleaned `package.json` to zero dependencies and zero devDependencies; removed `playwright` and all package bloat.
