@@ -56,6 +56,7 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - [ ] GitHub US11 (#49): Internship Posting Form UI - OPEN (`Todo`) assigned to Abdulrahman.
 - [ ] GitHub US12 (#50): Applicant Review Interface - OPEN (`Todo`) assigned to Abdulrahman.
 - [x] Sprint 1 Milestone established on GitHub (Deadline: Sunday Nov 1, 2026).
+- [x] GitHub Project #5 created & linked: [HuntYourTrack - Graduation Sprint 1](https://github.com/users/EngMohamedElabsy/projects/5) (Board & Table Excel views with all 12 issues mapped to Todo, In Progress, Done).
 - [ ] Backend implementation (Deferred: strictly frontend prototyping phase per project requirements).
 
 ### GitHub Story Number Crosswalk
