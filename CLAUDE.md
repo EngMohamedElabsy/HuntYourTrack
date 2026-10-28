@@ -74,13 +74,54 @@ HuntYourTrack is a career-platform graduation project for matching students with
   - All code must adhere to "Clean Code" principles (meaningful naming, single responsibility, and modularity).
   - **Strict Language Policy:** No Arabic text is allowed in the code, variable names, or comments. All comments and documentation within the code MUST be written in professional English.
 
+## Team Workflow, Role Isolation & Issue Governance Protocol
+
+### 1. Strict Role Isolation & Anti-Collision Policy (عدم التدخل في مهام الزملاء)
+- **Assigned Persona Only:** The assistant and developers must strictly focus on their own assigned tasks (Lead Architect: @EngMohamedElabsy).
+- **Zero Cross-Stepping:** NEVER work on, modify, refactor, or close issues assigned to other teammates (e.g., Hager @hager678, Abdulrahman @abdulrhman-masoud) unless explicitly ordered by the Lead Architect.
+- **Strict "Definition of Done" & Verification:**
+  - An issue must NEVER be marked as `Closed` on GitHub or moved to `Done` in the Project until the assigned engineer finishes 100% of the deliverable without any missing requirements or regressions.
+  - When inspecting a teammate's submitted work, verify strictly that they completed *only* their assigned scope and did not modify or touch another teammate's codebase or files.
+
+### 2. GitHub Project & Workflow Synchronization
+- **Mandatory Project Integration:** Every existing or newly created issue MUST be linked directly to GitHub Project #5:
+  - **Project URL:** [HuntYourTrack - Graduation Sprint 1](https://github.com/users/EngMohamedElabsy/projects/5)
+- **Workflow Columns & Statuses:**
+  - `Todo`: Backlog items awaiting start.
+  - `In Progress` / `toprogram`: Items currently actively being developed or under testing/review.
+  - `Done`: 100% completed, fully tested, and verified items.
+- **Deadlines & Milestones:** Every issue in the sprint must be tied to the active milestone (`Sprint 1: Graduation Prototype`) with exact deadlines determined by the Lead Developer.
+
+### 3. Sequential Issue Numbering & User Story Standards
+- **Strict Sequential Numbering:**
+  - Existing stories are `US01` through `US12`.
+  - Any future issues MUST follow strict sequential order: e.g., `US13: <Title>`, `US14: <Title>`, etc., regardless of how many older issues are closed.
+- **Autonomous Issue Discovery:**
+  - If new issues are created on GitHub without prior chat notification, the assistant must inspect the latest issue on GitHub, determine the next sequential number (`US13`, `US14`, ...), and align immediately.
+- **Mandatory User Story Structure:** Every issue created on GitHub MUST strictly adhere to this standardized Agile template:
+  ```markdown
+  ### User Story
+  As a [Role: student / employer / admin], I want [Feature / Action] so that [Benefit / Business Goal].
+
+  ### Context & UI/UX Requirements
+  • Specific screens, layout components, and interaction models.
+  • Form inputs, required fields, and client-side validation rules.
+  • Responsive behavior across desktop and mobile breakpoints.
+
+  ### Acceptance Criteria
+  [ ] Clear verifiable deliverable 1.
+  [ ] Clear verifiable deliverable 2.
+  [ ] Interaction and responsive state confirmed.
+  ```
+- **Issue Metadata:** Every issue must have proper labels (`must`/`should`, `UI/UX`, `Todo`/`toprogram`), the correct Assignee, the active Milestone, and be linked to Project #5.
+
 ## AI Core Directives
 1. **Always Update:** After successfully implementing any new feature, fixing a bug, or modifying the architecture, you MUST automatically edit this `CLAUDE.md` file to update the "Active Changelog & Task Tracker".
-2. **Context First:** Always read this file silently before executing any new tasks to ensure alignment with the project architecture.
+2. **Context First:** Always read this file silently before executing any new tasks to ensure alignment with the project architecture and the Team Governance Protocol.
 3. **Version Control & GitHub Sync:** After completing any task, adding a feature, or updating this tracking file, you MUST automatically use local `git` commands (`git add .`, `git commit -m "descriptive message"`) to commit your changes, and then immediately execute `git push origin main` to sync the work with the remote GitHub repository.
 4. **Pre-Push Communication Protocol:** Before executing `git push`, the agent MUST write a detailed "Final Update Report" at the end of the `CLAUDE.md` file.
    The mandatory sequence is: `Implement` $\rightarrow$ `Update Tracker` $\rightarrow$ `Write Final Report in CLAUDE.md` $\rightarrow$ `Commit` $\rightarrow$ `Push`.
-5. **Cross-Session Synchronization:** Upon starting any task, the agent MUST perform a differential analysis between the current codebase and the `Active Changelog` in `CLAUDE.md`. If discrepancies are found, the agent MUST first reconcile the state and update the tracker before proceeding.
+5. **Cross-Session Synchronization:** Upon starting any task, the agent MUST perform a differential analysis between the current codebase, GitHub issues, and the `Active Changelog` in `CLAUDE.md`. If discrepancies are found, the agent MUST first reconcile the state and update the tracker before proceeding.
 
 ## Project Skills and Tools
 - The project has **ZERO** local skills directories (`skills/` is deleted).
@@ -92,8 +133,24 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-27 22:05:00 UTC+3
-- **Status:** Complete Auth/Dashboard Flow, GSAP Offline Resilience, High-Contrast Scrollbar & Live View Active.
+- **Date & Timestamp:** 2026-10-28 18:45:00 UTC+3
+- **Status:** Established Team Workflow & Governance Protocol, Project #5 Synchronization, Role Isolation Rules.
+- **What was modified:**
+  1. **Strict Role Isolation Added to Architecture & AI Directives:**
+     - Mandated that developer persona operates strictly on @EngMohamedElabsy issues.
+     - Enforced zero cross-stepping: never modify or close teammates' tasks (@hager678, @abdulrhman-masoud) until they finish 100% of their work without any missing requirements.
+     - Verification protocol: inspect teammates' deliverables to confirm they touched only their assigned scope.
+  2. **GitHub Project #5 Synchronization Protocol:**
+     - Enforced mandatory linkage of every issue to [HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com/users/EngMohamedElabsy/projects/5).
+     - Defined workflow mapping across `Todo`, `In Progress` / `toprogram`, and `Done` with exact milestones and deadlines.
+  3. **Sequential Story Numbering & Structured Template Standard:**
+     - Enforced sequential naming (e.g., upcoming issue must be `US13: <Title>`, then `US14`, etc.).
+     - Mandated strict Agile Story template (User Story, Context & UI/UX Requirements, Acceptance Criteria, Labels, Assignee).
+     - Added autonomous discovery protocol for newly added GitHub issues.
+
+- **Previous Updates (Archive):**
+  - **Date & Timestamp:** 2026-10-27 22:05:00 UTC+3
+  - **Status:** Complete Auth/Dashboard Flow, GSAP Offline Resilience, High-Contrast Scrollbar & Live View Active.
 - **What was modified:**
   1. **Student Dashboard Implemented in `frontend/index.html`:**
      - Replaced redirect placeholder with a full-featured Student Dashboard prototype.
