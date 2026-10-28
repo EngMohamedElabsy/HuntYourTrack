@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HuntYourTrack · System Architecture & Connected Workflow Graph</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="workflow.css">
+</head>
+<body class="workflow-layout">
+
+    <!-- Top Navigation Bar -->
+    <header class="admin-navbar" style="background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid rgba(51, 65, 85, 0.5);">
+        <div class="brand-section">
+            <a href="index.html" class="brand-logo" style="color: #FFFFFF;">
+                <span>🎯</span> HuntYourTrack
+            </a>
+            <span class="admin-badge" style="background: rgba(99, 102, 241, 0.2); color: #A5B4FC; border-color: rgba(99, 102, 241, 0.4);">System Graph</span>
+        </div>
+
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link">🎓 Student Portal</a>
+            <a href="admin.html" class="nav-link">🛡️ Admin Console</a>
+            <a href="components.html" class="nav-link">🧩 UI Library</a>
+            <a href="workflow.html" class="nav-link active" style="color: #6366F1;">🗺️ System Graph</a>
+            <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-link" style="color: #38BDF8;">📋 Sprint Board ↗</a>
+        </nav>
+
+        <div class="admin-profile">
+            <div class="avatar" style="background: #6366F1; color: white;">M</div>
+            <span style="color: #E2E8F0;">Mohamed Yasser (Lead)</span>
+            <a href="auth.html" title="Sign Out" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem;">🚪</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="workflow-container">
+        <!-- Header -->
+        <section class="workflow-header">
+            <div class="workflow-pill">
+                <span>⚡</span> Interactive Connected Architecture
+            </div>
+            <h1 class="workflow-title">End-to-End Platform Workflow Map 🗺️</h1>
+            <p class="workflow-subtitle">
+                Faculty of Computers and Information · Damanhour University (CS Department). Visual mapping of authentication gateways, role-based workspaces, accreditation workflows, and autonomous CI/CD pipelines.
+            </p>
+        </section>
+
+        <!-- Graph Grid -->
+        <div class="graph-grid">
+
+            <!-- TIER 1: Identity & Authentication Gateway -->
+            <section class="tier-section">
+                <div class="tier-title">
+                    <span>🔐 Tier 1: Identity Gateway & Role Router</span>
+                    <span class="tier-tag">Entry Point</span>
+                </div>
+                <div class="nodes-row">
+                    <!-- Node: Auth Gateway -->
+                    <div class="node-card" style="--node-accent: #6366F1;">
+                        <div>
+                            <div class="node-top">
+                                <div class="node-icon">🔐</div>
+                                <div class="node-heading">
+                                    <span class="node-name">Authentication Hub</span>
+                                    <span class="node-story">frontend/auth.html (US08)</span>
+                                </div>
+                            </div>
+                            <p class="node-desc">
+                                Dual-panel GSAP sliding interface with university email validation, 1-Click Demo quick access chips, and client-side session management.
+                            </p>
+                            <div class="node-tags">
+                                <span class="tag-badge">GSAP Motion</span>
+                                <span class="tag-badge">1-Click Demo</span>
+                                <span class="tag-badge">Validation</span>
+                            </div>
+                        </div>
+                        <div class="node-footer">
+                            <span class="node-status"><span class="status-dot"></span> Live & Verified</span>
+                            <a href="auth.html" class="node-link">Launch Screen →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Flow Connector 1 -->
+            <div class="flow-arrow-row">
+                <div class="flow-label">Role Routing & Session Token Injection ↓</div>
+            </div>
+
+            <!-- TIER 2: Role-Based Application Workspaces -->
+            <section class="tier-section">
+                <div class="tier-title">
+                    <span>🏛️ Tier 2: Role Workspaces & Experience Portals</span>
+                    <span class="tier-tag">Client Application Layer</span>
+                </div>
+                <div class="nodes-row">
+                    <!-- Node: Student Dashboard -->
+                    <div class="node-card" style="--node-accent: #0EA5E9;">
+                        <div>
+                            <div class="node-top">
+                                <div class="node-icon">🎓</div>
+                                <div class="node-heading">
+                                    <span class="node-name">Student Career Portal</span>
+                                    <span class="node-story">frontend/index.html (US09)</span>
+                                </div>
+                            </div>
+                            <p class="node-desc">
+                                AI track matching indicator (94%), personalized career roadmap milestones, and active internship opportunity discovery with simulated applications.
+                            </p>
+                            <div class="node-tags">
+                                <span class="tag-badge">AI Match 94%</span>
+                                <span class="tag-badge">Roadmaps</span>
+                                <span class="tag-badge">Internships</span>
+                            </div>
+                        </div>
+                        <div class="node-footer">
+                            <span class="node-status"><span class="status-dot"></span> Live Prototype</span>
+                            <a href="index.html" class="node-link">Open Portal →</a>
+                        </div>
+                    </div>
+
+                    <!-- Node: Admin Executive Console -->
+                    <div class="node-card" style="--node-accent: #6366F1;">
+                        <div>
+                            <div class="node-top">
+                                <div class="node-icon">🛡️</div>
+                                <div class="node-heading">
+                                    <span class="node-name">Admin Executive Console</span>
+                                    <span class="node-story">frontend/admin.html (US04)</span>
+                                </div>
+                            </div>
+                            <p class="node-desc">
+                                4 real-time KPI metrics, searchable user data-table, role-based filter pills (Student, Employer, Admin), and status toggling (Active/Suspended).
+                            </p>
+                            <div class="node-tags">
+                                <span class="tag-badge">KPI Grid</span>
+                                <span class="tag-badge">Data-Table</span>
+                                <span class="tag-badge">Role Filter</span>
+                            </div>
+                        </div>
+                        <div class="node-footer">
+                            <span class="node-status"><span class="status-dot"></span> 100% Completed</span>
+                            <a href="admin.html" class="node-link">Open Console →</a>
+                        </div>
+                    </div>
+
+                    <!-- Node: Employer Accreditation Queue -->
+                    <div class="node-card" style="--node-accent: #F59E0B;">
+                        <div>
+                            <div class="node-top">
+                                <div class="node-icon">🏢</div>
+                                <div class="node-heading">
+                                    <span class="node-name">Corporate Accreditation</span>
+                                    <span class="node-story">frontend/admin.html (US05)</span>
+                                </div>
+                            </div>
+                            <p class="node-desc">
+                                Corporate verification queue with Document Viewer modal for inspecting commercial licenses and tax IDs, with instant approval and rejection flows.
+                            </p>
+                            <div class="node-tags">
+                                <span class="tag-badge">Doc Viewer</span>
+                                <span class="tag-badge">Accreditation</span>
+                                <span class="tag-badge">Audit Log</span>
+                            </div>
+                        </div>
+                        <div class="node-footer">
+                            <span class="node-status"><span class="status-dot"></span> 100% Completed</span>
+                            <a href="admin.html#tab-verification" class="node-link">View Queue →</a>
+                        </div>
+                    </div>
+
+                    <!-- Node: UI Component Kit -->
+                    <div class="node-card" style="--node-accent: #10B981;">
+                        <div>
+                            <div class="node-top">
+                                <div class="node-icon">🧩</div>
+                                <div class="node-heading">
+                                    <span class="node-name">Core Design System</span>
+                                    <span class="node-story">frontend/components.html (US03)</span>
+                                </div>
+                            </div>
+                            <p class="node-desc">
+                                Modular UI component library featuring accessible buttons, form controls, modals, and design tokens aligned with WCAG AA contrast standards.
+                            </p>
+                            <div class="node-tags">
+                                <span class="tag-badge">Tokens</span>
+                                <span class="tag-badge">WCAG AA</span>
+                                <span class="tag-badge">Components</span>
+                            </div>
+                        </div>
+                        <div class="node-footer">
+                            <span class="node-status"><span class="status-dot"></span> 100% Completed</span>
+                            <a href="components.html" class="node-link">Inspect Kit →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Flow Connector 2 -->
+            <div class="flow-arrow-row">
+                <div class="flow-label">Automated Quality Gateways & Deployment Automation ↓</div>
+            </div>
+
+            <!-- TIER 3: Autonomous CI/CD & DevOps Pipeline -->
+            <section class="tier-section">
+                <div class="tier-title">
+                    <span>⚡ Tier 3: Autonomous CI/CD Pipeline & Team Accountability</span>
+                    <span class="tier-tag">GitHub Actions & DevOps</span>
+                </div>
+                <div class="nodes-row">
+                    <!-- Node: CI Smoke Test -->
+                    <div class="node-card" style="--node-accent: #10B981;">
+                        <div>
+                            <div class="node-top">
+                                <div class="node-icon">🧪</div>
+                                <div class="node-heading">
+                                    <span class="node-name">Automated CI Smoke Test</span>
+                                    <span class="node-story">.github/workflows/ci.yml</span>
+                                </div>
+                            </div>
+                            <p class="node-desc">
+                                Headless browser integration testing executed automatically on every push and pull request. Asserts auth flows, table filters, and admin actions.
+                            </p>
+                            <div class="node-tags">
+                                <span class="tag-badge">Playwright</span>
+                                <span class="tag-badge">Automated CI</span>
+                                <span class="tag-badge">Status: Passing</span>
+                            </div>
+                        </div>
+                        <div class="node-footer">
+                            <span class="node-status"><span class="status-dot"></span> Passing (Green)</span>
+                            <a href="https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/ci.yml" target="_blank" class="node-link">View Runs ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Node: GitHub Pages Deployment -->
+                    <div class="node-card" style="--node-accent: #38BDF8;">
+                        <div>
+                            <div class="node-top">
+                                <div class="node-icon">🚀</div>
+                                <div class="node-heading">
+                                    <span class="node-name">Continuous Deployment</span>
+                                    <span class="node-story">.github/workflows/deploy.yml</span>
+                                </div>
+                            </div>
+                            <p class="node-desc">
+                                Automated GitHub Pages static build publisher. Automatically syncs `frontend/` updates to the public domain within seconds of merging.
+                            </p>
+                            <div class="node-tags">
+                                <span class="tag-badge">GitHub Pages</span>
+                                <span class="tag-badge">Zero-Config</span>
+                                <span class="tag-badge">Live CDN</span>
+                            </div>
+                        </div>
+                        <div class="node-footer">
+                            <span class="node-status"><span class="status-dot"></span> Production Live</span>
+                            <a href="https://engmohamedelabsy.github.io/HuntYourTrack/admin.html" target="_blank" class="node-link">Visit Live ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Node: Sprint Deadline Monitor -->
+                    <div class="node-card" style="--node-accent: #EC4899;">
+                        <div>
+                            <div class="node-top">
+                                <div class="node-icon">⏰</div>
+                                <div class="node-heading">
+                                    <span class="node-name">Sprint Monitor Bot</span>
+                                    <span class="node-story">.github/workflows/sprint-monitor.yml</span>
+                                </div>
+                            </div>
+                            <p class="node-desc">
+                                Daily scheduled cron agent checking upcoming milestone deadlines (Nov 1, 2026) and posting reminder notices to assignees when due dates approach.
+                            </p>
+                            <div class="node-tags">
+                                <span class="tag-badge">Cron Alert</span>
+                                <span class="tag-badge">Anti-Delay</span>
+                                <span class="tag-badge">Accountability</span>
+                            </div>
+                        </div>
+                        <div class="node-footer">
+                            <span class="node-status"><span class="status-dot"></span> Active Daily</span>
+                            <a href="https://github.com/EngMohamedElabsy/HuntYourTrack/milestones" target="_blank" class="node-link">Milestone ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Node: Team Performance Leaderboard -->
+                    <div class="node-card" style="--node-accent: #F59E0B;">
+                        <div>
+                            <div class="node-top">
+                                <div class="node-icon">📊</div>
+                                <div class="node-heading">
+                                    <span class="node-name">Team Performance Leaderboard</span>
+                                    <span class="node-story">docs/TEAM_METRICS.md</span>
+                                </div>
+                            </div>
+                            <p class="node-desc">
+                                Automated velocity calculator evaluating individual completion percentages, issue breakdown, and assigning engineering achievement badges.
+                            </p>
+                            <div class="node-tags">
+                                <span class="tag-badge">Lead 100%</span>
+                                <span class="tag-badge">Badges</span>
+                                <span class="tag-badge">Scorecard</span>
+                            </div>
+                        </div>
+                        <div class="node-footer">
+                            <span class="node-status"><span class="status-dot"></span> Updated Real-time</span>
+                            <a href="https://github.com/EngMohamedElabsy/HuntYourTrack/blob/main/docs/TEAM_METRICS.md" target="_blank" class="node-link">Scorecard ↗</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+</body>
+</html>

@@ -125,25 +125,53 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - **Zero Silent Takeovers:** Any unapproved handover or silent modification of another teammate's issue is strictly prohibited.
 
 ### 5. Mandatory Branching & Pull Request (PR) Workflow (منع التداخل وحماية الكود)
-- **No Direct Commits to `main` for Features:**
-  To guarantee that work does not collide, overwrite, or drift between teammates, **every engineer (including Mohamed @EngMohamedElabsy, Hager @hager678, and Abdulrahman @abdulrhman-masoud)** MUST create an isolated branch before beginning work on any feature or user story:
-  ```bash
-  git checkout -b feature/usXX-<feature-name>
-  ```
-- **Immediate Pull Request (PR) Creation:**
-  Immediately upon creating the branch and making the initial commit, an open Pull Request MUST be created against `main`:
-  ```bash
-  gh pr create --title "USXX: <Title>" --body "Closes #<issue_number>" --base main
-  ```
-  This provides 100% transparency to the whole team in the GitHub Pull Requests tab, prevents duplicate efforts, and tracks code progress.
+- **Strict Atomic PR Policy (1 Issue = 1 Dedicated Pull Request):**
+  - **Never Bundle Multiple User Stories:** Developers and assistants MUST NOT combine multiple user stories (e.g., US04 + US05) into a single branch or single PR.
+  - **Decomposition into Small Increments:** Break down work into small, self-contained atomic deliverables. Complete each piece, verify it thoroughly, open a dedicated PR for that specific issue, test it, and merge it cleanly.
+  - **Single Responsibility & Safe Rollback:** If a bug arises in story X, only that specific PR is affected or reverted without contaminating or delaying other stories.
+- **Isolated Feature Branches:**
+  - Every engineer (Mohamed @EngMohamedElabsy, Hager @hager678, Abdulrahman @abdulrhman-masoud) MUST create an isolated branch before beginning work on any feature or story:
+    ```bash
+    git checkout -b feature/usXX-<feature-name>
+    ```
+- **Live Pull Request (PR) Tracking (VS Code & CLI):**
+  - Immediately upon creating the branch and pushing the first commit, open a Pull Request against `main`:
+    ```bash
+    gh pr create --title "USXX: <Title>" --body "Closes #<issue_number>" --base main
+    ```
+  - This provides real-time visibility in the GitHub Pull Requests tab and in VS Code via the *GitHub Pull Requests and Issues* extension.
+  - Monitor live PR status anytime:
+    ```bash
+    gh pr list
+    gh pr status
+    ```
 - **Conflict Resolution & Code Drift Protocol:**
-  - If code diverges or if changes were merged into `origin/main` by another teammate, update the feature branch cleanly:
+  - If code diverges or upstream changes are merged into `origin/main`, update the feature branch cleanly:
     ```bash
     git fetch origin
     git merge origin/main
     ```
-  - Resolve any merge conflicts cleanly, run the smoke test (`npm run test:auth`), verify the live server (`http://localhost:8080`), and only merge to `main` when the feature is 100% complete and tested.
-  - Never use destructive force pushes (`--force`) to `main`.
+  - Resolve any merge conflicts cleanly, run the automated smoke test suite (`npm test`), verify on local dev server (`http://localhost:8080`), and only merge to `main` upon 100% sign-off. Never force-push (`--force`) to `main`.
+
+### 6. Automated GitHub Actions Bot Attribution (`github-actions[bot]`)
+- **Automated Commit Identity:** Automated workflows (such as `team-metrics.yml` which auto-updates `docs/TEAM_METRICS.md` upon issue changes) run on GitHub's cloud runners and commit using the official GitHub bot identity (`github-actions[bot]`).
+- **Standard Industry Practice:** Having `github-actions[bot]` listed in repository contributors and commit logs is completely normal, safe, and standard for modern CI/CD DevOps workflows. It clearly separates human engineering commits from autonomous maintenance jobs.
+
+### 7. Connected Platform Architecture & Interactive Workflow Map
+- The complete end-to-end platform workflow is visually mapped in [`frontend/workflow.html`](file:///home/elabsy/HuntYourTrack/frontend/workflow.html) and structured as:
+  ```mermaid
+  graph TD
+      A[🔐 Authentication Hub / auth.html] -->|Role Routing / Session| B(Role Workspaces)
+      B --> C[🎓 Student Career Portal / index.html]
+      B --> D[🛡️ Admin Executive Console / admin.html]
+      B --> E[🏢 Employer Verification Hub / admin.html#tab-verification]
+      B --> F[🧩 Core UI Kit / components.html]
+      
+      subgraph DevOps & Automation Pipelines
+          G[🧪 CI Smoke Test / ci.yml] -->|Quality Gate| H[🚀 Continuous Deployment / deploy.yml]
+          I[⏰ Sprint Deadline Monitor / sprint-monitor.yml] --> J[📊 Team Performance Leaderboard / team-metrics.yml]
+      end
+  ```
 
 ## AI Core Directives
 1. **Always Update:** After successfully implementing any new feature, fixing a bug, or modifying the architecture, you MUST automatically edit this `CLAUDE.md` file to update the "Active Changelog & Task Tracker".
@@ -163,10 +191,31 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-28 19:50:00 UTC+3
-- **Status:** All 6 Lead Architect Deliverables Completed (100% Sprint Velocity), Admin Hub & Employer Verification Deployed.
+- **Date & Timestamp:** 2026-10-28 20:25:00 UTC+3
+- **Status:** Atomic PR Policy Codified, 1-Click Demo Accounts Established, System Workflow Map Built, and Full CLI Browser Verification Passed.
 - **What was modified:**
-  1. **Admin Control Panel Core UI (`US04` - #42):**
+  1. **Strict Atomic PR Policy (1 Issue = 1 Dedicated PR):**
+     - Codified rule that developers and assistants must NEVER bundle multiple user stories into a single PR.
+     - Work is strictly divided into small, independent increments with isolated feature branches (`feature/usXX-<name>`) and dedicated PRs to guarantee fast reviews and safe rollbacks.
+  2. **1-Click Demo Quick-Access Accounts (`frontend/auth.html` & `auth.js`):**
+     - Added instant 1-Click Demo chips for Student (`student@damanhour.edu.eg`), Lead Admin (`admin@damanhour.edu.eg`), and Corporate Partner (`recruiter@vodafone.com`).
+     - Clicking any chip auto-fills credentials with visual ring highlight and helpful guidance message.
+     - Admin login automatically routes directly to `admin.html`.
+  3. **Interactive Connected Workflow & Architecture Map (`frontend/workflow.html` & `workflow.css`):**
+     - Built comprehensive 3-tier interactive visual flow map connecting Auth Gateway, Role Workspaces (Student, Admin, Employer, UI Kit), and DevOps CI/CD pipelines.
+     - Added navigation links across all screen headers.
+  4. **GitHub Actions Bot Attribution Guidance (`github-actions[bot]`):**
+     - Documented official explanation regarding bot contribution commits resulting from automated CI/CD metric pipelines.
+  5. **Full CLI Playwright Verification Suite (`tests/cli-interactive-verify.js`):**
+     - Executed headless browser automation across all user journeys from the CLI.
+     - Captured 7 high-resolution screenshots verifying auth, demo filling, signup animation, student dashboard, admin console, employer verification modal, and connected workflow map.
+     - `npm test` verified passing 100%.
+
+- **Previous Updates (Archive):**
+  - **Date & Timestamp:** 2026-10-28 19:50:00 UTC+3
+  - **Status:** All 6 Lead Architect Deliverables Completed (100% Sprint Velocity), Admin Hub & Employer Verification Deployed.
+  - **What was modified:**
+    1. **Admin Control Panel Core UI (`US04` - #42):**
      - Built `frontend/admin.html`, `frontend/admin.css`, and `frontend/admin.js`.
      - 4 executive KPI cards (Registered Students: 1,424, Accredited Employers: 84, Verification Queue: 3, AI Matching: 99.8%).
      - Interactive User Management data-table with real-time text search, role filter pills (All, Student, Employer, Admin), and status toggling (Active / Suspended).

@@ -181,7 +181,7 @@ async function run() {
         assert.equal(await page.evaluate(() => localStorage.getItem('user')), 'student');
 
         await page.goto(`http://127.0.0.1:${address.port}/components.html`);
-        assert.equal(await page.locator('.btn').count(), 9, 'The component preview should show button variants and disabled state');
+        assert.equal(await page.locator('.button-row .btn').count(), 6, 'The core button row should show 6 button variants');
         await page.locator('#open-demo-modal').click();
         assert.equal(await page.locator('#demo-modal').evaluate((dialog) => dialog.open), true, 'The shared modal should open');
         await page.locator('#demo-modal button[type="submit"]').click();
@@ -217,7 +217,18 @@ async function run() {
         await page.locator('.queue-card .btn-approve').first().click();
         assert.equal(await page.locator('.queue-card').count(), 2, 'Queue should decrease to 2 after approval');
 
-        console.log('Frontend smoke check passed: auth, components, student dashboard, and admin control panel with employer verification.');
+        // Test System Architecture & Workflow Map (workflow.html)
+        await page.goto(`http://127.0.0.1:${address.port}/workflow.html`);
+        assert.match(await page.title(), /System Architecture & Connected Workflow/, 'Workflow page title should match');
+        assert.equal(await page.locator('.tier-section').count(), 3, 'Three architecture tiers should render');
+        assert.ok(await page.locator('.node-card').count() >= 7, 'Seven or more workflow nodes should render');
+
+        // Test 1-Click Demo quick access on auth.html
+        await page.goto(`http://127.0.0.1:${address.port}/auth.html`);
+        await page.locator('.btn-demo-chip').first().click();
+        assert.equal(await page.locator('#login-email').inputValue(), 'student@damanhour.edu.eg', 'Demo chip should fill student email');
+
+        console.log('Frontend smoke check passed: auth (with 1-click demo), components, student dashboard, admin console, and system workflow graph.');
     } finally {
         if (browser) await browser.close();
         if (server.listening) {

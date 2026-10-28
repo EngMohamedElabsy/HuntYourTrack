@@ -63,12 +63,14 @@ HuntYourTrack/
 │       ├── sprint-monitor.yml # Daily deadline checks & reminder alerts
 │       └── team-metrics.yml   # Auto-generation of team performance report
 ├── frontend/             # Core UI, styles, and client-side simulation logic
-│   ├── auth.html         # Dual-panel Student Authentication screen (Sign In / Register)
+│   ├── auth.html         # Dual-panel Student Authentication screen (Sign In / Register & 1-Click Demo)
 │   ├── auth.css          # High-contrast scrollbars & responsive dual-panel styling
 │   ├── auth.js           # Client validation, GSAP motion & localStorage mock session
 │   ├── admin.html        # Executive Control Center & Corporate Verification Hub
 │   ├── admin.css         # Admin KPI grids, responsive tables & modal styles
 │   ├── admin.js          # User filtering, status toggling & partner accreditation logic
+│   ├── workflow.html     # Interactive Connected Architecture & System Workflow Map
+│   ├── workflow.css      # Dark-mode glassmorphic cards & graph flow styles
 │   ├── components.html   # Reusable UI Component Library preview (Buttons, Form inputs, Modals)
 │   ├── components.css    # Modular design system component styling
 │   ├── style.css         # Global design tokens, color palette, and typography scales

@@ -28,6 +28,16 @@
                     <button class="tab-btn" id="btn-signup" type="button" aria-pressed="false" onclick="switchTab('signup')">Create Account</button>
                 </div>
 
+                <!-- 1-Click Demo Accounts Quick Access -->
+                <div class="demo-access-banner" id="demo-access-banner">
+                    <span class="demo-label">⚡ 1-Click Demo Access:</span>
+                    <div class="demo-buttons">
+                        <button type="button" class="btn-demo-chip" onclick="quickFillCredentials('student')" title="Fill Demo Student credentials">🎓 Student</button>
+                        <button type="button" class="btn-demo-chip" onclick="quickFillCredentials('admin')" title="Fill Lead Admin credentials">🛡️ Admin</button>
+                        <button type="button" class="btn-demo-chip" onclick="quickFillCredentials('employer')" title="Fill Corporate Partner credentials">🏢 Employer</button>
+                    </div>
+                </div>
+
                 <div class="form-container">
                     <form id="login-form" class="form-content" data-auth-mode="login">
                         <div class="form-group">
@@ -39,9 +49,12 @@
                             <input id="login-password" name="password" type="password" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
                         </div>
                         <button type="submit" class="btn btn-primary auth-submit">Enter Platform</button>
-                        <div class="auth-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="auth-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
                             <a href="#" id="forgot-password-link">Forgot Password?</a>
-                            <a href="admin.html" style="font-size: 0.8rem; color: #64748B; text-decoration: none;">🛡️ Admin Console</a>
+                            <div style="display: flex; gap: 0.6rem; align-items: center;">
+                                <a href="workflow.html" style="font-size: 0.8rem; color: #6366F1; text-decoration: none; font-weight: 600;">🗺️ Graph</a>
+                                <a href="admin.html" style="font-size: 0.8rem; color: #64748B; text-decoration: none;">🛡️ Admin</a>
+                            </div>
                         </div>
                     </form>
 

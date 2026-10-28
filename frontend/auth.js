@@ -152,8 +152,12 @@ document.querySelectorAll('form[data-auth-mode]').forEach((form) => {
                     }
                 }
 
-                // Establish simulated frontend session in localStorage
-                localStorage.setItem('user', 'student');
+                // Role determination and session setup
+                const isLeadAdmin = email.includes('admin');
+                const isEmployer = email.includes('recruiter') || email.includes('partner') || email.includes('employer');
+
+                localStorage.setItem('user', isLeadAdmin ? 'admin' : (isEmployer ? 'employer' : 'student'));
+                localStorage.setItem('role', isLeadAdmin ? 'admin' : (isEmployer ? 'employer' : 'student'));
                 localStorage.setItem('auth_token', 'mock_jwt_session_token_' + Date.now());
                 if (payload.email) {
                     localStorage.setItem('user_email', payload.email);
@@ -161,7 +165,7 @@ document.querySelectorAll('form[data-auth-mode]').forEach((form) => {
 
                 status.dataset.state = 'success';
                 const successMessages = {
-                    login: 'Signed in successfully. Redirecting…',
+                    login: isLeadAdmin ? 'Admin authenticated. Entering Console…' : 'Signed in successfully. Redirecting…',
                     register: 'Account created successfully. Redirecting…',
                     'password-reset': 'If that address is registered, a reset link will be sent.'
                 };
@@ -172,11 +176,11 @@ document.querySelectorAll('form[data-auth-mode]').forEach((form) => {
                     gsap.from(status, { scale: 0.96, opacity: 0.7, duration: 0.35, ease: 'power2.out' });
                 }
 
-                // Simulate redirect to dashboard
+                // Simulate redirect to destination
                 if (mode === 'login' || mode === 'register') {
                     setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 1500);
+                        window.location.href = isLeadAdmin ? 'admin.html' : 'index.html';
+                    }, 2000);
                 }
             } catch (error) {
                 status.dataset.state = 'error';
@@ -187,3 +191,42 @@ document.querySelectorAll('form[data-auth-mode]').forEach((form) => {
         }, 400);
     });
 });
+
+/**
+ * 1-Click Demo Credentials Quick-Fill
+ */
+function quickFillCredentials(role) {
+    if (activeAuthMode !== 'login') {
+        switchTab('login');
+    }
+    const emailInput = document.getElementById('login-email');
+    const passwordInput = document.getElementById('login-password');
+    const status = document.getElementById('auth-status');
+
+    if (role === 'admin') {
+        emailInput.value = 'admin@damanhour.edu.eg';
+        passwordInput.value = 'HuntLead2026!';
+        status.dataset.state = 'info';
+        status.textContent = '🛡️ Filled Lead Admin credentials. Click "Enter Platform" to sign in.';
+    } else if (role === 'employer') {
+        emailInput.value = 'recruiter@vodafone.com';
+        passwordInput.value = 'HuntPartner2026!';
+        status.dataset.state = 'info';
+        status.textContent = '🏢 Filled Corporate Employer credentials. Click "Enter Platform" to sign in.';
+    } else {
+        emailInput.value = 'student@damanhour.edu.eg';
+        passwordInput.value = 'HuntStudent2026!';
+        status.dataset.state = 'info';
+        status.textContent = '🎓 Filled Demo Student credentials. Click "Enter Platform" to sign in.';
+    }
+
+    emailInput.classList.add('demo-highlight');
+    passwordInput.classList.add('demo-highlight');
+    setTimeout(() => {
+        emailInput.classList.remove('demo-highlight');
+        passwordInput.classList.remove('demo-highlight');
+    }, 1200);
+
+    emailInput.focus();
+}
+window.quickFillCredentials = quickFillCredentials;

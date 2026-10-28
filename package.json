@@ -8,6 +8,7 @@
     "setup:skills": "node scripts/setup-skills.js",
     "metrics": "node scripts/generate-team-metrics.js",
     "test": "node tests/frontend-smoke-test.js",
-    "test:auth": "node tests/frontend-smoke-test.js"
+    "test:auth": "node tests/frontend-smoke-test.js",
+    "verify:cli": "node tests/cli-interactive-verify.js"
   }
 }
