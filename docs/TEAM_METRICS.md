@@ -2,7 +2,7 @@
 
 **Project:** HuntYourTrack (Graduation Project 2026)
 **Institution:** Faculty of Computers & Information, Damanhour University (CS Department)
-**Generated At:** `2026-10-28 16:48:04 UTC`
+**Generated At:** `2026-10-28 16:48:17 UTC`
 **Sprint Deadline:** **Sunday, November 1, 2026**
 
 ---
@@ -11,7 +11,7 @@
 
 | Total User Stories | Completed (Done) | In Progress (`toprogram`) | Pending (`Todo`) | Overall Sprint Completion |
 | :---: | :---: | :---: | :---: | :---: |
-| **12** | 🟢 **6** | 🔵 **2** | ⚪ **5** | **50%** |
+| **12** | 🟢 **6** | 🔵 **2** | ⚪ **4** | **50%** |
 
 ```
 Sprint Completion Velocity: [██████████░░░░░░░░░░] 50%
