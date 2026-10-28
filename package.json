@@ -9,6 +9,7 @@
     "metrics": "node scripts/generate-team-metrics.js",
     "test": "node tests/frontend-smoke-test.js",
     "test:auth": "node tests/frontend-smoke-test.js",
-    "verify:cli": "node tests/cli-interactive-verify.js"
+    "verify:cli": "node tests/cli-interactive-verify.js",
+    "demo:visual": "node tests/visual-live-browser-demo.js"
   }
 }

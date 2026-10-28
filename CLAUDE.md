@@ -71,6 +71,12 @@ HuntYourTrack is a career-platform graduation project for matching students with
   - `localStorage.getItem('user') === 'student'`
   - `localStorage.getItem('auth_token')`
 - **Global Skills Architecture:** The local `skills/` folder is intentionally removed from the repository. All project skills, AI metadata, automation scripts, and design guidelines are now accessed exclusively through the `.global_skills` symlink mapped to the developer's host machine (`~/.global_ai_skills`). This guarantees zero repository bloat across teams while maintaining dynamic tooling access.
+- **Frontend Modular Directory Structure:**
+  To maintain strict organization and prevent file clutter as features expand:
+  - HTML entry points remain cleanly at the root of `frontend/` (`index.html`, `auth.html`, `admin.html`, `workflow.html`, `components.html`).
+  - Stylesheets are modularized under `frontend/css/` (`style.css`, `auth.css`, `admin.css`, `workflow.css`, `components.css`).
+  - Client scripts are modularized under `frontend/js/` (`auth.js`, `admin.js`, `components.js`).
+  - This structure prevents chaotic collisions and makes onboarding straightforward for any engineer.
 - **Clean Code Standard:** 
   - All code must adhere to "Clean Code" principles (meaningful naming, single responsibility, and modularity).
   - **Strict Language Policy:** No Arabic text is allowed in the code, variable names, or comments. All comments and documentation within the code MUST be written in professional English.

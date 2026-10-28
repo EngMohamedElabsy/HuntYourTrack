@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="admin.css">
-    <link rel="stylesheet" href="workflow.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/workflow.css">
 </head>
 <body class="workflow-layout">
 
@@ -214,6 +214,43 @@
                     <span>⚡ Tier 3: Autonomous CI/CD Pipeline & Team Accountability</span>
                     <span class="tier-tag">GitHub Actions & DevOps</span>
                 </div>
+
+                <!-- Interactive Simulator Banner -->
+                <div class="pipeline-simulator-card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(16, 185, 129, 0.12) 100%); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 14px; padding: 1.25rem; margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; color: #FFFFFF; margin-bottom: 0.25rem;">🎬 Interactive DevOps Pipeline Simulation</h3>
+                            <p style="color: #94A3B8; font-size: 0.88rem;">Live visualization of GitHub Actions automated quality gates, smoke tests, and deployments.</p>
+                        </div>
+                        <button id="btn-run-simulation" class="btn btn-primary" onclick="simulatePipelineRun()" style="background: #6366F1; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4); padding: 0.5rem 1.2rem; font-size: 0.88rem;">
+                            ▶ Run Live Pipeline Simulation
+                        </button>
+                    </div>
+                    
+                    <!-- Pipeline Stepper -->
+                    <div class="pipeline-stepper" id="pipeline-stepper" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem;">
+                        <div class="pipe-step" id="step-push" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
+                            <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">📤</div>
+                            <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">1. Git Push (main)</div>
+                            <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Ready</div>
+                        </div>
+                        <div class="pipe-step" id="step-smoke" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
+                            <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">🧪</div>
+                            <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">2. CI Smoke Test</div>
+                            <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Ready</div>
+                        </div>
+                        <div class="pipe-step" id="step-deploy" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
+                            <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">🚀</div>
+                            <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">3. Pages Deploy</div>
+                            <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Ready</div>
+                        </div>
+                        <div class="pipe-step" id="step-metrics" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
+                            <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">📊</div>
+                            <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">4. Scorecard Engine</div>
+                            <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Ready</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="nodes-row">
                     <!-- Node: CI Smoke Test -->
                     <div class="node-card" style="--node-accent: #10B981;">
@@ -318,7 +355,47 @@
             </section>
 
         </div>
-    </main>
+    <script>
+        function simulatePipelineRun() {
+            const btn = document.getElementById('btn-run-simulation');
+            btn.disabled = true;
+            btn.textContent = '⏳ Simulating Pipeline...';
 
+            const steps = [
+                { id: 'step-push', title: '1. Git Push (main)', delay: 600 },
+                { id: 'step-smoke', title: '2. CI Smoke Test', delay: 1200 },
+                { id: 'step-deploy', title: '3. Pages Deploy', delay: 1000 },
+                { id: 'step-metrics', title: '4. Scorecard Engine', delay: 800 }
+            ];
+
+            // Reset all
+            steps.forEach(s => {
+                const el = document.getElementById(s.id);
+                el.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                el.style.background = 'rgba(255, 255, 255, 0.03)';
+                el.querySelector('.step-status').textContent = 'Queued';
+                el.querySelector('.step-status').style.color = '#94A3B8';
+            });
+
+            let currentDelay = 100;
+            steps.forEach((s, idx) => {
+                currentDelay += s.delay;
+                setTimeout(() => {
+                    const el = document.getElementById(s.id);
+                    el.style.borderColor = '#10B981';
+                    el.style.background = 'rgba(16, 185, 129, 0.15)';
+                    el.style.transform = 'translateY(-3px)';
+                    el.querySelector('.step-status').textContent = '✓ Passed (Green)';
+                    el.querySelector('.step-status').style.color = '#10B981';
+
+                    if (idx === steps.length - 1) {
+                        btn.disabled = false;
+                        btn.textContent = '✓ Pipeline 100% Passed · Run Again';
+                        btn.style.background = '#10B981';
+                    }
+                }, currentDelay);
+            });
+        }
+    </script>
 </body>
 </html>

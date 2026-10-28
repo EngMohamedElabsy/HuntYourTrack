@@ -3,16 +3,19 @@
 > *Software Engineering Graduation Project (2026)*  
 > **Faculty of Computers and Information · Damanhour University (CS Department)**
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-success?style=for-the-badge&logo=github)](https://engmohamedelabsy.github.io/HuntYourTrack/)
-[![Sprint Project](https://img.shields.io/badge/Project%20Board-Sprint%201-blue?style=for-the-badge&logo=github)](https://github.com/users/EngMohamedElabsy/projects/5)
-[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-indigo?style=for-the-badge&logo=githubactions)](https://github.com/EngMohamedElabsy/HuntYourTrack/actions)
+[![Frontend CI](https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/ci.yml/badge.svg)](https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/ci.yml)
+[![Deploy to Pages](https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/deploy.yml/badge.svg)](https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/deploy.yml)
+[![Sprint Project](https://img.shields.io/badge/Project%20Board-Sprint%201-blue?style=flat&logo=github)](https://github.com/users/EngMohamedElabsy/projects/5)
+[![Sprint Metrics](https://img.shields.io/badge/Sprint%20Leaderboard-100%25%20Lead-success?style=flat&logo=target)](docs/TEAM_METRICS.md)
 
 ---
 
 ## 🌐 Live Interactive Deployment
 The static frontend is continuously deployed on every commit using GitHub Actions. Evaluators and teammates can preview the live system directly from any browser or mobile device:
 - 🚀 **Main Portal & Student Dashboard:** [https://engmohamedelabsy.github.io/HuntYourTrack/](https://engmohamedelabsy.github.io/HuntYourTrack/)
-- 🔐 **Authentication & Registration:** [https://engmohamedelabsy.github.io/HuntYourTrack/auth.html](https://engmohamedelabsy.github.io/HuntYourTrack/auth.html)
+- 🔐 **Authentication & 1-Click Demo:** [https://engmohamedelabsy.github.io/HuntYourTrack/auth.html](https://engmohamedelabsy.github.io/HuntYourTrack/auth.html)
+- 🛡️ **Admin Console & Verification:** [https://engmohamedelabsy.github.io/HuntYourTrack/admin.html](https://engmohamedelabsy.github.io/HuntYourTrack/admin.html)
+- 🗺️ **System Architecture & Workflow Map:** [https://engmohamedelabsy.github.io/HuntYourTrack/workflow.html](https://engmohamedelabsy.github.io/HuntYourTrack/workflow.html)
 - 🧩 **UI Component Kit Preview:** [https://engmohamedelabsy.github.io/HuntYourTrack/components.html](https://engmohamedelabsy.github.io/HuntYourTrack/components.html)
 
 ---
@@ -62,19 +65,22 @@ HuntYourTrack/
 │       ├── ci.yml        # Automated browser smoke test suite on push and PR
 │       ├── sprint-monitor.yml # Daily deadline checks & reminder alerts
 │       └── team-metrics.yml   # Auto-generation of team performance report
-├── frontend/             # Core UI, styles, and client-side simulation logic
-│   ├── auth.html         # Dual-panel Student Authentication screen (Sign In / Register & 1-Click Demo)
-│   ├── auth.css          # High-contrast scrollbars & responsive dual-panel styling
-│   ├── auth.js           # Client validation, GSAP motion & localStorage mock session
-│   ├── admin.html        # Executive Control Center & Corporate Verification Hub
-│   ├── admin.css         # Admin KPI grids, responsive tables & modal styles
-│   ├── admin.js          # User filtering, status toggling & partner accreditation logic
+├── frontend/             # Modular, organized static frontend application
+│   ├── index.html        # Student Dashboard with track metrics, internships & roadmaps
+│   ├── auth.html         # Dual-panel Authentication screen (Sign In, Register & 1-Click Demo)
+│   ├── admin.html        # Executive Control Center & Corporate Accreditation Hub
 │   ├── workflow.html     # Interactive Connected Architecture & System Workflow Map
-│   ├── workflow.css      # Dark-mode glassmorphic cards & graph flow styles
-│   ├── components.html   # Reusable UI Component Library preview (Buttons, Form inputs, Modals)
-│   ├── components.css    # Modular design system component styling
-│   ├── style.css         # Global design tokens, color palette, and typography scales
-│   └── index.html        # Student Dashboard with track metrics, internships & roadmaps
+│   ├── components.html   # Reusable UI Component Library preview (Buttons, Inputs, Modals)
+│   ├── css/              # Modular stylesheets & design tokens
+│   │   ├── style.css     # Global design tokens, color palette, and typography scales
+│   │   ├── auth.css      # High-contrast scrollbars & responsive dual-panel styling
+│   │   ├── admin.css     # Admin KPI grids, responsive tables & modal styles
+│   │   ├── workflow.css  # Dark-mode glassmorphic cards & graph flow styles
+│   │   └── components.css# Modular design system component styling
+│   └── js/               # Client-side simulation logic & interaction handlers
+│       ├── auth.js       # Client validation, GSAP motion, session mock & 1-Click Demo
+│       ├── admin.js      # User filtering, status toggling & partner accreditation logic
+│       └── components.js # Reusable dialog and component behavior helpers
 ├── docs/                 # Software engineering specifications & team reports
 │   ├── TEAM_METRICS.md   # Automated Team Performance & Accountability Leaderboard
 │   ├── specs/            # User journey maps and navigation specs (navigation-map.md)
