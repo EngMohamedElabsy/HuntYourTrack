@@ -59,12 +59,16 @@ HuntYourTrack/
 ├── .github/
 │   └── workflows/        # Automated CI/CD & Accountability Actions
 │       ├── deploy.yml    # Continuous deployment to GitHub Pages
+│       ├── ci.yml        # Automated browser smoke test suite on push and PR
 │       ├── sprint-monitor.yml # Daily deadline checks & reminder alerts
 │       └── team-metrics.yml   # Auto-generation of team performance report
 ├── frontend/             # Core UI, styles, and client-side simulation logic
 │   ├── auth.html         # Dual-panel Student Authentication screen (Sign In / Register)
 │   ├── auth.css          # High-contrast scrollbars & responsive dual-panel styling
 │   ├── auth.js           # Client validation, GSAP motion & localStorage mock session
+│   ├── admin.html        # Executive Control Center & Corporate Verification Hub
+│   ├── admin.css         # Admin KPI grids, responsive tables & modal styles
+│   ├── admin.js          # User filtering, status toggling & partner accreditation logic
 │   ├── components.html   # Reusable UI Component Library preview (Buttons, Form inputs, Modals)
 │   ├── components.css    # Modular design system component styling
 │   ├── style.css         # Global design tokens, color palette, and typography scales
@@ -119,9 +123,9 @@ Tracking active on [**GitHub Project #5 (Sprint 1)**](https://github.com/users/E
 | **US03** | [#41](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/41) | **Core Component Kit** | Buttons, form controls, modals previewed in `frontend/components.html`. | 🟢 **Closed (Done)** |
 | **US08** | [#46](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/46) | **Student Authentication UI** | Dual-panel sliding card, validation, and session mock (`frontend/auth.html`). | 🔵 **In Progress (`toprogram`)** |
 | **US09** | [#47](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/47) | **Student Dashboard** | Track match (94%), internship apply simulation, milestones (`frontend/index.html`). | 🔵 **In Progress (`toprogram`)** |
-| **US04** | [#42](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/42) | **Admin Control Panel Core UI** | Admin overview metrics, user management data-table, settings. | 🔵 **In Progress (`toprogram`)** |
-| **US05** | [#43](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/43) | **Employer Verification UI** | Company verification queue, document viewer, approval/rejection modal. | ⚪ **Todo (Backlog)** |
-| **US06** | [#44](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/44) | **Design Prototype Review** | Final accessibility and end-to-end walkthrough verification. | ⚪ **Todo (Backlog)** |
+| **US04** | [#42](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/42) | **Admin Control Panel Core UI** | Admin overview metrics, user management data-table, settings (`frontend/admin.html`). | 🟢 **Closed (Done)** |
+| **US05** | [#43](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/43) | **Employer Verification UI** | Company verification queue, document viewer, approval/rejection modal. | 🟢 **Closed (Done)** |
+| **US06** | [#44](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/44) | **Design Prototype Review** | Final accessibility and end-to-end walkthrough verification. | 🟢 **Closed (Done)** |
 | **US07** | [#45](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/45) | **Student Landing Page** | Hero section, How it works, and featured internships preview. | ⚪ **Todo (Backlog)** |
 | **US10** | [#48](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/48) | **Employer Dashboard UI** | Main employer portal layout and active internship listing statistics. | ⚪ **Todo (Backlog)** |
 | **US11** | [#49](https://github.com/EngMohamedElabsy/HuntYourTrack/issues/49) | **Internship Posting Form** | Multi-step internship posting interface with criteria inputs. | ⚪ **Todo (Backlog)** |

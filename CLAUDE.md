@@ -33,10 +33,11 @@ HuntYourTrack is a career-platform graduation project for matching students with
      npm start
      ```
      Serves `frontend/` on `http://localhost:8080`.
-   - Run the browser automation smoke test:
+   - Run the automated frontend smoke test:
      ```bash
-     npm run test:auth
+     npm test
      ```
+     (Also runs automatically on every pull request and push to `main` via `.github/workflows/ci.yml`).
 
 ## Active Changelog & Task Tracker
 - [x] Repository initialized.
@@ -48,9 +49,9 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - [x] GitHub US03 (#41): Core Component Library (`frontend/components.html`, `.css`, `.js`) - CLOSED (Done).
 - [ ] GitHub US08 (#46): Student Authentication UI (`frontend/auth.html`, `.css`, `.js`) - OPEN (`toprogram`) for Hager review.
 - [ ] GitHub US09 (#47): Student Dashboard Layout (`frontend/index.html`) - OPEN (`toprogram`) for Hager review.
-- [ ] GitHub US04 (#42): Admin Control Panel Core UI - OPEN (`toprogram`) assigned to Mohamed.
-- [ ] GitHub US05 (#43): Employer Verification Workflow UI - OPEN (`Todo`) assigned to Mohamed.
-- [ ] GitHub US06 (#44): Final Design Prototype Review - OPEN (`Todo`) assigned to Mohamed.
+- [x] GitHub US04 (#42): Admin Control Panel Core UI (`frontend/admin.html`, `.css`, `.js`) - CLOSED (Done).
+- [x] GitHub US05 (#43): Employer Verification Workflow UI (`frontend/admin.html`) - CLOSED (Done).
+- [x] GitHub US06 (#44): Final Design Prototype Review - CLOSED (Done).
 - [ ] GitHub US07 (#45): Student Landing Page Wireframe - OPEN (`Todo`) assigned to Hager.
 - [ ] GitHub US10 (#48): Employer Dashboard Main UI - OPEN (`Todo`) assigned to Abdulrahman.
 - [ ] GitHub US11 (#49): Internship Posting Form UI - OPEN (`Todo`) assigned to Abdulrahman.
@@ -162,9 +163,32 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-28 19:05:00 UTC+3
-- **Status:** Automated CI/CD Deployment Active, Sprint Deadline Monitor & Team Performance Metrics Engine Established.
+- **Date & Timestamp:** 2026-10-28 19:50:00 UTC+3
+- **Status:** All 6 Lead Architect Deliverables Completed (100% Sprint Velocity), Admin Hub & Employer Verification Deployed.
 - **What was modified:**
+  1. **Admin Control Panel Core UI (`US04` - #42):**
+     - Built `frontend/admin.html`, `frontend/admin.css`, and `frontend/admin.js`.
+     - 4 executive KPI cards (Registered Students: 1,424, Accredited Employers: 84, Verification Queue: 3, AI Matching: 99.8%).
+     - Interactive User Management data-table with real-time text search, role filter pills (All, Student, Employer, Admin), and status toggling (Active / Suspended).
+     - Platform configuration settings form for academic thresholds and matching rules.
+  2. **Employer Verification Workflow UI (`US05` - #43):**
+     - Live queue displaying pending corporate registrations with commercial details.
+     - Document Viewer modal for inspection of commercial register number, tax card ID, and official domain.
+     - Interactive partner accreditation (Approve) and rejection modal with required reason.
+  3. **Final Design Prototype Review (`US06` - #44):**
+     - Verified end-to-end user journeys across Student Portal, Admin Portal, and UI Library.
+     - Confirmed WCAG contrast ratios and design tokens consistency with `style.css`.
+     - Verified 100% pass rate in Playwright automated smoke test suite.
+  4. **GitHub Governance & Project #5 Alignment:**
+     - Created feature branch `feature/us04-us05-admin-panel`, opened PR #51, and merged cleanly to `main`.
+     - Updated Project #5 Statuses to `Done` for #42, #43, and #44.
+     - Closed issues #42, #43, and #44 with comprehensive delivery reports.
+     - Recalculated team performance metrics: @EngMohamedElabsy achieved 6/6 (100%) Done with `🌟 Early Completion Champion` badge.
+
+- **Previous Updates (Archive):**
+  - **Date & Timestamp:** 2026-10-28 19:05:00 UTC+3
+  - **Status:** Automated CI/CD Deployment Active, Sprint Deadline Monitor & Team Performance Metrics Engine Established.
+  - **What was modified:**
   1. **Automated Continuous Deployment via GitHub Pages (`.github/workflows/deploy.yml`):**
      - Configured official GitHub Actions workflow to deploy static `frontend/` on every push to `main`.
      - Official Live Public URL: `https://engmohamedelabsy.github.io/HuntYourTrack/`

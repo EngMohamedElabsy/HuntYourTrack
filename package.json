@@ -6,6 +6,8 @@
   "scripts": {
     "start": "python3 -m http.server 8080 --directory frontend",
     "setup:skills": "node scripts/setup-skills.js",
-    "metrics": "node scripts/generate-team-metrics.js"
+    "metrics": "node scripts/generate-team-metrics.js",
+    "test": "node .global_skills/automation/frontend-smoke-test.js",
+    "test:auth": "node .global_skills/automation/frontend-smoke-test.js"
   }
 }
