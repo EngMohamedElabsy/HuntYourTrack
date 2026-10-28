@@ -113,7 +113,36 @@ HuntYourTrack is a career-platform graduation project for matching students with
   [ ] Clear verifiable deliverable 2.
   [ ] Interaction and responsive state confirmed.
   ```
-- **Issue Metadata:** Every issue must have proper labels (`must`/`should`, `UI/UX`, `Todo`/`toprogram`), the correct Assignee, the active Milestone, and be linked to Project #5.
+### 4. Issue Handover & Takeover Protocol (بروتوكول تفويض واستلام مهام الزملاء)
+- **Mandatory English Comment on GitHub Issue:**
+  If any team member (or assistant) needs to take over an issue originally assigned to a teammate (e.g., to assist with the sprint deadline), they MUST post a formal comment on that specific issue in clear professional English before taking any action:
+  ```markdown
+  Hi @<teammate>, I am taking over this task (USXX: <Title>) to assist with our sprint timeline. Please confirm if you agree with this handover so we can proceed.
+  ```
+- **Explicit Confirmation Required:**
+  The new developer CANNOT begin work, touch files, or reassign the issue until the original assignee posts an explicit confirmation/approval comment in reply.
+- **Zero Silent Takeovers:** Any unapproved handover or silent modification of another teammate's issue is strictly prohibited.
+
+### 5. Mandatory Branching & Pull Request (PR) Workflow (منع التداخل وحماية الكود)
+- **No Direct Commits to `main` for Features:**
+  To guarantee that work does not collide, overwrite, or drift between teammates, **every engineer (including Mohamed @EngMohamedElabsy, Hager @hager678, and Abdulrahman @abdulrhman-masoud)** MUST create an isolated branch before beginning work on any feature or user story:
+  ```bash
+  git checkout -b feature/usXX-<feature-name>
+  ```
+- **Immediate Pull Request (PR) Creation:**
+  Immediately upon creating the branch and making the initial commit, an open Pull Request MUST be created against `main`:
+  ```bash
+  gh pr create --title "USXX: <Title>" --body "Closes #<issue_number>" --base main
+  ```
+  This provides 100% transparency to the whole team in the GitHub Pull Requests tab, prevents duplicate efforts, and tracks code progress.
+- **Conflict Resolution & Code Drift Protocol:**
+  - If code diverges or if changes were merged into `origin/main` by another teammate, update the feature branch cleanly:
+    ```bash
+    git fetch origin
+    git merge origin/main
+    ```
+  - Resolve any merge conflicts cleanly, run the smoke test (`npm run test:auth`), verify the live server (`http://localhost:8080`), and only merge to `main` when the feature is 100% complete and tested.
+  - Never use destructive force pushes (`--force`) to `main`.
 
 ## AI Core Directives
 1. **Always Update:** After successfully implementing any new feature, fixing a bug, or modifying the architecture, you MUST automatically edit this `CLAUDE.md` file to update the "Active Changelog & Task Tracker".
