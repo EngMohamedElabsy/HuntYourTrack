@@ -162,8 +162,25 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-28 18:45:00 UTC+3
-- **Status:** Established Team Workflow & Governance Protocol, Project #5 Synchronization, Role Isolation Rules.
+- **Date & Timestamp:** 2026-10-28 19:05:00 UTC+3
+- **Status:** Automated CI/CD Deployment Active, Sprint Deadline Monitor & Team Performance Metrics Engine Established.
+- **What was modified:**
+  1. **Automated Continuous Deployment via GitHub Pages (`.github/workflows/deploy.yml`):**
+     - Configured official GitHub Actions workflow to deploy static `frontend/` on every push to `main`.
+     - Official Live Public URL: `https://engmohamedelabsy.github.io/HuntYourTrack/`
+     - Automatically updates in the cloud within 30 seconds of pushing code.
+  2. **Automated Sprint Deadline & Accountability Monitor (`.github/workflows/sprint-monitor.yml`):**
+     - Runs daily scheduled checks on open issues against the Sunday Nov 1, 2026 milestone.
+     - Automatically notifies and mentions assignees (< 48 hours warning).
+     - Alerts Lead Developer @EngMohamedElabsy on overdue tasks for rebalancing.
+  3. **Team Performance & Sprint Leaderboard Engine (`scripts/generate-team-metrics.js` & `.github/workflows/team-metrics.yml`):**
+     - Analyzes each teammate's assigned vs completed issues, velocity, and early completion badges.
+     - Automatically generates and updates `docs/TEAM_METRICS.md` on issue events.
+     - Added npm script `"metrics": "node scripts/generate-team-metrics.js"`.
+
+- **Previous Updates (Archive):**
+  - **Date & Timestamp:** 2026-10-28 18:45:00 UTC+3
+  - **Status:** Established Team Workflow & Governance Protocol, Project #5 Synchronization, Role Isolation Rules.
 - **What was modified:**
   1. **Strict Role Isolation Added to Architecture & AI Directives:**
      - Mandated that developer persona operates strictly on @EngMohamedElabsy issues.

@@ -1,0 +1,41 @@
+name: Team Metrics & Sprint Leaderboard Generator
+
+on:
+  issues:
+    types: [opened, closed, reopened, assigned, unassigned, labeled, unlabeled]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: read
+
+jobs:
+  update-metrics:
+    name: Generate & Commit Team Performance Report
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate Report
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node scripts/generate-team-metrics.js
+
+      - name: Commit & Push Updated Report
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain docs/TEAM_METRICS.md)" ]; then
+            git add docs/TEAM_METRICS.md
+            git commit -m "chore(metrics): auto-update team performance scorecard [skip ci]"
+            git push origin main
+          else
+            console.log "No metric changes to commit."
+          fi
