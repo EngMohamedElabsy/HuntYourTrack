@@ -197,25 +197,47 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - Keep code, comments, and project-maintained technical docs in English.
 
 ## Latest Updates / Team Handoff
-- **Date & Timestamp:** 2026-10-28 20:25:00 UTC+3
-- **Status:** Atomic PR Policy Codified, 1-Click Demo Accounts Established, System Workflow Map Built, and Full CLI Browser Verification Passed.
+- **Date & Timestamp:** 2026-10-28 21:45:00 UTC+3
+- **Status:** Enterprise 5-Stage YAML DAG Pipeline Active in GitHub Actions, Project #5 Deadline Tracking & Time Limit Alerts Live, Redundant Diagrams Purged.
 - **What was modified:**
-  1. **Strict Atomic PR Policy (1 Issue = 1 Dedicated PR):**
-     - Codified rule that developers and assistants must NEVER bundle multiple user stories into a single PR.
-     - Work is strictly divided into small, independent increments with isolated feature branches (`feature/usXX-<name>`) and dedicated PRs to guarantee fast reviews and safe rollbacks.
-  2. **1-Click Demo Quick-Access Accounts (`frontend/auth.html` & `auth.js`):**
-     - Added instant 1-Click Demo chips for Student (`student@damanhour.edu.eg`), Lead Admin (`admin@damanhour.edu.eg`), and Corporate Partner (`recruiter@vodafone.com`).
-     - Clicking any chip auto-fills credentials with visual ring highlight and helpful guidance message.
-     - Admin login automatically routes directly to `admin.html`.
-  3. **Interactive Connected Workflow & Architecture Map (`frontend/workflow.html` & `workflow.css`):**
-     - Built comprehensive 3-tier interactive visual flow map connecting Auth Gateway, Role Workspaces (Student, Admin, Employer, UI Kit), and DevOps CI/CD pipelines.
-     - Added navigation links across all screen headers.
-  4. **GitHub Actions Bot Attribution Guidance (`github-actions[bot]`):**
-     - Documented official explanation regarding bot contribution commits resulting from automated CI/CD metric pipelines.
-  5. **Full CLI Playwright Verification Suite (`tests/cli-interactive-verify.js`):**
-     - Executed headless browser automation across all user journeys from the CLI.
-     - Captured 7 high-resolution screenshots verifying auth, demo filling, signup animation, student dashboard, admin console, employer verification modal, and connected workflow map.
-     - `npm test` verified passing 100%.
+  1. **Enterprise 5-Stage YAML DAG Pipeline (`.github/workflows/ci.yml`):**
+     - Structured `.github/workflows/ci.yml` into 5 interconnected jobs with DAG dependencies (`needs: [...]`):
+       - `📐 1. Architecture & Asset Standards` (Parallel: file structure & link integrity)
+       - `🛡️ 2. Security & Zero-Contamination Audit` (Parallel: dependencies & clean git tree)
+       - `🧪 3. Playwright Browser Smoke Suite` (Chained: headless Playwright across all 5 entry points)
+       - `📊 4. Team Velocity & Deadline Monitor` (Chained: verifies velocity & sprint deadlines)
+       - `🚀 5. Executive Quality Gate & Visual Dashboard` (Chained: renders summary report)
+     - GitHub Actions natively renders the connected multi-stage pipeline flowchart directly at the top of the workflow run.
+     - Removed redundant Mermaid diagram from `$GITHUB_STEP_SUMMARY` to keep the native YAML DAG flowchart as the single source of visual truth.
+  2. **GitHub Project #5 Custom `Deadline` Field & Time Limit Alerts:**
+     - Created custom `Deadline` field (`2026-11-01`) on GitHub Project #5 via GraphQL.
+     - Updated `View 1`'s `visibleFieldIds` via `updateProjectV2View` so that the `Deadline` column is directly visible in the project table view.
+     - Added `Deadline` and `Time Limit Alert` countdown tracking columns to `docs/TEAM_METRICS.md` (`🟢 Delivered on Time`, `🟡 Active (Due Nov 1)`, `⚪ Pending Start (Due Nov 1)`).
+  3. **Interactive YAML Code Studio in `frontend/workflow.html`:**
+     - Added a toggle between `[ 📊 Visual Flow ]` (animated 5-stage stepper) and `[ 📄 Production ci.yml ]` (formatted YAML code viewer with copy button).
+  4. **Strict Role Isolation Preserved:**
+     - Teammates' issues (@hager678: US07, US08, US09; @abdulrhman-masoud: US10, US11, US12) remain strictly isolated, untouched, and scheduled with deadlines.
+
+- **Previous Updates (Archive):**
+  - **Date & Timestamp:** 2026-10-28 20:25:00 UTC+3
+  - **Status:** Atomic PR Policy Codified, 1-Click Demo Accounts Established, System Workflow Map Built, and Full CLI Browser Verification Passed.
+  - **What was modified:**
+    1. **Strict Atomic PR Policy (1 Issue = 1 Dedicated PR):**
+       - Codified rule that developers and assistants must NEVER bundle multiple user stories into a single PR.
+       - Work is strictly divided into small, independent increments with isolated feature branches (`feature/usXX-<name>`) and dedicated PRs to guarantee fast reviews and safe rollbacks.
+    2. **1-Click Demo Quick-Access Accounts (`frontend/auth.html` & `auth.js`):**
+       - Added instant 1-Click Demo chips for Student (`student@damanhour.edu.eg`), Lead Admin (`admin@damanhour.edu.eg`), and Corporate Partner (`recruiter@vodafone.com`).
+       - Clicking any chip auto-fills credentials with visual ring highlight and helpful guidance message.
+       - Admin login automatically routes directly to `admin.html`.
+    3. **Interactive Connected Workflow & Architecture Map (`frontend/workflow.html` & `workflow.css`):**
+       - Built comprehensive 3-tier interactive visual flow map connecting Auth Gateway, Role Workspaces (Student, Admin, Employer, UI Kit), and DevOps CI/CD pipelines.
+       - Added navigation links across all screen headers.
+    4. **GitHub Actions Bot Attribution Guidance (`github-actions[bot]`):**
+       - Documented official explanation regarding bot contribution commits resulting from automated CI/CD metric pipelines.
+    5. **Full CLI Playwright Verification Suite (`tests/cli-interactive-verify.js`):**
+       - Executed headless browser automation across all user journeys from the CLI.
+       - Captured 7 high-resolution screenshots verifying auth, demo filling, signup animation, student dashboard, admin console, employer verification modal, and connected workflow map.
+       - `npm test` verified passing 100%.
 
 - **Previous Updates (Archive):**
   - **Date & Timestamp:** 2026-10-28 19:50:00 UTC+3

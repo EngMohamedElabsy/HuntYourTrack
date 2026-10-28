@@ -136,22 +136,6 @@ jobs:
 
           ---
 
-          ### 🗺️ Visual Multi-Stage Pipeline DAG
-          ```mermaid
-          graph LR
-              S1["📐 1. Architecture Standards"] --> S3["🧪 3. Playwright Smoke Suite"]
-              S2["🛡️ 2. Security Audit"] --> S3
-              S3 --> S4["📊 4. Team Velocity & Deadlines"]
-              S4 --> S5["🚀 5. Executive Quality Gate"]
-              style S1 fill:#10B981,stroke:#059669,stroke-width:2px,color:#fff
-              style S2 fill:#10B981,stroke:#059669,stroke-width:2px,color:#fff
-              style S3 fill:#10B981,stroke:#059669,stroke-width:2px,color:#fff
-              style S4 fill:#10B981,stroke:#059669,stroke-width:2px,color:#fff
-              style S5 fill:#6366F1,stroke:#4F46E5,stroke-width:2px,color:#fff
-          ```
-
-          ---
-
           ### 📊 End-to-End Verification Matrix
           | Component / Gateway | Target Route | Status | Result |
           | :--- | :--- | :---: | :---: |
