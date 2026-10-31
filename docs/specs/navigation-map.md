@@ -40,6 +40,9 @@ Public
 
 ## Current implementation status
 
-Only the authentication frontend exists. The landing page, post-auth dashboards, role-aware navigation shell, route guards, and user journey destinations remain planned. The login/register/password-reset endpoint contract is documented in the root README; the API and session implementation are not present.
-
-The user requested authentication as US01. The upstream GitHub issue list uses US08 (#46) for student authentication and US02 (#40) for this navigation map. Preserve issue state until the user asks to close it.
+- **Public Landing Page (US13):** Fully implemented in `frontend/index.html` with specialized CS track cards, corporate internship listings, and platform architecture timeline.
+- **Student Career Hub:** Fully implemented in `frontend/student.html` with AI track match, internship cards, and roadmap progress.
+- **Admin Control Panel (US04 / US05):** Fully implemented in `frontend/admin.html` with KPI metrics, user management, and corporate accreditation queue.
+- **Authentication Gateway (US08):** Implemented in `frontend/auth.html` with dual-panel sliding UI.
+- **System Architecture & Workflow Graph:** Implemented in `frontend/workflow.html`.
+- **Reusable Component Library (US03):** Implemented in `frontend/components.html`.

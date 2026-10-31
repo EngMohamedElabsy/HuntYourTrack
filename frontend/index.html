@@ -4,362 +4,492 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#EEF2FF">
-    <title>HuntYourTrack | Student Dashboard</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap">
+    <title>HuntYourTrack · Tech Career & Internship Roadmap Platform</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        .dashboard-layout {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--color-background);
-        }
-
-        .navbar {
-            background: #FFFFFF;
-            border-bottom: 1px solid var(--color-border);
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar-brand {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: var(--color-primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .navbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-badge {
-            background: var(--color-muted);
-            color: var(--color-foreground);
-            padding: 0.4rem 0.9rem;
-            border-radius: 999px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .dashboard-content {
-            flex: 1;
-            max-width: 1200px;
-            width: 100%;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-        }
-
-        .welcome-card {
-            background: linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #818CF8 100%);
-            color: #FFFFFF;
-            border-radius: 24px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-
-        .welcome-card h1 {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .welcome-card p {
-            color: #E0E7FF;
-            font-size: 1rem;
-            max-width: 650px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .stat-card {
-            background: #FFFFFF;
-            border: 1px solid var(--color-border);
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-        }
-
-        .stat-card .stat-label {
-            color: var(--color-muted-foreground);
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-card .stat-val {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--color-foreground);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-header h2 {
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            color: var(--color-foreground);
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .match-badge {
-            background: #DCFCE7;
-            color: #16A34A;
-            font-weight: 700;
-            font-size: 0.8rem;
-            padding: 0.25rem 0.6rem;
-            border-radius: 999px;
-            float: right;
-        }
-
-        .roadmap-card {
-            background: #FFFFFF;
-            border: 1px solid var(--color-border);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .progress-bar-container {
-            width: 100%;
-            height: 10px;
-            background: #F1F5F9;
-            border-radius: 999px;
-            overflow: hidden;
-            margin: 1.5rem 0;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            width: 75%;
-            background: linear-gradient(90deg, #6366F1, #16A34A);
-            border-radius: 999px;
-        }
-
-        .milestone-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .milestone-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.95rem;
-            color: var(--color-foreground);
-        }
-
-        .milestone-item.done {
-            color: #16A34A;
-            font-weight: 600;
-        }
-
-        .footer {
-            background: #FFFFFF;
-            border-top: 1px solid var(--color-border);
-            padding: 1.5rem;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--color-muted-foreground);
-            margin-top: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="css/landing.css">
 </head>
 <body>
-    <div class="dashboard-layout">
-        <!-- Navigation Bar -->
-        <header class="navbar">
-            <a href="index.html" class="navbar-brand">
-                <span>🎯</span> HuntYourTrack
+
+    <!-- Sticky Navigation Bar -->
+    <nav class="landing-nav" id="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="brand-wrapper">
+                <span class="brand-icon">🎯</span>
+                <div>
+                    <span class="brand-title">HuntYourTrack</span>
+                    <span class="brand-tagline">Faculty of Computers & Information · Damanhour Univ</span>
+                </div>
             </a>
-            <div class="navbar-actions">
-                <span class="user-badge" id="student-badge">
-                    <span>👨‍🎓</span> <span id="user-display">Student Portal</span>
-                </span>
-                <a href="admin.html" class="btn btn-ghost" style="font-size: 0.9rem;">🛡️ Admin Console</a>
-                <a href="workflow.html" class="btn btn-ghost" style="font-size: 0.9rem; color: var(--color-primary); font-weight: 600;">🗺️ Graph</a>
-                <a href="components.html" class="btn btn-ghost" style="font-size: 0.9rem;">UI Kit</a>
-                <button id="logout-btn" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Sign Out</button>
+
+            <!-- Desktop Links -->
+            <ul class="nav-menu">
+                <li><a href="#tracks" class="nav-link">🎯 Career Tracks</a></li>
+                <li><a href="#internships" class="nav-link">💼 Internships</a></li>
+                <li><a href="#how-it-works" class="nav-link">⚡ How It Works</a></li>
+                <li><a href="#employers" class="nav-link">🏢 For Employers</a></li>
+                <li><a href="workflow.html" class="nav-link" style="color: #6366F1;">🗺️ System Map</a></li>
+            </ul>
+
+            <!-- Auth CTAs -->
+            <div class="nav-cta-group" id="nav-auth-actions">
+                <a href="auth.html" class="btn btn-secondary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;">Sign In</a>
+                <a href="auth.html" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;">Get Started</a>
             </div>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Navigation Menu">
+                ☰
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div class="mobile-drawer" id="mobile-drawer">
+            <a href="#tracks" class="nav-link" onclick="closeMobileDrawer()">🎯 Career Tracks</a>
+            <a href="#internships" class="nav-link" onclick="closeMobileDrawer()">💼 Internships</a>
+            <a href="#how-it-works" class="nav-link" onclick="closeMobileDrawer()">⚡ How It Works</a>
+            <a href="#employers" class="nav-link" onclick="closeMobileDrawer()">🏢 For Employers</a>
+            <a href="workflow.html" class="nav-link" onclick="closeMobileDrawer()">🗺️ System Architecture Map</a>
+            <a href="components.html" class="nav-link" onclick="closeMobileDrawer()">🧩 UI Component Kit</a>
+            <div class="nav-cta-group" style="display: flex; margin-top: 1rem;">
+                <a href="auth.html" class="btn btn-secondary">Sign In</a>
+                <a href="auth.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <header class="hero-section">
+            <div class="hero-pill">
+                <span>🎓</span> Graduation Project 2026 · CS Department, Damanhour University
+            </div>
+            <h1 class="hero-headline">
+                Find Your Tech Track & <br>
+                <span class="gradient-text">Accelerate Your Engineering Career</span> 🚀
+            </h1>
+            <p class="hero-description">
+                The AI-powered career roadmap and internship matching platform designed for Computer Science students at Damanhour University. Master production skills, match with verified corporate opportunities, and earn faculty-accredited endorsement.
+            </p>
+            <div class="hero-actions">
+                <a href="#tracks" class="btn btn-primary" style="font-size: 1rem; padding: 0.85rem 1.75rem;">
+                    🎯 Explore Career Tracks
+                </a>
+                <a href="#internships" class="btn btn-secondary" style="font-size: 1rem; padding: 0.85rem 1.75rem;">
+                    💼 Browse Internships
+                </a>
+                <a href="auth.html" class="btn btn-accent" style="font-size: 1rem; padding: 0.85rem 1.75rem;">
+                    🔐 Enter Portal / Sign In
+                </a>
+            </div>
+
+            <!-- Key Metrics Strip -->
+            <section class="metrics-strip" aria-label="Platform Statistics">
+                <div class="metric-item">
+                    <div class="metric-number">1,420+</div>
+                    <div class="metric-label">CS Students Enrolled</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">85+</div>
+                    <div class="metric-label">Corporate Partners</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">94.2%</div>
+                    <div class="metric-label">AI Track Match Rate</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">100%</div>
+                    <div class="metric-label">Milestone Tracking</div>
+                </div>
+            </section>
         </header>
 
-        <!-- Main Dashboard View -->
-        <main class="dashboard-content">
-            <!-- Welcome Banner -->
-            <section class="welcome-card">
+        <!-- Career Tracks Section -->
+        <section class="section-wrapper" id="tracks">
+            <div class="section-head">
+                <span class="section-badge">Career Pathways</span>
+                <h2 class="section-title">Computer Science Specialized Tracks</h2>
+                <p class="section-subtitle">
+                    Structured learning roadmaps with verified competencies and real-world project milestones.
+                </p>
+            </div>
+
+            <div class="tracks-grid">
+                <!-- Track 1: Frontend -->
+                <article class="track-card">
+                    <div>
+                        <div class="track-icon-box" style="background: #EEF2FF; color: #4F46E5;">💻</div>
+                        <h3 class="track-title">Frontend & UI/UX Engineering</h3>
+                        <p class="track-desc">
+                            Modern component architectures, state orchestration, design system tokens, GSAP micro-interactions, and WCAG accessibility standards.
+                        </p>
+                        <div class="skills-pill-group">
+                            <span class="skill-pill">React</span>
+                            <span class="skill-pill">TypeScript</span>
+                            <span class="skill-pill">GSAP</span>
+                            <span class="skill-pill">Design Tokens</span>
+                            <span class="skill-pill">Tailwind/CSS</span>
+                        </div>
+                    </div>
+                    <div class="track-footer">
+                        <span class="track-duration">⏱️ 16-Week Roadmap</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
+                    </div>
+                </article>
+
+                <!-- Track 2: Backend -->
+                <article class="track-card">
+                    <div>
+                        <div class="track-icon-box" style="background: #ECFDF5; color: #059669;">⚙️</div>
+                        <h3 class="track-title">Backend & Cloud Architecture</h3>
+                        <p class="track-desc">
+                            High-concurrency microservices, robust RESTful APIs, distributed databases, caching with Redis, and containerized deployment.
+                        </p>
+                        <div class="skills-pill-group">
+                            <span class="skill-pill">Node.js/Express</span>
+                            <span class="skill-pill">MongoDB Atlas</span>
+                            <span class="skill-pill">Redis</span>
+                            <span class="skill-pill">Docker</span>
+                            <span class="skill-pill">REST & GraphQL</span>
+                        </div>
+                    </div>
+                    <div class="track-footer">
+                        <span class="track-duration">⏱️ 18-Week Roadmap</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
+                    </div>
+                </article>
+
+                <!-- Track 3: AI & ML -->
+                <article class="track-card">
+                    <div>
+                        <div class="track-icon-box" style="background: #FDF2F8; color: #DB2777;">🧠</div>
+                        <h3 class="track-title">AI, Machine Learning & Data</h3>
+                        <p class="track-desc">
+                            Data preprocessing pipelines, supervised and unsupervised modeling, deep learning architectures with PyTorch, and LLM application engineering.
+                        </p>
+                        <div class="skills-pill-group">
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">PyTorch</span>
+                            <span class="skill-pill">Scikit-Learn</span>
+                            <span class="skill-pill">Pandas</span>
+                            <span class="skill-pill">LLM Prompting</span>
+                        </div>
+                    </div>
+                    <div class="track-footer">
+                        <span class="track-duration">⏱️ 20-Week Roadmap</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
+                    </div>
+                </article>
+
+                <!-- Track 4: Cyber Security -->
+                <article class="track-card">
+                    <div>
+                        <div class="track-icon-box" style="background: #FEF3C7; color: #D97706;">🛡️</div>
+                        <h3 class="track-title">Cyber Security & Defense</h3>
+                        <p class="track-desc">
+                            Vulnerability assessment, ethical penetration testing, OWASP Top 10 mitigation, network security protocols, and security auditing.
+                        </p>
+                        <div class="skills-pill-group">
+                            <span class="skill-pill">OWASP</span>
+                            <span class="skill-pill">Network Security</span>
+                            <span class="skill-pill">Ethical Hacking</span>
+                            <span class="skill-pill">Linux Hardening</span>
+                        </div>
+                    </div>
+                    <div class="track-footer">
+                        <span class="track-duration">⏱️ 16-Week Roadmap</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
+                    </div>
+                </article>
+
+                <!-- Track 5: DevOps & Cloud -->
+                <article class="track-card">
+                    <div>
+                        <div class="track-icon-box" style="background: #F0FDF4; color: #16A34A;">🚀</div>
+                        <h3 class="track-title">Cloud DevOps & CI/CD</h3>
+                        <p class="track-desc">
+                            Automated delivery pipelines with GitHub Actions, container orchestration via Kubernetes, cloud infrastructure, and site reliability engineering.
+                        </p>
+                        <div class="skills-pill-group">
+                            <span class="skill-pill">Kubernetes</span>
+                            <span class="skill-pill">GitHub Actions</span>
+                            <span class="skill-pill">AWS/GCP</span>
+                            <span class="skill-pill">Terraform</span>
+                        </div>
+                    </div>
+                    <div class="track-footer">
+                        <span class="track-duration">⏱️ 14-Week Roadmap</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
+                    </div>
+                </article>
+
+                <!-- Track 6: Quality & Mobile -->
+                <article class="track-card">
+                    <div>
+                        <div class="track-icon-box" style="background: #EFF6FF; color: #2563EB;">📱</div>
+                        <h3 class="track-title">Mobile App & Automated QA</h3>
+                        <p class="track-desc">
+                            Cross-platform application development with Flutter/React Native, automated end-to-end testing with Playwright, and test-driven architecture.
+                        </p>
+                        <div class="skills-pill-group">
+                            <span class="skill-pill">Flutter</span>
+                            <span class="skill-pill">Playwright</span>
+                            <span class="skill-pill">Jest</span>
+                            <span class="skill-pill">CI Quality Gates</span>
+                        </div>
+                    </div>
+                    <div class="track-footer">
+                        <span class="track-duration">⏱️ 14-Week Roadmap</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Active Internships Section -->
+        <section class="section-wrapper" id="internships" style="background: #FFFFFF; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+            <div class="section-head">
+                <span class="section-badge">Opportunities</span>
+                <h2 class="section-title">Verified Corporate Tech Internships</h2>
+                <p class="section-subtitle">
+                    Direct hiring pathways from industry-leading enterprises accredited by Damanhour University.
+                </p>
+            </div>
+
+            <div class="internships-grid">
+                <!-- Opportunity 1 -->
+                <div class="internship-card">
+                    <div class="intern-header">
+                        <div class="company-brand">
+                            <div class="company-logo">🔴</div>
+                            <div>
+                                <h3 class="job-role">Junior Frontend Engineer Intern</h3>
+                                <div class="company-name">Vodafone Egypt · Digital Hub</div>
+                            </div>
+                        </div>
+                        <span class="badge-tag badge-remote">Remote</span>
+                    </div>
+                    <div class="intern-meta">
+                        <span>📍 Smart Village, Giza</span>
+                        <span>💰 Paid Stipend</span>
+                        <span>⚡ 3-Month Sprint</span>
+                    </div>
+                    <p style="font-size: 0.88rem; color: #64748B; margin-bottom: 1.25rem; line-height: 1.5;">
+                        Build responsive web dashboards, integrate GraphQL microservices, and collaborate in Agile squads with lead engineers.
+                    </p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="handleApplyModal('Vodafone Egypt', 'Junior Frontend Engineer Intern')">
+                        Apply Now
+                    </button>
+                </div>
+
+                <!-- Opportunity 2 -->
+                <div class="internship-card">
+                    <div class="intern-header">
+                        <div class="company-brand">
+                            <div class="company-logo">🟠</div>
+                            <div>
+                                <h3 class="job-role">Cloud & DevOps Engineering Trainee</h3>
+                                <div class="company-name">Orange Digital Center</div>
+                            </div>
+                        </div>
+                        <span class="badge-tag badge-hybrid">Hybrid</span>
+                    </div>
+                    <div class="intern-meta">
+                        <span>📍 Cairo / Alexandria</span>
+                        <span>💰 Stipend + Cert</span>
+                        <span>⚡ 4-Month Sprint</span>
+                    </div>
+                    <p style="font-size: 0.88rem; color: #64748B; margin-bottom: 1.25rem; line-height: 1.5;">
+                        Hands-on training in Kubernetes clusters, Docker containerization, and automated CI/CD pipeline authoring.
+                    </p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="handleApplyModal('Orange Digital Center', 'Cloud & DevOps Engineering Trainee')">
+                        Apply Now
+                    </button>
+                </div>
+
+                <!-- Opportunity 3 -->
+                <div class="internship-card">
+                    <div class="intern-header">
+                        <div class="company-brand">
+                            <div class="company-logo">🟢</div>
+                            <div>
+                                <h3 class="job-role">Backend Systems & API Intern</h3>
+                                <div class="company-name">Valeo Egypt</div>
+                            </div>
+                        </div>
+                        <span class="badge-tag badge-onsite">On-Site</span>
+                    </div>
+                    <div class="intern-meta">
+                        <span>📍 Smart Village</span>
+                        <span>💰 Paid Stipend</span>
+                        <span>⚡ 6-Month Sprint</span>
+                    </div>
+                    <p style="font-size: 0.88rem; color: #64748B; margin-bottom: 1.25rem; line-height: 1.5;">
+                        Develop scalable backend services for automotive telematics using Node.js, Go, and high-throughput Redis caching.
+                    </p>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="handleApplyModal('Valeo Egypt', 'Backend Systems & API Intern')">
+                        Apply Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="section-wrapper" id="how-it-works">
+            <div class="section-head">
+                <span class="section-badge">Platform Architecture</span>
+                <h2 class="section-title">How HuntYourTrack Works</h2>
+                <p class="section-subtitle">
+                    A 3-step continuous cycle bridging academic coursework and professional software engineering.
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Select Track & Take AI Assessment</h3>
+                    <p class="step-desc">
+                        Declare your specialization in Frontend, Backend, AI, Security, or DevOps. Our diagnostic engine evaluates your current prerequisite skills.
+                    </p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Execute Interactive Roadmaps</h3>
+                    <p class="step-desc">
+                        Work through structured milestones, commit project deliverables to GitHub, and track your graduation velocity in real time.
+                    </p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Get Matched with Top Employers</h3>
+                    <p class="step-desc">
+                        Faculty-verified student profiles are automatically showcased to accredited corporate recruiters for fast-tracked internships.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- For Employers Banner -->
+        <section class="section-wrapper" id="employers">
+            <div class="employer-banner">
+                <div class="employer-content">
+                    <h2 class="employer-title">Partner with Damanhour University</h2>
+                    <p class="employer-desc">
+                        Access pre-screened, high-performing Computer Science & IT students trained in modern enterprise stacks. Post internship openings, review verified academic milestones, and streamline your recruitment pipeline.
+                    </p>
+                </div>
                 <div>
-                    <h1 id="welcome-heading">Welcome Back, Student! 🚀</h1>
-                    <p id="welcome-sub">Faculty of Computers & Information, Damanhour University (CS Department). Your AI-powered personalized learning track and matched internships are ready.</p>
+                    <a href="auth.html" class="btn btn-accent" style="font-size: 1rem; padding: 0.9rem 1.8rem; background: #10B981; border: none;">
+                        🏢 Request Employer Access
+                    </a>
                 </div>
-                <div>
-                    <button class="btn btn-accent" onclick="alert('AI Roadmap Synchronization complete!')">Sync AI Roadmap</button>
-                </div>
-            </section>
+            </div>
+        </section>
+    </main>
 
-            <!-- Quick Metrics -->
-            <section class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">AI Track Match</div>
-                    <div class="stat-val" style="color: #6366F1;">94%</div>
-                    <p style="font-size: 0.85rem; color: #64748B; margin-top: 0.4rem;">Software Engineering & AI Track</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Active Applications</div>
-                    <div class="stat-val" style="color: #16A34A;">3</div>
-                    <p style="font-size: 0.85rem; color: #64748B; margin-top: 0.4rem;">2 Under Review · 1 Shortlisted</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Roadmap Milestones</div>
-                    <div class="stat-val" style="color: #D97706;">8 / 12</div>
-                    <p style="font-size: 0.85rem; color: #64748B; margin-top: 0.4rem;">75% Track Completion</p>
-                </div>
-            </section>
+    <!-- Application Confirmation Dialog -->
+    <dialog id="apply-modal" style="margin: auto; border: 1px solid var(--color-border); border-radius: 16px; padding: 2rem; max-width: 480px; width: 90%; box-shadow: var(--shadow-xl); background: #FFFFFF;">
+        <h3 id="modal-company" style="font-family: var(--font-heading); color: #0F172A; margin-bottom: 0.35rem;">Internship Application</h3>
+        <p id="modal-role" style="color: var(--color-primary); font-weight: 600; font-size: 0.92rem; margin-bottom: 1rem;">Role</p>
+        <p style="color: #64748B; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">
+            To submit your profile and track roadmap to this employer, please sign in with your Damanhour University student account.
+        </p>
+        <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+            <button class="btn btn-secondary" onclick="document.getElementById('apply-modal').close()">Cancel</button>
+            <a href="auth.html" class="btn btn-primary">Sign In to Apply →</a>
+        </div>
+    </dialog>
 
-            <!-- Recommended Internships -->
-            <section>
-                <div class="section-header">
-                    <h2>Matched Opportunities (US02 / US03 Preview)</h2>
-                    <span style="font-size: 0.9rem; color: var(--color-primary); font-weight: 600;">3 New Matches</span>
-                </div>
-                <div class="cards-grid">
-                    <article class="card">
-                        <header class="card-header">
-                            <span class="match-badge">96% Match</span>
-                            <strong>Full-Stack Software Intern</strong>
-                        </header>
-                        <div class="card-body">
-                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 0.75rem;">TechCorp Labs · Cairo / Remote</p>
-                            <p style="font-size: 0.9rem;">Modern web application architecture, API integration, and cloud-native solutions.</p>
-                        </div>
-                        <footer class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 0.85rem; color: #64748B;">Starts June 2026</span>
-                            <button class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="alert('Application submitted successfully in prototype simulation!')">Apply Now</button>
-                        </footer>
-                    </article>
-
-                    <article class="card">
-                        <header class="card-header">
-                            <span class="match-badge">92% Match</span>
-                            <strong>AI & Data Science Intern</strong>
-                        </header>
-                        <div class="card-body">
-                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 0.75rem;">NextGen Analytics · Alexandria / Hybrid</p>
-                            <p style="font-size: 0.9rem;">Predictive modeling, NLP pipelines, and data-driven student performance roadmaps.</p>
-                        </div>
-                        <footer class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 0.85rem; color: #64748B;">Starts July 2026</span>
-                            <button class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="alert('Application submitted successfully in prototype simulation!')">Apply Now</button>
-                        </footer>
-                    </article>
-
-                    <article class="card">
-                        <header class="card-header">
-                            <span class="match-badge">89% Match</span>
-                            <strong>Frontend UI/UX Engineering Intern</strong>
-                        </header>
-                        <div class="card-body">
-                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 0.75rem;">DesignCraft Studio · Remote</p>
-                            <p style="font-size: 0.9rem;">Responsive component architecture, accessibility compliance, and interactive animations.</p>
-                        </div>
-                        <footer class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 0.85rem; color: #64748B;">Starts July 2026</span>
-                            <button class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="alert('Application submitted successfully in prototype simulation!')">Apply Now</button>
-                        </footer>
-                    </article>
-                </div>
-            </section>
-
-            <!-- Learning Roadmap -->
-            <section class="roadmap-card">
-                <div class="section-header" style="margin-bottom: 0.5rem;">
-                    <h2>Personalized Learning Roadmap</h2>
-                    <span style="font-weight: 700; color: #16A34A;">75% Progress</span>
-                </div>
-                <p style="color: #64748B; font-size: 0.9rem;">Target Track: Senior Software Engineer (Graduation 2026)</p>
-                <div class="progress-bar-container">
-                    <div class="progress-bar-fill"></div>
-                </div>
-                <ul class="milestone-list">
-                    <li class="milestone-item done">✓ Fundamentals: Data Structures & Algorithms (Completed)</li>
-                    <li class="milestone-item done">✓ Modern Web Architecture & Design System Tokens (Completed)</li>
-                    <li class="milestone-item done">✓ Client-Side State & Micro-interactions with GSAP (Completed)</li>
-                    <li class="milestone-item">○ Scalable Microservices & n8n Automation Workflows (In Progress)</li>
-                    <li class="milestone-item">○ Final Graduation Project Defense & Deployment (Upcoming)</li>
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4 style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span>🎯</span> HuntYourTrack
+                </h4>
+                <p style="margin-bottom: 1rem; line-height: 1.6;">
+                    Graduation Project 2026 · Faculty of Computers and Information, Damanhour University (CS Department).
+                </p>
+                <p style="color: #64748B; font-size: 0.8rem;">
+                    Lead Engineer: Mohamed Yasser Elabsy (@EngMohamedElabsy)
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="#tracks">Career Tracks</a></li>
+                    <li><a href="#internships">Internships</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="workflow.html">System Architecture Map</a></li>
                 </ul>
-            </section>
-        </main>
+            </div>
+            <div class="footer-col">
+                <h4>Portals</h4>
+                <ul>
+                    <li><a href="student.html">Student Career Hub</a></li>
+                    <li><a href="admin.html">Admin Executive Console</a></li>
+                    <li><a href="admin.html#tab-verification">Employer Accreditation</a></li>
+                    <li><a href="components.html">UI Component Library</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sprint Info</h4>
+                <ul>
+                    <li><a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank">Sprint 1 Board ↗</a></li>
+                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack" target="_blank">GitHub Repository ↗</a></li>
+                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack/actions" target="_blank">CI/CD Pipelines ↗</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 HuntYourTrack · Damanhour University. All rights reserved.</span>
+            <span>Version 1.2.0 · Public Release</span>
+        </div>
+    </footer>
 
-        <footer class="footer">
-            HuntYourTrack &copy; 2026 · Faculty of Computers and Information, Damanhour University. All rights reserved.
-        </footer>
-    </div>
-
+    <!-- Interactive Scripts -->
     <script>
-        // Check session state
+        // Check session and adjust navbar actions
         const userEmail = localStorage.getItem('user_email');
         const userRole = localStorage.getItem('user');
+        const navActions = document.getElementById('nav-auth-actions');
 
-        if (userEmail) {
-            document.getElementById('user-display').textContent = userEmail;
-            document.getElementById('welcome-heading').textContent = `Welcome Back, ${userEmail.split('@')[0]}! 🚀`;
-        } else if (!userRole) {
-            // If not logged in, prompt or redirect to auth
-            console.log('No active session found, redirecting to auth.html');
-            window.location.replace('auth.html');
+        if (userRole) {
+            const portalTarget = userRole === 'admin' ? 'admin.html' : 'student.html';
+            const portalLabel = userRole === 'admin' ? '🛡️ Admin Console' : '🎓 My Student Portal';
+            navActions.innerHTML = `
+                <a href="${portalTarget}" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;">${portalLabel}</a>
+                <button onclick="localStorage.clear(); window.location.reload();" class="btn btn-secondary" style="padding: 0.5rem 0.8rem; font-size: 0.88rem;">Sign Out</button>
+            `;
         }
 
-        // Logout handler
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            localStorage.clear();
-            window.location.href = 'auth.html';
+        // Mobile drawer toggling
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileDrawer = document.getElementById('mobile-drawer');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileDrawer.classList.toggle('open');
         });
+
+        function closeMobileDrawer() {
+            mobileDrawer.classList.remove('open');
+        }
+
+        // Modal handler for internship applications
+        function handleApplyModal(company, role) {
+            if (userRole === 'student') {
+                window.location.href = 'student.html';
+                return;
+            }
+            document.getElementById('modal-company').textContent = company;
+            document.getElementById('modal-role').textContent = role;
+            document.getElementById('apply-modal').showModal();
+        }
     </script>
 </body>
 </html>

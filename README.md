@@ -12,9 +12,10 @@
 
 ## 🌐 Live Interactive Deployment
 The static frontend is continuously deployed on every commit using GitHub Actions. Evaluators and teammates can preview the live system directly from any browser or mobile device:
-- 🚀 **Main Portal & Student Dashboard:** [https://engmohamedelabsy.github.io/HuntYourTrack/](https://engmohamedelabsy.github.io/HuntYourTrack/)
-- 🔐 **Authentication & 1-Click Demo:** [https://engmohamedelabsy.github.io/HuntYourTrack/auth.html](https://engmohamedelabsy.github.io/HuntYourTrack/auth.html)
-- 🛡️ **Admin Console & Verification:** [https://engmohamedelabsy.github.io/HuntYourTrack/admin.html](https://engmohamedelabsy.github.io/HuntYourTrack/admin.html)
+- 🚀 **Main Product Showcase & Landing Page (US13):** [https://engmohamedelabsy.github.io/HuntYourTrack/](https://engmohamedelabsy.github.io/HuntYourTrack/)
+- 🎓 **Student Career Hub & Roadmaps:** [https://engmohamedelabsy.github.io/HuntYourTrack/student.html](https://engmohamedelabsy.github.io/HuntYourTrack/student.html)
+- 🔐 **Authentication & Identity Gateway:** [https://engmohamedelabsy.github.io/HuntYourTrack/auth.html](https://engmohamedelabsy.github.io/HuntYourTrack/auth.html)
+- 🛡️ **Admin Console & Verification Hub:** [https://engmohamedelabsy.github.io/HuntYourTrack/admin.html](https://engmohamedelabsy.github.io/HuntYourTrack/admin.html)
 - 🗺️ **System Architecture & Workflow Map:** [https://engmohamedelabsy.github.io/HuntYourTrack/workflow.html](https://engmohamedelabsy.github.io/HuntYourTrack/workflow.html)
 - 🧩 **UI Component Kit Preview:** [https://engmohamedelabsy.github.io/HuntYourTrack/components.html](https://engmohamedelabsy.github.io/HuntYourTrack/components.html)
 
@@ -66,13 +67,15 @@ HuntYourTrack/
 │       ├── sprint-monitor.yml # Daily deadline checks & reminder alerts
 │       └── team-metrics.yml   # Auto-generation of team performance report
 ├── frontend/             # Modular, organized static frontend application
-│   ├── index.html        # Student Dashboard with track metrics, internships & roadmaps
+│   ├── index.html        # Product Showcase & Landing Page (Career Tracks, Internships, How It Works)
+│   ├── student.html      # Student Career Hub (Personalized roadmaps & application tracking)
 │   ├── auth.html         # Dual-panel Authentication screen (Sign In, Register & 1-Click Demo)
 │   ├── admin.html        # Executive Control Center & Corporate Accreditation Hub
 │   ├── workflow.html     # Interactive Connected Architecture & System Workflow Map
 │   ├── components.html   # Reusable UI Component Library preview (Buttons, Inputs, Modals)
 │   ├── css/              # Modular stylesheets & design tokens
 │   │   ├── style.css     # Global design tokens, color palette, and typography scales
+│   │   ├── landing.css   # Modern Product Landing Page hero, tracks, internships styling
 │   │   ├── auth.css      # High-contrast scrollbars & responsive dual-panel styling
 │   │   ├── admin.css     # Admin KPI grids, responsive tables & modal styles
 │   │   ├── workflow.css  # Dark-mode glassmorphic cards & graph flow styles
