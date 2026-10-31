@@ -33,21 +33,74 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 
 ## 3. Team Governance & Backlog Tracking
 
-### Teammates & Issue Status Overview
-- **Lead Architect (@EngMohamedElabsy):**
-  - All 11 assigned stories (US01–US06, US13–US17) are **100% Completed, Verified, and Merged into `main`**.
-- **Hager Khaled (@hager678) — Status: OPEN / NOT SOLVED YET:**
-  - **US07 (#45):** Student Landing Page Wireframe (`Todo`)
-  - **US08 (#46):** Student Authentication UI (`toprogram`)
-  - **US09 (#47):** Student Dashboard Layout (`toprogram`)
-- **Abdulrahman Masoud (@abdulrhman-masoud) — Status: OPEN / NOT SOLVED YET:**
-  - **US10 (#48):** Employer Dashboard Main UI (`Todo`)
-  - **US11 (#49):** Internship Posting Form UI (`Todo`)
-  - **US12 (#50):** Applicant Review Interface (`Todo`)
+### Dynamic Real-Time GitHub Backlog Tracking (No Hardcoded Issues)
+- **Zero Static Stale Data:** Never hardcode static issue numbers, statuses, or teammate backlogs into this constitution.
+- **Dynamic Inspection Required:** Claude and AI assistants MUST inspect the real-time project state using the GitHub CLI:
+  ```bash
+  # Check active sprint items on Project #5
+  gh project item-list 5 --owner EngMohamedElabsy
 
-### Non-Negotiable Isolation Policy
-- **Never touch or close teammates' issues** (@hager678, @abdulrhman-masoud) until they complete 100% of their deliverables.
-- **Atomic Pull Requests:** 1 Issue = 1 Dedicated Feature Branch (`feature/usXX-...`) and 1 Dedicated PR.
+  # Check sprint user stories and assignees
+  gh issue list --state open
+
+  # View detailed specifications of a specific issue
+  gh issue view <issue_number>
+
+  # Inspect active pull requests
+  gh pr list
+  ```
+- **Live Decision Rule:** If an issue is already marked `Closed` or `Done` on GitHub, treat it as completed. If it is `open`, inspect its assignee before touching any related code.
+
+---
+
+### Mandatory Branching & Pull Request (PR) Workflow (منع التداخل وحماية الكود)
+- **No Direct Commits to `main` for Features:**
+  To guarantee that work does not collide, overwrite, or drift between teammates, **every engineer (including Mohamed @EngMohamedElabsy, Hager @hager678, and Abdulrahman @abdulrhman-masoud)** MUST create an isolated branch before beginning work on any feature or user story:
+  ```bash
+  git checkout -b feature/usXX-<feature-name>
+  ```
+- **Immediate Pull Request (PR) Creation:**
+  Immediately upon creating the branch and making the initial commit, an open Pull Request MUST be created against `main`:
+  ```bash
+  gh pr create --title "USXX: <Title>" --body "Closes #<issue_number>" --base main
+  ```
+  This provides 100% transparency to the whole team in the GitHub Pull Requests tab, prevents duplicate efforts, and tracks code progress.
+- **Conflict Resolution & Code Drift Protocol:**
+  - Before merging, always synchronize the feature branch cleanly with the latest `main`:
+    ```bash
+    git fetch origin
+    git merge origin/main
+    ```
+  - Resolve any merge conflicts cleanly, run the full test suite (`npm test`), verify the live server (`http://localhost:8080`), and only merge to `main` when all checks pass with 100% compliance.
+  - Never use destructive force pushes (`--force`) to `main`.
+
+---
+
+### Issue Handover & Takeover Protocol (بروتوكول تفويض واستلام مهام الزملاء)
+- **Mandatory English Comment on GitHub Issue:**
+  If any team member (or assistant) needs to take over an issue originally assigned to a teammate (e.g., to assist with the sprint deadline), they MUST post a formal comment on that specific issue in clear professional English before taking any action:
+  ```markdown
+  Hi @<teammate>, I am taking over this task (USXX: <Title>) to assist with our sprint timeline. Please confirm if you agree with this handover so we can proceed.
+  ```
+- **Explicit Confirmation Required:**
+  The new developer CANNOT begin work, touch files, or reassign the issue until the original assignee posts an explicit confirmation/approval comment in reply.
+- **Handing Over an Issue to a Teammate:**
+  When passing an issue to another team member, post a formal handover comment:
+  ```markdown
+  Hi @<teammate>, I am handing over this task (USXX: <Title>) to you. Please let me know if you need any context or support.
+  ```
+- **Zero Silent Takeovers:** Any unapproved handover or silent modification of another teammate's issue is strictly prohibited.
+
+---
+
+### Autonomous Pairing & Planning Protocol
+Before writing code for any complex or non-trivial change:
+1. **Context Synchronization:** Read `CLAUDE.md` and consult relevant skills in `.global_skills/`.
+2. **Backlog Inspection:** Verify the exact issue requirements and deliverables via `gh issue view <id>`.
+3. **Stepwise Plan:** Break down the implementation into incremental, testable units (1 Issue = 1 Dedicated Feature Branch + 1 PR).
+4. **Local Baseline Verification:** Execute `npm test` before making changes to confirm a clean starting baseline.
+5. **Atomic Execution & Linting:** Apply changes adhering to Design System tokens and run `od lint` to eliminate AI tells.
+6. **E2E Audit:** Ensure all 5 audit sections pass before merging PRs.
 
 ---
 
@@ -58,7 +111,10 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 | `npm start` | Serves `frontend/` on `http://localhost:8080` |
 | `npm test` | Runs Playwright smoke suite and deep E2E verification audit |
 | `npm run metrics` | Generates team velocity metrics and updates `docs/TEAM_METRICS.md` |
-| `npm run setup:skills` | Dynamically establishes `.global_skills` symlink across OSs |
+| `npm run setup:skills` | Dynamically establishes and synchronizes `.global_skills` |
+| `gh issue list` | Lists real-time sprint user stories and assignees |
+| `gh pr list` | Checks active pull requests across the repository |
+| `gh project item-list 5 --owner EngMohamedElabsy` | Displays live board status from GitHub Project #5 |
 
 ---
 
@@ -85,6 +141,9 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Anti-Slop Linter:** Always run `od lint <path-to-html> --json` on modified HTML templates before committing.
   - **Zero AI-Slop Rule:** Flag and eliminate generic AI tells, specifically hardcoded indigo (`#4F46E5`) and emojis used as UI icons. Use SVG icons (Heroicons/Lucide) and design tokens (`var(--color-primary)`).
   - **Palette Binding:** Reference `od tools directions` (`modern-minimal`) for accessible styling.
+- **`ui-ux-pro-max` & `frontend-design`:**
+  - Build distinctive, non-templated interfaces tailored specifically to university students and recruiters.
+  - Enforce WCAG AA accessibility, deliberate typography hierarchies, purposeful micro-interactions, and visual harmony.
 - **`design-system` & `design-review`:**
   - Strictly adhere to `design-system/huntyourtrack/MASTER.md`.
   - Maintain WCAG AA 4.5:1 minimum text contrast ratio in both Light and Dark themes (`[data-theme="dark"]`).
@@ -110,4 +169,13 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - Generate structured technical documentation and export milestone reports for academic evaluation.
 - **`browse`:**
   - Use headless browser lookup when researching external API schemas or design documentation.
+
+---
+
+## 7. Living Constitution & Continuous Learning Directive (عقل متطور وذاكرة مستمرة)
+
+- **Mandatory Session Initialization:** At the start of every session or task, Claude MUST read `CLAUDE.md` and inspect `.global_skills/` to ground all decisions in the project's living rules.
+- **Cumulative Knowledge Growth:** Every time a new design pattern, architectural invariant, debugging edge-case, or testing protocol is established, Claude MUST append and refine `CLAUDE.md` and the relevant skill definitions.
+- **Zero Knowledge Loss:** **NEVER** delete, wipe, or overwrite established workflows, team protocols, or skill definitions. Project intelligence is strictly additive, continuously evolving, and permanently preserved across sessions.
+
 

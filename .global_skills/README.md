@@ -9,9 +9,11 @@ This directory contains the verified, operational AI skills and tooling integrat
 | Skill | Category | Primary Invocation / Role | Key Capabilities |
 | :--- | :--- | :--- | :--- |
 | **`open-design`** | UI/UX & Quality Gate | `od lint <file.html>`, `od tools directions` | Anti-slop HTML linter detecting generic AI tells (`#4F46E5`, emoji icons), enforces modern minimal design tokens. |
-| **`graphify`** | Codebase Architecture | `graphify path <A> <B>`, `graphify explain <Node>` | Extracts AST dependencies and maps structural relationships across codebase modules. |
+| **`ui-ux-pro-max`** | UI/UX Intelligence | Design reasoning & heuristics | Professional design systems, WCAG accessibility, spacing rhythms, micro-interactions, and visual harmony. |
+| **`frontend-design`** | Distinctive Frontend | Non-templated UI directives | Opinionated visual direction, deliberate typography, and distinctive aesthetics tailored specifically to HuntYourTrack. |
 | **`design-system`** | Design Standard | `MASTER.md`, `huntyourtrack/` specs | HuntYourTrack canonical color tokens, typography (Poppins + Open Sans), 4.5:1 contrast ratios, and motion rules. |
 | **`huntyourtrack-frontend`** | Domain Invariants | `SKILL.md` rules | Strict multi-faculty roadmap models, client-side session mocking, corporate deadline countdowns, teammate isolation rules. |
+| **`graphify`** | Codebase Architecture | `graphify path <A> <B>`, `graphify explain <Node>` | Extracts AST dependencies and maps structural relationships across codebase modules. |
 | **`diagram`** | Visual Modeling | Mermaid & SVG flow generation | Architectural diagrams, user flow charts, and sequence diagrams. |
 | **`test-audit`** | QA & Test Harness | `npm test`, E2E audit scripts | Complete end-to-end verification, DOM assertions, WCAG contrast checks, dark mode token validation. |
 | **`playwright-cli`** | Browser Automation | Headless/Headed test execution | Automates browser workflows, cross-role journey verification, and visual regression detection. |

@@ -44,7 +44,8 @@ if (!fs.existsSync(repoSkillsDir)) {
 const verifiedSkills = [
     'open-design', 'graphify', 'design-system', 'huntyourtrack-frontend',
     'diagram', 'test-audit', 'playwright-cli', 'document-generate',
-    'design-review', 'design-html', 'autoplan', 'browse', 'make-pdf'
+    'design-review', 'design-html', 'frontend-design', 'ui-ux-pro-max',
+    'autoplan', 'browse', 'make-pdf'
 ];
 
 let syncedCount = 0;
