@@ -28,6 +28,7 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 - **Frontend Stack:** Semantic HTML5, CSS3 Custom Properties (Design Tokens), Modular ES6+ JavaScript, HTML5 Canvas API (Track Hunter Radar at 60fps).
 - **Future Backend Stack:** Node.js / Express API, MongoDB Atlas, Cloud Document Storage, Google APIs & LinkedIn Career Integrations.
 - **Privacy & Professional Standard:** Zero personal academic or contributor names inside user-facing web interfaces. The platform is presented as an authentic, production-grade SaaS product.
+- **Language Classification & Linguist Hygiene:** The primary codebase is strictly JavaScript, HTML5, and CSS3. To prevent auxiliary AI skills and tooling scripts (TypeScript, Python, Shell in `.global_skills/`) from distorting GitHub's language statistics bar, `.gitattributes` configures `linguist-vendored` overrides so GitHub accurately reflects our authentic frontend stack.
 
 ---
 
