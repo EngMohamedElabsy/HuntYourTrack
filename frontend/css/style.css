@@ -1,6 +1,9 @@
 /*
  * HuntYourTrack shared design tokens and reusable UI components.
+ * Academic Release 2026 - Damanhour University
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=Open+Sans:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
 
 :root {
     --color-primary: #6366F1;
@@ -15,7 +18,21 @@
     --color-muted-foreground: #475569;
     --font-heading: 'Poppins', sans-serif;
     --font-main: 'Open Sans', sans-serif;
+    --font-arabic: 'Cairo', 'Tajawal', sans-serif;
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] {
+    --color-primary: #818CF8;
+    --color-primary-dark: #6366F1;
+    --color-secondary: #4F46E5;
+    --color-accent: #22C55E;
+    --color-background: #0B0F19;
+    --color-foreground: #F8FAFC;
+    --color-card: #131B2E;
+    --color-border: #1E293B;
+    --color-muted: #1E293B;
+    --color-muted-foreground: #94A3B8;
 }
 
 * {
@@ -29,6 +46,23 @@ body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     overflow-x: hidden;
+    transition: background-color 250ms ease, color 250ms ease;
+}
+
+/* RTL Typography & Direction */
+[dir="rtl"] body,
+[dir="rtl"] {
+    font-family: var(--font-arabic);
+}
+
+[dir="rtl"] .btn,
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+    font-family: var(--font-arabic);
 }
 
 /* Professional Button System with Accessible Touch Targets (min 44px) */
@@ -282,4 +316,256 @@ button:focus-visible {
 @keyframes toastSlideUp {
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+[dir="rtl"] .toast-container {
+    left: 1.5rem;
+    right: auto;
+}
+
+/* Nav Utility Controls (Language & Theme) */
+.nav-util-btn {
+    min-height: 40px;
+    padding: 0.4rem 0.85rem;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
+    color: var(--color-foreground);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: all 180ms ease;
+}
+
+.nav-util-btn:hover {
+    border-color: var(--color-primary);
+    background: var(--color-muted);
+}
+
+/* Hunter Radar Canvas Hero Container */
+.hunter-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 420px;
+    margin: 2rem 0;
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-xl);
+}
+
+.hunter-canvas-header {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.hunter-status-chip {
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10B981;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+#hunter-radar-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Opportunity Cards Catalog (US17) */
+.opportunities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.opp-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.opp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.12);
+    border-color: var(--color-primary);
+}
+
+.opp-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background: #CBD5E1;
+}
+
+.opp-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 400ms ease;
+}
+
+.opp-card:hover .opp-cover {
+    transform: scale(1.05);
+}
+
+.opp-type-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 0.65rem;
+    border-radius: 8px;
+    z-index: 2;
+}
+
+[dir="rtl"] .opp-type-badge {
+    left: auto;
+    right: 1rem;
+}
+
+.opp-countdown-badge {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+}
+
+[dir="rtl"] .opp-countdown-badge {
+    right: auto;
+    left: 1rem;
+}
+
+.badge-success {
+    background: #10B981;
+    color: #FFFFFF;
+}
+
+.badge-warning {
+    background: #F59E0B;
+    color: #FFFFFF;
+}
+
+.badge-danger {
+    background: #EF4444;
+    color: #FFFFFF;
+}
+
+.opp-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.opp-org-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.opp-org-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+}
+
+.verified-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: #10B981;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.65rem;
+    font-weight: 900;
+}
+
+.opp-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.opp-desc {
+    color: var(--color-muted-foreground);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    flex: 1;
+}
+
+.opp-meta-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.9rem;
+    background: var(--color-muted);
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    font-size: 0.82rem;
+}
+
+.opp-meta-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.meta-label {
+    color: var(--color-muted-foreground);
+    font-weight: 500;
+}
+
+.meta-val {
+    color: var(--color-foreground);
+    font-weight: 700;
+    text-align: right;
+}
+
+[dir="rtl"] .meta-val {
+    text-align: left;
+}
+
+.opp-footer {
+    margin-top: auto;
 }

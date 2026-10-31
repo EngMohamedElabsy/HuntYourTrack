@@ -60,6 +60,7 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - [x] GitHub US14 (#54): Secure Authentication Architecture & Role-Based Flow Refactoring (`frontend/auth.html`, `admin.html`, RBAC guard) - CLOSED (Done).
 - [x] GitHub US15 (#55): Comprehensive Responsive Layout & Multi-Device Breakpoint Optimization (`index.html`, `student.html`, `admin.html`, `workflow.html`) - CLOSED (Done).
 - [x] GitHub US16 (#56): UI/UX Interaction Polish, Button Semantics & Action Clarity (`style.css`, `student.html`, `admin.js`, `workflow.html`, `components.html`) - CLOSED (Done).
+- [x] GitHub US17 (#61): Architectural Overhaul: Unified Single-Portal Experience, Dynamic Multi-Role Journeys & Custom Hunter Visual Identity (`i18n.js`, `hunter-canvas.js`, `opportunities.js`, `index.html`, `auth.html`, `student.html`, `admin.html`, `style.css`) - DONE.
 - [x] Sprint 1 Milestone established on GitHub (Deadline: Sunday Nov 1, 2026).
 - [x] GitHub Project #5 created & linked: [HuntYourTrack - Graduation Sprint 1](https://github.com/users/EngMohamedElabsy/projects/5) (Board & Table Excel views with all 16 issues mapped to Todo, In Progress, Done).
 - [ ] Backend implementation (Deferred: strictly frontend prototyping phase per project requirements).

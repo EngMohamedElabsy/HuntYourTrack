@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Immediate Strict Route Guard (US17) -->
+    <script>
+        (function() {
+            var user = localStorage.getItem('user');
+            var role = localStorage.getItem('role');
+            if (user !== 'admin' && role !== 'admin') {
+                window.location.replace('auth.html?redirect=admin&error=unauthorized');
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HuntYourTrack · Admin Control Panel & Verification Hub</title>
@@ -24,17 +34,20 @@
         </div>
 
         <nav class="nav-links">
-            <a href="index.html" class="nav-link">🎓 Student Portal</a>
+            <a href="index.html" class="nav-link">🏠 Platform Home</a>
             <a href="admin.html" class="nav-link active">🛡️ Admin Console</a>
-            <a href="components.html" class="nav-link">🧩 UI Library</a>
-            <a href="workflow.html" class="nav-link">🗺️ System Graph</a>
             <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-link" style="color: #6366F1;">📋 Sprint Board ↗</a>
         </nav>
 
-        <div class="admin-profile">
-            <div class="avatar">M</div>
-            <span id="admin-user-display">Mohamed Yasser (Lead)</span>
-            <a href="auth.html" id="admin-logout-btn" title="Sign Out" onclick="handleAdminLogout(event)" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem; font-size: 0.9rem;">🚪</a>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language">🌐 English</button>
+            <button id="hyt-theme-toggle" class="nav-util-btn" type="button" aria-label="Toggle Theme">🌙</button>
+            
+            <div class="admin-profile">
+                <div class="avatar">M</div>
+                <span id="admin-user-display">Mohamed Yasser (Lead)</span>
+                <a href="auth.html" id="admin-logout-btn" title="Sign Out" onclick="handleAdminLogout(event)" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem; font-size: 0.9rem;">🚪</a>
+            </div>
         </div>
 
         <!-- Mobile Hamburger Toggle -->
@@ -253,6 +266,7 @@
         </div>
     </div>
 
+    <script src="js/i18n.js"></script>
     <script src="js/admin.js"></script>
 </body>
 </html>

@@ -1,44 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#EEF2FF">
-    <title>HuntYourTrack · Tech Career & Internship Roadmap Platform</title>
+    <title>HuntYourTrack · منصة اصطياد المسار المهني والتدريب الصيفي | Career & Internship Hub</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap">
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/landing.css">
 </head>
 <body>
 
-    <!-- Sticky Navigation Bar -->
+    <!-- Sticky Navigation Bar (Clean & Role-Sanitized) -->
     <nav class="landing-nav" id="main-nav">
         <div class="nav-container">
             <a href="index.html" class="brand-wrapper">
                 <span class="brand-icon">🎯</span>
                 <div>
-                    <span class="brand-title">HuntYourTrack</span>
-                    <span class="brand-tagline">Faculty of Computers & Information · Damanhour Univ</span>
+                    <span class="brand-title" data-i18n="brandName">HuntYourTrack</span>
+                    <span class="brand-tagline" data-i18n="brandTagline">جامعة دمنهور · منصة رسم خارطة الطريق للوظائف والتدريب الصيفي</span>
                 </div>
             </a>
 
             <!-- Desktop Links -->
             <ul class="nav-menu">
-                <li><a href="#tracks" class="nav-link">🎯 Career Tracks</a></li>
-                <li><a href="#internships" class="nav-link">💼 Internships</a></li>
-                <li><a href="#how-it-works" class="nav-link">⚡ How It Works</a></li>
-                <li><a href="#employers" class="nav-link">🏢 For Employers</a></li>
-                <li><a href="workflow.html" class="nav-link" style="color: #6366F1;">🗺️ System Map</a></li>
+                <li><a href="#tracks" class="nav-link" data-i18n="navTracks">🎯 مسارات التخصص</a></li>
+                <li><a href="#opportunities" class="nav-link" data-i18n="navInternships">💼 فرص التدريب والكورسات</a></li>
+                <li><a href="#hunter-radar-section" class="nav-link">🕸️ رادار اصطياد المسار</a></li>
+                <li><a href="#how-it-works" class="nav-link" data-i18n="navHowItWorks">⚡ كيف تعمل المنصة</a></li>
+                <li><a href="#employers" class="nav-link" data-i18n="navEmployers">🏢 للشركات والمنظمين</a></li>
             </ul>
 
-            <!-- Auth CTAs -->
-            <div class="nav-cta-group" id="nav-auth-actions">
-                <a href="auth.html" class="btn btn-secondary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;">Sign In</a>
-                <a href="auth.html" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;">Get Started</a>
+            <!-- Controls & Auth CTAs -->
+            <div class="nav-cta-group">
+                <!-- Language & Theme Switchers -->
+                <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language">🌐 English</button>
+                <button id="hyt-theme-toggle" class="nav-util-btn" type="button" aria-label="Toggle Theme">🌙</button>
+
+                <div id="nav-auth-actions" style="display: flex; gap: 0.5rem; align-items: center;">
+                    <a href="auth.html" class="btn btn-secondary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;" data-i18n="navSignIn">تسجيل الدخول</a>
+                    <a href="auth.html" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;" data-i18n="navGetStarted">انضم الآن</a>
+                </div>
             </div>
 
             <!-- Mobile Hamburger Toggle -->
@@ -47,17 +52,22 @@
             </button>
         </div>
 
-        <!-- Mobile Drawer -->
+        <!-- Mobile Drawer (Cleaned of developer links) -->
         <div class="mobile-drawer" id="mobile-drawer">
-            <a href="#tracks" class="nav-link" onclick="closeMobileDrawer()">🎯 Career Tracks</a>
-            <a href="#internships" class="nav-link" onclick="closeMobileDrawer()">💼 Internships</a>
-            <a href="#how-it-works" class="nav-link" onclick="closeMobileDrawer()">⚡ How It Works</a>
-            <a href="#employers" class="nav-link" onclick="closeMobileDrawer()">🏢 For Employers</a>
-            <a href="workflow.html" class="nav-link" onclick="closeMobileDrawer()">🗺️ System Architecture Map</a>
-            <a href="components.html" class="nav-link" onclick="closeMobileDrawer()">🧩 UI Component Kit</a>
-            <div class="nav-cta-group" style="display: flex; margin-top: 1rem;">
-                <a href="auth.html" class="btn btn-secondary">Sign In</a>
-                <a href="auth.html" class="btn btn-primary">Get Started</a>
+            <a href="#tracks" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navTracks">🎯 مسارات التخصص</a>
+            <a href="#opportunities" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navInternships">💼 فرص التدريب والكورسات</a>
+            <a href="#hunter-radar-section" class="nav-link" onclick="closeMobileDrawer()">🕸️ رادار اصطياد المسار</a>
+            <a href="#how-it-works" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHowItWorks">⚡ كيف تعمل المنصة</a>
+            <a href="#employers" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navEmployers">🏢 للشركات والمنظمين</a>
+            
+            <div style="display: flex; gap: 0.5rem; margin: 1rem 0;">
+                <button onclick="window.hytI18n.toggleLanguage(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;">🌐 اللغة</button>
+                <button onclick="window.hytI18n.toggleTheme(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;">🌓 المظهر</button>
+            </div>
+
+            <div class="nav-cta-group" id="mobile-auth-actions" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <a href="auth.html" class="btn btn-secondary" style="width: 100%;">تسجيل الدخول</a>
+                <a href="auth.html" class="btn btn-primary" style="width: 100%;">انضم الآن مجاناً</a>
             </div>
         </div>
     </nav>
@@ -65,26 +75,26 @@
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
-        <header class="hero-section">
+        <header class="hero-section" style="padding-bottom: 2rem;">
             <div class="hero-pill">
-                <span>🎓</span> Graduation Project 2026 · CS Department, Damanhour University
+                <span>🎓</span> <span data-i18n="academicBadge">مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور</span>
             </div>
             <h1 class="hero-headline">
-                Find Your Tech Track & <br>
-                <span class="gradient-text">Accelerate Your Engineering Career</span> 🚀
+                <span data-i18n="heroTitleLine1">اصطد مسارك المهني، واصنع</span> <br>
+                <span class="gradient-text" data-i18n="heroTitleLine2">شبكة مهاراتك وانطلق في سوق العمل 🚀</span>
             </h1>
-            <p class="hero-description">
-                The AI-powered career roadmap and internship matching platform designed for Computer Science students at Damanhour University. Master production skills, match with verified corporate opportunities, and earn faculty-accredited endorsement.
+            <p class="hero-description" data-i18n="heroDesc">
+                المنصة الذكية الأولى في جامعة دمنهور لرسم خريطة طريق مهنية مخصصة لكل طالب في مختلف الكليات (حاسبات، هندسة، تجارة، حقوق)، مع ربط مباشر بفرص التدريب الصيفي والكورسات المعتمدة وإشراف أكاديمي معتمد.
             </p>
             <div class="hero-actions">
-                <a href="#tracks" class="btn btn-primary" style="font-size: 1rem; padding: 0.85rem 1.75rem;">
-                    🎯 Explore Career Tracks
+                <a href="#tracks" class="btn btn-primary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnExplore">
+                    🎯 استكشف المسارات
                 </a>
-                <a href="#internships" class="btn btn-secondary" style="font-size: 1rem; padding: 0.85rem 1.75rem;">
-                    💼 Browse Internships
+                <a href="#opportunities" class="btn btn-secondary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnBrowse">
+                    💼 تصفح التدريبات الصيفية
                 </a>
-                <a href="auth.html" class="btn btn-accent" style="font-size: 1rem; padding: 0.85rem 1.75rem;">
-                    🔐 Enter Portal / Sign In
+                <a href="auth.html" class="btn btn-accent" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnAuth">
+                    🔐 الدخول للمنصة
                 </a>
             </div>
 
@@ -92,320 +102,285 @@
             <section class="metrics-strip" aria-label="Platform Statistics">
                 <div class="metric-item">
                     <div class="metric-number">1,420+</div>
-                    <div class="metric-label">CS Students Enrolled</div>
+                    <div class="metric-label" data-i18n="metricStudents">طالب مسجل بالجامعة</div>
                 </div>
                 <div class="metric-item">
                     <div class="metric-number">85+</div>
-                    <div class="metric-label">Corporate Partners</div>
+                    <div class="metric-label" data-i18n="metricPartners">شريك وشركة تقنية</div>
                 </div>
                 <div class="metric-item">
                     <div class="metric-number">94.2%</div>
-                    <div class="metric-label">AI Track Match Rate</div>
+                    <div class="metric-label" data-i18n="metricMatchRate">دقة المواءمة الوظيفية</div>
                 </div>
                 <div class="metric-item">
                     <div class="metric-number">100%</div>
-                    <div class="metric-label">Milestone Tracking</div>
+                    <div class="metric-label" data-i18n="metricMilestones">تتبع الخطوات الأكاديمية</div>
                 </div>
             </section>
         </header>
 
-        <!-- Career Tracks Section -->
+        <!-- Bespoke "Track Hunter" Radar & Constellation Motion Section (Non-AI Visual Identity) -->
+        <section class="section-wrapper" id="hunter-radar-section" style="padding-top: 1rem;">
+            <div class="section-head">
+                <span class="section-badge">Visual Motion Identity</span>
+                <h2 class="section-title" data-i18n="hunterHeadline">🕸️ محاكي صائد المسارات (Track Hunter Radar)</h2>
+                <p class="section-subtitle" data-i18n="hunterSub">
+                    حرّك مؤشر الماوس لاكتشاف العقد المهنية ونسج شبكة مهاراتك المتكاملة وتتبع مسارك حتى الاحتراف.
+                </p>
+            </div>
+
+            <div class="hunter-canvas-wrapper">
+                <div class="hunter-canvas-header">
+                    <span class="hunter-status-chip">📡 Autonomous Radar Sweep Active</span>
+                    <span style="font-size: 0.82rem; font-weight: 600; color: var(--color-muted-foreground);">Live Physics Simulation · 60 FPS</span>
+                </div>
+                <canvas id="hunter-radar-canvas"></canvas>
+            </div>
+        </section>
+
+        <!-- Live Corporate Opportunities & Courses Catalog (Fed by opportunities.js) -->
+        <section class="section-wrapper" id="opportunities">
+            <div class="section-head">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <span class="section-badge">Accredited Partnerships</span>
+                        <h2 class="section-title" data-i18n="opportunitiesHeading">فرص التدريب والكورسات المتاحة حالياً</h2>
+                        <p class="section-subtitle" data-i18n="opportunitiesSub">
+                            معتمدة ومباشرة من الشركات والمنظمات مع مواعيد نهائية للتسجيل وعداد زمني مباشر.
+                        </p>
+                    </div>
+                    <div>
+                        <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="font-size: 0.9rem;" data-i18n="postOpportunityBtn">
+                            ➕ نشر فرصة جديدة (للشركات والمنظمات)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opportunities Grid Container -->
+            <div class="opportunities-grid" id="opportunities-catalog-container"></div>
+        </section>
+
+        <!-- Career Tracks Pathways (Across Multi-Faculties) -->
         <section class="section-wrapper" id="tracks">
             <div class="section-head">
                 <span class="section-badge">Career Pathways</span>
-                <h2 class="section-title">Computer Science Specialized Tracks</h2>
-                <p class="section-subtitle">
-                    Structured learning roadmaps with verified competencies and real-world project milestones.
+                <h2 class="section-title" data-i18n="tracksHeading">المسارات المهنية المعتمدة</h2>
+                <p class="section-subtitle" data-i18n="tracksSub">
+                    خرائط طريق تطبيقية خطوة بخطوة بالتعاون مع كبرى الشركات الأكاديمية والتقنية في مختلف التخصصات.
                 </p>
             </div>
 
             <div class="tracks-grid">
-                <!-- Track 1: Frontend -->
+                <!-- Track 1: Software & Web -->
                 <article class="track-card">
                     <div>
                         <div class="track-icon-box" style="background: #EEF2FF; color: #4F46E5;">💻</div>
-                        <h3 class="track-title">Frontend & UI/UX Engineering</h3>
+                        <h3 class="track-title">هندسة البرمجيات وتطبيقات الويب (Full-Stack)</h3>
                         <p class="track-desc">
-                            Modern component architectures, state orchestration, design system tokens, GSAP micro-interactions, and WCAG accessibility standards.
+                            معمارية الواجهات الحديثة، الربط بالخدمات الخلفية، تصميم الأنظمة السحابية، وضمان جودة الكود واختبارات الأداء القياسية.
                         </p>
                         <div class="skills-pill-group">
-                            <span class="skill-pill">React</span>
-                            <span class="skill-pill">TypeScript</span>
-                            <span class="skill-pill">GSAP</span>
-                            <span class="skill-pill">Design Tokens</span>
-                            <span class="skill-pill">Tailwind/CSS</span>
+                            <span class="skill-pill">React & TypeScript</span>
+                            <span class="skill-pill">Node.js API</span>
+                            <span class="skill-pill">Docker & Cloud</span>
+                            <span class="skill-pill">PostgreSQL</span>
                         </div>
                     </div>
                     <div class="track-footer">
-                        <span class="track-duration">⏱️ 16-Week Roadmap</span>
-                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
+                        <span class="track-duration">⏱️ مسار 16 أسبوعاً</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">بدء المسار ←</a>
                     </div>
                 </article>
 
-                <!-- Track 2: Backend -->
+                <!-- Track 2: AI & Data Science -->
                 <article class="track-card">
                     <div>
-                        <div class="track-icon-box" style="background: #ECFDF5; color: #059669;">⚙️</div>
-                        <h3 class="track-title">Backend & Cloud Architecture</h3>
+                        <div class="track-icon-box" style="background: #FAF5FF; color: #8B5CF6;">🧠</div>
+                        <h3 class="track-title">الذكاء الاصطناعي وعلم البيانات (AI & Data)</h3>
                         <p class="track-desc">
-                            High-concurrency microservices, robust RESTful APIs, distributed databases, caching with Redis, and containerized deployment.
+                            التعلم الآلي والعميق، معالجة اللغات الطبيعية، نماذج التوليد الذكي، وهندسة البيانات الكبيرة وتحليلها لخدمة متطلبات السوق.
                         </p>
                         <div class="skills-pill-group">
-                            <span class="skill-pill">Node.js/Express</span>
-                            <span class="skill-pill">MongoDB Atlas</span>
-                            <span class="skill-pill">Redis</span>
-                            <span class="skill-pill">Docker</span>
-                            <span class="skill-pill">REST & GraphQL</span>
+                            <span class="skill-pill">Python & PyTorch</span>
+                            <span class="skill-pill">NLP & GenAI</span>
+                            <span class="skill-pill">Data Pipelines</span>
+                            <span class="skill-pill">Model Deployment</span>
                         </div>
                     </div>
                     <div class="track-footer">
-                        <span class="track-duration">⏱️ 18-Week Roadmap</span>
-                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
+                        <span class="track-duration">⏱️ مسار 20 أسبوعاً</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">بدء المسار ←</a>
                     </div>
                 </article>
 
-                <!-- Track 3: AI & ML -->
+                <!-- Track 3: Embedded Systems (Engineering) -->
                 <article class="track-card">
                     <div>
-                        <div class="track-icon-box" style="background: #FDF2F8; color: #DB2777;">🧠</div>
-                        <h3 class="track-title">AI, Machine Learning & Data</h3>
+                        <div class="track-icon-box" style="background: #FFFBEB; color: #D97706;">⚡</div>
+                        <h3 class="track-title">الأنظمة المدمجة وبرمجيات السيارات (Embedded)</h3>
                         <p class="track-desc">
-                            Data preprocessing pipelines, supervised and unsupervised modeling, deep learning architectures with PyTorch, and LLM application engineering.
+                            مخصص لطلاب هندسة وحاسبات: لغات C/C++ المتقدمة، معمارية AUTOSAR، أنظمة التشغيل في الوقت الحقيقي RTOS، وبروتوكولات CAN-bus.
                         </p>
                         <div class="skills-pill-group">
-                            <span class="skill-pill">Python</span>
-                            <span class="skill-pill">PyTorch</span>
-                            <span class="skill-pill">Scikit-Learn</span>
-                            <span class="skill-pill">Pandas</span>
-                            <span class="skill-pill">LLM Prompting</span>
+                            <span class="skill-pill">Embedded C/C++</span>
+                            <span class="skill-pill">AUTOSAR</span>
+                            <span class="skill-pill">RTOS</span>
+                            <span class="skill-pill">Microcontrollers</span>
                         </div>
                     </div>
                     <div class="track-footer">
-                        <span class="track-duration">⏱️ 20-Week Roadmap</span>
-                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
+                        <span class="track-duration">⏱️ مسار 18 أسبوعاً</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">بدء المسار ←</a>
                     </div>
                 </article>
 
-                <!-- Track 4: Cyber Security -->
+                <!-- Track 4: FinTech & Business (Commerce) -->
                 <article class="track-card">
                     <div>
-                        <div class="track-icon-box" style="background: #FEF3C7; color: #D97706;">🛡️</div>
-                        <h3 class="track-title">Cyber Security & Defense</h3>
+                        <div class="track-icon-box" style="background: #F0FDF4; color: #16A34A;">💳</div>
+                        <h3 class="track-title">تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)</h3>
                         <p class="track-desc">
-                            Vulnerability assessment, ethical penetration testing, OWASP Top 10 mitigation, network security protocols, and security auditing.
+                            مخصص لطلاب تجارة وحاسبات: تحليل البيانات المالية، بوابات الدفع الإلكتروني، أنظمة ERP، ومواءمة التقنية مع الأعمال التجارية.
                         </p>
                         <div class="skills-pill-group">
-                            <span class="skill-pill">OWASP</span>
-                            <span class="skill-pill">Network Security</span>
-                            <span class="skill-pill">Ethical Hacking</span>
-                            <span class="skill-pill">Linux Hardening</span>
+                            <span class="skill-pill">FinTech APIs</span>
+                            <span class="skill-pill">Business Analytics</span>
+                            <span class="skill-pill">SQL & BI</span>
+                            <span class="skill-pill">ERP Systems</span>
                         </div>
                     </div>
                     <div class="track-footer">
-                        <span class="track-duration">⏱️ 16-Week Roadmap</span>
-                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
+                        <span class="track-duration">⏱️ مسار 14 أسبوعاً</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">بدء المسار ←</a>
                     </div>
                 </article>
-
-                <!-- Track 5: DevOps & Cloud -->
-                <article class="track-card">
-                    <div>
-                        <div class="track-icon-box" style="background: #F0FDF4; color: #16A34A;">🚀</div>
-                        <h3 class="track-title">Cloud DevOps & CI/CD</h3>
-                        <p class="track-desc">
-                            Automated delivery pipelines with GitHub Actions, container orchestration via Kubernetes, cloud infrastructure, and site reliability engineering.
-                        </p>
-                        <div class="skills-pill-group">
-                            <span class="skill-pill">Kubernetes</span>
-                            <span class="skill-pill">GitHub Actions</span>
-                            <span class="skill-pill">AWS/GCP</span>
-                            <span class="skill-pill">Terraform</span>
-                        </div>
-                    </div>
-                    <div class="track-footer">
-                        <span class="track-duration">⏱️ 14-Week Roadmap</span>
-                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
-                    </div>
-                </article>
-
-                <!-- Track 6: Quality & Mobile -->
-                <article class="track-card">
-                    <div>
-                        <div class="track-icon-box" style="background: #EFF6FF; color: #2563EB;">📱</div>
-                        <h3 class="track-title">Mobile App & Automated QA</h3>
-                        <p class="track-desc">
-                            Cross-platform application development with Flutter/React Native, automated end-to-end testing with Playwright, and test-driven architecture.
-                        </p>
-                        <div class="skills-pill-group">
-                            <span class="skill-pill">Flutter</span>
-                            <span class="skill-pill">Playwright</span>
-                            <span class="skill-pill">Jest</span>
-                            <span class="skill-pill">CI Quality Gates</span>
-                        </div>
-                    </div>
-                    <div class="track-footer">
-                        <span class="track-duration">⏱️ 14-Week Roadmap</span>
-                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">Enroll Track →</a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Active Internships Section -->
-        <section class="section-wrapper" id="internships" style="background: #FFFFFF; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
-            <div class="section-head">
-                <span class="section-badge">Opportunities</span>
-                <h2 class="section-title">Verified Corporate Tech Internships</h2>
-                <p class="section-subtitle">
-                    Direct hiring pathways from industry-leading enterprises accredited by Damanhour University.
-                </p>
-            </div>
-
-            <div class="internships-grid">
-                <!-- Opportunity 1 -->
-                <div class="internship-card">
-                    <div class="intern-header">
-                        <div class="company-brand">
-                            <div class="company-logo">🔴</div>
-                            <div>
-                                <h3 class="job-role">Junior Frontend Engineer Intern</h3>
-                                <div class="company-name">Vodafone Egypt · Digital Hub</div>
-                            </div>
-                        </div>
-                        <span class="badge-tag badge-remote">Remote</span>
-                    </div>
-                    <div class="intern-meta">
-                        <span>📍 Smart Village, Giza</span>
-                        <span>💰 Paid Stipend</span>
-                        <span>⚡ 3-Month Sprint</span>
-                    </div>
-                    <p style="font-size: 0.88rem; color: #64748B; margin-bottom: 1.25rem; line-height: 1.5;">
-                        Build responsive web dashboards, integrate GraphQL microservices, and collaborate in Agile squads with lead engineers.
-                    </p>
-                    <button class="btn btn-primary" style="width: 100%;" onclick="handleApplyModal('Vodafone Egypt', 'Junior Frontend Engineer Intern')">
-                        Apply Now
-                    </button>
-                </div>
-
-                <!-- Opportunity 2 -->
-                <div class="internship-card">
-                    <div class="intern-header">
-                        <div class="company-brand">
-                            <div class="company-logo">🟠</div>
-                            <div>
-                                <h3 class="job-role">Cloud & DevOps Engineering Trainee</h3>
-                                <div class="company-name">Orange Digital Center</div>
-                            </div>
-                        </div>
-                        <span class="badge-tag badge-hybrid">Hybrid</span>
-                    </div>
-                    <div class="intern-meta">
-                        <span>📍 Cairo / Alexandria</span>
-                        <span>💰 Stipend + Cert</span>
-                        <span>⚡ 4-Month Sprint</span>
-                    </div>
-                    <p style="font-size: 0.88rem; color: #64748B; margin-bottom: 1.25rem; line-height: 1.5;">
-                        Hands-on training in Kubernetes clusters, Docker containerization, and automated CI/CD pipeline authoring.
-                    </p>
-                    <button class="btn btn-primary" style="width: 100%;" onclick="handleApplyModal('Orange Digital Center', 'Cloud & DevOps Engineering Trainee')">
-                        Apply Now
-                    </button>
-                </div>
-
-                <!-- Opportunity 3 -->
-                <div class="internship-card">
-                    <div class="intern-header">
-                        <div class="company-brand">
-                            <div class="company-logo">🟢</div>
-                            <div>
-                                <h3 class="job-role">Backend Systems & API Intern</h3>
-                                <div class="company-name">Valeo Egypt</div>
-                            </div>
-                        </div>
-                        <span class="badge-tag badge-onsite">On-Site</span>
-                    </div>
-                    <div class="intern-meta">
-                        <span>📍 Smart Village</span>
-                        <span>💰 Paid Stipend</span>
-                        <span>⚡ 6-Month Sprint</span>
-                    </div>
-                    <p style="font-size: 0.88rem; color: #64748B; margin-bottom: 1.25rem; line-height: 1.5;">
-                        Develop scalable backend services for automotive telematics using Node.js, Go, and high-throughput Redis caching.
-                    </p>
-                    <button class="btn btn-primary" style="width: 100%;" onclick="handleApplyModal('Valeo Egypt', 'Backend Systems & API Intern')">
-                        Apply Now
-                    </button>
-                </div>
             </div>
         </section>
 
         <!-- How It Works Section -->
         <section class="section-wrapper" id="how-it-works">
             <div class="section-head">
-                <span class="section-badge">Platform Architecture</span>
-                <h2 class="section-title">How HuntYourTrack Works</h2>
-                <p class="section-subtitle">
-                    A 3-step continuous cycle bridging academic coursework and professional software engineering.
-                </p>
+                <span class="section-badge">Student Journey</span>
+                <h2 class="section-title">كيف تعمل منصة HuntYourTrack؟</h2>
+                <p class="section-subtitle">أربع خطوات مدروسة وموثقة أكاديمياً تنقلك من مقاعد الدراسة إلى التوظيف المباشر.</p>
             </div>
 
-            <div class="steps-container">
+            <div class="steps-grid">
                 <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h3 class="step-title">Select Track & Take AI Assessment</h3>
-                    <p class="step-desc">
-                        Declare your specialization in Frontend, Backend, AI, Security, or DevOps. Our diagnostic engine evaluates your current prerequisite skills.
-                    </p>
+                    <div class="step-num">1</div>
+                    <h3 class="step-title">تحديد الكلية والتخصص</h3>
+                    <p class="step-desc">سجّل كليتك وقسمك الأكاديمي لفرز التراكات المناسبة وتحديد المسار المهني الأكثر طلباً.</p>
                 </div>
                 <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h3 class="step-title">Execute Interactive Roadmaps</h3>
-                    <p class="step-desc">
-                        Work through structured milestones, commit project deliverables to GitHub, and track your graduation velocity in real time.
-                    </p>
+                    <div class="step-num">2</div>
+                    <h3 class="step-title">رفع السيرة والاصطياد</h3>
+                    <p class="step-desc">ارفع سيرتك الذاتية ودع خوارزمية الذكاء الاصطناعي تحدد الفجوات المهارية ونقاط القوة.</p>
                 </div>
                 <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h3 class="step-title">Get Matched with Top Employers</h3>
-                    <p class="step-desc">
-                        Faculty-verified student profiles are automatically showcased to accredited corporate recruiters for fast-tracked internships.
-                    </p>
+                    <div class="step-num">3</div>
+                    <h3 class="step-title">إنجاز المهام التطبيقية</h3>
+                    <p class="step-desc">تعلّم عبر مشاريع حقيقية ووثّق كل خطوة في ملفك الأكاديمي المعتمد من هيئة التدريس.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">4</div>
+                    <h3 class="step-title">التقديم للتدريب والتوظيف</h3>
+                    <p class="step-desc">قدّم على فرص التدريب الصيفي والكورسات المعتمدة المنشورة مباشرة من الشركاء.</p>
                 </div>
             </div>
         </section>
 
-        <!-- For Employers Banner -->
-        <section class="section-wrapper" id="employers">
-            <div class="employer-banner">
-                <div class="employer-content">
-                    <h2 class="employer-title">Partner with Damanhour University</h2>
-                    <p class="employer-desc">
-                        Access pre-screened, high-performing Computer Science & IT students trained in modern enterprise stacks. Post internship openings, review verified academic milestones, and streamline your recruitment pipeline.
-                    </p>
-                </div>
-                <div>
-                    <a href="auth.html" class="btn btn-accent" style="font-size: 1rem; padding: 0.9rem 1.8rem; background: #10B981; border: none;">
-                        🏢 Request Employer Access
+        <!-- Employers Section -->
+        <section class="section-wrapper" id="employers" style="background: var(--color-card); border-radius: 28px; padding: 3rem 2rem; border: 1px solid var(--color-border); margin: 3rem auto; max-width: 1200px;">
+            <div style="text-align: center; max-width: 750px; margin: 0 auto;">
+                <span class="section-badge">Corporate Gateway</span>
+                <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-foreground);">هل أنت شركة أو منظمة تبحث عن كفاءات متميزة؟</h2>
+                <p style="font-size: 1rem; color: var(--color-muted-foreground); line-height: 1.6; margin-bottom: 2rem;">
+                    انضم إلى شبكة شركاء جامعة دمنهور، وانشر فرص التدريب الصيفي والكورسات المعتمدة، واستقبل طلبات وسير ذاتية مفروزة ومطابقة لمعاييرك بدقة.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="padding: 0.85rem 1.75rem;">
+                        ➕ نشر فرصة تدريب الآن
+                    </button>
+                    <a href="auth.html" class="btn btn-secondary" style="padding: 0.85rem 1.75rem;">
+                        تسجيل حساب شركة / منظم →
                     </a>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Application Confirmation Dialog -->
-    <dialog id="apply-modal" style="margin: auto; border: 1px solid var(--color-border); border-radius: 16px; padding: 2rem; max-width: 480px; width: 90%; box-shadow: var(--shadow-xl); background: #FFFFFF;">
-        <h3 id="modal-company" style="font-family: var(--font-heading); color: #0F172A; margin-bottom: 0.35rem;">Internship Application</h3>
-        <p id="modal-role" style="color: var(--color-primary); font-weight: 600; font-size: 0.92rem; margin-bottom: 1rem;">Role</p>
-        <p style="color: #64748B; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">
-            To submit your profile and track roadmap to this employer, please sign in with your Damanhour University student account.
-        </p>
-        <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
-            <button class="btn btn-secondary" onclick="document.getElementById('apply-modal').close()">Cancel</button>
-            <a href="auth.html" class="btn btn-primary">Sign In to Apply →</a>
+    <!-- Employer Opportunity Publishing Modal -->
+    <dialog class="modal" id="publish-opportunity-modal" style="max-width: 580px; border-radius: 24px; padding: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div>
+                <span class="hunter-status-chip">🏢 نشر فرصة جديدة</span>
+                <h3 style="margin-top: 0.5rem; font-size: 1.35rem;">إضافة تدريب صيفي أو كورس معتمد</h3>
+            </div>
+            <button type="button" onclick="closePublishOpportunityModal()" class="nav-util-btn" style="border: none; font-size: 1.25rem;">&times;</button>
         </div>
+
+        <form onsubmit="handlePublishOpportunitySubmit(event)">
+            <div class="form-group">
+                <label for="opp-form-title">عنوان الفرصة أو التدريب (Title):</label>
+                <input id="opp-form-title" class="form-control" placeholder="مثال: تدريب مهندس ذكاء اصطناعي صيفي 2026" required>
+            </div>
+
+            <div class="form-group">
+                <label for="opp-form-org">اسم الشركة أو المنظمة (Company / Organizer):</label>
+                <input id="opp-form-org" class="form-control" placeholder="مثال: شركة مصر لنظم المعلومات / ITIDA" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label for="opp-form-type">نوع الفرصة:</label>
+                    <select id="opp-form-type" class="form-control" required>
+                        <option value="Internship" selected>💼 تدريب صيفي (Internship)</option>
+                        <option value="Training Course">📜 كورس معتمد (Course)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="opp-form-faculty">الكلية المستهدفة:</label>
+                    <select id="opp-form-faculty" class="form-control" required>
+                        <option value="Computers & Information / Engineering" selected>حاسبات وهندسة</option>
+                        <option value="Computers & Information">حاسبات فقط</option>
+                        <option value="Engineering">هندسة فقط</option>
+                        <option value="Commerce / Business">تجارة وإدارة أعمال</option>
+                        <option value="Law">حقوق</option>
+                        <option value="All Faculties">كافة الكليات</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="opp-form-desc">تفاصيل ومتطلبات الفرصة:</label>
+                <textarea id="opp-form-desc" class="form-control" rows="3" placeholder="اكتب نبذة عن المهارات المطلوبة وطبيعة التدريب..." required></textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label for="opp-form-start">تاريخ بداية التسجيل:</label>
+                    <input id="opp-form-start" type="date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="opp-form-end">الموعد النهائي للتقديم (Deadline):</label>
+                    <input id="opp-form-end" type="date" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="opp-form-link">رابط التقديم الرسمي (Apply URL):</label>
+                <input id="opp-form-link" type="url" class="form-control" placeholder="https://careers.company.com/apply" required>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
+                <button type="button" onclick="closePublishOpportunityModal()" class="btn btn-secondary">إلغاء</button>
+                <button type="submit" class="btn btn-accent">اعتماد ونشر الفرصة فوراً 🚀</button>
+            </div>
+        </form>
     </dialog>
 
-    <!-- Footer -->
+    <!-- Footer (Canonical Link) -->
     <footer class="landing-footer">
         <div class="footer-container">
             <div class="footer-col">
@@ -413,83 +388,161 @@
                     <span>🎯</span> HuntYourTrack
                 </h4>
                 <p style="margin-bottom: 1rem; line-height: 1.6;">
-                    Graduation Project 2026 · Faculty of Computers and Information, Damanhour University (CS Department).
+                    مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور (قسم علوم الحاسب).
                 </p>
                 <p style="color: #64748B; font-size: 0.8rem;">
                     Lead Engineer: Mohamed Yasser Elabsy (@EngMohamedElabsy)
                 </p>
             </div>
             <div class="footer-col">
-                <h4>Platform</h4>
+                <h4>المنصة</h4>
                 <ul>
-                    <li><a href="#tracks">Career Tracks</a></li>
-                    <li><a href="#internships">Internships</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="workflow.html">System Architecture Map</a></li>
+                    <li><a href="#tracks">مسارات التخصص</a></li>
+                    <li><a href="#opportunities">فرص التدريب الصيفي</a></li>
+                    <li><a href="#hunter-radar-section">رادار اصطياد المسار</a></li>
+                    <li><a href="#how-it-works">كيف تعمل المنصة</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Portals</h4>
+                <h4>البوابات الرسمية</h4>
                 <ul>
-                    <li><a href="student.html">Student Career Hub</a></li>
-                    <li><a href="admin.html">Admin Executive Console</a></li>
-                    <li><a href="admin.html#tab-verification">Employer Accreditation</a></li>
-                    <li><a href="components.html">UI Component Library</a></li>
+                    <li><a href="student.html">لوحة الطالب الأكاديمي</a></li>
+                    <li><a href="auth.html">بوابة التحكيم والتسجيل</a></li>
+                    <li><a href="https://engmohamedelabsy.github.io/HuntYourTrack/">البوابة الموحدة للمنصة</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Sprint Info</h4>
+                <h4>معلومات المشروع</h4>
                 <ul>
-                    <li><a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank">Sprint 1 Board ↗</a></li>
-                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack" target="_blank">GitHub Repository ↗</a></li>
-                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack/actions" target="_blank">CI/CD Pipelines ↗</a></li>
+                    <li><a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank">لوحة سبرنت التخرج ↗</a></li>
+                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack" target="_blank">مستودع GitHub ↗</a></li>
+                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack/actions" target="_blank">فحوصات الجودة الآلية CI/CD ↗</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <span>&copy; 2026 HuntYourTrack · Damanhour University. All rights reserved.</span>
-            <span>Version 1.2.0 · Public Release</span>
+            <span>&copy; 2026 HuntYourTrack · جامعة دمنهور. جميع الحقوق محفوظة.</span>
+            <span>الإصدار الأكاديمي الموحد 2.0 · Live Canonical Release</span>
         </div>
     </footer>
 
-    <!-- Interactive Scripts -->
+    <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+    <!-- Scripts -->
+    <script src="js/i18n.js"></script>
+    <script src="js/hunter-canvas.js"></script>
+    <script src="js/opportunities.js"></script>
     <script>
-        // Check session and adjust navbar actions
+        // Adjust navbar buttons based on active session
         const userEmail = localStorage.getItem('user_email');
         const userRole = localStorage.getItem('user');
+        const userName = localStorage.getItem('user_name') || (userEmail ? userEmail.split('@')[0] : '');
         const navActions = document.getElementById('nav-auth-actions');
+        const mobileAuthActions = document.getElementById('mobile-auth-actions');
 
         if (userRole) {
-            const portalTarget = userRole === 'admin' ? 'admin.html' : 'student.html';
-            const portalLabel = userRole === 'admin' ? '🛡️ Admin Console' : '🎓 My Student Portal';
-            navActions.innerHTML = `
+            let portalTarget = 'student.html';
+            let portalLabel = '🎓 لوحة الطالب';
+
+            if (userRole === 'admin') {
+                portalTarget = 'admin.html';
+                portalLabel = '🛡️ لوحة الإدارة الأكاديمية';
+            } else if (userRole === 'employer') {
+                portalTarget = '#opportunities';
+                portalLabel = '🏢 لوحة المنظم والفرص';
+            }
+
+            const sessionHtml = `
                 <a href="${portalTarget}" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;">${portalLabel}</a>
-                <button onclick="localStorage.clear(); window.location.reload();" class="btn btn-secondary" style="padding: 0.5rem 0.8rem; font-size: 0.88rem;">Sign Out</button>
+                <button onclick="localStorage.clear(); window.location.reload();" class="btn btn-secondary" style="padding: 0.5rem 0.8rem; font-size: 0.88rem;">خروج 🚪</button>
             `;
+
+            if (navActions) navActions.innerHTML = sessionHtml;
+            if (mobileAuthActions) mobileAuthActions.innerHTML = sessionHtml;
         }
 
         // Mobile drawer toggling
         const mobileToggle = document.getElementById('mobile-toggle');
         const mobileDrawer = document.getElementById('mobile-drawer');
 
-        mobileToggle.addEventListener('click', () => {
-            mobileDrawer.classList.toggle('open');
-        });
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => {
+                mobileDrawer.classList.toggle('open');
+            });
+        }
 
         function closeMobileDrawer() {
-            mobileDrawer.classList.remove('open');
+            if (mobileDrawer) mobileDrawer.classList.remove('open');
         }
 
-        // Modal handler for internship applications
-        function handleApplyModal(company, role) {
-            if (userRole === 'student') {
-                window.location.href = 'student.html';
-                return;
+        // Modal Publish Opportunity Handlers
+        function openPublishOpportunityModal() {
+            const modal = document.getElementById('publish-opportunity-modal');
+            if (modal) {
+                // Set default dates
+                const today = new Date().toISOString().split('T')[0];
+                const defaultEnd = new Date(Date.now() + 21 * 86400000).toISOString().split('T')[0];
+                document.getElementById('opp-form-start').value = today;
+                document.getElementById('opp-form-end').value = defaultEnd;
+                modal.showModal();
             }
-            document.getElementById('modal-company').textContent = company;
-            document.getElementById('modal-role').textContent = role;
-            document.getElementById('apply-modal').showModal();
         }
+        window.openPublishOpportunityModal = openPublishOpportunityModal;
+
+        function closePublishOpportunityModal() {
+            const modal = document.getElementById('publish-opportunity-modal');
+            if (modal) modal.close();
+        }
+        window.closePublishOpportunityModal = closePublishOpportunityModal;
+
+        function handlePublishOpportunitySubmit(e) {
+            e.preventDefault();
+            const title = document.getElementById('opp-form-title').value.trim();
+            const orgName = document.getElementById('opp-form-org').value.trim();
+            const type = document.getElementById('opp-form-type').value;
+            const targetFaculty = document.getElementById('opp-form-faculty').value;
+            const desc = document.getElementById('opp-form-desc').value.trim();
+            const startDate = document.getElementById('opp-form-start').value;
+            const endDate = document.getElementById('opp-form-end').value;
+            const applyUrl = document.getElementById('opp-form-link').value.trim();
+
+            if (window.hytOpportunities) {
+                window.hytOpportunities.addOpportunity({
+                    title,
+                    orgName,
+                    type,
+                    targetFaculty,
+                    desc,
+                    startDate,
+                    endDate,
+                    applyUrl,
+                    stipend: "معتمد أكاديمياً + شهادة تدريب",
+                    imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80"
+                });
+            }
+
+            closePublishOpportunityModal();
+            showToast('تم اعتماد ونشر الفرصة بنجاح في المنصة الموحدة! 🚀', 'success');
+        }
+        window.handlePublishOpportunitySubmit = handlePublishOpportunitySubmit;
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span>${message}</span>
+                <button class="toast-close-btn" onclick="this.parentElement.remove()">&times;</button>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentElement) toast.remove();
+            }, 4500);
+        }
+        window.showToast = showToast;
     </script>
 </body>
 </html>
