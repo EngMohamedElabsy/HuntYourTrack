@@ -387,21 +387,21 @@
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="student-faculty-select" data-i18n="facultyLabel">الكلية (Faculty):</label>
                         <select id="student-faculty-select" class="form-control" onchange="onStudentFacultyChange(this.value)">
-                            <option value="computers" selected>كلية الحاسبات والذكاء الاصطناعي</option>
-                            <option value="engineering">كلية الهندسة</option>
-                            <option value="commerce">كلية التجارة وإدارة الأعمال</option>
-                            <option value="law">كلية الحقوق</option>
+                            <option value="computers" data-i18n="facultyComputers" selected>كلية الحاسبات والذكاء الاصطناعي</option>
+                            <option value="engineering" data-i18n="facultyEngineering">كلية الهندسة</option>
+                            <option value="commerce" data-i18n="facultyCommerce">كلية التجارة وإدارة الأعمال</option>
+                            <option value="law" data-i18n="facultyLaw">كلية الحقوق</option>
                         </select>
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="student-dept-select" data-i18n="departmentLabel">القسم الأكاديمي (Department):</label>
                         <select id="student-dept-select" class="form-control" onchange="onStudentDeptChange(this.value)">
-                            <option value="cs" selected>علوم الحاسب (CS)</option>
-                            <option value="ai">الذكاء الاصطناعي (AI)</option>
-                            <option value="is">نظم المعلومات (IS)</option>
-                            <option value="it">تكنولوجيا المعلومات (IT)</option>
-                            <option value="cyber">الأمن السيبراني (Cybersecurity)</option>
+                            <option value="cs" data-i18n="deptCs" selected>علوم الحاسب (CS)</option>
+                            <option value="ai" data-i18n="deptAi">الذكاء الاصطناعي (AI)</option>
+                            <option value="is" data-i18n="deptIs">نظم المعلومات (IS)</option>
+                            <option value="it" data-i18n="deptIt">تكنولوجيا المعلومات (IT)</option>
+                            <option value="cyber" data-i18n="deptCyber">الأمن السيبراني (Cybersecurity)</option>
                         </select>
                     </div>
 
@@ -472,38 +472,51 @@
 
         document.getElementById('user-display').textContent = userName;
         document.getElementById('mobile-user-display').textContent = userName;
-        document.getElementById('welcome-heading').textContent = `أهلاً بك مجدداً يا ${userName}! 🚀`;
-
-        // Faculty department mapping
+        // Faculty department mapping with full bilingual support
         const FACULTY_DEPTS = {
             computers: [
-                { val: "cs", label: "علوم الحاسب (CS)" },
-                { val: "ai", label: "الذكاء الاصطناعي (AI)" },
-                { val: "is", label: "نظم المعلومات (IS)" },
-                { val: "it", label: "تكنولوجيا المعلومات (IT)" },
-                { val: "cyber", label: "الأمن السيبراني (Cybersecurity)" }
+                { val: "cs", labelAr: "علوم الحاسب (CS)", labelEn: "Computer Science (CS)" },
+                { val: "ai", labelAr: "الذكاء الاصطناعي (AI)", labelEn: "Artificial Intelligence (AI)" },
+                { val: "is", labelAr: "نظم المعلومات (IS)", labelEn: "Information Systems (IS)" },
+                { val: "it", labelAr: "تكنولوجيا المعلومات (IT)", labelEn: "Information Technology (IT)" },
+                { val: "cyber", labelAr: "الأمن السيبراني (Cybersecurity)", labelEn: "Cybersecurity" }
             ],
             engineering: [
-                { val: "cce", label: "هندسة الحاسبات والتحكم" },
-                { val: "comm", label: "هندسة الإلكترونيات والاتصالات" },
-                { val: "mecha", label: "هندسة الميكاترونكس" }
+                { val: "cce", labelAr: "هندسة الحاسبات والتحكم", labelEn: "Computer & Control Engineering" },
+                { val: "comm", labelAr: "هندسة الإلكترونيات والاتصالات", labelEn: "Electronics & Communications Eng" },
+                { val: "mecha", labelAr: "هندسة الميكاترونكس", labelEn: "Mechatronics Engineering" }
             ],
             commerce: [
-                { val: "mis", label: "نظم المعلومات الإدارية (MIS)" },
-                { val: "fintech", label: "تكنولوجيا المال (FinTech)" },
-                { val: "analytics", label: "تحليل الأعمال والبيانات" }
+                { val: "mis", labelAr: "نظم المعلومات الإدارية (MIS)", labelEn: "Management Info Systems (MIS)" },
+                { val: "fintech", labelAr: "تكنولوجيا المعاملات المالية (FinTech)", labelEn: "Financial Technology (FinTech)" },
+                { val: "analytics", labelAr: "تحليل الأعمال والبيانات", labelEn: "Business Analytics" }
             ],
             law: [
-                { val: "cyberlaw", label: "القانون الرقمي والجرائم الإلكترونية" },
-                { val: "techip", label: "الملكية الفكرية في التكنولوجيا" }
+                { val: "cyberlaw", labelAr: "القانون الرقمي والجرائم الإلكترونية", labelEn: "Digital Law & Cybercrime" },
+                { val: "techip", labelAr: "الملكية الفكرية في التكنولوجيا", labelEn: "Tech Intellectual Property Law" }
             ]
         };
+
+        function updateStudentLabels() {
+            const isEn = document.documentElement.lang === 'en';
+            const welcomeHeading = document.getElementById('welcome-heading');
+            if (welcomeHeading) {
+                welcomeHeading.textContent = isEn ? `Welcome back, ${userName}! 🚀` : `أهلاً بك مجدداً يا ${userName}! 🚀`;
+            }
+            const currentFac = document.getElementById('student-faculty-select').value;
+            onStudentFacultyChange(currentFac);
+        }
 
         function onStudentFacultyChange(fac) {
             const deptSelect = document.getElementById('student-dept-select');
             const depts = FACULTY_DEPTS[fac] || FACULTY_DEPTS.computers;
-            deptSelect.innerHTML = depts.map(d => `<option value="${d.val}">${d.label}</option>`).join('');
+            const isArabic = document.documentElement.lang === 'ar';
+            const currentVal = deptSelect.value;
+            deptSelect.innerHTML = depts.map(d => `<option value="${d.val}" ${d.val === currentVal ? 'selected' : ''}>${isArabic ? d.labelAr : d.labelEn}</option>`).join('');
         }
+
+        updateStudentLabels();
+        window.addEventListener('hyt:langChanged', updateStudentLabels);
 
         function saveStudentFacultySelection() {
             const fac = document.getElementById('student-faculty-select').value;

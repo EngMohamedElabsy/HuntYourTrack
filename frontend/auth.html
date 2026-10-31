@@ -47,7 +47,7 @@
                 </div>
                 <div class="hero-academic-footer">
                     <span data-i18n="authFooterDept">قسم علوم الحاسب · كلية الحاسبات والمعلومات</span><br>
-                    <span style="opacity: 0.85;">Lead Engineer: Mohamed Yasser Elabsy (@EngMohamedElabsy)</span>
+                    <span style="opacity: 0.85;" data-i18n="footerLeadText">Lead Engineer: Mohamed Yasser Elabsy (@EngMohamedElabsy)</span>
                 </div>
             </section>
 
@@ -111,29 +111,29 @@
                         <div class="form-group">
                             <label for="signup-faculty" data-i18n="facultyLabel">الكلية (Faculty)</label>
                             <select id="signup-faculty" name="faculty" class="form-control" onchange="updateDepartmentOptions(this.value)" required>
-                                <option value="computers" selected>كلية الحاسبات والذكاء الاصطناعي</option>
-                                <option value="engineering">كلية الهندسة</option>
-                                <option value="commerce">كلية التجارة وإدارة الأعمال</option>
-                                <option value="law">كلية الحقوق</option>
+                                <option value="computers" data-i18n="facultyComputers" selected>كلية الحاسبات والذكاء الاصطناعي</option>
+                                <option value="engineering" data-i18n="facultyEngineering">كلية الهندسة</option>
+                                <option value="commerce" data-i18n="facultyCommerce">كلية التجارة وإدارة الأعمال</option>
+                                <option value="law" data-i18n="facultyLaw">كلية الحقوق</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="signup-dept" data-i18n="departmentLabel">القسم الأكاديمي (Department)</label>
                             <select id="signup-dept" name="department" class="form-control" required>
-                                <option value="cs">علوم الحاسب (Computer Science)</option>
-                                <option value="ai">الذكاء الاصطناعي (AI)</option>
-                                <option value="is">نظم المعلومات (IS)</option>
-                                <option value="it">تكنولوجيا المعلومات (IT)</option>
-                                <option value="cyber">الأمن السيبراني (Cybersecurity)</option>
+                                <option value="cs" data-i18n="deptCs">علوم الحاسب (CS)</option>
+                                <option value="ai" data-i18n="deptAi">الذكاء الاصطناعي (AI)</option>
+                                <option value="is" data-i18n="deptIs">نظم المعلومات (IS)</option>
+                                <option value="it" data-i18n="deptIt">تكنولوجيا المعلومات (IT)</option>
+                                <option value="cyber" data-i18n="deptCyber">الأمن السيبراني (Cybersecurity)</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="signup-role" data-i18n="signupRoleLabel">نوع الحساب (Account Role)</label>
                             <select id="signup-role" name="role" class="form-control" required>
-                                <option value="student" selected>🎓 حساب طالب (Student Explorer)</option>
-                                <option value="employer">🏢 حساب منظمة / شركة (Employer Organizer)</option>
+                                <option value="student" data-i18n="roleStudentOpt" selected>🎓 حساب طالب (Student Explorer)</option>
+                                <option value="employer" data-i18n="roleEmployerOpt">🏢 حساب منظمة / شركة (Employer Organizer)</option>
                             </select>
                         </div>
 
@@ -162,7 +162,7 @@
     <dialog class="modal" id="jury-dialog" style="max-width: 520px; border-radius: 24px; padding: 2rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
             <div>
-                <span class="hunter-status-chip">⚖️ Academic Defense 2026</span>
+                <span class="hunter-status-chip" data-i18n="juryStatusChip">⚖️ Academic Defense 2026</span>
                 <h3 style="margin-top: 0.5rem; font-size: 1.25rem;" data-i18n="juryModalTitle">دخول لجان التحكيم والمناقشة</h3>
             </div>
             <button type="button" onclick="closeJuryModal()" class="nav-util-btn" style="border: none; font-size: 1.25rem;">&times;</button>

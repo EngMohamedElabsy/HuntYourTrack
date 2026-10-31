@@ -208,3 +208,17 @@ function showToast(message, type = 'info') {
     }, 4500);
 }
 window.showToast = showToast;
+
+window.addEventListener('hyt:langChanged', () => {
+    const facultySelect = document.getElementById('signup-faculty');
+    if (facultySelect) {
+        updateDepartmentOptions(facultySelect.value);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const facultySelect = document.getElementById('signup-faculty');
+    if (facultySelect) {
+        updateDepartmentOptions(facultySelect.value);
+    }
+});
