@@ -3,7 +3,7 @@
 > **Software Engineering Course Project**  
 > **Project Lead & Software Architect:** Mohamed Yasser Elabsy ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy))  
 > **Canonical Live Platform:** [https://engmohamedelabsy.github.io/HuntYourTrack/](https://engmohamedelabsy.github.io/HuntYourTrack/)  
-> **Sprint Project Board:** [HuntYourTrack Sprint 1 (Project #5)](https://github.com/users/EngMohamedElabsy/projects/5)
+> **Sprint Project Board:** [HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com/users/EngMohamedElabsy/projects/5)
 
 ---
 
@@ -51,6 +51,11 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
   gh pr list
   ```
 - **Live Decision Rule:** If an issue is already marked `Closed` or `Done` on GitHub, treat it as completed. If it is `open`, inspect its assignee before touching any related code.
+- **Project Board Column Lifecycle:**
+  Tasks in **[HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com/users/EngMohamedElabsy/projects/5)** transition through 3 canonical states:
+  - `Todo`: المهام المجدولة والمعلقة في انتظار بدء العمل عليها.
+  - `toprogram` / `In Progress`: المهام الجاري برمجتها وتطويرها الآن على فرعها المستقل (`feature/usXX-...`).
+  - `Done`: المهام المنجزة بالكامل والتي اجتازت اختبارات الـ E2E Audit بنسبة 100% وتم دمج الـ PR الخاص بها في `main`.
 
 ---
 
