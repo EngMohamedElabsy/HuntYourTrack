@@ -184,6 +184,20 @@ async function runAudit() {
         console.log('  Computed dark body background:', bgColor);
         assert.ok(bgColor.includes('11') || bgColor.includes('15') || bgColor.includes('25'), 'Dark mode background must use high contrast deep dark token (#0B0F19)');
 
+        const cardBg = await page.evaluate(() => {
+            const card = document.querySelector('.track-card') || document.querySelector('.metrics-strip');
+            return card ? window.getComputedStyle(card).backgroundColor : '';
+        });
+        assert.ok(!cardBg.includes('255, 255, 255'), `Dark mode card must not be white. Got: ${cardBg}`);
+        console.log('  Computed dark card background:', cardBg);
+
+        const navBg = await page.evaluate(() => {
+            const nav = document.querySelector('.landing-nav');
+            return nav ? window.getComputedStyle(nav).backgroundColor : '';
+        });
+        assert.ok(!navBg.includes('255, 255, 255'), `Dark mode nav must not be white. Got: ${navBg}`);
+        console.log('  Computed dark nav background:', navBg);
+
         await themeBtn.click();
         await page.waitForTimeout(350);
         const lightTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));

@@ -80,8 +80,9 @@
     gap: 0.65rem;
     padding: 0.35rem 0.75rem;
     border-radius: 999px;
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
+    background: var(--color-muted);
+    border: 1px solid var(--color-border);
+    color: var(--color-foreground);
     font-size: 0.85rem;
     font-weight: 600;
 }
@@ -196,7 +197,7 @@
     font-weight: 600;
     border: none;
     background: transparent;
-    color: #64748B;
+    color: var(--color-muted-foreground);
     cursor: pointer;
     border-radius: 10px;
     display: flex;
@@ -208,7 +209,7 @@
 
 .admin-tab-btn:hover {
     color: var(--color-primary);
-    background: #EEF2FF;
+    background: var(--color-muted);
 }
 
 .admin-tab-btn.active {
@@ -225,8 +226,8 @@
 }
 
 .admin-tab-btn:not(.active) .tab-badge {
-    background: #E2E8F0;
-    color: #475569;
+    background: var(--color-muted);
+    color: var(--color-muted-foreground);
 }
 
 /* Content Panels */
@@ -276,14 +277,15 @@
     border: 1px solid var(--color-border);
     font-size: 0.88rem;
     font-family: var(--font-main);
-    background: #F8FAFC;
+    background: var(--color-card);
+    color: var(--color-foreground);
     transition: all 0.2s ease;
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--color-primary);
-    background: white;
+    background: var(--color-card);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
@@ -292,7 +294,7 @@
     left: 0.85rem;
     top: 50%;
     transform: translateY(-50%);
-    color: #94A3B8;
+    color: var(--color-muted-foreground);
     font-size: 0.9rem;
 }
 
@@ -306,25 +308,25 @@
     padding: 0.35rem 0.85rem;
     border-radius: 999px;
     border: 1px solid var(--color-border);
-    background: white;
+    background: var(--color-card);
     font-size: 0.82rem;
     font-weight: 600;
-    color: #64748B;
+    color: var(--color-muted-foreground);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .filter-pill.active {
-    background: #6366F1;
+    background: var(--color-primary);
     color: white;
-    border-color: #6366F1;
+    border-color: var(--color-primary);
 }
 
 /* Data Table */
 .table-responsive {
     overflow-x: auto;
     border-radius: 12px;
-    border: 1px solid #E2E8F0;
+    border: 1px solid var(--color-border);
 }
 
 .data-table {
@@ -335,11 +337,11 @@
 }
 
 .data-table th {
-    background: #F8FAFC;
+    background: var(--color-muted);
     padding: 0.85rem 1rem;
     font-weight: 700;
-    color: #475569;
-    border-bottom: 1px solid #E2E8F0;
+    color: var(--color-muted-foreground);
+    border-bottom: 1px solid var(--color-border);
     text-transform: uppercase;
     font-size: 0.75rem;
     letter-spacing: 0.5px;
@@ -347,13 +349,13 @@
 
 .data-table td {
     padding: 0.95rem 1rem;
-    border-bottom: 1px solid #F1F5F9;
-    color: #334155;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-foreground);
     vertical-align: middle;
 }
 
 .data-table tr:hover {
-    background-color: #F8FAFC;
+    background-color: var(--color-muted);
 }
 
 .status-badge {
@@ -387,8 +389,8 @@
 }
 
 .queue-card {
-    background: white;
-    border: 1px solid #E2E8F0;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
     border-radius: 14px;
     padding: 1.35rem;
     display: flex;
@@ -412,25 +414,25 @@
 .queue-title {
     font-weight: 700;
     font-size: 1.05rem;
-    color: #1E293B;
+    color: var(--color-foreground);
 }
 
 .queue-industry {
     font-size: 0.8rem;
-    color: #64748B;
+    color: var(--color-muted-foreground);
 }
 
 .queue-details {
     font-size: 0.85rem;
-    color: #475569;
+    color: var(--color-muted-foreground);
     margin: 0.5rem 0 1rem;
     line-height: 1.5;
 }
 
 .doc-link-btn {
-    background: #F1F5F9;
-    border: 1px dashed #CBD5E1;
-    color: #334155;
+    background: var(--color-muted);
+    border: 1px dashed var(--color-border);
+    color: var(--color-foreground);
     padding: 0.4rem 0.8rem;
     border-radius: 8px;
     font-size: 0.8rem;
@@ -444,8 +446,8 @@
 }
 
 .doc-link-btn:hover {
-    background: #E2E8F0;
-    color: #0F172A;
+    background: var(--color-border);
+    color: var(--color-foreground);
 }
 
 .queue-actions {
@@ -501,7 +503,9 @@
 }
 
 .modal-content {
-    background: white;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    color: var(--color-foreground);
     border-radius: 20px;
     max-width: 500px;
     width: 100%;
@@ -526,7 +530,7 @@
     font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--color-foreground);
 }
 
 .close-btn {
@@ -604,14 +608,14 @@
 }
 
 .guard-card {
-    background: #FFFFFF;
+    background: var(--color-card);
     border-radius: 24px;
     padding: 2.5rem;
     max-width: 520px;
     width: 100%;
     text-align: center;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(226, 232, 240, 0.8);
+    border: 1px solid var(--color-border);
     animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -637,13 +641,13 @@
 .guard-card h2 {
     font-family: var(--font-heading);
     font-size: 1.45rem;
-    color: #0F172A;
+    color: var(--color-foreground);
     margin-bottom: 0.75rem;
 }
 
 .guard-desc {
     font-size: 0.92rem;
-    color: #475569;
+    color: var(--color-muted-foreground);
     line-height: 1.6;
     margin-bottom: 1.75rem;
 }
@@ -656,10 +660,10 @@
 }
 
 .guard-footer {
-    border-top: 1px solid #F1F5F9;
+    border-top: 1px solid var(--color-border);
     padding-top: 1rem;
     font-size: 0.75rem;
-    color: #94A3B8;
+    color: var(--color-muted-foreground);
 }
 
 /* Mobile Navigation in Admin Console (US15) */
@@ -668,7 +672,7 @@
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: #334155;
+    color: var(--color-foreground);
     cursor: pointer;
     min-width: 44px;
     min-height: 44px;
@@ -682,7 +686,7 @@
 
 .mobile-menu-btn:hover,
 .mobile-menu-btn:focus-visible {
-    background-color: #F1F5F9;
+    background-color: var(--color-muted);
 }
 
 .mobile-drawer {
@@ -691,10 +695,10 @@
     top: 65px;
     left: 0;
     right: 0;
-    background: #FFFFFF;
+    background: var(--color-card);
     border-bottom: 2px solid var(--color-border);
     padding: 1.25rem 1.5rem;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
     z-index: 999;
 }
 

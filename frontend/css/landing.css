@@ -1,6 +1,7 @@
 /*
  * HuntYourTrack - Modern Product Landing Page Stylesheet
  * Faculty of Computers & Information · Damanhour University (CS Department)
+ * Seamless Light & Dark Theme Design System
  */
 
 /* Navbar & Brand */
@@ -12,6 +13,11 @@
     top: 0;
     z-index: 1000;
     transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .landing-nav {
+    background: rgba(19, 27, 46, 0.95);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .nav-container {
@@ -40,11 +46,16 @@
     font-weight: 700;
     font-size: 1.35rem;
     color: var(--color-primary-dark);
+    transition: color 0.2s ease;
+}
+
+[data-theme="dark"] .brand-title {
+    color: #A5B4FC;
 }
 
 .brand-tagline {
     font-size: 0.72rem;
-    color: #64748B;
+    color: var(--color-muted-foreground);
     display: block;
     line-height: 1.1;
     font-weight: 500;
@@ -61,7 +72,7 @@
     font-family: var(--font-heading);
     font-size: 0.92rem;
     font-weight: 500;
-    color: #334155;
+    color: var(--color-muted-foreground);
     text-decoration: none;
     transition: color 0.2s ease;
     display: inline-flex;
@@ -70,6 +81,15 @@
 }
 
 .nav-link:hover, .nav-link.active {
+    color: var(--color-primary);
+}
+
+[data-theme="dark"] .nav-link {
+    color: #CBD5E1;
+}
+
+[data-theme="dark"] .nav-link:hover,
+[data-theme="dark"] .nav-link.active {
     color: var(--color-primary);
 }
 
@@ -84,7 +104,7 @@
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: #334155;
+    color: var(--color-foreground);
     cursor: pointer;
     min-width: 44px;
     min-height: 44px;
@@ -98,7 +118,7 @@
 
 .mobile-menu-btn:hover,
 .mobile-menu-btn:focus-visible {
-    background-color: #F1F5F9;
+    background-color: var(--color-muted);
 }
 
 /* Mobile Slide-out Menu */
@@ -108,10 +128,10 @@
     top: 65px;
     left: 0;
     right: 0;
-    background: #FFFFFF;
+    background: var(--color-card);
     border-bottom: 2px solid var(--color-border);
     padding: 1.25rem 1.5rem;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
     z-index: 999;
 }
 
@@ -131,7 +151,8 @@
     min-height: 44px;
     padding: 0.75rem 0;
     font-size: 1rem;
-    border-bottom: 1px solid #F1F5F9;
+    color: var(--color-foreground);
+    border-bottom: 1px solid var(--color-border);
     touch-action: manipulation;
 }
 
@@ -158,8 +179,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.25);
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.3);
     color: var(--color-primary-dark);
     padding: 0.4rem 1rem;
     border-radius: 999px;
@@ -168,25 +189,31 @@
     margin-bottom: 1.5rem;
 }
 
+[data-theme="dark"] .hero-pill {
+    color: #A5B4FC;
+    background: rgba(129, 140, 248, 0.15);
+    border-color: rgba(129, 140, 248, 0.35);
+}
+
 .hero-headline {
     font-family: var(--font-heading);
     font-size: 2.85rem;
     font-weight: 800;
     line-height: 1.2;
-    color: #0F172A;
+    color: var(--color-foreground);
     margin-bottom: 1.25rem;
     letter-spacing: -0.02em;
 }
 
 .hero-headline span.gradient-text {
-    background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+    background: linear-gradient(135deg, #6366F1 0%, #06B6D4 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .hero-description {
     font-size: 1.15rem;
-    color: #475569;
+    color: var(--color-muted-foreground);
     max-width: 780px;
     margin: 0 auto 2rem;
     line-height: 1.6;
@@ -203,14 +230,14 @@
 
 /* Key Metrics Strip */
 .metrics-strip {
-    background: #FFFFFF;
+    background: var(--color-card);
     border: 1px solid var(--color-border);
     border-radius: 16px;
     padding: 1.75rem 2rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
-    box-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.08);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
 }
 
 .metric-item {
@@ -228,7 +255,7 @@
 
 .metric-label {
     font-size: 0.85rem;
-    color: #64748B;
+    color: var(--color-muted-foreground);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -248,8 +275,8 @@
 
 .section-badge {
     display: inline-block;
-    background: #E0E7FF;
-    color: var(--color-primary-dark);
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--color-primary);
     font-size: 0.78rem;
     font-weight: 700;
     padding: 0.3rem 0.8rem;
@@ -263,13 +290,13 @@
     font-family: var(--font-heading);
     font-size: 2.2rem;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--color-foreground);
     margin-bottom: 0.75rem;
 }
 
 .section-subtitle {
     font-size: 1.05rem;
-    color: #64748B;
+    color: var(--color-muted-foreground);
     max-width: 650px;
     margin: 0 auto;
     line-height: 1.5;
@@ -283,7 +310,7 @@
 }
 
 .track-card {
-    background: #FFFFFF;
+    background: var(--color-card);
     border: 1px solid var(--color-border);
     border-radius: 16px;
     padding: 1.75rem;
@@ -314,12 +341,12 @@
     font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--color-foreground);
     margin-bottom: 0.5rem;
 }
 
 .track-desc {
-    color: #64748B;
+    color: var(--color-muted-foreground);
     font-size: 0.92rem;
     line-height: 1.5;
     margin-bottom: 1.25rem;
@@ -334,12 +361,19 @@
 }
 
 .skill-pill {
-    background: #EEF2FF;
-    color: var(--color-primary-dark);
+    background: var(--color-muted);
+    color: var(--color-primary);
     font-size: 0.75rem;
     font-weight: 600;
     padding: 0.25rem 0.6rem;
     border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+[data-theme="dark"] .skill-pill {
+    background: #1E293B;
+    color: #A5B4FC;
+    border-color: #334155;
 }
 
 .track-footer {
@@ -347,12 +381,12 @@
     align-items: center;
     justify-content: space-between;
     padding-top: 1rem;
-    border-top: 1px solid #F1F5F9;
+    border-top: 1px solid var(--color-border);
 }
 
 .track-duration {
     font-size: 0.82rem;
-    color: #64748B;
+    color: var(--color-muted-foreground);
     font-weight: 600;
 }
 
@@ -364,7 +398,7 @@
 }
 
 .internship-card {
-    background: #FFFFFF;
+    background: var(--color-card);
     border: 1px solid var(--color-border);
     border-radius: 14px;
     padding: 1.5rem;
@@ -373,7 +407,7 @@
 
 .internship-card:hover {
     border-color: var(--color-primary);
-    box-shadow: 0 10px 20px -4px rgba(99, 102, 241, 0.12);
+    box-shadow: 0 10px 20px -4px rgba(99, 102, 241, 0.15);
 }
 
 .intern-header {
@@ -397,20 +431,21 @@
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
+    background: var(--color-muted);
+    border: 1px solid var(--color-border);
+    color: var(--color-foreground);
 }
 
 .job-role {
     font-family: var(--font-heading);
     font-size: 1.05rem;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--color-foreground);
 }
 
 .company-name {
     font-size: 0.82rem;
-    color: #64748B;
+    color: var(--color-muted-foreground);
     font-weight: 500;
 }
 
@@ -421,15 +456,15 @@
     border-radius: 999px;
 }
 
-.badge-remote { background: #ECFDF5; color: #059669; }
-.badge-hybrid { background: #EEF2FF; color: #4F46E5; }
-.badge-onsite { background: #FFFBEB; color: #D97706; }
+.badge-remote { background: rgba(16, 185, 129, 0.15); color: #10B981; }
+.badge-hybrid { background: rgba(99, 102, 241, 0.15); color: #818CF8; }
+.badge-onsite { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
 
 .intern-meta {
     display: flex;
     gap: 1rem;
     font-size: 0.82rem;
-    color: #64748B;
+    color: var(--color-muted-foreground);
     margin-bottom: 1.25rem;
 }
 
@@ -442,7 +477,7 @@
 }
 
 .step-card {
-    background: #FFFFFF;
+    background: var(--color-card);
     border: 1px solid var(--color-border);
     border-radius: 16px;
     padding: 2rem 1.5rem;
@@ -470,12 +505,12 @@
     font-family: var(--font-heading);
     font-size: 1.15rem;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--color-foreground);
     margin-bottom: 0.5rem;
 }
 
 .step-desc {
-    color: #64748B;
+    color: var(--color-muted-foreground);
     font-size: 0.9rem;
     line-height: 1.5;
 }
@@ -491,6 +526,12 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .employer-banner {
+    background: linear-gradient(135deg, #131B2E 0%, #1E293B 100%);
+    border-color: var(--color-border);
 }
 
 .employer-content {
@@ -510,12 +551,17 @@
     line-height: 1.6;
 }
 
+[data-theme="dark"] .employer-desc {
+    color: #94A3B8;
+}
+
 /* Footer */
 .landing-footer {
-    background: #0F172A;
+    background: #0B0F19;
     color: #94A3B8;
     padding: 3.5rem 1.5rem 2rem;
     font-size: 0.9rem;
+    border-top: 1px solid var(--color-border);
 }
 
 .footer-container {
