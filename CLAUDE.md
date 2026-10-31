@@ -54,7 +54,9 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 
 ---
 
-### Mandatory Branching & Pull Request (PR) Workflow (منع التداخل وحماية الكود)
+### Mandatory Branching & Atomic Pull Request (PR) Workflow (قاعدة الـ PR المستقل لكل إيشو لمنع التداخل وحماية الكود)
+- **Strict Atomic Rule (1 Issue = 1 Dedicated Branch & 1 PR):**
+  Never bundle multiple user stories or tasks into a single branch or PR. All tasks and issues MUST be solved strictly **one by one** (`واحدة بواحدة`). Every issue gets its own branch and its own dedicated PR to eliminate merge collisions between teammates, keep reviews isolated, and allow clean rollbacks.
 - **No Direct Commits to `main` for Features:**
   To guarantee that work does not collide, overwrite, or drift between teammates, **every engineer (including Mohamed @EngMohamedElabsy, Hager @hager678, and Abdulrahman @abdulrhman-masoud)** MUST create an isolated branch before beginning work on any feature or user story:
   ```bash
