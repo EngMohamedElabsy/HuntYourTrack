@@ -165,7 +165,7 @@ document.querySelectorAll('form[data-auth-mode]').forEach((form) => {
 
                 status.dataset.state = 'success';
                 const successMessages = {
-                    login: isLeadAdmin ? 'Admin authenticated. Entering Console…' : (isEmployer ? 'Employer authenticated. Entering Hub…' : 'Student authenticated. Entering Portal…'),
+                    login: isLeadAdmin ? 'Admin authenticated. Entering Console…' : 'Signed in successfully. Redirecting…',
                     register: 'Account created successfully. Redirecting…',
                     'password-reset': 'If that address is registered, a reset link will be sent.'
                 };
