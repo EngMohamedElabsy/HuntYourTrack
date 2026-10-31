@@ -96,6 +96,18 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 
 ---
 
+### Automated CI/CD, Deadline Tracking & Scorecard Table (إدارة المواعيد وبوت الـ GitHub Actions)
+- **Deadline Field on GitHub Project #5:** Every issue must have a tracked delivery date configured in the custom `Deadline` field of Project #5 and linked to the active milestone.
+- **Automated Scorecard & Velocity Table (`npm run metrics`):**
+  - The script `scripts/generate-team-metrics.js` fetches live issue statuses from GitHub and updates `docs/TEAM_METRICS.md`.
+  - It calculates individual team completion percentages, countdown alerts (`🟢 Delivered on Time`, `🟡 Active`, `⚪ Pending Start`), and updates the executive progress table.
+- **5-Stage GitHub Actions DAG Pipeline (`.github/workflows/ci.yml`):**
+  - Triggers on every push and PR to `main`.
+  - Stages: (1) Architecture Standards, (2) Security Audit, (3) Playwright Browser Suite, (4) Team Velocity & Deadline Monitor, (5) Executive Quality Gate.
+  - The `github-actions[bot]` automatically verifies the PR, confirms zero regressions, and renders the visual summary dashboard.
+
+---
+
 ### Claude's 6-Phase Systematic Engineering Workflow (خريطة التفكير وحل أي Task / Issue)
 
 Before writing any code or tackling any issue, Claude MUST structure thinking as a methodical plan across these 6 sequential phases:
