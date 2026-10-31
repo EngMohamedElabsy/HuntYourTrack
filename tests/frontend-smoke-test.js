@@ -189,6 +189,13 @@ async function run() {
         await page.locator('.demo-tooltip').hover();
         await page.waitForTimeout(200);
         assert.equal(await page.locator('.demo-tooltip').evaluate((element) => getComputedStyle(element, '::after').opacity), '1', 'The tooltip should become visible on hover');
+
+        // Test Toast Notification System (US16)
+        await page.locator('#btn-trigger-toast-success').click();
+        assert.equal(await page.locator('.toast.success').count(), 1, 'Success toast notification should appear');
+        assert.match(await page.locator('.toast.success').textContent(), /Student profile verified and synced/);
+        await page.locator('.toast.success .toast-close-btn').click();
+        assert.equal(await page.locator('.toast.success').count(), 0, 'Toast close button should dismiss notification');
         assert.deepEqual(pageErrors, [], 'The page should not raise JavaScript errors');
 
         // Test Admin Authorization Guard (US14) & Control Panel (US04 & US05)
@@ -245,6 +252,13 @@ async function run() {
         assert.match(await page.title(), /Student Dashboard/, 'Student portal title should match');
         assert.ok(await page.locator('.cards-grid .card').count() >= 2, 'Student internship cards should render');
         assert.equal(await page.locator('.roadmap-card').count(), 1, 'Personalized roadmap card should render');
+
+        // Test Student Action Buttons & Toast Feedback (US16)
+        await page.locator('.welcome-card .btn-accent').click();
+        assert.equal(await page.locator('#student-toast-container .toast').count(), 1, 'Sync AI Roadmap button should trigger toast notification');
+        assert.match(await page.locator('#student-toast-container .toast').textContent(), /AI Roadmap Synchronized/);
+        await page.locator('.cards-grid .card .btn-primary').first().click();
+        assert.equal(await page.locator('#student-toast-container .toast').count(), 2, 'Apply Now button should trigger application toast');
 
         // Test Password Visibility Toggle & Academic Jury Modal (US14)
         await page.goto(`http://127.0.0.1:${address.port}/auth.html`);
@@ -310,7 +324,7 @@ async function run() {
         await page.goto(`http://127.0.0.1:${address.port}/index.html`);
         assert.equal(await landingToggle.isVisible(), false, 'Mobile toggle should be hidden on desktop 1440px viewport');
 
-        console.log('Frontend smoke check passed: Product Landing Page (US13), auth security & RBAC guard (US14), responsive multi-device design (US15), components, student portal, admin console, and system workflow graph.');
+        console.log('Frontend smoke check passed: Product Landing Page (US13), auth security & RBAC guard (US14), responsive multi-device design (US15), UI/UX button polish & toast system (US16), components, student portal, admin console, and system workflow graph.');
     } finally {
         if (browser) await browser.close();
         if (server.listening) {

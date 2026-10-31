@@ -286,7 +286,7 @@
                     <div id="pipeline-yaml-view" style="display: none;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                             <span style="font-family: monospace; font-size: 0.82rem; color: #38BDF8;">.github/workflows/ci.yml (Multi-Stage DAG Specification)</span>
-                            <button onclick="navigator.clipboard.writeText(document.getElementById('yaml-code-content').innerText); alert('YAML Copied to Clipboard!');" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #E2E8F0; padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy YAML</button>
+                            <button id="btn-copy-yaml" onclick="copyYamlSnippet(this)" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #E2E8F0; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 150ms ease;" aria-label="Copy CI/CD YAML configuration">📋 Copy YAML</button>
                         </div>
                         <pre id="yaml-code-content" style="background: #0B1120; border: 1px solid rgba(51, 65, 85, 0.6); border-radius: 8px; padding: 1rem; color: #E2E8F0; font-family: 'Fira Code', monospace; font-size: 0.78rem; line-height: 1.5; overflow-x: auto; max-height: 320px;"><span style="color: #6366F1;">name:</span> HuntYourTrack CI/CD DevOps Pipeline
 
@@ -509,6 +509,52 @@
             const drawer = document.getElementById('workflow-mobile-drawer');
             if (drawer) drawer.classList.remove('open');
         }
+
+        // Modern Copy Feedback & Toast (US16)
+        function copyYamlSnippet(btn) {
+            const content = document.getElementById('yaml-code-content').innerText;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(content).then(() => {
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '✓ Copied!';
+                    btn.style.background = '#10B981';
+                    btn.style.color = '#FFFFFF';
+                    showWorkflowToast('CI/CD Pipeline YAML copied to clipboard! 📋');
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = 'rgba(255, 255, 255, 0.1)';
+                        btn.style.color = '#E2E8F0';
+                    }, 2000);
+                });
+            } else {
+                showWorkflowToast('Copied to clipboard! 📋');
+            }
+        }
+        window.copyYamlSnippet = copyYamlSnippet;
+
+        function showWorkflowToast(message) {
+            let container = document.getElementById('workflow-toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'workflow-toast-container';
+                container.className = 'toast-container';
+                document.body.appendChild(container);
+            }
+            const toast = document.createElement('div');
+            toast.className = 'toast success';
+            toast.innerHTML = `
+                <span>${message}</span>
+                <button type="button" class="toast-close-btn" onclick="this.parentElement.remove()" aria-label="Dismiss">&times;</button>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+        window.showWorkflowToast = showWorkflowToast;
     </script>
 </body>
 </html>

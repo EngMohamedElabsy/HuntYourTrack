@@ -366,7 +366,7 @@
                     <p id="welcome-sub">Faculty of Computers & Information, Damanhour University (CS Department). Your AI-powered personalized learning track and matched internships are ready.</p>
                 </div>
                 <div>
-                    <button class="btn btn-accent" onclick="alert('AI Roadmap Synchronization complete!')">Sync AI Roadmap</button>
+                    <button class="btn btn-accent" onclick="showStudentToast('AI Roadmap Synchronized! 🚀 Milestones updated with latest Damanhour University CS curriculum.')">Sync AI Roadmap</button>
                 </div>
             </section>
 
@@ -407,7 +407,7 @@
                         </div>
                         <footer class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
                             <span style="font-size: 0.85rem; color: #64748B;">Starts June 2026</span>
-                            <button class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="alert('Application submitted successfully in prototype simulation!')">Apply Now</button>
+                            <button class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="showStudentToast('Application submitted to TechCorp Labs! Verified profile transmitted.', 'success')">Apply Now</button>
                         </footer>
                     </article>
 
@@ -422,7 +422,7 @@
                         </div>
                         <footer class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
                             <span style="font-size: 0.85rem; color: #64748B;">Starts July 2026</span>
-                            <button class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="alert('Application submitted successfully in prototype simulation!')">Apply Now</button>
+                            <button class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="showStudentToast('Application submitted to NextGen Analytics! Verified profile transmitted.', 'success')">Apply Now</button>
                         </footer>
                     </article>
 
@@ -437,7 +437,7 @@
                         </div>
                         <footer class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
                             <span style="font-size: 0.85rem; color: #64748B;">Starts July 2026</span>
-                            <button class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="alert('Application submitted successfully in prototype simulation!')">Apply Now</button>
+                            <button class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="showStudentToast('Application submitted to DesignCraft Studio! Verified profile transmitted.', 'success')">Apply Now</button>
                         </footer>
                     </article>
                 </div>
@@ -499,6 +499,31 @@
             localStorage.clear();
             window.location.href = 'auth.html';
         }
+
+        // Modern Student Toast Notification System (US16)
+        function showStudentToast(message, type = 'success') {
+            let container = document.getElementById('student-toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'student-toast-container';
+                container.className = 'toast-container';
+                document.body.appendChild(container);
+            }
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span>${message}</span>
+                <button type="button" class="toast-close-btn" onclick="this.parentElement.remove()" aria-label="Dismiss">&times;</button>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+        window.showStudentToast = showStudentToast;
 
         // Desktop logout handler
         document.getElementById('logout-btn').addEventListener('click', handleStudentLogout);
