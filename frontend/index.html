@@ -29,7 +29,7 @@
             <ul class="nav-menu">
                 <li><a href="#tracks" class="nav-link" data-i18n="navTracks">🎯 مسارات التخصص</a></li>
                 <li><a href="#opportunities" class="nav-link" data-i18n="navInternships">💼 فرص التدريب والكورسات</a></li>
-                <li><a href="#hunter-radar-section" class="nav-link">🕸️ رادار اصطياد المسار</a></li>
+                <li><a href="#hunter-radar-section" class="nav-link" data-i18n="navHunterRadar">🕸️ رادار اصطياد المسار</a></li>
                 <li><a href="#how-it-works" class="nav-link" data-i18n="navHowItWorks">⚡ كيف تعمل المنصة</a></li>
                 <li><a href="#employers" class="nav-link" data-i18n="navEmployers">🏢 للشركات والمنظمين</a></li>
             </ul>
@@ -42,7 +42,7 @@
 
                 <div id="nav-auth-actions" style="display: flex; gap: 0.5rem; align-items: center;">
                     <a href="auth.html" class="btn btn-secondary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;" data-i18n="navSignIn">تسجيل الدخول</a>
-                    <a href="auth.html" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;" data-i18n="navGetStarted">انضم الآن</a>
+                    <a href="auth.html" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;" data-i18n="navGetStarted">انضم الآن مجاناً</a>
                 </div>
             </div>
 
@@ -56,18 +56,18 @@
         <div class="mobile-drawer" id="mobile-drawer">
             <a href="#tracks" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navTracks">🎯 مسارات التخصص</a>
             <a href="#opportunities" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navInternships">💼 فرص التدريب والكورسات</a>
-            <a href="#hunter-radar-section" class="nav-link" onclick="closeMobileDrawer()">🕸️ رادار اصطياد المسار</a>
+            <a href="#hunter-radar-section" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHunterRadar">🕸️ رادار اصطياد المسار</a>
             <a href="#how-it-works" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHowItWorks">⚡ كيف تعمل المنصة</a>
             <a href="#employers" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navEmployers">🏢 للشركات والمنظمين</a>
             
             <div style="display: flex; gap: 0.5rem; margin: 1rem 0;">
-                <button onclick="window.hytI18n.toggleLanguage(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;">🌐 اللغة</button>
-                <button onclick="window.hytI18n.toggleTheme(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;">🌓 المظهر</button>
+                <button onclick="window.hytI18n.toggleLanguage(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="langToggleLabel">🌐 اللغة</button>
+                <button onclick="window.hytI18n.toggleTheme(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="themeToggleLabel">🌓 المظهر</button>
             </div>
 
             <div class="nav-cta-group" id="mobile-auth-actions" style="display: flex; flex-direction: column; gap: 0.5rem;">
-                <a href="auth.html" class="btn btn-secondary" style="width: 100%;">تسجيل الدخول</a>
-                <a href="auth.html" class="btn btn-primary" style="width: 100%;">انضم الآن مجاناً</a>
+                <a href="auth.html" class="btn btn-secondary" style="width: 100%;" data-i18n="navSignIn">تسجيل الدخول</a>
+                <a href="auth.html" class="btn btn-primary" style="width: 100%;" data-i18n="navGetStarted">انضم الآن مجاناً</a>
             </div>
         </div>
     </nav>
@@ -122,7 +122,7 @@
         <!-- Bespoke "Track Hunter" Radar & Constellation Motion Section (Non-AI Visual Identity) -->
         <section class="section-wrapper" id="hunter-radar-section" style="padding-top: 1rem;">
             <div class="section-head">
-                <span class="section-badge">Visual Motion Identity</span>
+                <span class="section-badge" data-i18n="hunterBadge">الهوية البصرية والحركية</span>
                 <h2 class="section-title" data-i18n="hunterHeadline">🕸️ محاكي صائد المسارات (Track Hunter Radar)</h2>
                 <p class="section-subtitle" data-i18n="hunterSub">
                     حرّك مؤشر الماوس لاكتشاف العقد المهنية ونسج شبكة مهاراتك المتكاملة وتتبع مسارك حتى الاحتراف.
@@ -131,8 +131,8 @@
 
             <div class="hunter-canvas-wrapper">
                 <div class="hunter-canvas-header">
-                    <span class="hunter-status-chip">📡 Autonomous Radar Sweep Active</span>
-                    <span style="font-size: 0.82rem; font-weight: 600; color: var(--color-muted-foreground);">Live Physics Simulation · 60 FPS</span>
+                    <span class="hunter-status-chip" data-i18n="hunterRadarStatus">📡 مسح راداري نشط ومستمر</span>
+                    <span style="font-size: 0.82rem; font-weight: 600; color: var(--color-muted-foreground);" data-i18n="hunterPhysicsStatus">محاكاة فيزيائية حية · 60 إطاراً في الثانية</span>
                 </div>
                 <canvas id="hunter-radar-canvas"></canvas>
             </div>
@@ -143,9 +143,9 @@
             <div class="section-head">
                 <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
                     <div>
-                        <span class="section-badge">Accredited Partnerships</span>
-                        <h2 class="section-title" data-i18n="opportunitiesHeading">فرص التدريب والكورسات المتاحة حالياً</h2>
-                        <p class="section-subtitle" data-i18n="opportunitiesSub">
+                        <span class="section-badge" data-i18n="oppBadge">الشراكات المعتمدة</span>
+                        <h2 class="section-title" data-i18n="oppHeading">فرص التدريب والكورسات المتاحة حالياً</h2>
+                        <p class="section-subtitle" data-i18n="oppSub">
                             معتمدة ومباشرة من الشركات والمنظمات مع مواعيد نهائية للتسجيل وعداد زمني مباشر.
                         </p>
                     </div>
@@ -164,7 +164,7 @@
         <!-- Career Tracks Pathways (Across Multi-Faculties) -->
         <section class="section-wrapper" id="tracks">
             <div class="section-head">
-                <span class="section-badge">Career Pathways</span>
+                <span class="section-badge" data-i18n="tracksBadge">المسارات الأكاديمية المعتمدة</span>
                 <h2 class="section-title" data-i18n="tracksHeading">المسارات المهنية المعتمدة</h2>
                 <p class="section-subtitle" data-i18n="tracksSub">
                     خرائط طريق تطبيقية خطوة بخطوة بالتعاون مع كبرى الشركات الأكاديمية والتقنية في مختلف التخصصات.
@@ -176,8 +176,8 @@
                 <article class="track-card">
                     <div>
                         <div class="track-icon-box" style="background: #EEF2FF; color: #4F46E5;">💻</div>
-                        <h3 class="track-title">هندسة البرمجيات وتطبيقات الويب (Full-Stack)</h3>
-                        <p class="track-desc">
+                        <h3 class="track-title" data-i18n="track1Title">هندسة البرمجيات وتطبيقات الويب (Full-Stack)</h3>
+                        <p class="track-desc" data-i18n="track1Desc">
                             معمارية الواجهات الحديثة، الربط بالخدمات الخلفية، تصميم الأنظمة السحابية، وضمان جودة الكود واختبارات الأداء القياسية.
                         </p>
                         <div class="skills-pill-group">
@@ -188,8 +188,8 @@
                         </div>
                     </div>
                     <div class="track-footer">
-                        <span class="track-duration">⏱️ مسار 16 أسبوعاً</span>
-                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">بدء المسار ←</a>
+                        <span class="track-duration" data-i18n="track1Duration">⏱️ مسار 16 أسبوعاً</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                     </div>
                 </article>
 
@@ -197,8 +197,8 @@
                 <article class="track-card">
                     <div>
                         <div class="track-icon-box" style="background: #FAF5FF; color: #8B5CF6;">🧠</div>
-                        <h3 class="track-title">الذكاء الاصطناعي وعلم البيانات (AI & Data)</h3>
-                        <p class="track-desc">
+                        <h3 class="track-title" data-i18n="track2Title">الذكاء الاصطناعي وعلم البيانات (AI & Data)</h3>
+                        <p class="track-desc" data-i18n="track2Desc">
                             التعلم الآلي والعميق، معالجة اللغات الطبيعية، نماذج التوليد الذكي، وهندسة البيانات الكبيرة وتحليلها لخدمة متطلبات السوق.
                         </p>
                         <div class="skills-pill-group">
@@ -209,8 +209,8 @@
                         </div>
                     </div>
                     <div class="track-footer">
-                        <span class="track-duration">⏱️ مسار 20 أسبوعاً</span>
-                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">بدء المسار ←</a>
+                        <span class="track-duration" data-i18n="track2Duration">⏱️ مسار 20 أسبوعاً</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                     </div>
                 </article>
 
@@ -218,8 +218,8 @@
                 <article class="track-card">
                     <div>
                         <div class="track-icon-box" style="background: #FFFBEB; color: #D97706;">⚡</div>
-                        <h3 class="track-title">الأنظمة المدمجة وبرمجيات السيارات (Embedded)</h3>
-                        <p class="track-desc">
+                        <h3 class="track-title" data-i18n="track3Title">الأنظمة المدمجة وبرمجيات السيارات (Embedded)</h3>
+                        <p class="track-desc" data-i18n="track3Desc">
                             مخصص لطلاب هندسة وحاسبات: لغات C/C++ المتقدمة، معمارية AUTOSAR، أنظمة التشغيل في الوقت الحقيقي RTOS، وبروتوكولات CAN-bus.
                         </p>
                         <div class="skills-pill-group">
@@ -230,8 +230,8 @@
                         </div>
                     </div>
                     <div class="track-footer">
-                        <span class="track-duration">⏱️ مسار 18 أسبوعاً</span>
-                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">بدء المسار ←</a>
+                        <span class="track-duration" data-i18n="track3Duration">⏱️ مسار 18 أسبوعاً</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                     </div>
                 </article>
 
@@ -239,8 +239,8 @@
                 <article class="track-card">
                     <div>
                         <div class="track-icon-box" style="background: #F0FDF4; color: #16A34A;">💳</div>
-                        <h3 class="track-title">تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)</h3>
-                        <p class="track-desc">
+                        <h3 class="track-title" data-i18n="track4Title">تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)</h3>
+                        <p class="track-desc" data-i18n="track4Desc">
                             مخصص لطلاب تجارة وحاسبات: تحليل البيانات المالية، بوابات الدفع الإلكتروني، أنظمة ERP، ومواءمة التقنية مع الأعمال التجارية.
                         </p>
                         <div class="skills-pill-group">
@@ -251,8 +251,8 @@
                         </div>
                     </div>
                     <div class="track-footer">
-                        <span class="track-duration">⏱️ مسار 14 أسبوعاً</span>
-                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">بدء المسار ←</a>
+                        <span class="track-duration" data-i18n="track4Duration">⏱️ مسار 14 أسبوعاً</span>
+                        <a href="auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                     </div>
                 </article>
             </div>
@@ -261,31 +261,31 @@
         <!-- How It Works Section -->
         <section class="section-wrapper" id="how-it-works">
             <div class="section-head">
-                <span class="section-badge">Student Journey</span>
-                <h2 class="section-title">كيف تعمل منصة HuntYourTrack؟</h2>
-                <p class="section-subtitle">أربع خطوات مدروسة وموثقة أكاديمياً تنقلك من مقاعد الدراسة إلى التوظيف المباشر.</p>
+                <span class="section-badge" data-i18n="hiwBadge">رحلة الطالب</span>
+                <h2 class="section-title" data-i18n="hiwHeading">كيف تعمل منصة HuntYourTrack؟</h2>
+                <p class="section-subtitle" data-i18n="hiwSub">أربع خطوات مدروسة وموثقة أكاديمياً تنقلك من مقاعد الدراسة إلى التوظيف المباشر.</p>
             </div>
 
             <div class="steps-grid">
                 <div class="step-card">
                     <div class="step-num">1</div>
-                    <h3 class="step-title">تحديد الكلية والتخصص</h3>
-                    <p class="step-desc">سجّل كليتك وقسمك الأكاديمي لفرز التراكات المناسبة وتحديد المسار المهني الأكثر طلباً.</p>
+                    <h3 class="step-title" data-i18n="step1Title">تحديد الكلية والتخصص</h3>
+                    <p class="step-desc" data-i18n="step1Desc">سجّل كليتك وقسمك الأكاديمي لفرز التراكات المناسبة وتحديد المسار المهني الأكثر طلباً.</p>
                 </div>
                 <div class="step-card">
                     <div class="step-num">2</div>
-                    <h3 class="step-title">رفع السيرة والاصطياد</h3>
-                    <p class="step-desc">ارفع سيرتك الذاتية ودع خوارزمية الذكاء الاصطناعي تحدد الفجوات المهارية ونقاط القوة.</p>
+                    <h3 class="step-title" data-i18n="step2Title">رفع السيرة والاصطياد</h3>
+                    <p class="step-desc" data-i18n="step2Desc">ارفع سيرتك الذاتية ودع خوارزمية الذكاء الاصطناعي تحدد الفجوات المهارية ونقاط القوة.</p>
                 </div>
                 <div class="step-card">
                     <div class="step-num">3</div>
-                    <h3 class="step-title">إنجاز المهام التطبيقية</h3>
-                    <p class="step-desc">تعلّم عبر مشاريع حقيقية ووثّق كل خطوة في ملفك الأكاديمي المعتمد من هيئة التدريس.</p>
+                    <h3 class="step-title" data-i18n="step3Title">إنجاز المهام التطبيقية</h3>
+                    <p class="step-desc" data-i18n="step3Desc">تعلّم عبر مشاريع حقيقية ووثّق كل خطوة في ملفك الأكاديمي المعتمد من هيئة التدريس.</p>
                 </div>
                 <div class="step-card">
                     <div class="step-num">4</div>
-                    <h3 class="step-title">التقديم للتدريب والتوظيف</h3>
-                    <p class="step-desc">قدّم على فرص التدريب الصيفي والكورسات المعتمدة المنشورة مباشرة من الشركاء.</p>
+                    <h3 class="step-title" data-i18n="step4Title">التقديم للتدريب والتوظيف</h3>
+                    <p class="step-desc" data-i18n="step4Desc">قدّم على فرص التدريب الصيفي والكورسات المعتمدة المنشورة مباشرة من الشركاء.</p>
                 </div>
             </div>
         </section>
@@ -293,16 +293,16 @@
         <!-- Employers Section -->
         <section class="section-wrapper" id="employers" style="background: var(--color-card); border-radius: 28px; padding: 3rem 2rem; border: 1px solid var(--color-border); margin: 3rem auto; max-width: 1200px;">
             <div style="text-align: center; max-width: 750px; margin: 0 auto;">
-                <span class="section-badge">Corporate Gateway</span>
-                <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-foreground);">هل أنت شركة أو منظمة تبحث عن كفاءات متميزة؟</h2>
-                <p style="font-size: 1rem; color: var(--color-muted-foreground); line-height: 1.6; margin-bottom: 2rem;">
+                <span class="section-badge" data-i18n="empBadge">بوابة الشركات والمنظمين</span>
+                <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-foreground);" data-i18n="empHeading">هل أنت شركة أو منظمة تبحث عن كفاءات متميزة؟</h2>
+                <p style="font-size: 1rem; color: var(--color-muted-foreground); line-height: 1.6; margin-bottom: 2rem;" data-i18n="empSub">
                     انضم إلى شبكة شركاء جامعة دمنهور، وانشر فرص التدريب الصيفي والكورسات المعتمدة، واستقبل طلبات وسير ذاتية مفروزة ومطابقة لمعاييرك بدقة.
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="padding: 0.85rem 1.75rem;">
+                    <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="padding: 0.85rem 1.75rem;" data-i18n="empPostBtn">
                         ➕ نشر فرصة تدريب الآن
                     </button>
-                    <a href="auth.html" class="btn btn-secondary" style="padding: 0.85rem 1.75rem;">
+                    <a href="auth.html" class="btn btn-secondary" style="padding: 0.85rem 1.75rem;" data-i18n="empRegisterBtn">
                         تسجيل حساب شركة / منظم →
                     </a>
                 </div>
@@ -314,68 +314,68 @@
     <dialog class="modal" id="publish-opportunity-modal" style="max-width: 580px; border-radius: 24px; padding: 2rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
             <div>
-                <span class="hunter-status-chip">🏢 نشر فرصة جديدة</span>
-                <h3 style="margin-top: 0.5rem; font-size: 1.35rem;">إضافة تدريب صيفي أو كورس معتمد</h3>
+                <span class="hunter-status-chip" data-i18n="modalOppChip">🏢 نشر فرصة جديدة</span>
+                <h3 style="margin-top: 0.5rem; font-size: 1.35rem;" data-i18n="modalOppTitle">إضافة تدريب صيفي أو كورس معتمد</h3>
             </div>
             <button type="button" onclick="closePublishOpportunityModal()" class="nav-util-btn" style="border: none; font-size: 1.25rem;">&times;</button>
         </div>
 
         <form onsubmit="handlePublishOpportunitySubmit(event)">
             <div class="form-group">
-                <label for="opp-form-title">عنوان الفرصة أو التدريب (Title):</label>
-                <input id="opp-form-title" class="form-control" placeholder="مثال: تدريب مهندس ذكاء اصطناعي صيفي 2026" required>
+                <label for="opp-form-title" data-i18n="modalOppTitleLabel">عنوان الفرصة أو التدريب (Title):</label>
+                <input id="opp-form-title" class="form-control" data-i18n="modalOppTitlePlaceholder" placeholder="مثال: تدريب مهندس ذكاء اصطناعي صيفي 2026" required>
             </div>
 
             <div class="form-group">
-                <label for="opp-form-org">اسم الشركة أو المنظمة (Company / Organizer):</label>
-                <input id="opp-form-org" class="form-control" placeholder="مثال: شركة مصر لنظم المعلومات / ITIDA" required>
+                <label for="opp-form-org" data-i18n="modalOppOrgLabel">اسم الشركة أو المنظمة (Company / Organizer):</label>
+                <input id="opp-form-org" class="form-control" data-i18n="modalOppOrgPlaceholder" placeholder="مثال: شركة مصر لنظم المعلومات / ITIDA" required>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                 <div class="form-group">
-                    <label for="opp-form-type">نوع الفرصة:</label>
+                    <label for="opp-form-type" data-i18n="modalOppTypeLabel">نوع الفرصة:</label>
                     <select id="opp-form-type" class="form-control" required>
-                        <option value="Internship" selected>💼 تدريب صيفي (Internship)</option>
-                        <option value="Training Course">📜 كورس معتمد (Course)</option>
+                        <option value="Internship" data-i18n="modalOppTypeOpt1" selected>💼 تدريب صيفي (Internship)</option>
+                        <option value="Training Course" data-i18n="modalOppTypeOpt2">📜 كورس معتمد (Course)</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="opp-form-faculty">الكلية المستهدفة:</label>
+                    <label for="opp-form-faculty" data-i18n="modalOppFacultyLabel">الكلية المستهدفة:</label>
                     <select id="opp-form-faculty" class="form-control" required>
-                        <option value="Computers & Information / Engineering" selected>حاسبات وهندسة</option>
-                        <option value="Computers & Information">حاسبات فقط</option>
-                        <option value="Engineering">هندسة فقط</option>
-                        <option value="Commerce / Business">تجارة وإدارة أعمال</option>
-                        <option value="Law">حقوق</option>
-                        <option value="All Faculties">كافة الكليات</option>
+                        <option value="Computers & Information / Engineering" data-i18n="modalOppFacOpt1" selected>حاسبات وهندسة</option>
+                        <option value="Computers & Information" data-i18n="modalOppFacOpt2">حاسبات فقط</option>
+                        <option value="Engineering" data-i18n="modalOppFacOpt3">هندسة فقط</option>
+                        <option value="Commerce / Business" data-i18n="modalOppFacOpt4">تجارة وإدارة أعمال</option>
+                        <option value="Law" data-i18n="modalOppFacOpt5">حقوق</option>
+                        <option value="All Faculties" data-i18n="modalOppFacOpt6">كافة الكليات</option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="opp-form-desc">تفاصيل ومتطلبات الفرصة:</label>
-                <textarea id="opp-form-desc" class="form-control" rows="3" placeholder="اكتب نبذة عن المهارات المطلوبة وطبيعة التدريب..." required></textarea>
+                <label for="opp-form-desc" data-i18n="modalOppDescLabel">تفاصيل ومتطلبات الفرصة:</label>
+                <textarea id="opp-form-desc" class="form-control" rows="3" data-i18n="modalOppDescPlaceholder" placeholder="اكتب نبذة عن المهارات المطلوبة وطبيعة التدريب..." required></textarea>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                 <div class="form-group">
-                    <label for="opp-form-start">تاريخ بداية التسجيل:</label>
+                    <label for="opp-form-start" data-i18n="modalOppStartLabel">تاريخ بداية التسجيل:</label>
                     <input id="opp-form-start" type="date" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="opp-form-end">الموعد النهائي للتقديم (Deadline):</label>
+                    <label for="opp-form-end" data-i18n="modalOppEndLabel">الموعد النهائي للتقديم (Deadline):</label>
                     <input id="opp-form-end" type="date" class="form-control" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="opp-form-link">رابط التقديم الرسمي (Apply URL):</label>
+                <label for="opp-form-link" data-i18n="modalOppLinkLabel">رابط التقديم الرسمي (Apply URL):</label>
                 <input id="opp-form-link" type="url" class="form-control" placeholder="https://careers.company.com/apply" required>
             </div>
 
             <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
-                <button type="button" onclick="closePublishOpportunityModal()" class="btn btn-secondary">إلغاء</button>
-                <button type="submit" class="btn btn-accent">اعتماد ونشر الفرصة فوراً 🚀</button>
+                <button type="button" onclick="closePublishOpportunityModal()" class="btn btn-secondary" data-i18n="modalCancelBtn">إلغاء</button>
+                <button type="submit" class="btn btn-accent" data-i18n="modalSubmitBtn">اعتماد ونشر الفرصة فوراً 🚀</button>
             </div>
         </form>
     </dialog>
@@ -384,45 +384,45 @@
     <footer class="landing-footer">
         <div class="footer-container">
             <div class="footer-col">
-                <h4 style="display: flex; align-items: center; gap: 0.5rem;">
+                <h4 style="display: flex; align-items: center; gap: 0.5rem;" data-i18n="footerAboutTitle">
                     <span>🎯</span> HuntYourTrack
                 </h4>
-                <p style="margin-bottom: 1rem; line-height: 1.6;">
+                <p style="margin-bottom: 1rem; line-height: 1.6;" data-i18n="footerAboutText">
                     مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور (قسم علوم الحاسب).
                 </p>
-                <p style="color: #64748B; font-size: 0.8rem;">
+                <p style="color: #64748B; font-size: 0.8rem;" data-i18n="footerLeadText">
                     Lead Engineer: Mohamed Yasser Elabsy (@EngMohamedElabsy)
                 </p>
             </div>
             <div class="footer-col">
-                <h4>المنصة</h4>
+                <h4 data-i18n="footerPlatformHeading">المنصة</h4>
                 <ul>
-                    <li><a href="#tracks">مسارات التخصص</a></li>
-                    <li><a href="#opportunities">فرص التدريب الصيفي</a></li>
-                    <li><a href="#hunter-radar-section">رادار اصطياد المسار</a></li>
-                    <li><a href="#how-it-works">كيف تعمل المنصة</a></li>
+                    <li><a href="#tracks" data-i18n="navTracks">مسارات التخصص</a></li>
+                    <li><a href="#opportunities" data-i18n="navInternships">فرص التدريب الصيفي</a></li>
+                    <li><a href="#hunter-radar-section" data-i18n="navHunterRadar">رادار اصطياد المسار</a></li>
+                    <li><a href="#how-it-works" data-i18n="navHowItWorks">كيف تعمل المنصة</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>البوابات الرسمية</h4>
+                <h4 data-i18n="footerPortalsHeading">البوابات الرسمية</h4>
                 <ul>
-                    <li><a href="student.html">لوحة الطالب الأكاديمي</a></li>
-                    <li><a href="auth.html">بوابة التحكيم والتسجيل</a></li>
-                    <li><a href="https://engmohamedelabsy.github.io/HuntYourTrack/">البوابة الموحدة للمنصة</a></li>
+                    <li><a href="student.html" data-i18n="footerStudentHubLink">لوحة الطالب الأكاديمي</a></li>
+                    <li><a href="auth.html" data-i18n="footerAuthLink">بوابة التحكيم والتسجيل</a></li>
+                    <li><a href="https://engmohamedelabsy.github.io/HuntYourTrack/" data-i18n="footerCanonicalLink">البوابة الموحدة للمنصة</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>معلومات المشروع</h4>
+                <h4 data-i18n="footerSprintHeading">معلومات المشروع</h4>
                 <ul>
-                    <li><a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank">لوحة سبرنت التخرج ↗</a></li>
-                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack" target="_blank">مستودع GitHub ↗</a></li>
-                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack/actions" target="_blank">فحوصات الجودة الآلية CI/CD ↗</a></li>
+                    <li><a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" data-i18n="footerSprintBoardLink">لوحة سبرنت التخرج ↗</a></li>
+                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack" target="_blank" data-i18n="footerGithubRepoLink">مستودع GitHub ↗</a></li>
+                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack/actions" target="_blank" data-i18n="footerCicdLink">فحوصات الجودة الآلية CI/CD ↗</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <span>&copy; 2026 HuntYourTrack · جامعة دمنهور. جميع الحقوق محفوظة.</span>
-            <span>الإصدار الأكاديمي الموحد 2.0 · Live Canonical Release</span>
+            <span data-i18n="footerRights">&copy; 2026 HuntYourTrack · جامعة دمنهور. جميع الحقوق محفوظة.</span>
+            <span data-i18n="footerReleaseBadge">الإصدار الأكاديمي الموحد 2.0 · Live Canonical Release</span>
         </div>
     </footer>
 
@@ -440,26 +440,36 @@
         const navActions = document.getElementById('nav-auth-actions');
         const mobileAuthActions = document.getElementById('mobile-auth-actions');
 
-        if (userRole) {
-            let portalTarget = 'student.html';
-            let portalLabel = '🎓 لوحة الطالب';
+        function updateNavSession() {
+            const userRole = localStorage.getItem('user');
+            const navActions = document.getElementById('nav-auth-actions');
+            const mobileAuthActions = document.getElementById('mobile-auth-actions');
+            const isEn = (document.documentElement.lang === 'en');
 
-            if (userRole === 'admin') {
-                portalTarget = 'admin.html';
-                portalLabel = '🛡️ لوحة الإدارة الأكاديمية';
-            } else if (userRole === 'employer') {
-                portalTarget = '#opportunities';
-                portalLabel = '🏢 لوحة المنظم والفرص';
+            if (userRole) {
+                let portalTarget = 'student.html';
+                let portalLabel = isEn ? '🎓 Student Portal' : '🎓 لوحة الطالب';
+
+                if (userRole === 'admin') {
+                    portalTarget = 'admin.html';
+                    portalLabel = isEn ? '🛡️ Admin Console' : '🛡️ لوحة الإدارة الأكاديمية';
+                } else if (userRole === 'employer') {
+                    portalTarget = '#opportunities';
+                    portalLabel = isEn ? '🏢 Employer Portal' : '🏢 لوحة المنظم والفرص';
+                }
+
+                const signOutLabel = isEn ? 'Sign Out 🚪' : 'خروج 🚪';
+                const sessionHtml = `
+                    <a href="${portalTarget}" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;">${portalLabel}</a>
+                    <button onclick="localStorage.clear(); window.location.reload();" class="btn btn-secondary" style="padding: 0.5rem 0.8rem; font-size: 0.88rem;">${signOutLabel}</button>
+                `;
+
+                if (navActions) navActions.innerHTML = sessionHtml;
+                if (mobileAuthActions) mobileAuthActions.innerHTML = sessionHtml;
             }
-
-            const sessionHtml = `
-                <a href="${portalTarget}" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;">${portalLabel}</a>
-                <button onclick="localStorage.clear(); window.location.reload();" class="btn btn-secondary" style="padding: 0.5rem 0.8rem; font-size: 0.88rem;">خروج 🚪</button>
-            `;
-
-            if (navActions) navActions.innerHTML = sessionHtml;
-            if (mobileAuthActions) mobileAuthActions.innerHTML = sessionHtml;
         }
+        updateNavSession();
+        window.addEventListener('hyt:langChanged', updateNavSession);
 
         // Mobile drawer toggling
         const mobileToggle = document.getElementById('mobile-toggle');
@@ -479,7 +489,6 @@
         function openPublishOpportunityModal() {
             const modal = document.getElementById('publish-opportunity-modal');
             if (modal) {
-                // Set default dates
                 const today = new Date().toISOString().split('T')[0];
                 const defaultEnd = new Date(Date.now() + 21 * 86400000).toISOString().split('T')[0];
                 document.getElementById('opp-form-start').value = today;

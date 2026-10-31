@@ -300,15 +300,15 @@
             </a>
             
             <div class="navbar-actions">
-                <a href="index.html" class="btn btn-ghost" style="font-size: 0.9rem;" data-i18n="heroBtnExplore">🏠 منصة الاستكشاف</a>
-                <a href="#active-opportunities" class="btn btn-ghost" style="font-size: 0.9rem;" data-i18n="navInternships">💼 التدريبات الصيفية</a>
+                <a href="index.html" class="btn btn-ghost" style="font-size: 0.9rem;" data-i18n="navExploreHome">🏠 منصة الاستكشاف</a>
+                <a href="#active-opportunities" class="btn btn-ghost" style="font-size: 0.9rem;" data-i18n="navInternships">💼 فرص التدريب والكورسات</a>
                 
                 <!-- Utility Toggles -->
                 <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language">🌐 English</button>
                 <button id="hyt-theme-toggle" class="nav-util-btn" type="button" aria-label="Toggle Theme">🌙</button>
 
                 <span class="user-badge" id="student-badge">
-                    <span>👨‍🎓</span> <span id="user-display">طالب أكاديمي</span>
+                    <span>👨‍🎓</span> <span id="user-display" data-i18n="userDisplayStudent">طالب أكاديمي</span>
                 </span>
                 <button id="logout-btn" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;" data-i18n="navSignOut">خروج 🚪</button>
             </div>
@@ -323,20 +323,20 @@
         <div class="mobile-drawer" id="student-mobile-drawer">
             <div style="padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-border); margin-bottom: 0.5rem;">
                 <span class="user-badge" style="width: 100%; justify-content: center;">
-                    <span>👨‍🎓</span> <span id="mobile-user-display">طالب أكاديمي</span>
+                    <span>👨‍🎓</span> <span id="mobile-user-display" data-i18n="userDisplayStudent">طالب أكاديمي</span>
                 </span>
             </div>
-            <a href="index.html" class="nav-drawer-link" onclick="closeStudentDrawer()">🏠 الرئيسية (Platform Home)</a>
-            <a href="student.html" class="nav-drawer-link" onclick="closeStudentDrawer()">🎓 لوحة الطالب (My Roadmap)</a>
-            <a href="#active-opportunities" class="nav-drawer-link" onclick="closeStudentDrawer()">💼 فرص التدريب والكورسات</a>
+            <a href="index.html" class="nav-drawer-link" onclick="closeStudentDrawer()" data-i18n="navExploreHome">🏠 منصة الاستكشاف</a>
+            <a href="student.html" class="nav-drawer-link" onclick="closeStudentDrawer()" data-i18n="navStudentPortal">🎓 لوحة الطالب</a>
+            <a href="#active-opportunities" class="nav-drawer-link" onclick="closeStudentDrawer()" data-i18n="navInternships">💼 فرص التدريب والكورسات</a>
             
             <div style="display: flex; gap: 0.5rem; margin: 1rem 0;">
-                <button onclick="window.hytI18n.toggleLanguage(); closeStudentDrawer();" class="nav-util-btn" style="flex: 1;">🌐 اللغة</button>
-                <button onclick="window.hytI18n.toggleTheme(); closeStudentDrawer();" class="nav-util-btn" style="flex: 1;">🌓 المظهر</button>
+                <button onclick="window.hytI18n.toggleLanguage(); closeStudentDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="langToggleLabel">🌐 اللغة</button>
+                <button onclick="window.hytI18n.toggleTheme(); closeStudentDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="themeToggleLabel">🌓 المظهر</button>
             </div>
 
             <div style="padding-top: 0.75rem; border-top: 1px solid var(--color-border);">
-                <button onclick="handleStudentLogout()" class="btn btn-secondary" style="width: 100%;">تسجيل الخروج 🚪</button>
+                <button onclick="handleStudentLogout()" class="btn btn-secondary" style="width: 100%;" data-i18n="navSignOut">تسجيل الخروج 🚪</button>
             </div>
         </div>
 
@@ -346,30 +346,30 @@
             <!-- Welcome Banner -->
             <section class="welcome-card">
                 <div>
-                    <h1 id="welcome-heading">أهلاً بك مجدداً يا بطل! 🚀</h1>
-                    <p id="welcome-sub">جامعة دمنهور · مسارك المهني المخصص وفرص التدريب الصيفي والكورسات المعتمدة جاهزة بناءً على تخصصك الأكاديمي.</p>
+                    <h1 id="welcome-heading" data-i18n="studentWelcomeHeading">أهلاً بك مجدداً يا بطل! 🚀</h1>
+                    <p id="welcome-sub" data-i18n="studentWelcomeSub">جامعة دمنهور · مسارك المهني المخصص وفرص التدريب الصيفي والكورسات المعتمدة جاهزة بناءً على تخصصك الأكاديمي.</p>
                 </div>
                 <div>
-                    <button class="btn btn-accent" onclick="showStudentToast('تم تحديث ومزامنة المسار الأكاديمي بنجاح مع أحدث معايير الكلية! 🚀')">مزامنة خريطة الذكاء الاصطناعي</button>
+                    <button class="btn btn-accent" onclick="showStudentToast('تم تحديث ومزامنة المسار الأكاديمي بنجاح مع أحدث معايير الكلية! 🚀')" data-i18n="syncRoadmapBtn">مزامنة خريطة الذكاء الاصطناعي</button>
                 </div>
             </section>
 
             <!-- Quick Metrics -->
             <section class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-label">نسبة المواءمة الأكاديمية</div>
+                    <div class="stat-label" data-i18n="studentMetricMatch">نسبة المواءمة الأكاديمية</div>
                     <div class="stat-val" style="color: #6366F1;">94%</div>
-                    <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" id="matched-track-label">مسار هندسة البرمجيات والذكاء الاصطناعي</p>
+                    <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" id="matched-track-label" data-i18n="studentMetricTrackLabel">مسار هندسة البرمجيات والذكاء الاصطناعي</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">الطلبات النشطة للتدريب</div>
+                    <div class="stat-label" data-i18n="studentMetricApps">الطلبات النشطة للتدريب</div>
                     <div class="stat-val" style="color: #16A34A;">3</div>
-                    <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;">2 قيد المراجعة · 1 مرشح للمقابلة</p>
+                    <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" data-i18n="studentMetricAppsSub">2 قيد المراجعة · 1 مرشح للمقابلة</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">الخطوات المكتملة في المسار</div>
+                    <div class="stat-label" data-i18n="studentMetricMilestones">الخطوات المكتملة في المسار</div>
                     <div class="stat-val" style="color: #D97706;">8 / 12</div>
-                    <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;">75% إنجاز نحو التخرج والاعتماد</p>
+                    <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" data-i18n="studentMetricMilestonesSub">75% إنجاز نحو التخرج والاعتماد</p>
                 </div>
             </section>
 
@@ -377,15 +377,15 @@
             <section class="academic-settings-card">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
                     <div>
-                        <h2 style="font-size: 1.25rem; font-weight: 700;">🏛️ التخصص الأكاديمي والكلية (Academic Identity)</h2>
-                        <p style="font-size: 0.88rem; color: var(--color-muted-foreground);">اختر كليتك وقسمك الأكاديمي لتكييف خارطة الطريق والفرص تلقائياً:</p>
+                        <h2 style="font-size: 1.25rem; font-weight: 700;" data-i18n="academicSettingsTitle">🏛️ التخصص الأكاديمي والكلية (Academic Identity)</h2>
+                        <p style="font-size: 0.88rem; color: var(--color-muted-foreground);" data-i18n="academicSettingsSub">اختر كليتك وقسمك الأكاديمي لتكييف خارطة الطريق والفرص تلقائياً:</p>
                     </div>
-                    <span class="hunter-status-chip">✓ مسار معتمد رسمياً</span>
+                    <span class="hunter-status-chip" data-i18n="accreditedBadge">✓ مسار معتمد رسمياً</span>
                 </div>
 
                 <div class="settings-grid">
                     <div class="form-group" style="margin-bottom: 0;">
-                        <label for="student-faculty-select">الكلية (Faculty):</label>
+                        <label for="student-faculty-select" data-i18n="facultyLabel">الكلية (Faculty):</label>
                         <select id="student-faculty-select" class="form-control" onchange="onStudentFacultyChange(this.value)">
                             <option value="computers" selected>كلية الحاسبات والذكاء الاصطناعي</option>
                             <option value="engineering">كلية الهندسة</option>
@@ -395,7 +395,7 @@
                     </div>
 
                     <div class="form-group" style="margin-bottom: 0;">
-                        <label for="student-dept-select">القسم الأكاديمي (Department):</label>
+                        <label for="student-dept-select" data-i18n="departmentLabel">القسم الأكاديمي (Department):</label>
                         <select id="student-dept-select" class="form-control" onchange="onStudentDeptChange(this.value)">
                             <option value="cs" selected>علوم الحاسب (CS)</option>
                             <option value="ai">الذكاء الاصطناعي (AI)</option>
@@ -406,7 +406,7 @@
                     </div>
 
                     <div>
-                        <button class="btn btn-primary" onclick="saveStudentFacultySelection()" style="width: 100%;">
+                        <button class="btn btn-primary" onclick="saveStudentFacultySelection()" style="width: 100%;" data-i18n="saveFacultyBtn">
                             حفظ وتحديث التراك 💾
                         </button>
                     </div>
@@ -415,8 +415,8 @@
                 <!-- CV Upload Zone -->
                 <div class="cv-drop-zone" onclick="simulateCvUpload()">
                     <span style="font-size: 2rem; display: block; margin-bottom: 0.5rem;">📄</span>
-                    <strong style="font-size: 1rem; color: var(--color-primary-dark);">ارفع سيرتك الذاتية (CV / Resume) لاصطياد المسار</strong>
-                    <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.25rem;" id="cv-status-text">
+                    <strong style="font-size: 1rem; color: var(--color-primary-dark);" data-i18n="cvDropTitle">ارفع سيرتك الذاتية (CV / Resume) لاصطياد المسار</strong>
+                    <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.25rem;" id="cv-status-text" data-i18n="cvDropSub">
                         يدعم ملفات PDF أو DOCX · يقوم الذكاء الاصطناعي بمطابقة مهاراتك مع التدريبات المتاحة تلقائياً
                     </p>
                 </div>
@@ -425,21 +425,21 @@
             <!-- Learning Roadmap -->
             <section class="roadmap-card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <h2 style="font-size: 1.25rem; font-weight: 700;">🗺️ خارطة الطريق الشخصية (Learning Roadmap)</h2>
-                    <span style="font-weight: 700; color: #16A34A;">75% إنجاز</span>
+                    <h2 style="font-size: 1.25rem; font-weight: 700;" data-i18n="roadmapTitle">🗺️ خارطة الطريق الشخصية (Learning Roadmap)</h2>
+                    <span style="font-weight: 700; color: #16A34A;" data-i18n="roadmapProgress">75% إنجاز</span>
                 </div>
-                <p style="color: var(--color-muted-foreground); font-size: 0.88rem;" id="roadmap-track-target">
+                <p style="color: var(--color-muted-foreground); font-size: 0.88rem;" id="roadmap-track-target" data-i18n="roadmapTargetTrack">
                     المسار المستهدف: مهندس برمجيات وذكاء اصطناعي (دفعة تخرج 2026)
                 </p>
                 <div class="progress-bar-container">
                     <div class="progress-bar-fill"></div>
                 </div>
                 <ul class="milestone-list">
-                    <li class="milestone-item done">✓ الأساسيات الأكاديمية: خوارزميات وهياكل البيانات (مكتمل)</li>
-                    <li class="milestone-item done">✓ معمارية تطبيقات الويب وتنسيق المكونات القياسية (مكتمل)</li>
-                    <li class="milestone-item done">✓ إدارة الحالة بالمتصفح والتفاعلات الحركية السلسة (مكتمل)</li>
-                    <li class="milestone-item">○ الربط مع الخدمات السحابية وبوابات أتمتة العمليات (قيد التنفيذ)</li>
-                    <li class="milestone-item">○ مناقشة مشروع التخرج النهائي والاعتماد الرسمي (قادم)</li>
+                    <li class="milestone-item done" data-i18n="milestone1">✓ الأساسيات الأكاديمية: خوارزميات وهياكل البيانات (مكتمل)</li>
+                    <li class="milestone-item done" data-i18n="milestone2">✓ معمارية تطبيقات الويب وتنسيق المكونات القياسية (مكتمل)</li>
+                    <li class="milestone-item done" data-i18n="milestone3">✓ إدارة الحالة بالمتصفح والتفاعلات الحركية السلسة (مكتمل)</li>
+                    <li class="milestone-item" data-i18n="milestone4">○ الربط مع الخدمات السحابية وبوابات أتمتة العمليات (قيد التنفيذ)</li>
+                    <li class="milestone-item" data-i18n="milestone5">○ مناقشة مشروع التخرج النهائي والاعتماد الرسمي (قادم)</li>
                 </ul>
             </section>
 
@@ -447,15 +447,15 @@
             <section id="active-opportunities" style="margin-bottom: 3rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.5rem;">
                     <div>
-                        <h2 style="font-size: 1.35rem; font-weight: 700;">💼 فرص التدريب والكورسات المتاحة حالياً</h2>
-                        <p style="font-size: 0.88rem; color: var(--color-muted-foreground);">معتمدة مباشرة من الشركات والمنظمات الشريكة مع عداد زمني للتسجيل:</p>
+                        <h2 style="font-size: 1.35rem; font-weight: 700;" data-i18n="activeOppsHeading">💼 فرص التدريب والكورسات المتاحة حالياً</h2>
+                        <p style="font-size: 0.88rem; color: var(--color-muted-foreground);" data-i18n="activeOppsSub">معتمدة مباشرة من الشركات والمنظمات الشريكة مع عداد زمني للتسجيل:</p>
                     </div>
                 </div>
                 <div class="opportunities-grid" id="opportunities-catalog-container"></div>
             </section>
         </main>
 
-        <footer class="footer">
+        <footer class="footer" data-i18n="footerRights">
             HuntYourTrack &copy; 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور. جميع الحقوق محفوظة.
         </footer>
     </div>

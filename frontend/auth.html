@@ -21,7 +21,7 @@
         <div class="auth-nav-actions">
             <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language">🌐 English</button>
             <button id="hyt-theme-toggle" class="nav-util-btn" type="button" aria-label="Toggle Theme">🌙</button>
-            <a href="index.html" class="btn btn-secondary" style="min-height: 40px; padding: 0.4rem 0.9rem; font-size: 0.85rem;" data-i18n="heroBtnExplore">الرئيسية 🏠</a>
+            <a href="index.html" class="btn btn-secondary" style="min-height: 40px; padding: 0.4rem 0.9rem; font-size: 0.85rem;" data-i18n="navExploreHome">الرئيسية 🏠</a>
         </div>
     </header>
 
@@ -40,13 +40,13 @@
                         المنصة الذكية لرسم خارطة طريقك المهنية والمواءمة المباشرة مع فرص التدريب الصيفي والكورسات المعتمدة.
                     </p>
                     <ul class="hero-features-list">
-                        <li><span>🎯</span> <span>مواءمة مسارات الذكاء الاصطناعي وهندسة البرمجيات</span></li>
-                        <li><span>🏢</span> <span>فرص تدريب حقيقية مع شركات معتمدة</span></li>
-                        <li><span>📜</span> <span>تتبع الخطوات الأكاديمية ونقاط الاعتماد</span></li>
+                        <li><span>🎯</span> <span data-i18n="authFeature1">مواءمة مسارات الذكاء الاصطناعي وهندسة البرمجيات</span></li>
+                        <li><span>🏢</span> <span data-i18n="authFeature2">فرص تدريب حقيقية مع شركات معتمدة</span></li>
+                        <li><span>📜</span> <span data-i18n="authFeature3">تتبع الخطوات الأكاديمية ونقاط الاعتماد</span></li>
                     </ul>
                 </div>
                 <div class="hero-academic-footer">
-                    <span>قسم علوم الحاسب · كلية الحاسبات والمعلومات</span><br>
+                    <span data-i18n="authFooterDept">قسم علوم الحاسب · كلية الحاسبات والمعلومات</span><br>
                     <span style="opacity: 0.85;">Lead Engineer: Mohamed Yasser Elabsy (@EngMohamedElabsy)</span>
                 </div>
             </section>
@@ -77,12 +77,12 @@
                     <!-- Login Form -->
                     <form id="login-form" class="auth-form" onsubmit="handleLoginSubmit(event)">
                         <div class="form-group">
-                            <label for="login-email">البريد الجامعي / الإلكتروني (Email)</label>
+                            <label for="login-email" data-i18n="loginEmailLabel">البريد الجامعي / الإلكتروني (Email)</label>
                             <input id="login-email" name="email" type="email" class="form-control" placeholder="student@damanhour.edu.eg" autocomplete="email" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="login-password">كلمة المرور (Password)</label>
+                            <label for="login-password" data-i18n="loginPasswordLabel">كلمة المرور (Password)</label>
                             <div class="password-wrapper">
                                 <input id="login-password" name="password" type="password" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
                                 <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility" onclick="togglePasswordVisibility('login-password', this)">
@@ -91,7 +91,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary auth-submit-btn" id="login-submit-btn" data-i18n="heroBtnAuth">
+                        <button type="submit" class="btn btn-primary auth-submit-btn" id="login-submit-btn" data-i18n="enterPlatformBtn">
                             دخول المنصة ←
                         </button>
                     </form>
@@ -99,17 +99,17 @@
                     <!-- Signup Form -->
                     <form id="signup-form" class="auth-form form-hidden" onsubmit="handleSignupSubmit(event)">
                         <div class="form-group">
-                            <label for="signup-name">الاسم الثلاثي (Full Name)</label>
+                            <label for="signup-name" data-i18n="signupNameLabel">الاسم الثلاثي (Full Name)</label>
                             <input id="signup-name" name="name" type="text" class="form-control" placeholder="محمد ياسر" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="signup-email">البريد الإلكتروني (Email)</label>
+                            <label for="signup-email" data-i18n="signupEmailLabel">البريد الإلكتروني (Email)</label>
                             <input id="signup-email" name="email" type="email" class="form-control" placeholder="name@damanhour.edu.eg" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="signup-faculty">الكلية (Faculty)</label>
+                            <label for="signup-faculty" data-i18n="facultyLabel">الكلية (Faculty)</label>
                             <select id="signup-faculty" name="faculty" class="form-control" onchange="updateDepartmentOptions(this.value)" required>
                                 <option value="computers" selected>كلية الحاسبات والذكاء الاصطناعي</option>
                                 <option value="engineering">كلية الهندسة</option>
@@ -119,7 +119,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="signup-dept">القسم الأكاديمي (Department)</label>
+                            <label for="signup-dept" data-i18n="departmentLabel">القسم الأكاديمي (Department)</label>
                             <select id="signup-dept" name="department" class="form-control" required>
                                 <option value="cs">علوم الحاسب (Computer Science)</option>
                                 <option value="ai">الذكاء الاصطناعي (AI)</option>
@@ -130,7 +130,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="signup-role">نوع الحساب (Account Role)</label>
+                            <label for="signup-role" data-i18n="signupRoleLabel">نوع الحساب (Account Role)</label>
                             <select id="signup-role" name="role" class="form-control" required>
                                 <option value="student" selected>🎓 حساب طالب (Student Explorer)</option>
                                 <option value="employer">🏢 حساب منظمة / شركة (Employer Organizer)</option>
@@ -138,7 +138,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="signup-password">كلمة المرور (8 أحرف على الأقل)</label>
+                            <label for="signup-password" data-i18n="signupPassLabel">كلمة المرور (8 أحرف على الأقل)</label>
                             <div class="password-wrapper">
                                 <input id="signup-password" name="password" type="password" class="form-control" placeholder="••••••••" minlength="8" required>
                                 <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility" onclick="togglePasswordVisibility('signup-password', this)">
@@ -147,7 +147,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-accent auth-submit-btn" id="signup-submit-btn" data-i18n="authJoinFuture">
+                        <button type="submit" class="btn btn-accent auth-submit-btn" id="signup-submit-btn" data-i18n="createAccountBtn">
                             إنشاء الحساب وتفعيل المسار ←
                         </button>
                     </form>
@@ -163,11 +163,11 @@
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
             <div>
                 <span class="hunter-status-chip">⚖️ Academic Defense 2026</span>
-                <h3 style="margin-top: 0.5rem; font-size: 1.25rem;">دخول لجان التحكيم والمناقشة</h3>
+                <h3 style="margin-top: 0.5rem; font-size: 1.25rem;" data-i18n="juryModalTitle">دخول لجان التحكيم والمناقشة</h3>
             </div>
             <button type="button" onclick="closeJuryModal()" class="nav-util-btn" style="border: none; font-size: 1.25rem;">&times;</button>
         </div>
-        <p style="font-size: 0.88rem; color: var(--color-muted-foreground); margin-bottom: 1.25rem; line-height: 1.5;">
+        <p style="font-size: 0.88rem; color: var(--color-muted-foreground); margin-bottom: 1.25rem; line-height: 1.5;" data-i18n="juryModalDesc">
             اختر إحدى الشخصيات التمثيلية للاختبار السريع والتحقق من صلاحيات النظام وعزل الواجهات:
         </p>
 
@@ -175,33 +175,33 @@
             <!-- Admin -->
             <div onclick="selectJuryPersona('admin')" style="padding: 0.85rem; border: 1px solid var(--color-border); border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; background: var(--color-muted); transition: all 180ms ease;">
                 <div>
-                    <div style="font-weight: 700; font-size: 0.95rem;">🛡️ المشرف الأكاديمي (System Admin)</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">elabsy@damanhour.edu.eg · صلاحيات كاملة</div>
+                    <div style="font-weight: 700; font-size: 0.95rem;" data-i18n="adminPersonaTitle">🛡️ المشرف الأكاديمي (System Admin)</div>
+                    <div style="font-size: 0.8rem; color: #64748B;" data-i18n="adminPersonaSub">elabsy@damanhour.edu.eg · صلاحيات كاملة</div>
                 </div>
-                <span class="btn btn-primary" style="min-height: 34px; padding: 0.3rem 0.8rem; font-size: 0.8rem;">تحديد</span>
+                <span class="btn btn-primary" style="min-height: 34px; padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-i18n="selectPersonaBtn">تحديد</span>
             </div>
 
             <!-- Student -->
             <div onclick="selectJuryPersona('student')" style="padding: 0.85rem; border: 1px solid var(--color-border); border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; background: var(--color-muted); transition: all 180ms ease;">
                 <div>
-                    <div style="font-weight: 700; font-size: 0.95rem;">👨‍🎓 حساب طالب (Enrolled Student)</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">hager@damanhour.edu.eg · استكشاف ومواءمة المسار</div>
+                    <div style="font-weight: 700; font-size: 0.95rem;" data-i18n="studentPersonaTitle">👨‍🎓 حساب طالب (Enrolled Student)</div>
+                    <div style="font-size: 0.8rem; color: #64748B;" data-i18n="studentPersonaSub">hager@damanhour.edu.eg · استكشاف ومواءمة المسار</div>
                 </div>
-                <span class="btn btn-secondary" style="min-height: 34px; padding: 0.3rem 0.8rem; font-size: 0.8rem;">تحديد</span>
+                <span class="btn btn-secondary" style="min-height: 34px; padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-i18n="selectPersonaBtn">تحديد</span>
             </div>
 
             <!-- Employer -->
             <div onclick="selectJuryPersona('employer')" style="padding: 0.85rem; border: 1px solid var(--color-border); border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; background: var(--color-muted); transition: all 180ms ease;">
                 <div>
-                    <div style="font-weight: 700; font-size: 0.95rem;">🏢 حساب شركة / منظم (Employer Partner)</div>
-                    <div style="font-size: 0.8rem; color: #64748B;">abdulrhman@damanhour.edu.eg · نشر وإدارة الفرص</div>
+                    <div style="font-weight: 700; font-size: 0.95rem;" data-i18n="employerPersonaTitle">🏢 حساب شركة / منظم (Employer Partner)</div>
+                    <div style="font-size: 0.8rem; color: #64748B;" data-i18n="employerPersonaSub">abdulrhman@damanhour.edu.eg · نشر وإدارة الفرص</div>
                 </div>
-                <span class="btn btn-secondary" style="min-height: 34px; padding: 0.3rem 0.8rem; font-size: 0.8rem;">تحديد</span>
+                <span class="btn btn-secondary" style="min-height: 34px; padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-i18n="selectPersonaBtn">تحديد</span>
             </div>
         </div>
 
         <div style="margin-top: 1.5rem; text-align: left;">
-            <button type="button" onclick="closeJuryModal()" class="btn btn-secondary" style="width: 100%;">إغلاق النافذة</button>
+            <button type="button" onclick="closeJuryModal()" class="btn btn-secondary" style="width: 100%;" data-i18n="closeModalBtn">إغلاق النافذة</button>
         </div>
     </dialog>
 

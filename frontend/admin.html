@@ -30,13 +30,13 @@
             <a href="index.html" class="brand-logo">
                 <span>🎯</span> HuntYourTrack
             </a>
-            <span class="admin-badge">Admin Workspace</span>
+            <span class="admin-badge" data-i18n="adminBrandBadge">Admin Workspace</span>
         </div>
 
         <nav class="nav-links">
-            <a href="index.html" class="nav-link">🏠 Platform Home</a>
-            <a href="admin.html" class="nav-link active">🛡️ Admin Console</a>
-            <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-link" style="color: #6366F1;">📋 Sprint Board ↗</a>
+            <a href="index.html" class="nav-link" data-i18n="adminNavHome">🏠 Platform Home</a>
+            <a href="admin.html" class="nav-link active" data-i18n="adminNavConsole">🛡️ Admin Console</a>
+            <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-link" style="color: #6366F1;" data-i18n="adminNavSprint">📋 Sprint Board ↗</a>
         </nav>
 
         <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -97,46 +97,46 @@
     <main class="admin-container">
         <!-- Page Title & University Metadata -->
         <section class="page-header">
-            <h1 class="page-title">Executive Control Center 🏛️</h1>
-            <p class="page-subtitle">Faculty of Computers and Information · Damanhour University (CS Department). Platform Governance & Corporate Accreditation Engine.</p>
+            <h1 class="page-title" data-i18n="adminPageTitle">Executive Control Center 🏛️</h1>
+            <p class="page-subtitle" data-i18n="adminPageSub">Faculty of Computers and Information · Damanhour University (CS Department). Platform Governance & Corporate Accreditation Engine.</p>
         </section>
 
         <!-- KPI Metrics Grid (US04) -->
         <section class="kpi-grid">
             <div class="kpi-card" style="--card-accent: #6366F1;">
-                <span class="kpi-label">Registered Students</span>
+                <span class="kpi-label" data-i18n="adminKpi1Label">Registered Students</span>
                 <div class="kpi-val" id="kpi-students">1,424</div>
-                <span class="kpi-meta">↑ 12% enrollment growth this semester</span>
+                <span class="kpi-meta" data-i18n="adminKpi1Meta">↑ 12% enrollment growth this semester</span>
             </div>
 
             <div class="kpi-card" style="--card-accent: #16A34A;">
-                <span class="kpi-label">Accredited Employers</span>
+                <span class="kpi-label" data-i18n="adminKpi2Label">Accredited Employers</span>
                 <div class="kpi-val" id="kpi-employers">84</div>
-                <span class="kpi-meta">Active corporate training partners</span>
+                <span class="kpi-meta" data-i18n="adminKpi2Meta">Active corporate training partners</span>
             </div>
 
             <div class="kpi-card" style="--card-accent: #F59E0B;">
-                <span class="kpi-label">Pending Verifications</span>
+                <span class="kpi-label" data-i18n="adminKpi3Label">Pending Verifications</span>
                 <div class="kpi-val" id="kpi-queue-count" style="color: #D97706;">3</div>
-                <span class="kpi-meta">Entities awaiting accreditation review</span>
+                <span class="kpi-meta" data-i18n="adminKpi3Meta">Entities awaiting accreditation review</span>
             </div>
 
             <div class="kpi-card" style="--card-accent: #0284C7;">
-                <span class="kpi-label">AI Engine & Matching</span>
+                <span class="kpi-label" data-i18n="adminKpi4Label">AI Engine & Matching</span>
                 <div class="kpi-val" style="color: #0284C7;">99.8%</div>
-                <span class="kpi-meta">Operational · 312 Active Matched Internships</span>
+                <span class="kpi-meta" data-i18n="adminKpi4Meta">Operational · 312 Active Matched Internships</span>
             </div>
         </section>
 
         <!-- Admin Workspace Tabs -->
         <div class="admin-tabs">
-            <button class="admin-tab-btn active" data-tab="users" onclick="switchAdminTab('users')">
+            <button class="admin-tab-btn active" data-tab="users" onclick="switchAdminTab('users')" data-i18n="adminTabUsers">
                 👥 User Management (Data-Table)
             </button>
             <button class="admin-tab-btn" data-tab="verification" onclick="switchAdminTab('verification')">
-                🏢 Corporate Accreditation Queue <span class="tab-badge" id="badge-queue-count">3</span>
+                <span data-i18n="adminTabQueue">🏢 Corporate Accreditation Queue</span> <span class="tab-badge" id="badge-queue-count">3</span>
             </button>
-            <button class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')">
+            <button class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')" data-i18n="adminTabSettings">
                 ⚙️ Platform Configuration
             </button>
         </div>
@@ -147,14 +147,14 @@
                 <div class="toolbar">
                     <div class="search-box">
                         <span class="search-icon">🔍</span>
-                        <input type="text" id="search-users" class="search-input" placeholder="Search by name, email, or faculty...">
+                        <input type="text" id="search-users" class="search-input" data-i18n="adminSearchPlaceholder" placeholder="Search by name, email, or faculty...">
                     </div>
 
                     <div class="filter-pills">
-                        <button class="filter-pill active" data-role="All" onclick="filterByRole('All')">All Users</button>
-                        <button class="filter-pill" data-role="Student" onclick="filterByRole('Student')">Students</button>
-                        <button class="filter-pill" data-role="Employer" onclick="filterByRole('Employer')">Employers</button>
-                        <button class="filter-pill" data-role="Admin" onclick="filterByRole('Admin')">Admins</button>
+                        <button class="filter-pill active" data-role="All" onclick="filterByRole('All')" data-i18n="adminFilterAll">All Users</button>
+                        <button class="filter-pill" data-role="Student" onclick="filterByRole('Student')" data-i18n="adminFilterStudents">Students</button>
+                        <button class="filter-pill" data-role="Employer" onclick="filterByRole('Employer')" data-i18n="adminFilterEmployers">Employers</button>
+                        <button class="filter-pill" data-role="Admin" onclick="filterByRole('Admin')" data-i18n="adminFilterAdmins">Admins</button>
                     </div>
                 </div>
 
@@ -162,12 +162,12 @@
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th style="width: 80px;">ID</th>
-                                <th>User Profile & Email</th>
-                                <th>Role</th>
-                                <th>Affiliation / Organization</th>
-                                <th>Account Status</th>
-                                <th style="width: 140px;">Action</th>
+                                <th style="width: 80px;" data-i18n="adminThId">ID</th>
+                                <th data-i18n="adminThProfile">User Profile & Email</th>
+                                <th data-i18n="adminThRole">Role</th>
+                                <th data-i18n="adminThAffiliation">Affiliation / Organization</th>
+                                <th data-i18n="adminThStatus">Account Status</th>
+                                <th style="width: 140px;" data-i18n="adminThAction">Action</th>
                             </tr>
                         </thead>
                         <tbody id="users-table-body">
@@ -182,8 +182,8 @@
         <div id="tab-verification" class="tab-panel">
             <div class="panel-card">
                 <div style="margin-bottom: 1.25rem;">
-                    <h2 style="font-size: 1.2rem; font-family: var(--font-heading); color: #0F172A; margin-bottom: 0.25rem;">Employer Accreditation Queue</h2>
-                    <p style="color: #64748B; font-size: 0.88rem;">Review commercial credentials, tax card IDs, and domain integrity before granting university internship posting privileges.</p>
+                    <h2 style="font-size: 1.2rem; font-family: var(--font-heading); color: #0F172A; margin-bottom: 0.25rem;" data-i18n="adminQueueTitle">Employer Accreditation Queue</h2>
+                    <p style="color: #64748B; font-size: 0.88rem;" data-i18n="adminQueueSub">Review commercial credentials, tax card IDs, and domain integrity before granting university internship posting privileges.</p>
                 </div>
 
                 <div class="queue-grid" id="queue-grid">
