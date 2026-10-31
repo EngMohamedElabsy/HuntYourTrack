@@ -193,6 +193,52 @@ document.querySelectorAll('form[data-auth-mode]').forEach((form) => {
 });
 
 /**
+ * Toggle Password Field Visibility (Show / Hide)
+ */
+function togglePasswordVisibility(inputId, button) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    button.setAttribute('aria-pressed', String(isPassword));
+    button.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+    const eyeIcon = button.querySelector('.eye-icon');
+    if (eyeIcon) {
+        eyeIcon.textContent = isPassword ? '🙈' : '👁️';
+    }
+}
+window.togglePasswordVisibility = togglePasswordVisibility;
+
+/**
+ * Academic Jury & Evaluation Dialog Controls
+ */
+function openJuryModal() {
+    const dialog = document.getElementById('jury-dialog');
+    if (dialog && typeof dialog.showModal === 'function') {
+        dialog.showModal();
+        const trigger = document.getElementById('btn-jury-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'true');
+    }
+}
+window.openJuryModal = openJuryModal;
+
+function closeJuryModal() {
+    const dialog = document.getElementById('jury-dialog');
+    if (dialog && typeof dialog.close === 'function') {
+        dialog.close();
+        const trigger = document.getElementById('btn-jury-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    }
+}
+window.closeJuryModal = closeJuryModal;
+
+function selectJuryPersona(role) {
+    quickFillCredentials(role);
+    closeJuryModal();
+}
+window.selectJuryPersona = selectJuryPersona;
+
+/**
  * 1-Click Demo Credentials Quick-Fill
  */
 function quickFillCredentials(role) {

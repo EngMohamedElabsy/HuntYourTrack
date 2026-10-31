@@ -57,7 +57,7 @@ HuntYourTrack is a career-platform graduation project for matching students with
 - [ ] GitHub US11 (#49): Internship Posting Form UI - OPEN (`Todo`) assigned to Abdulrahman.
 - [ ] GitHub US12 (#50): Applicant Review Interface - OPEN (`Todo`) assigned to Abdulrahman.
 - [x] GitHub US13 (#53): Unified Single Deployment & Product-First Landing Entry Point (`frontend/index.html`, `landing.css`, `student.html`) - CLOSED (Done).
-- [ ] GitHub US14 (#54): Secure Authentication Architecture & Role-Based Flow Refactoring - OPEN (`Todo`) assigned to Lead Developer.
+- [x] GitHub US14 (#54): Secure Authentication Architecture & Role-Based Flow Refactoring (`frontend/auth.html`, `admin.html`, RBAC guard) - CLOSED (Done).
 - [ ] GitHub US15 (#55): Comprehensive Responsive Layout & Multi-Device Breakpoint Optimization - OPEN (`Todo`) assigned to Lead Developer.
 - [ ] GitHub US16 (#56): UI/UX Interaction Polish, Button Semantics & Action Clarity - OPEN (`Todo`) assigned to Lead Developer.
 - [x] Sprint 1 Milestone established on GitHub (Deadline: Sunday Nov 1, 2026).
@@ -376,8 +376,14 @@ HuntYourTrack is a career-platform graduation project for matching students with
      - Successfully ran `npm run test:auth` with 100% passing checks.
 - **Current State of US01:**
   - Fully functioning as a client-side Frontend Mock ready for team and university presentation.
+- **US14: Secure Authentication Architecture & Role-Based Flow Refactoring (Completed):**
+  - Public 1-Click Demo buttons removed from the main login card to reflect a production-grade authentication interface.
+  - Dedicated Academic Jury & Evaluator Inspection modal added with persona pre-filling (Student, Admin, Employer) specifically for graduation defense presentation.
+  - Interactive password unmasking toggle (eye icon button) with full accessibility aria attributes added to both login and registration forms.
+  - Role-based authorization guard (`enforceAdminAuthorization`) implemented on the Executive Admin Console (`admin.html`), preventing non-admin or unauthenticated access with a dedicated access restriction barrier.
+  - Complete automated verification passing via `tests/frontend-smoke-test.js`.
 - **How Teammates Should Run the Project:**
   - Setup: `npm install && npm run setup:skills`
   - Preview: `npm start` (opens on `http://localhost:8080`)
-  - Test: `npm run test:auth`
+  - Test: `npm test`
 

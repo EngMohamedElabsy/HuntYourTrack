@@ -33,10 +33,30 @@
 
         <div class="admin-profile">
             <div class="avatar">M</div>
-            <span>Mohamed Yasser (Lead)</span>
-            <a href="auth.html" title="Sign Out" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem; font-size: 0.9rem;">🚪</a>
+            <span id="admin-user-display">Mohamed Yasser (Lead)</span>
+            <a href="auth.html" id="admin-logout-btn" title="Sign Out" onclick="handleAdminLogout(event)" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem; font-size: 0.9rem;">🚪</a>
         </div>
     </header>
+
+    <!-- Role Authorization Guard Barrier (US14) -->
+    <div id="admin-guard-barrier" class="admin-guard-overlay" style="display: none;" role="alertdialog" aria-modal="true" aria-labelledby="guard-title">
+        <div class="guard-card">
+            <div class="guard-icon">🛡️</div>
+            <span class="guard-badge">Security Access Guard</span>
+            <h2 id="guard-title">Administrative Authorization Required</h2>
+            <p class="guard-desc">
+                Access to the Executive Control Center is restricted to authenticated Faculty Administrators of Damanhour University.
+                Your current session does not possess administrative clearance.
+            </p>
+            <div class="guard-actions">
+                <a href="auth.html" class="btn btn-primary">🔐 Authenticate as Administrator</a>
+                <a href="index.html" class="btn btn-secondary">← Back to Product Home</a>
+            </div>
+            <div class="guard-footer">
+                <span>HuntYourTrack Security Engine · Role-Based Access Control (RBAC)</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Admin Dashboard View -->
     <main class="admin-container">
