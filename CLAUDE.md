@@ -93,14 +93,50 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 
 ---
 
-### Autonomous Pairing & Planning Protocol
-Before writing code for any complex or non-trivial change:
-1. **Context Synchronization:** Read `CLAUDE.md` and consult relevant skills in `.global_skills/`.
-2. **Backlog Inspection:** Verify the exact issue requirements and deliverables via `gh issue view <id>`.
-3. **Stepwise Plan:** Break down the implementation into incremental, testable units (1 Issue = 1 Dedicated Feature Branch + 1 PR).
-4. **Local Baseline Verification:** Execute `npm test` before making changes to confirm a clean starting baseline.
-5. **Atomic Execution & Linting:** Apply changes adhering to Design System tokens and run `od lint` to eliminate AI tells.
-6. **E2E Audit:** Ensure all 5 audit sections pass before merging PRs.
+### Claude's 6-Phase Systematic Engineering Workflow (خريطة التفكير وحل أي Task / Issue)
+
+Before writing any code or tackling any issue, Claude MUST structure thinking as a methodical plan across these 6 sequential phases:
+
+#### 🗺️ Phase 1: Architecture & File Mapping (الخطة وهنعمل إيه؟ وهنستخدم فايلات إيه؟ ونكتب كود إيه؟)
+- **Problem Analysis:** Clearly define the objective, requirements, and edge cases from `gh issue view <issue_number>`.
+- **Target File Map:** Specify the exact files to be created, modified, or deleted (`frontend/index.html`, `frontend/js/...`, `frontend/css/...`, `tests/...`).
+- **Code & Logic Specification:** Outline the specific functions, DOM structures, state models, or CSS classes that will be introduced before typing code.
+
+#### 🧰 Phase 2: Skills & Tooling Selection (هنستخدم Skills وإيه الأدوات والـ Plugins اللي هتساعدنا؟)
+- Identify and select the exact active skills from `.global_skills/` needed for the task:
+  - **`open-design` (`od lint`):** Anti-slop HTML linter for eliminating AI default colors (`#4F46E5`) and emojis.
+  - **`ui-ux-pro-max` & `frontend-design`:** For distinctive, non-templated layouts, micro-interactions, and WCAG AA contrast.
+  - **`design-system`:** For strict adherence to `MASTER.md` color tokens, typography, and density dials.
+  - **`graphify`:** For understanding module coupling and AST relations before refactoring.
+  - **`huntyourtrack-frontend`:** For multi-faculty domain invariants and client-side session mocking.
+  - **`test-audit` & `playwright-cli`:** For browser automation and verification.
+  - **`diagram`:** For Mermaid flow mapping when documenting architecture.
+
+#### ⚙️ Phase 3: Step-by-Step Isolated Execution (تنفيذ الخطوات Step by Step)
+- Create an isolated feature branch (`git checkout -b feature/usXX-<feature-name>`).
+- Open an immediate draft/tracking PR against `main` (`gh pr create`).
+- Implement the planned logic incrementally, one cohesive unit at a time, keeping code clean, modular, and in professional English.
+
+#### 🐛 Phase 4: Problem Solving & Bug Triage (حل المشاكل وإصلاح الأخطاء)
+- Execute `npm test` locally to catch any regression.
+- Inspect browser console logs, DOM mismatches, and responsive overflow.
+- Resolve all identified bugs systematically before moving forward.
+
+#### 🔒 Phase 5: Security & Privacy Audit (فحص الأمان والخصوصية وحماية البيانات)
+- **Zero Academic/Personal Names:** Verify that no real student/instructor names, emails, or personal data leak into user-facing HTML.
+- **Route Guard Integrity (RBAC):** Confirm client-side authentication guards execute in `<head>` before DOM render.
+- **Data Sanitization:** Ensure inputs are sanitized against XSS and sessions in `localStorage` cannot be hijacked.
+- **Zero Secrets:** Confirm no private API tokens, `.env` values, or credentials are tracked in Git.
+
+#### 🎯 Phase 6: Verification & Definition of Done (التأكد هل حلينا المطلوب ولا لأ؟)
+- **Checklist Audit:** Verify that 100% of the acceptance criteria defined in the issue are met.
+- **E2E Test Compliance:** Ensure all 5 audit test suites pass with 0 failures:
+  1. 100% Bilingual i18n without text leakage or mixed languages.
+  2. Zero UI element duplication or administrative tool leakage.
+  3. 60fps Track Hunter Canvas rendering in both Dark/Light modes.
+  4. Strict route guarding blocking unauthorized URLs.
+  5. Responsive layout stability across 375px mobile and 1440px desktop.
+- **Clean Merge:** Synchronize with `main`, ensure clean tree, and merge cleanly.
 
 ---
 
