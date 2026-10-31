@@ -211,7 +211,39 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
 ## 7. Living Constitution & Continuous Learning Directive (عقل متطور وذاكرة مستمرة)
 
 - **Mandatory Session Initialization:** At the start of every session or task, Claude MUST read `CLAUDE.md` and inspect `.global_skills/` to ground all decisions in the project's living rules.
+- **Strict 6-Phase Pipeline Adherence:** Claude must execute every single task through the 6-phase engineering workflow defined in Section 3 without skipping steps.
 - **Cumulative Knowledge Growth:** Every time a new design pattern, architectural invariant, debugging edge-case, or testing protocol is established, Claude MUST append and refine `CLAUDE.md` and the relevant skill definitions.
+- **Mandatory End-of-Task Handoff Update:** At the conclusion of every completed issue, feature, or pull request, Claude MUST update `CLAUDE.md` (specifically Section 8: Continuous Project Ledger) and any relevant skills before concluding the session.
 - **Zero Knowledge Loss:** **NEVER** delete, wipe, or overwrite established workflows, team protocols, or skill definitions. Project intelligence is strictly additive, continuously evolving, and permanently preserved across sessions.
+
+---
+
+## 8. Continuous Project Ledger & Active Changelog (سجل التحديثات الحية وموقف المشروع)
+
+> **Directive for Claude:** When closing any task or merging any PR, append an entry to this ledger with the timestamp, files touched, deliverables verified, and next priority so any new chat session immediately inherits 100% of the project's context.
+
+### 🟢 Sprint 1 Baseline & Architectural Foundation (Completed)
+- **Status:** 11 User Stories (US01–US06, US13–US17) completed, verified, and merged into `main`.
+- **Core Architecture Established:**
+  - Client-side single portal (`frontend/index.html`) with bilingual i18n (`frontend/js/i18n.js`).
+  - High-performance Track Hunter Radar Canvas (`frontend/js/hunter-canvas.js`) at 60fps.
+  - Role-based client-side access control (`frontend/js/auth.js` & `admin.js`) guarding routes before DOM paint.
+  - 1-Click demo accounts for Student, Recruiter, and Admin.
+  - Rigorous test suite (`npm test`) validating 5 critical dimensions with 100% pass rate.
+
+### 🟢 Skills & Governance Harmonization (Latest Update: 2026-10-31 19:20 UTC+2)
+- **Commit:** `645aefe`
+- **Deliverables:**
+  - Curated and committed 15 verified, physical AI skills in `.global_skills/` (`open-design`, `ui-ux-pro-max`, `frontend-design`, `graphify`, `design-system`, `huntyourtrack-frontend`, `diagram`, `test-audit`, `playwright-cli`, `document-generate`, `design-review`, `design-html`, `autoplan`, `browse`, `make-pdf`).
+  - Implemented dynamic real-time GitHub backlog tracking via `gh` CLI.
+  - Re-established mandatory feature branching, immediate PR creation, and teammate handover protocol (`Hi @<teammate>...`).
+  - Codified the 6-Phase Systematic Engineering Workflow into `CLAUDE.md`.
+  - Upgraded `scripts/setup-skills.js` to dynamically synchronize repository skills to host environment (`npm run setup:skills`).
+- **Next Immediate Priority:**
+  - **Sprint 2 Execution:** Implement US18 (#63), US19 (#64), and US20 (#65) on dedicated feature branches:
+    1. US18: Universal Multi-Faculty Roadmaps & Production SaaS Sanitization.
+    2. US19: Interactive Role-Based Onboarding & Intelligent Resume Keyword Parser.
+    3. US20: Comprehensive Opportunity Organization, Deadlines & Publishing Lifecycle.
+
 
 
