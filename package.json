@@ -12,5 +12,8 @@
     "test:auth": "node tests/frontend-smoke-test.js",
     "verify:cli": "node tests/cli-interactive-verify.js",
     "demo:visual": "node tests/visual-live-browser-demo.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
   }
 }

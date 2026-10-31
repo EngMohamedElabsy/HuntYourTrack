@@ -73,3 +73,41 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
    - Dynamic faculty and major selection.
    - Resume (Word/PDF) upload simulation with keyword detection and personalized dashboard routing.
 5. **Opportunity Organization:** Categorize listings by status (`Active Opportunities`, `Closing Soon Countdown`, `Corporate Catalog`) with faculty targeting filters.
+
+---
+
+## 6. Active AI Skills & Tooling Directives (`.global_skills`)
+
+Claude and autonomous AI agents working in this repository MUST leverage the curated, verified skills located in `.global_skills/`:
+
+### 🎨 Design & Visual Engineering Skills
+- **`open-design` (CLI: `od`):**
+  - **Anti-Slop Linter:** Always run `od lint <path-to-html> --json` on modified HTML templates before committing.
+  - **Zero AI-Slop Rule:** Flag and eliminate generic AI tells, specifically hardcoded indigo (`#4F46E5`) and emojis used as UI icons. Use SVG icons (Heroicons/Lucide) and design tokens (`var(--color-primary)`).
+  - **Palette Binding:** Reference `od tools directions` (`modern-minimal`) for accessible styling.
+- **`design-system` & `design-review`:**
+  - Strictly adhere to `design-system/huntyourtrack/MASTER.md`.
+  - Maintain WCAG AA 4.5:1 minimum text contrast ratio in both Light and Dark themes (`[data-theme="dark"]`).
+  - Ensure all interactive elements have `cursor: pointer` and smooth hover transitions (`150ms-300ms`).
+- **`design-html`:**
+  - Build semantic, modular HTML5/CSS3 without heavy third-party framework dependencies.
+
+### 🧠 Architecture & Codebase Intelligence
+- **`graphify` (CLI: `graphify`):**
+  - Use `graphify path <source> <target>` or `graphify explain <module>` to inspect module couplings and AST relationships before undertaking major refactors.
+- **`huntyourtrack-frontend`:**
+  - Strict domain invariants: multi-faculty tracks (Engineering, Science, Business, Law, Tech), client-side session mocking, and teammate task isolation.
+- **`diagram`:**
+  - Render system architectures, state machines, and user journeys using standard Mermaid markdown or inline SVGs.
+
+### 🧪 QA, Browser Verification & Autonomous Execution
+- **`test-audit` & `playwright-cli`:**
+  - Execute `npm test` after any frontend or logic modification.
+  - Assert that all 5 critical audit dimensions pass: (1) Zero mixed languages in i18n, (2) Zero UI leaks or duplicated elements, (3) Bespoke Canvas 60fps rendering, (4) Strict route guarding, and (5) Mobile/Desktop responsive layouts.
+- **`autoplan`:**
+  - Decompose user stories into atomic commits adhering to the strict Single-PR rule: 1 Issue = 1 Dedicated Feature Branch + 1 PR.
+- **`document-generate` & `make-pdf`:**
+  - Generate structured technical documentation and export milestone reports for academic evaluation.
+- **`browse`:**
+  - Use headless browser lookup when researching external API schemas or design documentation.
+
