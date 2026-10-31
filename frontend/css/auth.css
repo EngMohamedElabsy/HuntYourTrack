@@ -455,14 +455,16 @@ body, html {
     .visual-panel p { font-size: 0.9rem; margin-bottom: 0.75rem; }
     .auth-card { height: 100%; max-height: none; min-height: 0; overflow: hidden; padding: 1rem; border-radius: 20px; }
     .auth-card h2 { font-size: 1.5rem; }
-    .auth-card .subtitle { margin-bottom: 1rem; }
+    .auth-card .subtitle { margin-bottom: 0.75rem; }
     .form-container { min-height: 0; }
     .form-group { margin-bottom: 0.75rem; }
-    .tab-container { margin-bottom: 1rem; }
+    .tab-container { margin-bottom: 0.75rem; }
+    .tab-btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-jury-trigger { min-height: 44px; }
     .auth-dialog { padding: 1.25rem; }
 }
 
 @media (max-width: 360px) {
-    .tab-btn { padding: 0.65rem 0.25rem; font-size: 0.75rem; }
+    .tab-btn { padding: 0.65rem 0.25rem; font-size: 0.75rem; min-height: 44px; }
     .auth-card { padding: 0.75rem; }
 }

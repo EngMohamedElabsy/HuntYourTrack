@@ -37,7 +37,22 @@
             <span style="color: #E2E8F0;">Mohamed Yasser (Lead)</span>
             <a href="auth.html" title="Sign Out" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem;">🚪</a>
         </div>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button class="mobile-menu-btn" id="workflow-mobile-toggle" aria-label="Toggle Navigation Menu" onclick="toggleWorkflowDrawer()" style="color: white;">
+            ☰
+        </button>
     </header>
+
+    <!-- Workflow Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="workflow-mobile-drawer" style="background: #0F172A; border-color: rgba(99, 102, 241, 0.4);">
+        <a href="index.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()">🏠 Product Landing</a>
+        <a href="student.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()">🎓 Student Career Hub</a>
+        <a href="admin.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()">🛡️ Admin Console</a>
+        <a href="workflow.html" class="nav-drawer-link active" style="color: #6366F1;" onclick="closeWorkflowDrawer()">🗺️ System Architecture Map</a>
+        <a href="components.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()">🧩 UI Component Kit</a>
+        <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-drawer-link" style="color: #38BDF8;">📋 Sprint Board ↗</a>
+    </div>
 
     <!-- Main Container -->
     <main class="workflow-container">
@@ -482,6 +497,17 @@
                     }
                 }, currentDelay);
             });
+        }
+
+        // Mobile drawer handlers (US15)
+        function toggleWorkflowDrawer() {
+            const drawer = document.getElementById('workflow-mobile-drawer');
+            if (drawer) drawer.classList.toggle('open');
+        }
+
+        function closeWorkflowDrawer() {
+            const drawer = document.getElementById('workflow-mobile-drawer');
+            if (drawer) drawer.classList.remove('open');
         }
     </script>
 </body>

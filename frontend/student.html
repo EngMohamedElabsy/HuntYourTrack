@@ -142,7 +142,7 @@
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
         }
@@ -210,6 +210,112 @@
             color: var(--color-muted-foreground);
             margin-top: auto;
         }
+
+        /* Responsive Mobile Navigation & Breakpoints (US15) */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #334155;
+            cursor: pointer;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 0.5rem;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+            transition: background-color 150ms ease;
+        }
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:focus-visible {
+            background-color: #F1F5F9;
+        }
+
+        .mobile-drawer {
+            display: none;
+            position: fixed;
+            top: 65px;
+            left: 0;
+            right: 0;
+            background: #FFFFFF;
+            border-bottom: 2px solid var(--color-border);
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-drawer.open {
+            display: block;
+            animation: drawerSlideDown 0.25s ease-out;
+        }
+
+        @keyframes drawerSlideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-drawer-link {
+            display: flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 0.5rem 0;
+            color: #334155;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-bottom: 1px solid #F1F5F9;
+            touch-action: manipulation;
+        }
+
+        .nav-drawer-link.active,
+        .nav-drawer-link:hover {
+            color: var(--color-primary);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.75rem 1rem;
+            }
+            .navbar-actions {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: inline-flex;
+            }
+            .welcome-card {
+                padding: 1.5rem;
+                border-radius: 18px;
+            }
+            .welcome-card h1 {
+                font-size: 1.5rem;
+            }
+            .dashboard-content {
+                padding: 0 1rem;
+                margin: 1rem auto;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .welcome-card {
+                padding: 1.25rem;
+            }
+            .roadmap-card {
+                padding: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -228,7 +334,28 @@
                 <a href="components.html" class="btn btn-ghost" style="font-size: 0.9rem;">UI Kit</a>
                 <button id="logout-btn" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Sign Out</button>
             </div>
+            <!-- Mobile Hamburger Button -->
+            <button class="mobile-menu-btn" id="student-mobile-toggle" aria-label="Toggle Navigation Menu" onclick="toggleStudentDrawer()">
+                ☰
+            </button>
         </header>
+
+        <!-- Mobile Navigation Drawer -->
+        <div class="mobile-drawer" id="student-mobile-drawer">
+            <div style="padding-bottom: 0.75rem; border-bottom: 1px solid #E2E8F0; margin-bottom: 0.5rem;">
+                <span class="user-badge" style="width: 100%; justify-content: center;">
+                    <span>👨‍🎓</span> <span id="mobile-user-display">Student Portal</span>
+                </span>
+            </div>
+            <a href="index.html" class="nav-drawer-link" onclick="closeStudentDrawer()">🏠 Product Landing</a>
+            <a href="student.html" class="nav-drawer-link active" onclick="closeStudentDrawer()">🎓 Student Career Hub</a>
+            <a href="admin.html" class="nav-drawer-link" onclick="closeStudentDrawer()">🛡️ Admin Console</a>
+            <a href="workflow.html" class="nav-drawer-link" onclick="closeStudentDrawer()">🗺️ System Architecture Map</a>
+            <a href="components.html" class="nav-drawer-link" onclick="closeStudentDrawer()">🧩 UI Component Library</a>
+            <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #E2E8F0;">
+                <button onclick="handleStudentLogout()" class="btn btn-secondary" style="width: 100%;">Sign Out 🚪</button>
+            </div>
+        </div>
 
         <!-- Main Dashboard View -->
         <main class="dashboard-content">
@@ -348,6 +475,8 @@
 
         if (userEmail) {
             document.getElementById('user-display').textContent = userEmail;
+            const mobileDisplay = document.getElementById('mobile-user-display');
+            if (mobileDisplay) mobileDisplay.textContent = userEmail;
             document.getElementById('welcome-heading').textContent = `Welcome Back, ${userEmail.split('@')[0]}! 🚀`;
         } else if (!userRole) {
             // If not logged in, prompt or redirect to auth
@@ -355,11 +484,24 @@
             window.location.replace('auth.html');
         }
 
-        // Logout handler
-        document.getElementById('logout-btn').addEventListener('click', () => {
+        // Mobile drawer toggles
+        function toggleStudentDrawer() {
+            const drawer = document.getElementById('student-mobile-drawer');
+            if (drawer) drawer.classList.toggle('open');
+        }
+
+        function closeStudentDrawer() {
+            const drawer = document.getElementById('student-mobile-drawer');
+            if (drawer) drawer.classList.remove('open');
+        }
+
+        function handleStudentLogout() {
             localStorage.clear();
             window.location.href = 'auth.html';
-        });
+        }
+
+        // Desktop logout handler
+        document.getElementById('logout-btn').addEventListener('click', handleStudentLogout);
     </script>
 </body>
 </html>

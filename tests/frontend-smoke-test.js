@@ -266,7 +266,51 @@ async function run() {
         assert.equal(await page.locator('#login-email').inputValue(), 'admin@damanhour.edu.eg', 'Jury persona should fill admin email');
         assert.equal(await page.locator('#login-password').inputValue(), 'HuntLead2026!', 'Jury persona should fill admin password');
 
-        console.log('Frontend smoke check passed: Product Landing Page (US13), auth security & RBAC guard (US14), components, student portal, admin console, and system workflow graph.');
+        // Test Multi-Device Responsive Breakpoints & Mobile Drawers (US15)
+        // 1. Mobile Small (375x667)
+        await page.setViewportSize({ width: 375, height: 667 });
+        
+        // 1a. Test Landing Page Mobile Drawer & Touch Targets
+        await page.goto(`http://127.0.0.1:${address.port}/index.html`);
+        const landingToggle = page.locator('#mobile-toggle');
+        assert.equal(await landingToggle.isVisible(), true, 'Mobile toggle should be visible on 375px');
+        const landingToggleBox = await landingToggle.boundingBox();
+        assert.ok(landingToggleBox.width >= 44 && landingToggleBox.height >= 44, 'Mobile hamburger button must meet minimum 44x44px touch target');
+        await landingToggle.click();
+        assert.equal(await page.locator('#mobile-drawer').evaluate(el => el.classList.contains('open')), true, 'Landing mobile drawer should open');
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), true, 'Landing page should not have horizontal overflow on 375px');
+
+        // 1b. Test Student Hub Mobile Drawer & Touch Targets
+        await page.goto(`http://127.0.0.1:${address.port}/student.html`);
+        const studentToggle = page.locator('#student-mobile-toggle');
+        assert.equal(await studentToggle.isVisible(), true, 'Student mobile toggle should be visible on 375px');
+        const studentToggleBox = await studentToggle.boundingBox();
+        assert.ok(studentToggleBox.width >= 44 && studentToggleBox.height >= 44, 'Student mobile toggle must meet minimum 44x44px touch target');
+        await studentToggle.click();
+        assert.equal(await page.locator('#student-mobile-drawer').evaluate(el => el.classList.contains('open')), true, 'Student mobile drawer should open');
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), true, 'Student page should not have horizontal overflow on 375px');
+
+        // 1c. Test Admin Console Mobile Drawer & Horizontal Data-Table Scroll
+        await page.goto(`http://127.0.0.1:${address.port}/admin.html`);
+        const adminToggle = page.locator('#admin-mobile-toggle');
+        assert.equal(await adminToggle.isVisible(), true, 'Admin mobile toggle should be visible on 375px');
+        const adminToggleBox = await adminToggle.boundingBox();
+        assert.ok(adminToggleBox.width >= 44 && adminToggleBox.height >= 44, 'Admin mobile toggle must meet minimum 44x44px touch target');
+        await adminToggle.click();
+        assert.equal(await page.locator('#admin-mobile-drawer').evaluate(el => el.classList.contains('open')), true, 'Admin mobile drawer should open');
+        assert.equal(await page.locator('.table-responsive').count(), 1, 'Admin table responsive container should exist');
+
+        // 2. Tablet Viewport (768x1024)
+        await page.setViewportSize({ width: 768, height: 1024 });
+        await page.goto(`http://127.0.0.1:${address.port}/index.html`);
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), true, 'Landing page should not have horizontal overflow on 768px tablet');
+
+        // 3. Desktop Viewport (1440x900)
+        await page.setViewportSize({ width: 1440, height: 900 });
+        await page.goto(`http://127.0.0.1:${address.port}/index.html`);
+        assert.equal(await landingToggle.isVisible(), false, 'Mobile toggle should be hidden on desktop 1440px viewport');
+
+        console.log('Frontend smoke check passed: Product Landing Page (US13), auth security & RBAC guard (US14), responsive multi-device design (US15), components, student portal, admin console, and system workflow graph.');
     } finally {
         if (browser) await browser.close();
         if (server.listening) {

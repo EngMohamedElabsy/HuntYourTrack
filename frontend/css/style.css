@@ -31,8 +31,9 @@ body {
     overflow-x: hidden;
 }
 
-/* Professional Button System */
+/* Professional Button System with Accessible Touch Targets (min 44px) */
 .btn {
+    min-height: 44px;
     padding: 0.8rem 1.5rem;
     border-radius: 12px;
     font-family: var(--font-heading);
@@ -45,6 +46,7 @@ body {
     gap: 8px;
     text-decoration: none;
     transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, color 200ms ease;
+    touch-action: manipulation;
 }
 
 .btn:focus-visible,
@@ -114,6 +116,7 @@ button:focus-visible {
 
 .form-control {
     width: 100%;
+    min-height: 44px;
     padding: 0.8rem 1rem;
     border: 1px solid var(--color-border);
     border-radius: 12px;
