@@ -367,3 +367,16 @@ function showToast(message, type = 'success') {
         setTimeout(() => toast.remove(), 300);
     }, 3500);
 }
+
+// Mobile Drawer Handlers (US15)
+function toggleAdminDrawer() {
+    const drawer = document.getElementById('admin-mobile-drawer');
+    if (drawer) drawer.classList.toggle('open');
+}
+window.toggleAdminDrawer = toggleAdminDrawer;
+
+function closeAdminDrawer() {
+    const drawer = document.getElementById('admin-mobile-drawer');
+    if (drawer) drawer.classList.remove('open');
+}
+window.closeAdminDrawer = closeAdminDrawer;

@@ -662,10 +662,126 @@
     color: #94A3B8;
 }
 
+/* Mobile Navigation in Admin Console (US15) */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #334155;
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    transition: background-color 150ms ease;
+}
+
+.mobile-menu-btn:hover,
+.mobile-menu-btn:focus-visible {
+    background-color: #F1F5F9;
+}
+
+.mobile-drawer {
+    display: none;
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    border-bottom: 2px solid var(--color-border);
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.mobile-drawer.open {
+    display: block;
+    animation: drawerSlideDown 0.25s ease-out;
+}
+
+.nav-drawer-link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.5rem 0;
+    color: #334155;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-bottom: 1px solid #F1F5F9;
+    touch-action: manipulation;
+}
+
+.nav-drawer-link.active,
+.nav-drawer-link:hover {
+    color: var(--color-primary);
+}
+
 @media (max-width: 768px) {
-    .admin-navbar { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
-    .nav-links { width: 100%; overflow-x: auto; }
-    .kpi-grid { grid-template-columns: 1fr; }
-    .toolbar { flex-direction: column; align-items: stretch; }
-    .search-box { max-width: none; }
+    .admin-navbar {
+        padding: 0.75rem 1rem;
+    }
+    .nav-links, .admin-profile {
+        display: none;
+    }
+    .mobile-menu-btn {
+        display: inline-flex;
+    }
+    .admin-container {
+        padding: 1rem;
+    }
+    .page-header {
+        margin-bottom: 1.25rem;
+    }
+    .page-title {
+        font-size: 1.45rem;
+    }
+    .kpi-grid {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+    }
+    .panel-card {
+        padding: 1rem;
+        border-radius: 14px;
+    }
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    .search-box {
+        max-width: none;
+    }
+    .filter-pills {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.25rem;
+    }
+    .filter-pill {
+        min-height: 38px;
+        display: inline-flex;
+        align-items: center;
+    }
+    .table-responsive {
+        border-radius: 8px;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-logo {
+        font-size: 1.1rem;
+    }
+    .admin-badge {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.4rem;
+    }
+    .admin-tab-btn {
+        font-size: 0.82rem;
+        padding: 0.5rem 0.85rem;
+    }
 }

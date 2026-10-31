@@ -36,7 +36,29 @@
             <span id="admin-user-display">Mohamed Yasser (Lead)</span>
             <a href="auth.html" id="admin-logout-btn" title="Sign Out" onclick="handleAdminLogout(event)" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem; font-size: 0.9rem;">🚪</a>
         </div>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button class="mobile-menu-btn" id="admin-mobile-toggle" aria-label="Toggle Navigation Menu" onclick="toggleAdminDrawer()">
+            ☰
+        </button>
     </header>
+
+    <!-- Admin Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="admin-mobile-drawer">
+        <div style="padding-bottom: 0.75rem; border-bottom: 1px solid #E2E8F0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <div class="avatar">M</div>
+            <span style="font-weight: 600; font-size: 0.9rem;">Mohamed Yasser (Lead Admin)</span>
+        </div>
+        <a href="index.html" class="nav-drawer-link" onclick="closeAdminDrawer()">🏠 Product Landing</a>
+        <a href="student.html" class="nav-drawer-link" onclick="closeAdminDrawer()">🎓 Student Career Hub</a>
+        <a href="admin.html" class="nav-drawer-link active" onclick="closeAdminDrawer()">🛡️ Admin Console</a>
+        <a href="workflow.html" class="nav-drawer-link" onclick="closeAdminDrawer()">🗺️ System Architecture Map</a>
+        <a href="components.html" class="nav-drawer-link" onclick="closeAdminDrawer()">🧩 UI Component Kit</a>
+        <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-drawer-link" style="color: #6366F1;">📋 Sprint Board ↗</a>
+        <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #E2E8F0;">
+            <button onclick="handleAdminLogout(event)" class="btn btn-secondary" style="width: 100%;">Sign Out 🚪</button>
+        </div>
+    </div>
 
     <!-- Role Authorization Guard Barrier (US14) -->
     <div id="admin-guard-barrier" class="admin-guard-overlay" style="display: none;" role="alertdialog" aria-modal="true" aria-labelledby="guard-title">

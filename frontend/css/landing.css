@@ -86,7 +86,19 @@
     font-size: 1.5rem;
     color: #334155;
     cursor: pointer;
-    padding: 0.35rem;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    transition: background-color 150ms ease;
+}
+
+.mobile-menu-btn:hover,
+.mobile-menu-btn:focus-visible {
+    background-color: #F1F5F9;
 }
 
 /* Mobile Slide-out Menu */
@@ -105,19 +117,29 @@
 
 .mobile-drawer.open {
     display: block;
+    animation: drawerSlideDown 0.25s ease-out;
+}
+
+@keyframes drawerSlideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .mobile-drawer .nav-link {
     display: flex;
+    align-items: center;
+    min-height: 44px;
     padding: 0.75rem 0;
     font-size: 1rem;
     border-bottom: 1px solid #F1F5F9;
+    touch-action: manipulation;
 }
 
 .mobile-drawer .nav-cta-group {
     margin-top: 1rem;
     flex-direction: column;
     width: 100%;
+    gap: 0.75rem;
 }
 
 .mobile-drawer .nav-cta-group .btn {
