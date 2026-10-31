@@ -32,6 +32,10 @@
                     <button class="btn btn-accent" type="button">Accent</button>
                     <button class="btn btn-primary" type="button" disabled>Disabled</button>
                 </div>
+                <div class="button-states-row" style="margin-top: 1rem; display: flex; gap: 0.75rem; align-items: center;">
+                    <button class="btn btn-primary btn-loading" type="button" aria-busy="true" aria-label="Loading state">Submit</button>
+                    <span style="font-size: 0.82rem; color: #64748B; align-self: center;">← Interactive Loading Spinner State</span>
+                </div>
             </section>
 
             <section class="component-demo" aria-labelledby="inputs-heading">
@@ -70,9 +74,15 @@
             </section>
 
             <section class="component-demo" aria-labelledby="feedback-heading">
-                <h2 id="feedback-heading">Modal and tooltip</h2>
-                <button class="btn btn-secondary" id="open-demo-modal" type="button">Open modal</button>
-                <button class="btn btn-ghost demo-tooltip" type="button" data-tooltip="Extra help that is also keyboard accessible">Hover or focus for help</button>
+                <h2 id="feedback-heading">Modals, Tooltips & Toast Notifications (US16)</h2>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <button class="btn btn-secondary" id="open-demo-modal" type="button">Open modal</button>
+                    <button class="btn btn-ghost demo-tooltip" type="button" data-tooltip="Extra help that is also keyboard accessible">Hover or focus for help</button>
+                </div>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <button class="btn btn-accent" id="btn-trigger-toast-success" type="button" onclick="showDemoToast('Student profile verified and synced! 🚀', 'success')">Trigger Success Toast</button>
+                    <button class="btn btn-danger" id="btn-trigger-toast-danger" type="button" onclick="showDemoToast('Action rejected: Document verification required.', 'danger')">Trigger Danger Toast</button>
+                </div>
                 <dialog class="modal" id="demo-modal" aria-labelledby="demo-modal-title">
                     <h2 id="demo-modal-title">Confirm action</h2>
                     <p>This dialog uses native keyboard and focus behavior.</p>

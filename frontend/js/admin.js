@@ -326,7 +326,7 @@ function openRejectModal(empId) {
 function confirmRejectEmployer() {
     const reason = document.getElementById('reject-reason-input').value.trim();
     if (!reason) {
-        alert('Please specify the reason for rejection.');
+        showToast('Please specify the reason for rejection before confirming.', 'danger');
         return;
     }
 
