@@ -28,6 +28,19 @@
                     <button class="tab-btn" id="btn-signup" type="button" aria-pressed="false" onclick="switchTab('signup')">Create Account</button>
                 </div>
 
+                <!-- Social Auth Simulation -->
+                <div class="social-auth-section" style="margin-bottom: 1.5rem; text-align: center;">
+                    <button type="button" class="btn btn-secondary" style="width: 100%; justify-content: center; gap: 10px;" onclick="simulateGoogleAuth()">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width: 18px; height: 18px;">
+                        Continue with Google
+                    </button>
+                    <div style="display: flex; align-items: center; margin: 1rem 0; gap: 1rem;">
+                        <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
+                        <span style="font-size: 0.75rem; color: var(--color-muted-foreground); font-weight: 600; text-transform: uppercase;">or</span>
+                        <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
+                    </div>
+                </div>
+
                 <!-- 1-Click Demo Accounts Quick Access -->
                 <div class="demo-access-banner" id="demo-access-banner">
                     <span class="demo-label">⚡ 1-Click Demo Access:</span>
@@ -42,11 +55,18 @@
                     <form id="login-form" class="form-content" data-auth-mode="login">
                         <div class="form-group">
                             <label for="login-email">University Email</label>
-                            <input id="login-email" name="email" type="email" class="form-control" placeholder="student@university.edu" autocomplete="email" required>
+                            <div style="position: relative;">
+                                <input id="login-email" name="email" type="email" class="form-control" placeholder="student@university.edu" autocomplete="email" required>
+                                <span class="field-error" id="error-login-email" style="color: #DC2626; font-size: 0.75rem; position: absolute; bottom: -1.2rem; left: 0;"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="login-password">Password</label>
-                            <input id="login-password" name="password" type="password" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
+                            <div style="position: relative;">
+                                <input id="login-password" name="password" type="password" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('login-password')" aria-label="Toggle password visibility" style="position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem;">👁️</button>
+                                <span class="field-error" id="error-login-password" style="color: #DC2626; font-size: 0.75rem; position: absolute; bottom: -1.2rem; left: 0;"></span>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary auth-submit">Enter Platform</button>
                         <div class="auth-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
@@ -62,18 +82,41 @@
                         <div class="form-group">
                             <label for="signup-name">Full Name</label>
                             <input id="signup-name" name="name" type="text" class="form-control" placeholder="Enter your full name" autocomplete="name" required>
+                            <span class="field-error" id="error-signup-name" style="color: #DC2626; font-size: 0.75rem; position: absolute; bottom: -1.2rem; left: 0;"></span>
                         </div>
                         <div class="form-group">
                             <label for="signup-email">University Email</label>
-                            <input id="signup-email" name="email" type="email" class="form-control" placeholder="student@university.edu" autocomplete="email" required>
+                            <div style="position: relative;">
+                                <input id="signup-email" name="email" type="email" class="form-control" placeholder="student@university.edu" autocomplete="email" required>
+                                <span class="field-error" id="error-signup-email" style="color: #DC2626; font-size: 0.75rem; position: absolute; bottom: -1.2rem; left: 0;"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="signup-faculty">Faculty</label>
-                            <input id="signup-faculty" name="faculty" type="text" class="form-control" placeholder="Enter your faculty" autocomplete="organization-title" required>
+                            <select id="signup-faculty" name="faculty" class="form-control" required onchange="updateMajors()">
+                                <option value="" disabled selected>Select your faculty</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Science">Science</option>
+                                <option value="Business">Business</option>
+                                <option value="Law">Law</option>
+                                <option value="Computing">Computing</option>
+                            </select>
+                            <span class="field-error" id="error-signup-faculty" style="color: #DC2626; font-size: 0.75rem; position: absolute; bottom: -1.2rem; left: 0;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-major">Academic Major / Department</label>
+                            <select id="signup-major" name="major" class="form-control" required disabled>
+                                <option value="" disabled selected>Select faculty first</option>
+                            </select>
+                            <span class="field-error" id="error-signup-major" style="color: #DC2626; font-size: 0.75rem; position: absolute; bottom: -1.2rem; left: 0;"></span>
                         </div>
                         <div class="form-group">
                             <label for="signup-password">Password</label>
-                            <input id="signup-password" name="password" type="password" class="form-control" placeholder="Create a strong password (8+ characters)" autocomplete="new-password" minlength="8" required>
+                            <div style="position: relative;">
+                                <input id="signup-password" name="password" type="password" class="form-control" placeholder="Create a strong password (8+ characters)" autocomplete="new-password" minlength="8" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('signup-password')" aria-label="Toggle password visibility" style="position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem;">👁️</button>
+                                <span class="field-error" id="error-signup-password" style="color: #DC2626; font-size: 0.75rem; position: absolute; bottom: -1.2rem; left: 0;"></span>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-accent auth-submit">Create Account</button>
                     </form>
@@ -81,21 +124,23 @@
                 <p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
             </div>
         </section>
-    </div>
 
-    <dialog class="auth-dialog" id="forgot-password-dialog" aria-labelledby="forgot-password-title">
-        <form id="forgot-password-form" data-auth-mode="password-reset">
-            <h2 id="forgot-password-title">Reset your password</h2>
-            <p class="subtitle">Enter your university email and we will send a reset link.</p>
-            <div class="form-group">
-                <label for="reset-email">University Email</label>
-                <input id="reset-email" name="email" type="email" class="form-control" autocomplete="email" required>
-            </div>
-            <button type="submit" class="btn btn-primary auth-submit">Send reset link</button>
-            <button type="button" class="btn btn-secondary" id="close-reset-dialog">Cancel</button>
-            <p class="auth-status" role="status" aria-live="polite"></p>
-        </form>
-    </dialog>
+        <dialog class="auth-dialog" id="forgot-password-dialog" aria-labelledby="forgot-password-title">
+            <form id="forgot-password-form" data-auth-mode="password-reset">
+                <h2 id="forgot-password-title">Reset your password</h2>
+                <p class="subtitle">Enter your university email and we will send a reset link.</p>
+                <div class="form-group">
+                    <label for="reset-email">University Email</label>
+                    <input id="reset-email" name="email" type="email" class="form-control" autocomplete="email" required>
+                </div>
+                <button type="submit" class="btn btn-primary auth-submit">Send reset link</button>
+                <button type="button" class="btn btn-secondary" id="close-reset-dialog">Cancel</button>
+            </form>
+        </dialog>
+
+        <!-- Jury Access Hidden Trigger -->
+        <div id="jury-trigger" style="position: fixed; bottom: 0; right: 0; width: 10px; height: 10px; cursor: pointer; z-index: 9999;" onclick="triggerJuryAccess()"></div>
+    </div>
 
     <script src="js/auth.js"></script>
 </body>

@@ -18,6 +18,13 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
+@media (max-width: 700px) {
+    :root {
+        --color-background: #F8FAFC; /* Slightly lighter for mobile app feel */
+        --shadow-xl: 0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Softer shadows for smaller screens */
+    }
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -45,6 +52,14 @@ body {
     gap: 8px;
     text-decoration: none;
     transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, color 200ms ease;
+}
+
+@media (max-width: 700px) {
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        border-radius: 10px;
+    }
 }
 
 .btn:focus-visible,
@@ -104,6 +119,12 @@ button:focus-visible {
     margin-bottom: 1.5rem;
 }
 
+@media (max-width: 700px) {
+    .form-group {
+        margin-bottom: 1rem;
+    }
+}
+
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
@@ -121,6 +142,13 @@ button:focus-visible {
     font-family: var(--font-main);
     font-size: 1rem;
     transition: all 0.3s ease;
+}
+
+@media (max-width: 700px) {
+    .form-control {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
 }
 
 .form-control:focus {
@@ -144,9 +172,23 @@ button:focus-visible {
     background: #FFFFFF;
 }
 
+@media (max-width: 700px) {
+    .card {
+        border-radius: 12px;
+        border-width: 1px;
+    }
+}
+
 .card-header,
 .card-body,
 .card-footer { padding: 1.25rem; }
+
+@media (max-width: 700px) {
+    .card-header,
+    .card-body,
+    .card-footer { padding: 1rem; }
+}
+
 .card-header { border-bottom: 1px solid var(--color-border); }
 .card-footer { border-top: 1px solid var(--color-border); }
 
@@ -156,6 +198,13 @@ button:focus-visible {
     padding: 1.5rem;
     border: 0;
     border-radius: 20px;
+}
+
+@media (max-width: 700px) {
+    .modal {
+        padding: 1rem;
+        border-radius: 16px;
+    }
 }
 
 .modal::backdrop { background: rgba(15, 23, 42, 0.55); }

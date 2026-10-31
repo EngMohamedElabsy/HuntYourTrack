@@ -210,6 +210,38 @@
             color: var(--color-muted-foreground);
             margin-top: auto;
         }
+
+        @media (max-width: 700px) {
+            .navbar { padding: 0.75rem 1rem; }
+            .navbar-brand { font-size: 1.1rem; }
+            .navbar-actions .btn-ghost { display: none; }
+            .user-badge { font-size: 0.75rem; padding: 0.3rem 0.6rem; }
+
+            .dashboard-content { margin: 1rem auto; padding: 0 1rem; }
+
+            .welcome-card {
+                padding: 1.5rem;
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                border-radius: 16px;
+            }
+            .welcome-card h1 { font-size: 1.5rem; }
+            .welcome-card p { font-size: 0.85rem; margin: 0 auto; }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.75rem;
+            }
+            .stat-card { padding: 1rem; }
+            .stat-card .stat-val { font-size: 1.5rem; }
+            .stat-card .stat-label { font-size: 0.75rem; }
+
+            .section-header h2 { font-size: 1.2rem; }
+            .cards-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .roadmap-card { padding: 1.25rem; }
+            .milestone-item { font-size: 0.85rem; }
+        }
     </style>
 </head>
 <body>
