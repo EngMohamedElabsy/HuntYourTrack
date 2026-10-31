@@ -1,278 +1,210 @@
-window.addEventListener('DOMContentLoaded', () => {
-    if (window.gsap && typeof gsap.from === 'function') {
-        gsap.from(".visual-panel h1", { opacity: 0, x: -50, duration: 1, ease: "power4.out" });
-        gsap.from(".visual-panel p", { opacity: 0, y: 20, duration: 0.8, ease: "power3.out", delay: 0.3 });
-        gsap.from(".auth-card", { opacity: 0, scale: 0.9, duration: 0.8, ease: "back.out(1.7)", delay: 0.5 });
-    }
-});
+/**
+ * HuntYourTrack - Authentication and Multi-Role Management Logic
+ * Supports Student, Employer, and Administrator onboarding & RBAC session management.
+ */
 
-let activeAuthMode = 'login';
-let authAnimation;
-const mobileLayout = window.matchMedia('(max-width: 700px)');
+const DEPARTMENT_MAP = {
+    computers: [
+        { val: "cs", labelAr: "علوم الحاسب (Computer Science)", labelEn: "Computer Science (CS)" },
+        { val: "ai", labelAr: "الذكاء الاصطناعي (AI)", labelEn: "Artificial Intelligence (AI)" },
+        { val: "is", labelAr: "نظم المعلومات (Information Systems)", labelEn: "Information Systems (IS)" },
+        { val: "it", labelAr: "تكنولوجيا المعلومات (IT)", labelEn: "Information Technology (IT)" },
+        { val: "cyber", labelAr: "الأمن السيبراني (Cybersecurity)", labelEn: "Cybersecurity" }
+    ],
+    engineering: [
+        { val: "cce", labelAr: "هندسة الحاسبات والتحكم (Computer Eng)", labelEn: "Computer & Control Engineering" },
+        { val: "comm", labelAr: "هندسة الإلكترونيات والاتصالات", labelEn: "Electronics & Communications" },
+        { val: "mecha", labelAr: "هندسة الميكاترونكس (Mechatronics)", labelEn: "Mechatronics Engineering" }
+    ],
+    commerce: [
+        { val: "mis", labelAr: "نظم المعلومات الإدارية (MIS)", labelEn: "Management Info Systems (MIS)" },
+        { val: "fintech", labelAr: "تكنولوجيا المعاملات المالية (FinTech)", labelEn: "Financial Technology (FinTech)" },
+        { val: "analytics", labelAr: "تحليل الأعمال والبيانات (Business Analytics)", labelEn: "Business Analytics" }
+    ],
+    law: [
+        { val: "cyberlaw", labelAr: "القانون الرقمي ومكافحة الجرائم الإلكترونية", labelEn: "Digital Law & Cybercrime Regulation" },
+        { val: "techip", labelAr: "الملكية الفكرية في التكنولوجيا والذكاء الاصطناعي", labelEn: "Tech & AI Intellectual Property" }
+    ]
+};
 
-function setPanelPositions(mode) {
-    const signup = mode === 'signup';
-    const axis = mobileLayout.matches ? 'yPercent' : 'xPercent';
-    const visual = document.getElementById('visual-panel');
-    const form = document.getElementById('form-panel');
-    if (!visual || !form) return;
+function updateDepartmentOptions(facultyKey) {
+    const deptSelect = document.getElementById('signup-dept');
+    if (!deptSelect) return;
 
-    if (window.gsap) {
-        gsap.set([visual, form], { xPercent: 0, yPercent: 0 });
-        if (signup) {
-            gsap.set(visual, { [axis]: 100 });
-            gsap.set(form, { [axis]: -100 });
-        }
-    } else {
-        const transProp = mobileLayout.matches ? 'translateY' : 'translateX';
-        visual.style.transform = signup ? `${transProp}(100%)` : `${transProp}(0%)`;
-        form.style.transform = signup ? `${transProp}(-100%)` : `${transProp}(0%)`;
-    }
+    const list = DEPARTMENT_MAP[facultyKey] || DEPARTMENT_MAP.computers;
+    const isArabic = document.documentElement.lang === 'ar';
+
+    deptSelect.innerHTML = list.map(item => {
+        return `<option value="${item.val}">${isArabic ? item.labelAr : item.labelEn}</option>`;
+    }).join('');
 }
+window.updateDepartmentOptions = updateDepartmentOptions;
 
-setPanelPositions(activeAuthMode);
-mobileLayout.addEventListener('change', () => setPanelPositions(activeAuthMode));
-
-function switchTab(type) {
-    if (type !== 'login' && type !== 'signup' || type === activeAuthMode) return;
-    activeAuthMode = type;
+function switchAuthTab(mode) {
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
     const btnLogin = document.getElementById('btn-login');
     const btnSignup = document.getElementById('btn-signup');
-    const slider = document.getElementById('slider');
-    const formTitle = document.getElementById('form-title');
-    const formSubtitle = document.getElementById('form-subtitle');
-    const visualPanel = document.getElementById('visual-panel');
-    const formPanel = document.getElementById('form-panel');
-    const fromForm = type === 'login' ? signupForm : loginForm;
-    const toForm = type === 'login' ? loginForm : signupForm;
-    const axis = mobileLayout.matches ? 'yPercent' : 'xPercent';
-    const direction = type === 'signup' ? 1 : -1;
+    const title = document.getElementById('form-title');
+    const subtitle = document.getElementById('form-subtitle');
+    const status = document.getElementById('auth-status');
+    const isArabic = document.documentElement.lang === 'ar';
 
-    if (window.gsap) {
-        gsap.killTweensOf([visualPanel, formPanel, fromForm, toForm]);
-        if (authAnimation) authAnimation.kill();
-    }
+    if (status) status.textContent = '';
 
-    btnLogin.setAttribute('aria-pressed', String(type === 'login'));
-    btnSignup.setAttribute('aria-pressed', String(type === 'signup'));
-    loginForm.inert = type !== 'login';
-    signupForm.inert = type !== 'signup';
-    loginForm.setAttribute('aria-hidden', String(type !== 'login'));
-    signupForm.setAttribute('aria-hidden', String(type !== 'signup'));
-    document.getElementById('auth-status').textContent = '';
-    document.getElementById('auth-status').dataset.state = '';
-    slider.style.transform = type === 'signup' ? 'translateX(100%)' : 'translateX(0)';
-
-    if (type === 'login') {
+    if (mode === 'login') {
+        loginForm.classList.remove('form-hidden');
+        signupForm.classList.add('form-hidden');
         btnLogin.classList.add('active');
         btnSignup.classList.remove('active');
-        formTitle.innerText = "Welcome Back";
-        formSubtitle.innerText = "Access your personalized career path.";
+        btnLogin.setAttribute('aria-selected', 'true');
+        btnSignup.setAttribute('aria-selected', 'false');
+
+        if (title) title.textContent = isArabic ? "تسجيل الدخول" : "Sign In";
+        if (subtitle) subtitle.textContent = isArabic ? "سجّل دخولك للوصول إلى خارطة طريقك المخصصة." : "Access your personalized career path.";
     } else {
-        btnSignup.classList.add('active');
+        loginForm.classList.add('form-hidden');
+        signupForm.classList.remove('form-hidden');
         btnLogin.classList.remove('active');
-        formTitle.innerText = "Join the Future";
-        formSubtitle.innerText = "Create an account to start your journey.";
-    }
+        btnSignup.classList.add('active');
+        btnLogin.setAttribute('aria-selected', 'false');
+        btnSignup.setAttribute('aria-selected', 'true');
 
-    fromForm.classList.add('form-hidden');
-    fromForm.style.opacity = '0';
-    toForm.classList.remove('form-hidden');
-    toForm.scrollTop = 0;
-
-    if (window.gsap) {
-        gsap.set(toForm, { opacity: 0, x: direction * 16 });
-        authAnimation = gsap.timeline();
-        authAnimation.to(visualPanel, {
-            [axis]: type === 'signup' ? 100 : 0,
-            duration: 1.0,
-            ease: 'power3.inOut'
-        }, 0).to(formPanel, {
-            [axis]: type === 'signup' ? -100 : 0,
-            duration: 1.0,
-            ease: 'power3.inOut'
-        }, 0).to(visualPanel, {
-            background: type === 'signup' ? '#16A34A' : '#6366F1',
-            duration: 1.0,
-            ease: 'power3.inOut'
-        }, 0).to(toForm, { opacity: 1, x: 0, duration: 0.35, ease: 'power2.out' }, 0.25);
-    } else {
-        const transProp = mobileLayout.matches ? 'translateY' : 'translateX';
-        visualPanel.style.transform = type === 'signup' ? `${transProp}(100%)` : `${transProp}(0%)`;
-        formPanel.style.transform = type === 'signup' ? `${transProp}(-100%)` : `${transProp}(0%)`;
-        visualPanel.style.background = type === 'signup' ? '#16A34A' : '#6366F1';
-        toForm.style.opacity = '1';
+        if (title) title.textContent = isArabic ? "إنشاء حساب جديد" : "Create Account";
+        if (subtitle) subtitle.textContent = isArabic ? "حدد كليتك وقسمك لبدء رحلة التخصص واصطياد المسار." : "Choose your faculty and track to start your journey.";
     }
 }
+window.switchAuthTab = switchAuthTab;
 
-const resetDialog = document.getElementById('forgot-password-dialog');
-document.getElementById('forgot-password-link').addEventListener('click', (event) => {
-    event.preventDefault();
-    resetDialog.showModal();
-    document.getElementById('reset-email').focus();
-});
-document.getElementById('close-reset-dialog').addEventListener('click', () => resetDialog.close());
-
-document.querySelectorAll('form[data-auth-mode]').forEach((form) => {
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const status = form.querySelector('.auth-status') || document.getElementById('auth-status');
-        const submitButton = form.querySelector('.auth-submit');
-        const mode = form.dataset.authMode;
-        const payload = Object.fromEntries(new FormData(form).entries());
-
-        status.dataset.state = '';
-        status.textContent = 'Please wait…';
-        submitButton.disabled = true;
-
-        // Simulate asynchronous authentication processing
-        setTimeout(() => {
-            try {
-                const email = (payload.email || '').trim();
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!email || !emailRegex.test(email)) {
-                    throw new Error('Please enter a valid university email address.');
-                }
-
-                if (mode === 'register') {
-                    if (!payload.name || !payload.name.trim()) {
-                        throw new Error('Full Name is required.');
-                    }
-                    if (!payload.faculty || !payload.faculty.trim()) {
-                        throw new Error('Faculty is required.');
-                    }
-                    if (!payload.password || payload.password.length < 8) {
-                        throw new Error('Password must be at least 8 characters long.');
-                    }
-                } else if (mode === 'login') {
-                    if (!payload.password) {
-                        throw new Error('Password is required.');
-                    }
-                }
-
-                // Role determination and session setup
-                const isLeadAdmin = email.includes('admin');
-                const isEmployer = email.includes('recruiter') || email.includes('partner') || email.includes('employer');
-
-                localStorage.setItem('user', isLeadAdmin ? 'admin' : (isEmployer ? 'employer' : 'student'));
-                localStorage.setItem('role', isLeadAdmin ? 'admin' : (isEmployer ? 'employer' : 'student'));
-                localStorage.setItem('auth_token', 'mock_jwt_session_token_' + Date.now());
-                if (payload.email) {
-                    localStorage.setItem('user_email', payload.email);
-                }
-
-                status.dataset.state = 'success';
-                const successMessages = {
-                    login: isLeadAdmin ? 'Admin authenticated. Entering Console…' : 'Signed in successfully. Redirecting…',
-                    register: 'Account created successfully. Redirecting…',
-                    'password-reset': 'If that address is registered, a reset link will be sent.'
-                };
-                status.textContent = successMessages[mode] || 'Success.';
-
-                // Smooth feedback animation
-                if (window.gsap && typeof gsap.from === 'function') {
-                    gsap.from(status, { scale: 0.96, opacity: 0.7, duration: 0.35, ease: 'power2.out' });
-                }
-
-                // Simulate redirect to destination
-                if (mode === 'login' || mode === 'register') {
-                    setTimeout(() => {
-                        window.location.href = isLeadAdmin ? 'admin.html' : 'student.html';
-                    }, 2000);
-                }
-            } catch (error) {
-                status.dataset.state = 'error';
-                status.textContent = error.message;
-            } finally {
-                submitButton.disabled = false;
-            }
-        }, 400);
-    });
-});
-
-/**
- * Toggle Password Field Visibility (Show / Hide)
- */
-function togglePasswordVisibility(inputId, button) {
+function togglePasswordVisibility(inputId, btn) {
     const input = document.getElementById(inputId);
     if (!input) return;
+
     const isPassword = input.type === 'password';
     input.type = isPassword ? 'text' : 'password';
-    button.setAttribute('aria-pressed', String(isPassword));
-    button.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
-    const eyeIcon = button.querySelector('.eye-icon');
-    if (eyeIcon) {
-        eyeIcon.textContent = isPassword ? '🙈' : '👁️';
-    }
+    btn.innerHTML = isPassword ? '🙈' : '👁️';
+    btn.setAttribute('aria-pressed', isPassword ? 'true' : 'false');
 }
 window.togglePasswordVisibility = togglePasswordVisibility;
 
-/**
- * Academic Jury & Evaluation Dialog Controls
- */
 function openJuryModal() {
     const dialog = document.getElementById('jury-dialog');
-    if (dialog && typeof dialog.showModal === 'function') {
-        dialog.showModal();
-        const trigger = document.getElementById('btn-jury-trigger');
-        if (trigger) trigger.setAttribute('aria-expanded', 'true');
-    }
+    if (dialog) dialog.showModal();
 }
 window.openJuryModal = openJuryModal;
 
 function closeJuryModal() {
     const dialog = document.getElementById('jury-dialog');
-    if (dialog && typeof dialog.close === 'function') {
-        dialog.close();
-        const trigger = document.getElementById('btn-jury-trigger');
-        if (trigger) trigger.setAttribute('aria-expanded', 'false');
-    }
+    if (dialog) dialog.close();
 }
 window.closeJuryModal = closeJuryModal;
 
-function selectJuryPersona(role) {
-    quickFillCredentials(role);
+function selectJuryPersona(persona) {
     closeJuryModal();
+    const isArabic = document.documentElement.lang === 'ar';
+
+    if (persona === 'admin') {
+        localStorage.setItem('user', 'admin');
+        localStorage.setItem('role', 'admin');
+        localStorage.setItem('user_email', 'elabsy@damanhour.edu.eg');
+        localStorage.setItem('user_name', 'Mohamed Yasser Elabsy');
+        localStorage.setItem('faculty', 'Computers & Artificial Intelligence');
+        showToast(isArabic ? 'تم تفعيل حساب المشرف الأكاديمي (Admin) بنجاح 🛡️' : 'Admin Academic session activated 🛡️', 'success');
+        setTimeout(() => { window.location.href = 'admin.html'; }, 800);
+    } else if (persona === 'employer') {
+        localStorage.setItem('user', 'employer');
+        localStorage.setItem('role', 'employer');
+        localStorage.setItem('user_email', 'abdulrhman@damanhour.edu.eg');
+        localStorage.setItem('user_name', 'TechCorp Organizer');
+        localStorage.setItem('faculty', 'Corporate Partner Hub');
+        showToast(isArabic ? 'تم تفعيل حساب جهة العمل (Employer Partner) 🏢' : 'Employer Organizer session activated 🏢', 'success');
+        setTimeout(() => { window.location.href = 'index.html#opportunities'; }, 800);
+    } else {
+        localStorage.setItem('user', 'student');
+        localStorage.setItem('role', 'student');
+        localStorage.setItem('user_email', 'hager@damanhour.edu.eg');
+        localStorage.setItem('user_name', 'Hager Khaled');
+        localStorage.setItem('faculty', 'كلية الحاسبات والذكاء الاصطناعي');
+        localStorage.setItem('department', 'علوم الحاسب (CS)');
+        showToast(isArabic ? 'تم تفعيل حساب الطالب الأكاديمي (Student) 🎓' : 'Student session activated 🎓', 'success');
+        setTimeout(() => { window.location.href = 'student.html'; }, 800);
+    }
 }
 window.selectJuryPersona = selectJuryPersona;
 
-/**
- * 1-Click Demo Credentials Quick-Fill
- */
-function quickFillCredentials(role) {
-    if (activeAuthMode !== 'login') {
-        switchTab('login');
-    }
-    const emailInput = document.getElementById('login-email');
-    const passwordInput = document.getElementById('login-password');
+function handleLoginSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value.trim().toLowerCase();
+    const isArabic = document.documentElement.lang === 'ar';
     const status = document.getElementById('auth-status');
 
-    if (role === 'admin') {
-        emailInput.value = 'admin@damanhour.edu.eg';
-        passwordInput.value = 'HuntLead2026!';
-        status.dataset.state = 'info';
-        status.textContent = '🛡️ Filled Lead Admin credentials. Click "Enter Platform" to sign in.';
-    } else if (role === 'employer') {
-        emailInput.value = 'recruiter@vodafone.com';
-        passwordInput.value = 'HuntPartner2026!';
-        status.dataset.state = 'info';
-        status.textContent = '🏢 Filled Corporate Employer credentials. Click "Enter Platform" to sign in.';
+    if (email.includes('admin') || email === 'elabsy@damanhour.edu.eg') {
+        localStorage.setItem('user', 'admin');
+        localStorage.setItem('role', 'admin');
+        localStorage.setItem('user_email', email);
+        localStorage.setItem('user_name', 'Mohamed Yasser');
+        showToast(isArabic ? 'مرحباً بك في لوحة الإدارة الأكاديمية! 🛡️' : 'Welcome to Admin Console! 🛡️', 'success');
+        setTimeout(() => { window.location.href = 'admin.html'; }, 800);
+    } else if (email.includes('employer') || email.includes('partner') || email.includes('hr')) {
+        localStorage.setItem('user', 'employer');
+        localStorage.setItem('role', 'employer');
+        localStorage.setItem('user_email', email);
+        localStorage.setItem('user_name', 'Partner Organizer');
+        showToast(isArabic ? 'مرحباً بك في منصة تنظيم ونشر الفرص! 🏢' : 'Welcome to Employer Portal! 🏢', 'success');
+        setTimeout(() => { window.location.href = 'index.html#opportunities'; }, 800);
     } else {
-        emailInput.value = 'student@damanhour.edu.eg';
-        passwordInput.value = 'HuntStudent2026!';
-        status.dataset.state = 'info';
-        status.textContent = '🎓 Filled Demo Student credentials. Click "Enter Platform" to sign in.';
+        localStorage.setItem('user', 'student');
+        localStorage.setItem('role', 'student');
+        localStorage.setItem('user_email', email);
+        localStorage.setItem('user_name', email.split('@')[0]);
+        localStorage.setItem('faculty', 'كلية الحاسبات والذكاء الاصطناعي');
+        localStorage.setItem('department', 'علوم الحاسب (CS)');
+        showToast(isArabic ? 'تم تسجيل الدخول بنجاح! جاري توجيهك لخارطة طريقك 🎓' : 'Signed in! Redirecting to Student Hub 🎓', 'success');
+        setTimeout(() => { window.location.href = 'student.html'; }, 800);
     }
-
-    emailInput.classList.add('demo-highlight');
-    passwordInput.classList.add('demo-highlight');
-    setTimeout(() => {
-        emailInput.classList.remove('demo-highlight');
-        passwordInput.classList.remove('demo-highlight');
-    }, 1200);
-
-    emailInput.focus();
 }
-window.quickFillCredentials = quickFillCredentials;
+window.handleLoginSubmit = handleLoginSubmit;
+
+function handleSignupSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('signup-name').value.trim();
+    const email = document.getElementById('signup-email').value.trim().toLowerCase();
+    const faculty = document.getElementById('signup-faculty').value;
+    const dept = document.getElementById('signup-dept').value;
+    const role = document.getElementById('signup-role').value;
+    const isArabic = document.documentElement.lang === 'ar';
+
+    localStorage.setItem('user', role);
+    localStorage.setItem('role', role);
+    localStorage.setItem('user_name', name);
+    localStorage.setItem('user_email', email);
+    localStorage.setItem('faculty', faculty);
+    localStorage.setItem('department', dept);
+
+    showToast(isArabic ? `أهلاً بك يا ${name}! تم إنشاء حسابك بنجاح 🚀` : `Welcome ${name}! Account created 🚀`, 'success');
+    
+    setTimeout(() => {
+        if (role === 'admin') window.location.href = 'admin.html';
+        else if (role === 'employer') window.location.href = 'index.html#opportunities';
+        else window.location.href = 'student.html';
+    }, 900);
+}
+window.handleSignupSubmit = handleSignupSubmit;
+
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+        <span>${message}</span>
+        <button class="toast-close-btn" onclick="this.parentElement.remove()">&times;</button>
+    `;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        if (toast.parentElement) toast.remove();
+    }, 4500);
+}
+window.showToast = showToast;

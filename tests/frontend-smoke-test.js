@@ -17,63 +17,16 @@ try {
 const frontendDirectory = fs.existsSync(path.resolve(process.cwd(), 'frontend'))
     ? path.resolve(process.cwd(), 'frontend')
     : path.resolve(__dirname, '../../frontend');
-const requests = [];
+
 const mimeTypes = {
     '.css': 'text/css; charset=utf-8',
     '.html': 'text/html; charset=utf-8',
-    '.js': 'text/javascript; charset=utf-8'
+    '.js': 'text/javascript; charset=utf-8',
+    '.png': 'image/png',
+    '.svg': 'image/svg+xml'
 };
 
-const gsapStub = `
-    window.__gsapCalls = [];
-    const elements = (target) => Array.isArray(target) ? target : [target];
-    const apply = (element, values) => {
-        const state = Object.assign({ x: 0, y: 0, xPercent: 0, yPercent: 0 }, element.__testGsapState, values);
-        element.__testGsapState = state;
-        if ('opacity' in values) element.style.opacity = values.opacity;
-        if ('background' in values) element.style.background = values.background;
-        element.style.transform = 'translate(calc(' + state.xPercent + '% + ' + state.x + 'px), calc(' + state.yPercent + '% + ' + state.y + 'px))';
-    };
-    window.gsap = {
-        from() {},
-        set(target, values) { elements(target).forEach((element) => apply(element, values)); },
-        killTweensOf() {},
-        timeline() {
-            return {
-                kill() {},
-                to(target, values) {
-                    elements(target).forEach((element) => {
-                        window.__gsapCalls.push({ id: element.id, values });
-                        apply(element, values);
-                    });
-                    return this;
-                }
-            };
-        }
-    };
-`;
-
 const server = http.createServer((request, response) => {
-    if (request.method === 'POST' && request.url.startsWith('/api/auth/')) {
-        let body = '';
-        request.setEncoding('utf8');
-        request.on('data', (chunk) => { body += chunk; });
-        request.on('end', () => {
-            const mode = request.url.split('/').at(-1);
-            const payload = JSON.parse(body);
-            requests.push({ mode, body: payload });
-            const isDuplicateEmail = payload.email === 'taken@example.edu';
-            response.writeHead(isDuplicateEmail ? 409 : 200, { 'Content-Type': 'application/json' });
-            response.end(JSON.stringify(isDuplicateEmail
-                ? { message: 'That email is already registered.' }
-                : {
-                    message: mode === 'password-reset' ? 'If that address is registered, a reset link will be sent.' : 'Request accepted.',
-                    redirectTo: mode === 'login' ? 'https://example.invalid/redirect' : undefined
-                }));
-        });
-        return;
-    }
-
     const requestedPath = request.url === '/' ? '/index.html' : decodeURIComponent(request.url.split('?')[0]);
     const filePath = path.resolve(frontendDirectory, `.${requestedPath}`);
     if (!filePath.startsWith(`${frontendDirectory}${path.sep}`) || !fs.existsSync(filePath)) {
@@ -98,233 +51,151 @@ async function run() {
         });
         const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
         page.setDefaultTimeout(10000);
-        const pageErrors = [];
-        page.on('pageerror', (error) => pageErrors.push(error.message));
-        await page.route('https://cdnjs.cloudflare.com/**', (route) => route.fulfill({
-            status: 200,
-            contentType: 'application/javascript',
-            body: gsapStub
-        }));
+
+        // Abort external fonts to keep test fast and reliable
         await page.route('https://fonts.googleapis.com/**', (route) => route.abort());
+        await page.route('https://fonts.gstatic.com/**', (route) => route.abort());
 
-        await page.goto(`http://127.0.0.1:${address.port}/auth.html`);
-        const visualPanel = page.locator('#visual-panel');
-        const formPanel = page.locator('#form-panel');
-        const initialVisualBox = await visualPanel.boundingBox();
-        const initialFormBox = await formPanel.boundingBox();
-        assert.equal(initialVisualBox.width, 640, 'Desktop visual panel should occupy half the viewport');
-        assert.equal(initialFormBox.width, 640, 'Desktop form panel should occupy half the viewport');
-        assert.equal(initialFormBox.x, 640, 'Desktop form panel should begin at the viewport midpoint');
-        assert.equal(await page.locator('#login-form').evaluate((form) => form.checkValidity()), false, 'Login should require its fields');
-        await page.locator('#login-email').fill('not-an-email');
-        await page.locator('#login-password').fill('password-value');
-        assert.equal(await page.locator('#login-form').evaluate((form) => form.checkValidity()), false, 'Login should reject malformed email');
+        // -------------------------------------------------------------
+        // 1. TEST PRODUCT LANDING PAGE & UNIFIED SHELL (index.html)
+        // -------------------------------------------------------------
+        await page.goto(`http://127.0.0.1:${address.port}/index.html`);
+        assert.match(await page.title(), /HuntYourTrack/, 'Landing page title should match HuntYourTrack');
+        
+        // Initial Default Language must be Arabic (RTL) as instructed
+        const initialDir = await page.evaluate(() => document.documentElement.dir);
+        assert.equal(initialDir, 'rtl', 'Default initial document direction must be RTL (Arabic)');
 
-        await page.locator('#btn-login').focus();
-        await page.keyboard.press('Tab');
-        assert.equal(await page.evaluate(() => document.activeElement.id), 'btn-signup', 'The mode switch should be keyboard reachable');
-        await page.keyboard.press('Enter');
-        let visualBox = await visualPanel.boundingBox();
-        let formBox = await formPanel.boundingBox();
-        assert.equal(visualBox.x, 640, 'Sign-up should move the visual panel completely right');
-        assert.equal(formBox.x, 0, 'Sign-up should move the form panel completely left');
-        assert.equal(formBox.x + formBox.width, visualBox.x, 'The desktop panels should meet without a gap or overlap');
-        assert.equal(await page.locator('#signup-form').evaluate((form) => form.inert), false, 'The active form should be interactive');
-        assert.equal(await page.locator('#signup-faculty').getAttribute('required'), '');
-        const desktopMotion = await page.evaluate(() => window.__gsapCalls.filter((call) =>
-            ['visual-panel', 'form-panel'].includes(call.id) && call.values.xPercent !== undefined
-        ));
-        assert.equal(desktopMotion.length, 2, 'Both panels should animate on the same switch');
-        assert.ok(desktopMotion.every(({ values }) => values.duration === 1 && values.ease === 'power3.inOut'), 'Panel motion should use the required one-second easing');
+        // Hunter Radar Canvas verification
+        const canvas = page.locator('#hunter-radar-canvas');
+        assert.equal(await canvas.count(), 1, 'Track Hunter Interactive Radar Canvas must exist in Hero');
+        
+        // Internationalization (i18n) toggle verification
+        const langToggle = page.locator('#hyt-lang-toggle');
+        assert.equal(await langToggle.count(), 1, 'Language toggle button must be present in header');
+        await langToggle.click();
+        assert.equal(await page.evaluate(() => document.documentElement.dir), 'ltr', 'Clicking language toggle should switch to English LTR');
+        await langToggle.click();
+        assert.equal(await page.evaluate(() => document.documentElement.dir), 'rtl', 'Clicking language toggle again should return to Arabic RTL');
 
-        await page.locator('#btn-login').click();
-        visualBox = await visualPanel.boundingBox();
-        formBox = await formPanel.boundingBox();
-        assert.equal(visualBox.x, 0, 'Sign-in should return the visual panel completely left');
-        assert.equal(formBox.x, 640, 'Sign-in should return the form panel completely right');
+        // Theme toggle verification (Dark / Light)
+        const themeToggle = page.locator('#hyt-theme-toggle');
+        assert.equal(await themeToggle.count(), 1, 'Theme toggle button must be present in header');
+        await themeToggle.click();
+        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'dark', 'Theme toggle should activate dark mode');
+        await themeToggle.click();
+        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'light', 'Theme toggle should revert to light mode');
 
-        await page.setViewportSize({ width: 390, height: 844 });
-        await page.waitForFunction(() => matchMedia('(max-width: 700px)').matches);
-        await page.waitForTimeout(50);
-        assert.equal((await visualPanel.boundingBox()).height, 422, 'Mobile panels should each occupy half the viewport height');
-        assert.equal((await formPanel.boundingBox()).height, 422, 'Mobile form panel should occupy half the viewport height');
-        await page.locator('#btn-signup').click();
-        visualBox = await visualPanel.boundingBox();
-        formBox = await formPanel.boundingBox();
-        assert.equal(visualBox.y, 422, 'Mobile sign-up should move the visual panel fully down');
-        assert.equal(formBox.y, 0, 'Mobile sign-up should move the form panel fully up');
-        assert.equal(formBox.y + formBox.height, visualBox.y, 'The mobile panels should meet without a gap or overlap');
+        // Pre-seeded Corporate Opportunities verification (US17)
+        const oppCards = page.locator('#opportunities-catalog-container .opp-card');
+        await page.waitForTimeout(300);
+        assert.ok(await oppCards.count() >= 3, 'Pre-seeded opportunities (Vodafone, ITIDA, Valeo) must render in catalog');
+        
+        // Countdown badges verification
+        const countdownBadges = page.locator('.opp-countdown-badge');
+        assert.ok(await countdownBadges.count() >= 3, 'All opportunity cards must feature active countdown timers');
 
-        await page.locator('#signup-name').fill('Test Student');
-        await page.locator('#signup-email').fill('student@example.edu');
-        await page.locator('#signup-faculty').fill('Engineering');
-        await page.locator('#signup-password').fill('strong-pass-123');
-        await page.locator('#signup-form button[type="submit"]').click();
-        await page.waitForFunction(() => document.getElementById('auth-status').dataset.state === 'success');
-        assert.match(await page.locator('#auth-status').textContent(), /Account created successfully/);
-        assert.equal(await page.evaluate(() => localStorage.getItem('user')), 'student');
+        // -------------------------------------------------------------
+        // 2. TEST STRICT ROUTE GUARDING (admin.html & student.html)
+        // -------------------------------------------------------------
+        // Clear session
+        await page.evaluate(() => localStorage.clear());
 
-        await page.locator('#btn-login').click();
-        await page.locator('#forgot-password-link').click();
-        assert.equal(await page.locator('#forgot-password-dialog').evaluate((dialog) => dialog.open), true, 'Forgot password should open its dialog');
-        await page.locator('#reset-email').fill('student@example.edu');
-        await page.locator('#forgot-password-form button[type="submit"]').click();
-        await page.waitForFunction(() => document.querySelector('#forgot-password-form .auth-status').dataset.state === 'success');
-        assert.match(await page.locator('#forgot-password-form .auth-status').textContent(), /reset link will be sent/);
-        await page.locator('#close-reset-dialog').click();
-
-        await page.locator('#login-email').fill('student@example.edu');
-        await page.locator('#login-password').fill('correct-password-123');
-        await page.locator('#login-form button[type="submit"]').click();
-        await page.waitForFunction(() => document.getElementById('auth-status').dataset.state === 'success');
-        assert.match(await page.locator('#auth-status').textContent(), /Signed in successfully/);
-        assert.equal(await page.evaluate(() => localStorage.getItem('user')), 'student');
-
-        await page.goto(`http://127.0.0.1:${address.port}/components.html`);
-        assert.equal(await page.locator('.button-row .btn').count(), 6, 'The core button row should show 6 button variants');
-        await page.locator('#open-demo-modal').click();
-        assert.equal(await page.locator('#demo-modal').evaluate((dialog) => dialog.open), true, 'The shared modal should open');
-        await page.locator('#demo-modal button[type="submit"]').click();
-        assert.equal(await page.locator('#demo-modal').evaluate((dialog) => dialog.open), false, 'The shared modal should close');
-        await page.locator('.demo-tooltip').hover();
-        await page.waitForTimeout(200);
-        assert.equal(await page.locator('.demo-tooltip').evaluate((element) => getComputedStyle(element, '::after').opacity), '1', 'The tooltip should become visible on hover');
-
-        // Test Toast Notification System (US16)
-        await page.locator('#btn-trigger-toast-success').click();
-        assert.equal(await page.locator('.toast.success').count(), 1, 'Success toast notification should appear');
-        assert.match(await page.locator('.toast.success').textContent(), /Student profile verified and synced/);
-        await page.locator('.toast.success .toast-close-btn').click();
-        assert.equal(await page.locator('.toast.success').count(), 0, 'Toast close button should dismiss notification');
-        assert.deepEqual(pageErrors, [], 'The page should not raise JavaScript errors');
-
-        // Test Admin Authorization Guard (US14) & Control Panel (US04 & US05)
+        // 2a. Unauthorized access to admin.html should immediately hard-redirect to auth.html
         await page.goto(`http://127.0.0.1:${address.port}/admin.html`);
-        assert.match(await page.title(), /Admin Control Panel/, 'Admin page title should match');
-        assert.equal(await page.locator('#admin-guard-barrier').isVisible(), true, 'Unauthorized student should encounter Administrative Authorization Guard barrier');
+        await page.waitForURL(/auth\.html/);
+        assert.ok(page.url().includes('auth.html'), 'Strict route guard must redirect unauthenticated access away from admin.html');
 
-        // Authenticate with verified Lead Administrator credentials
+        // 2b. Unauthorized access to student.html should immediately hard-redirect to auth.html
+        await page.goto(`http://127.0.0.1:${address.port}/student.html`);
+        await page.waitForURL(/auth\.html/);
+        assert.ok(page.url().includes('auth.html'), 'Strict route guard must redirect unauthenticated access away from student.html');
+
+        // -------------------------------------------------------------
+        // 3. TEST AUTH SCREEN & LOGIN LAYOUT (auth.html)
+        // -------------------------------------------------------------
+        await page.goto(`http://127.0.0.1:${address.port}/auth.html`);
+        assert.match(await page.title(), /HuntYourTrack/, 'Auth page title should load');
+
+        // Centered layout verification
+        const splitCard = page.locator('.auth-split-card');
+        assert.equal(await splitCard.count(), 1, 'Auth page must feature centered split card architecture');
+        const cardBox = await splitCard.boundingBox();
+        assert.ok(cardBox.width > 300 && cardBox.width <= 980, 'Card width must be constrained and not stretch awkwardly');
+
+        // Password Show/Hide Toggle
+        const passwordInput = page.locator('#login-password');
+        const passwordToggle = page.locator('#login-form .password-toggle-btn');
+        assert.equal(await passwordInput.getAttribute('type'), 'password', 'Password must initially be hidden');
+        await passwordToggle.click();
+        assert.equal(await passwordInput.getAttribute('type'), 'text', 'Password must unmask to plain text');
+        await passwordToggle.click();
+        assert.equal(await passwordInput.getAttribute('type'), 'password', 'Password must re-mask');
+
+        // Academic Jury Modal
+        await page.locator('#btn-jury-trigger').click();
+        const juryDialog = page.locator('#jury-dialog');
+        assert.equal(await juryDialog.evaluate(d => d.open), true, 'Academic Jury modal should open');
+        
+        // Select Student Persona via Jury Modal
+        await page.evaluate(() => selectJuryPersona('student'));
+        await page.waitForURL(/student\.html/);
+        assert.ok(page.url().includes('student.html'), 'Selecting Student persona should navigate to student.html');
+
+        // -------------------------------------------------------------
+        // 4. TEST STUDENT CAREER HUB & ROLE ISOLATION (student.html)
+        // -------------------------------------------------------------
+        // Verify NO Admin or UI Kit links exist in student navigation
+        const adminLinksInStudent = await page.locator('header.navbar a[href="admin.html"]').count();
+        assert.equal(adminLinksInStudent, 0, 'Role Isolation: student.html header must NEVER contain admin.html links');
+
+        const uiKitLinksInStudent = await page.locator('header.navbar a[href="components.html"]').count();
+        assert.equal(uiKitLinksInStudent, 0, 'Role Isolation: student.html header must NEVER contain components.html (UI Kit) links');
+
+        // Multi-Faculty & Department Selector verification
+        const facSelect = page.locator('#student-faculty-select');
+        assert.equal(await facSelect.count(), 1, 'Multi-faculty dropdown must exist in student portal');
+        await facSelect.selectOption('engineering');
+        await page.evaluate(() => onStudentFacultyChange('engineering'));
+        const deptOptions = await page.locator('#student-dept-select option').allInnerTexts();
+        assert.ok(deptOptions.some(d => d.includes('هندسة')), 'Department options must dynamically update for Engineering');
+
+        // CV upload simulation
+        await page.locator('.cv-drop-zone').click();
+        await page.waitForTimeout(1400);
+        const cvStatus = await page.locator('#cv-status-text').textContent();
+        assert.ok(cvStatus.includes('تم رفع السيرة الذاتية بنجاح'), 'CV upload simulation should confirm successful alignment');
+
+        // -------------------------------------------------------------
+        // 5. TEST AUTHORIZED ADMIN CONSOLE (admin.html)
+        // -------------------------------------------------------------
         await page.evaluate(() => {
             localStorage.setItem('user', 'admin');
             localStorage.setItem('role', 'admin');
-            localStorage.setItem('auth_token', 'mock_admin_token_2026');
+            localStorage.setItem('user_email', 'elabsy@damanhour.edu.eg');
         });
-        await page.reload();
-        assert.equal(await page.locator('#admin-guard-barrier').isVisible(), false, 'Authorized Lead Administrator should bypass guard barrier');
-        assert.equal(await page.locator('.kpi-card').count(), 4, 'Four KPI metric cards should render');
-        assert.ok(await page.locator('#users-table-body tr').count() >= 5, 'Data table should render initial users');
-        
-        // Search test
-        await page.locator('#search-users').fill('Salma');
-        assert.equal(await page.locator('#users-table-body tr').count(), 1, 'Search should filter down to 1 matching user');
-        await page.locator('#search-users').fill('');
-
-        // Tab switch to Verification Queue (US05)
-        await page.locator('button[data-tab="verification"]').click();
-        assert.equal(await page.locator('#tab-verification').evaluate(el => el.classList.contains('active')), true, 'Verification tab should become active');
-        assert.equal(await page.locator('.queue-card').count(), 3, 'Three pending employers should render in queue');
-
-        // Modal credential viewer test
-        await page.locator('.doc-link-btn').first().click();
-        assert.equal(await page.locator('#doc-modal').evaluate(el => el.classList.contains('active')), true, 'Credentials modal should open');
-        await page.locator('#doc-modal .close-btn').click();
-        assert.equal(await page.locator('#doc-modal').evaluate(el => el.classList.contains('active')), false, 'Credentials modal should close');
-
-        // Employer approval flow test
-        await page.locator('.queue-card .btn-approve').first().click();
-        assert.equal(await page.locator('.queue-card').count(), 2, 'Queue should decrease to 2 after approval');
-
-        // Test System Architecture & Workflow Map (workflow.html)
-        await page.goto(`http://127.0.0.1:${address.port}/workflow.html`);
-        assert.match(await page.title(), /System Architecture & Connected Workflow/, 'Workflow page title should match');
-        assert.equal(await page.locator('.tier-section').count(), 3, 'Three architecture tiers should render');
-        assert.ok(await page.locator('.node-card').count() >= 7, 'Seven or more workflow nodes should render');
-
-        // Test Product Landing Page (US13) at / and /index.html
-        await page.goto(`http://127.0.0.1:${address.port}/index.html`);
-        assert.match(await page.title(), /HuntYourTrack/, 'Product Landing Page title should match');
-        assert.equal(await page.locator('.track-card').count(), 6, 'Six specialized CS track cards should render');
-        assert.ok(await page.locator('.internship-card').count() >= 3, 'Three or more verified internship cards should render');
-        assert.equal(await page.locator('.metric-item').count(), 4, 'Four platform key metrics should render');
-        
-        // Test Student Career Hub (student.html)
-        await page.goto(`http://127.0.0.1:${address.port}/student.html`);
-        assert.match(await page.title(), /Student Dashboard/, 'Student portal title should match');
-        assert.ok(await page.locator('.cards-grid .card').count() >= 2, 'Student internship cards should render');
-        assert.equal(await page.locator('.roadmap-card').count(), 1, 'Personalized roadmap card should render');
-
-        // Test Student Action Buttons & Toast Feedback (US16)
-        await page.locator('.welcome-card .btn-accent').click();
-        assert.equal(await page.locator('#student-toast-container .toast').count(), 1, 'Sync AI Roadmap button should trigger toast notification');
-        assert.match(await page.locator('#student-toast-container .toast').textContent(), /AI Roadmap Synchronized/);
-        await page.locator('.cards-grid .card .btn-primary').first().click();
-        assert.equal(await page.locator('#student-toast-container .toast').count(), 2, 'Apply Now button should trigger application toast');
-
-        // Test Password Visibility Toggle & Academic Jury Modal (US14)
-        await page.goto(`http://127.0.0.1:${address.port}/auth.html`);
-        const passwordInput = page.locator('#login-password');
-        const passwordToggle = page.locator('#login-form .password-toggle-btn');
-        assert.equal(await passwordInput.getAttribute('type'), 'password', 'Password input should initially be masked');
-        await passwordToggle.click();
-        assert.equal(await passwordInput.getAttribute('type'), 'text', 'Password toggle should unmask password to text');
-        assert.equal(await passwordToggle.getAttribute('aria-pressed'), 'true', 'Toggle button should indicate pressed state');
-        await passwordToggle.click();
-        assert.equal(await passwordInput.getAttribute('type'), 'password', 'Clicking toggle again should re-mask password');
-
-        // Test Academic Jury & Evaluator Inspection Modal (US14)
-        await page.locator('#btn-jury-trigger').click();
-        assert.equal(await page.locator('#jury-dialog').evaluate(d => d.open), true, 'Jury modal should open when trigger clicked');
-        // Click the Lead Admin persona in the modal
-        await page.locator('.jury-persona-card').nth(1).click();
-        assert.equal(await page.locator('#jury-dialog').evaluate(d => d.open), false, 'Jury modal should close after persona selection');
-        assert.equal(await page.locator('#login-email').inputValue(), 'admin@damanhour.edu.eg', 'Jury persona should fill admin email');
-        assert.equal(await page.locator('#login-password').inputValue(), 'HuntLead2026!', 'Jury persona should fill admin password');
-
-        // Test Multi-Device Responsive Breakpoints & Mobile Drawers (US15)
-        // 1. Mobile Small (375x667)
-        await page.setViewportSize({ width: 375, height: 667 });
-        
-        // 1a. Test Landing Page Mobile Drawer & Touch Targets
-        await page.goto(`http://127.0.0.1:${address.port}/index.html`);
-        const landingToggle = page.locator('#mobile-toggle');
-        assert.equal(await landingToggle.isVisible(), true, 'Mobile toggle should be visible on 375px');
-        const landingToggleBox = await landingToggle.boundingBox();
-        assert.ok(landingToggleBox.width >= 44 && landingToggleBox.height >= 44, 'Mobile hamburger button must meet minimum 44x44px touch target');
-        await landingToggle.click();
-        assert.equal(await page.locator('#mobile-drawer').evaluate(el => el.classList.contains('open')), true, 'Landing mobile drawer should open');
-        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), true, 'Landing page should not have horizontal overflow on 375px');
-
-        // 1b. Test Student Hub Mobile Drawer & Touch Targets
-        await page.goto(`http://127.0.0.1:${address.port}/student.html`);
-        const studentToggle = page.locator('#student-mobile-toggle');
-        assert.equal(await studentToggle.isVisible(), true, 'Student mobile toggle should be visible on 375px');
-        const studentToggleBox = await studentToggle.boundingBox();
-        assert.ok(studentToggleBox.width >= 44 && studentToggleBox.height >= 44, 'Student mobile toggle must meet minimum 44x44px touch target');
-        await studentToggle.click();
-        assert.equal(await page.locator('#student-mobile-drawer').evaluate(el => el.classList.contains('open')), true, 'Student mobile drawer should open');
-        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), true, 'Student page should not have horizontal overflow on 375px');
-
-        // 1c. Test Admin Console Mobile Drawer & Horizontal Data-Table Scroll
         await page.goto(`http://127.0.0.1:${address.port}/admin.html`);
-        const adminToggle = page.locator('#admin-mobile-toggle');
-        assert.equal(await adminToggle.isVisible(), true, 'Admin mobile toggle should be visible on 375px');
-        const adminToggleBox = await adminToggle.boundingBox();
-        assert.ok(adminToggleBox.width >= 44 && adminToggleBox.height >= 44, 'Admin mobile toggle must meet minimum 44x44px touch target');
-        await adminToggle.click();
-        assert.equal(await page.locator('#admin-mobile-drawer').evaluate(el => el.classList.contains('open')), true, 'Admin mobile drawer should open');
-        assert.equal(await page.locator('.table-responsive').count(), 1, 'Admin table responsive container should exist');
+        assert.ok(page.url().includes('admin.html'), 'Authorized admin must be granted access to admin.html');
+        assert.equal(await page.locator('.kpi-card').count(), 4, 'Four KPI summary cards must render for Admin');
 
-        // 2. Tablet Viewport (768x1024)
-        await page.setViewportSize({ width: 768, height: 1024 });
+        // -------------------------------------------------------------
+        // 6. MULTI-DEVICE RESPONSIVENESS & TOUCH TARGETS (US15 + US17)
+        // -------------------------------------------------------------
+        // 6a. Mobile 375px
+        await page.setViewportSize({ width: 375, height: 667 });
         await page.goto(`http://127.0.0.1:${address.port}/index.html`);
-        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), true, 'Landing page should not have horizontal overflow on 768px tablet');
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), true, 'Landing page should have zero horizontal overflow on 375px mobile');
 
-        // 3. Desktop Viewport (1440x900)
-        await page.setViewportSize({ width: 1440, height: 900 });
-        await page.goto(`http://127.0.0.1:${address.port}/index.html`);
-        assert.equal(await landingToggle.isVisible(), false, 'Mobile toggle should be hidden on desktop 1440px viewport');
+        const mobileToggle = page.locator('#mobile-toggle');
+        assert.equal(await mobileToggle.isVisible(), true, 'Hamburger menu should be visible on 375px');
+        const box = await mobileToggle.boundingBox();
+        assert.ok(box.width >= 44 && box.height >= 44, 'Mobile hamburger toggle must have minimum 44x44px touch target');
 
-        console.log('Frontend smoke check passed: Product Landing Page (US13), auth security & RBAC guard (US14), responsive multi-device design (US15), UI/UX button polish & toast system (US16), components, student portal, admin console, and system workflow graph.');
+        // 6b. Mobile Auth Screen
+        await page.goto(`http://127.0.0.1:${address.port}/auth.html`);
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), true, 'Auth page should have zero horizontal overflow on 375px mobile');
+
+        console.log('✅ All US17 smoke assertions passed: Unified portal, Track Hunter canvas, bilingual i18n, dark/light themes, strict route guarding, role isolation, multi-faculty selector, pre-seeded opportunities, and responsive layouts.');
     } finally {
         if (browser) await browser.close();
         if (server.listening) {

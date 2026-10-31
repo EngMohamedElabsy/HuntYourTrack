@@ -10,14 +10,13 @@
 
 ---
 
-## 🌐 Live Interactive Deployment
-The static frontend is continuously deployed on every commit using GitHub Actions. Evaluators and teammates can preview the live system directly from any browser or mobile device:
-- 🚀 **Main Product Showcase & Landing Page (US13):** [https://engmohamedelabsy.github.io/HuntYourTrack/](https://engmohamedelabsy.github.io/HuntYourTrack/)
-- 🎓 **Student Career Hub & Roadmaps:** [https://engmohamedelabsy.github.io/HuntYourTrack/student.html](https://engmohamedelabsy.github.io/HuntYourTrack/student.html)
-- 🔐 **Authentication & Identity Gateway:** [https://engmohamedelabsy.github.io/HuntYourTrack/auth.html](https://engmohamedelabsy.github.io/HuntYourTrack/auth.html)
-- 🛡️ **Admin Console & Verification Hub:** [https://engmohamedelabsy.github.io/HuntYourTrack/admin.html](https://engmohamedelabsy.github.io/HuntYourTrack/admin.html)
-- 🗺️ **System Architecture & Workflow Map:** [https://engmohamedelabsy.github.io/HuntYourTrack/workflow.html](https://engmohamedelabsy.github.io/HuntYourTrack/workflow.html)
-- 🧩 **UI Component Kit Preview:** [https://engmohamedelabsy.github.io/HuntYourTrack/components.html](https://engmohamedelabsy.github.io/HuntYourTrack/components.html)
+## 🌐 Live Interactive Unified Platform
+The static frontend is continuously deployed on every commit using GitHub Actions. Evaluators, students, and corporate partners can access the entire unified platform via the single canonical link:
+
+👉 **[https://engmohamedelabsy.github.io/HuntYourTrack/](https://engmohamedelabsy.github.io/HuntYourTrack/)**
+
+> **Single-Portal Architecture (US17):**  
+> All user journeys (Public Explorer, Enrolled Student Career Hub, Corporate Opportunity Publisher, and Academic Jury Defense Inspection) are integrated seamlessly into this single portal with strict route guarding, bespoke "Track Hunter" motion graphics, multi-faculty pathways, and bilingual (العربية / English) support.
 
 ---
 
@@ -81,9 +80,12 @@ HuntYourTrack/
 │   │   ├── workflow.css  # Dark-mode glassmorphic cards & graph flow styles
 │   │   └── components.css# Modular design system component styling
 │   └── js/               # Client-side simulation logic & interaction handlers
-│       ├── auth.js       # Client validation, GSAP motion, password toggles & Jury Drawer
-│       ├── admin.js      # RBAC authorization guard, user filtering & accreditation logic
-│       └── components.js # Reusable dialog and component behavior helpers
+│       ├── i18n.js           # Bilingual localization engine (Arabic RTL / English LTR) & theme
+│       ├── hunter-canvas.js  # Track Hunter interactive radar & skill constellation canvas
+│       ├── opportunities.js  # Pre-seeded corporate catalog & dynamic deadline countdowns
+│       ├── auth.js           # Multi-role authentication, password unmasking & jury drawer
+│       ├── admin.js          # Strict RBAC authorization guard & accreditation verification
+│       └── components.js     # Shared modal and toast behavior helpers
 ├── docs/                 # Software engineering specifications & team reports
 │   ├── TEAM_METRICS.md   # Automated Team Performance & Accountability Leaderboard
 │   ├── specs/            # User journey maps and navigation specs (navigation-map.md)
