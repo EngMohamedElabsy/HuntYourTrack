@@ -1,0 +1,584 @@
+/*
+ * HuntYourTrack - Modern Product Landing Page Stylesheet
+ * Faculty of Computers & Information · Damanhour University (CS Department)
+ */
+
+/* Navbar & Brand */
+.landing-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+}
+
+.brand-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--color-primary-dark);
+}
+
+.brand-tagline {
+    font-size: 0.72rem;
+    color: #64748B;
+    display: block;
+    line-height: 1.1;
+    font-weight: 500;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+.nav-link {
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #334155;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--color-primary);
+}
+
+.nav-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #334155;
+    cursor: pointer;
+    padding: 0.35rem;
+}
+
+/* Mobile Slide-out Menu */
+.mobile-drawer {
+    display: none;
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    border-bottom: 2px solid var(--color-border);
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.mobile-drawer.open {
+    display: block;
+}
+
+.mobile-drawer .nav-link {
+    display: flex;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.mobile-drawer .nav-cta-group {
+    margin-top: 1rem;
+    flex-direction: column;
+    width: 100%;
+}
+
+.mobile-drawer .nav-cta-group .btn {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 4rem 1.5rem 3.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    color: var(--color-primary-dark);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.hero-headline {
+    font-family: var(--font-heading);
+    font-size: 2.85rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #0F172A;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.hero-headline span.gradient-text {
+    background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+    font-size: 1.15rem;
+    color: #475569;
+    max-width: 780px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3.5rem;
+}
+
+/* Key Metrics Strip */
+.metrics-strip {
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    box-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.08);
+}
+
+.metric-item {
+    text-align: center;
+}
+
+.metric-number {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    color: #64748B;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Section Shared Headers */
+.section-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem;
+}
+
+.section-head {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-badge {
+    display: inline-block;
+    background: #E0E7FF;
+    color: var(--color-primary-dark);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 0.75rem;
+}
+
+.section-subtitle {
+    font-size: 1.05rem;
+    color: #64748B;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* Tracks Grid */
+.tracks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.75rem;
+}
+
+.track-card {
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.track-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -6px rgba(99, 102, 241, 0.15);
+    border-color: var(--color-primary);
+}
+
+.track-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.track-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 0.5rem;
+}
+
+.track-desc {
+    color: #64748B;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+}
+
+.skills-pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.skill-pill {
+    background: #EEF2FF;
+    color: var(--color-primary-dark);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+}
+
+.track-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid #F1F5F9;
+}
+
+.track-duration {
+    font-size: 0.82rem;
+    color: #64748B;
+    font-weight: 600;
+}
+
+/* Internships Grid */
+.internships-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+}
+
+.internship-card {
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: all 0.25s ease;
+}
+
+.internship-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 10px 20px -4px rgba(99, 102, 241, 0.12);
+}
+
+.intern-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.company-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.company-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+}
+
+.job-role {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+.company-name {
+    font-size: 0.82rem;
+    color: #64748B;
+    font-weight: 500;
+}
+
+.badge-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+}
+
+.badge-remote { background: #ECFDF5; color: #059669; }
+.badge-hybrid { background: #EEF2FF; color: #4F46E5; }
+.badge-onsite { background: #FFFBEB; color: #D97706; }
+
+.intern-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.82rem;
+    color: #64748B;
+    margin-bottom: 1.25rem;
+}
+
+/* How It Works Timeline */
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    position: relative;
+}
+
+.step-card {
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+}
+
+.step-number {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+}
+
+.step-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 0.5rem;
+}
+
+.step-desc {
+    color: #64748B;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Employer Callout */
+.employer-banner {
+    background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+    border-radius: 20px;
+    padding: 3.5rem 2.5rem;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.employer-content {
+    max-width: 650px;
+}
+
+.employer-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.employer-desc {
+    color: #C7D2FE;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* Footer */
+.landing-footer {
+    background: #0F172A;
+    color: #94A3B8;
+    padding: 3.5rem 1.5rem 2rem;
+    font-size: 0.9rem;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-col h4 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.6rem;
+}
+
+.footer-col ul li a {
+    color: #94A3B8;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-col ul li a:hover {
+    color: #FFFFFF;
+}
+
+.footer-bottom {
+    max-width: 1280px;
+    margin: 2rem auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.82rem;
+}
+
+/* Responsive Adaptations */
+@media (max-width: 1024px) {
+    .metrics-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-menu, .nav-cta-group {
+        display: none;
+    }
+    .mobile-menu-btn {
+        display: block;
+    }
+    .hero-headline {
+        font-size: 2.1rem;
+    }
+    .steps-container {
+        grid-template-columns: 1fr;
+    }
+    .metrics-strip {
+        grid-template-columns: 1fr;
+        padding: 1.25rem;
+    }
+    .employer-banner {
+        padding: 2rem 1.5rem;
+        text-align: center;
+    }
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+}

@@ -74,7 +74,7 @@ const server = http.createServer((request, response) => {
         return;
     }
 
-    const requestedPath = request.url === '/' ? '/auth.html' : decodeURIComponent(request.url.split('?')[0]);
+    const requestedPath = request.url === '/' ? '/index.html' : decodeURIComponent(request.url.split('?')[0]);
     const filePath = path.resolve(frontendDirectory, `.${requestedPath}`);
     if (!filePath.startsWith(`${frontendDirectory}${path.sep}`) || !fs.existsSync(filePath)) {
         response.writeHead(404);
@@ -223,12 +223,25 @@ async function run() {
         assert.equal(await page.locator('.tier-section').count(), 3, 'Three architecture tiers should render');
         assert.ok(await page.locator('.node-card').count() >= 7, 'Seven or more workflow nodes should render');
 
+        // Test Product Landing Page (US13) at / and /index.html
+        await page.goto(`http://127.0.0.1:${address.port}/index.html`);
+        assert.match(await page.title(), /HuntYourTrack/, 'Product Landing Page title should match');
+        assert.equal(await page.locator('.track-card').count(), 6, 'Six specialized CS track cards should render');
+        assert.ok(await page.locator('.internship-card').count() >= 3, 'Three or more verified internship cards should render');
+        assert.equal(await page.locator('.metric-item').count(), 4, 'Four platform key metrics should render');
+        
+        // Test Student Career Hub (student.html)
+        await page.goto(`http://127.0.0.1:${address.port}/student.html`);
+        assert.match(await page.title(), /Student Dashboard/, 'Student portal title should match');
+        assert.ok(await page.locator('.cards-grid .card').count() >= 2, 'Student internship cards should render');
+        assert.equal(await page.locator('.roadmap-card').count(), 1, 'Personalized roadmap card should render');
+
         // Test 1-Click Demo quick access on auth.html
         await page.goto(`http://127.0.0.1:${address.port}/auth.html`);
         await page.locator('.btn-demo-chip').first().click();
         assert.equal(await page.locator('#login-email').inputValue(), 'student@damanhour.edu.eg', 'Demo chip should fill student email');
 
-        console.log('Frontend smoke check passed: auth (with 1-click demo), components, student dashboard, admin console, and system workflow graph.');
+        console.log('Frontend smoke check passed: Product Landing Page (US13), auth, components, student portal, admin console, and system workflow graph.');
     } finally {
         if (browser) await browser.close();
         if (server.listening) {

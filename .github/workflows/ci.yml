@@ -32,11 +32,13 @@ jobs:
           const fs = require('fs');
           const required = [
             'frontend/index.html',
+            'frontend/student.html',
             'frontend/auth.html',
             'frontend/admin.html',
             'frontend/workflow.html',
             'frontend/components.html',
             'frontend/css/style.css',
+            'frontend/css/landing.css',
             'frontend/css/auth.css',
             'frontend/css/admin.css',
             'frontend/css/workflow.css',
@@ -51,7 +53,7 @@ jobs:
               process.exit(1);
             }
           });
-          console.log('✓ All 13 modular frontend entry points & assets verified.');
+          console.log('✓ All 15 modular frontend entry points & assets verified.');
           "
 
   # Stage 2: Security & Supply Chain Audit
@@ -139,8 +141,9 @@ jobs:
           ### 📊 End-to-End Verification Matrix
           | Component / Gateway | Target Route | Status | Result |
           | :--- | :--- | :---: | :---: |
-          | 🔐 **Authentication & 1-Click Demo** | `frontend/auth.html` | 🟢 Verified | Passed |
-          | 🎓 **Student Career Hub** | `frontend/index.html` | 🟢 Verified | Passed |
+          | 🎯 **Product Landing Page (US13)** | `frontend/index.html` | 🟢 Verified | Passed |
+          | 🎓 **Student Career Hub** | `frontend/student.html` | 🟢 Verified | Passed |
+          | 🔐 **Authentication & Identity Hub** | `frontend/auth.html` | 🟢 Verified | Passed |
           | 🛡️ **Admin Executive Console** | `frontend/admin.html` | 🟢 Verified | Passed |
           | 🏢 **Corporate Accreditation Queue** | `frontend/admin.html#tab-verification` | 🟢 Verified | Passed |
           | 🧩 **Core UI Component Kit** | `frontend/components.html` | 🟢 Verified | Passed |

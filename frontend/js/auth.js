@@ -179,7 +179,7 @@ document.querySelectorAll('form[data-auth-mode]').forEach((form) => {
                 // Simulate redirect to destination
                 if (mode === 'login' || mode === 'register') {
                     setTimeout(() => {
-                        window.location.href = isLeadAdmin ? 'admin.html' : 'index.html';
+                        window.location.href = isLeadAdmin ? 'admin.html' : 'student.html';
                     }, 2000);
                 }
             } catch (error) {
