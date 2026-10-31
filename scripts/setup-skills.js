@@ -4,6 +4,7 @@
  * Automatically resolves the user's home directory across Linux, macOS, and Windows.
  * Creates ~/.global_ai_skills if missing, and creates a symlink/junction (.global_skills)
  * in the project root without requiring Administrator privileges on Windows.
+ * Synchronizes useful host skills (graphify, open-design, diagram, etc.) into .global_skills.
  */
 const fs = require('node:fs');
 const os = require('node:os');
@@ -34,6 +35,29 @@ try {
     process.exit(1);
 }
 
+function syncHostSkills(destination) {
+    const hostClaudeSkills = path.join(os.homedir(), '.claude', 'skills');
+    if (fs.existsSync(hostClaudeSkills)) {
+        const usefulSkills = [
+            'graphify', 'open-design', 'diagram', 'document-generate',
+            'design-review', 'design-html', 'system-design-notes', 'test-audit',
+            'playwright-cli', 'make-pdf', 'autoplan', 'browse', 'gstack'
+        ];
+        usefulSkills.forEach(skillName => {
+            const srcPath = path.join(hostClaudeSkills, skillName);
+            const destPath = path.join(destination, skillName);
+            if (fs.existsSync(srcPath) && !fs.existsSync(destPath)) {
+                try {
+                    fs.symlinkSync(srcPath, destPath, isWindows ? 'junction' : 'dir');
+                    console.log(`[+] Synced skill: ${skillName}`);
+                } catch (err) {
+                    // non-fatal
+                }
+            }
+        });
+    }
+}
+
 // Safely clean up existing symlink, junction, or stale entry
 try {
     let stat;
@@ -48,6 +72,8 @@ try {
             const currentTarget = path.resolve(path.dirname(symlinkPath), fs.readlinkSync(symlinkPath));
             if (currentTarget === targetPath) {
                 console.log('[✓] Existing symlink is already pointing to the correct global directory.');
+                syncHostSkills(targetPath);
+                console.log('Setup complete. You can now run "npm test" or start developing.');
                 process.exit(0);
             }
             console.log('Removing outdated symlink...');
@@ -77,7 +103,10 @@ try {
     fs.symlinkSync(targetPath, symlinkPath, linkType);
     console.log(`[✓] Successfully established ${linkType === 'junction' ? 'Windows junction' : 'POSIX symlink'}:`);
     console.log(`    .global_skills -> ${targetPath}\n`);
-    console.log('Setup complete. You can now run "npm run test:auth" or start developing.');
+
+    syncHostSkills(targetPath);
+
+    console.log('Setup complete. You can now run "npm test" or start developing.');
 } catch (error) {
     console.error('[!] Failed to create symlink/junction:', error.message);
     if (isWindows) {
