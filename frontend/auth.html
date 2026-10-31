@@ -28,14 +28,11 @@
                     <button class="tab-btn" id="btn-signup" type="button" aria-pressed="false" onclick="switchTab('signup')">Create Account</button>
                 </div>
 
-                <!-- 1-Click Demo Accounts Quick Access -->
-                <div class="demo-access-banner" id="demo-access-banner">
-                    <span class="demo-label">⚡ 1-Click Demo Access:</span>
-                    <div class="demo-buttons">
-                        <button type="button" class="btn-demo-chip" onclick="quickFillCredentials('student')" title="Fill Demo Student credentials">🎓 Student</button>
-                        <button type="button" class="btn-demo-chip" onclick="quickFillCredentials('admin')" title="Fill Lead Admin credentials">🛡️ Admin</button>
-                        <button type="button" class="btn-demo-chip" onclick="quickFillCredentials('employer')" title="Fill Corporate Partner credentials">🏢 Employer</button>
-                    </div>
+                <!-- Discrete Academic Jury & Demo Credentials Inspection Trigger -->
+                <div class="jury-access-strip">
+                    <button type="button" class="btn-jury-trigger" id="btn-jury-trigger" onclick="openJuryModal()" aria-haspopup="dialog" aria-expanded="false" title="Academic Jury & Defense Evaluation Demo Accounts">
+                        <span class="jury-icon">⚖️</span> Academic Jury & Evaluation Access
+                    </button>
                 </div>
 
                 <div class="form-container">
@@ -46,7 +43,12 @@
                         </div>
                         <div class="form-group">
                             <label for="login-password">Password</label>
-                            <input id="login-password" name="password" type="password" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
+                            <div class="password-wrapper">
+                                <input id="login-password" name="password" type="password" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
+                                <button type="button" class="password-toggle-btn" aria-label="Show password" aria-pressed="false" onclick="togglePasswordVisibility('login-password', this)">
+                                    <span class="eye-icon">👁️</span>
+                                </button>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary auth-submit">Enter Platform</button>
                         <div class="auth-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
@@ -73,7 +75,12 @@
                         </div>
                         <div class="form-group">
                             <label for="signup-password">Password</label>
-                            <input id="signup-password" name="password" type="password" class="form-control" placeholder="Create a strong password (8+ characters)" autocomplete="new-password" minlength="8" required>
+                            <div class="password-wrapper">
+                                <input id="signup-password" name="password" type="password" class="form-control" placeholder="Create a strong password (8+ characters)" autocomplete="new-password" minlength="8" required>
+                                <button type="button" class="password-toggle-btn" aria-label="Show password" aria-pressed="false" onclick="togglePasswordVisibility('signup-password', this)">
+                                    <span class="eye-icon">👁️</span>
+                                </button>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-accent auth-submit">Create Account</button>
                     </form>
@@ -82,6 +89,56 @@
             </div>
         </section>
     </div>
+
+    <!-- Academic Jury & Evaluator Inspection Dialog -->
+    <dialog class="auth-dialog jury-dialog" id="jury-dialog" aria-labelledby="jury-dialog-title">
+        <div class="jury-modal-header">
+            <div>
+                <span class="jury-badge">⚖️ Academic Defense 2026</span>
+                <h2 id="jury-dialog-title" style="margin-top: 0.35rem; font-size: 1.35rem;">Academic Jury & Evaluation Access</h2>
+            </div>
+            <button type="button" class="close-btn" onclick="closeJuryModal()" aria-label="Close dialog">&times;</button>
+        </div>
+        <p class="subtitle" style="font-size: 0.85rem; margin-bottom: 1rem; text-align: left;">
+            Designed specifically for graduation defense evaluators and academic jurors. Select an accredited persona to pre-populate credentials and evaluate role-based flows:
+        </p>
+
+        <div class="jury-personas-list">
+            <div class="jury-persona-card" onclick="selectJuryPersona('student')">
+                <div class="persona-icon">🎓</div>
+                <div class="persona-info">
+                    <h4>Undergraduate Student</h4>
+                    <p class="persona-email">student@damanhour.edu.eg</p>
+                    <span class="persona-role-badge">Student Career Hub & Roadmaps</span>
+                </div>
+                <button type="button" class="btn-demo-chip" onclick="event.stopPropagation(); selectJuryPersona('student')">Populate</button>
+            </div>
+
+            <div class="jury-persona-card" onclick="selectJuryPersona('admin')">
+                <div class="persona-icon">🛡️</div>
+                <div class="persona-info">
+                    <h4>Faculty Lead Administrator</h4>
+                    <p class="persona-email">admin@damanhour.edu.eg</p>
+                    <span class="persona-role-badge badge-admin">Executive Console & Verification</span>
+                </div>
+                <button type="button" class="btn-demo-chip" onclick="event.stopPropagation(); selectJuryPersona('admin')">Populate</button>
+            </div>
+
+            <div class="jury-persona-card" onclick="selectJuryPersona('employer')">
+                <div class="persona-icon">🏢</div>
+                <div class="persona-info">
+                    <h4>Corporate Employer Partner</h4>
+                    <p class="persona-email">recruiter@vodafone.com</p>
+                    <span class="persona-role-badge badge-employer">Corporate Postings & Talent</span>
+                </div>
+                <button type="button" class="btn-demo-chip" onclick="event.stopPropagation(); selectJuryPersona('employer')">Populate</button>
+            </div>
+        </div>
+
+        <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end; gap: 0.5rem;">
+            <button type="button" class="btn btn-secondary" onclick="closeJuryModal()">Close Panel</button>
+        </div>
+    </dialog>
 
     <dialog class="auth-dialog" id="forgot-password-dialog" aria-labelledby="forgot-password-title">
         <form id="forgot-password-form" data-auth-mode="password-reset">

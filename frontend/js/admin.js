@@ -55,12 +55,66 @@ let activeFilter = 'All';
 let searchQuery = '';
 let currentRejectEmployerId = null;
 
+/**
+ * Role Authorization Guard (US14)
+ * Restricts access to administrative console for non-admin accounts
+ */
+function enforceAdminAuthorization() {
+    const user = localStorage.getItem('user');
+    const role = localStorage.getItem('role');
+    const isAdmin = (user === 'admin' || role === 'admin');
+
+    const barrier = document.getElementById('admin-guard-barrier');
+    const mainContainer = document.querySelector('.admin-container');
+
+    if (!isAdmin) {
+        if (barrier) {
+            barrier.style.display = 'flex';
+        }
+        if (mainContainer) {
+            mainContainer.setAttribute('aria-hidden', 'true');
+            mainContainer.style.filter = 'blur(6px)';
+            mainContainer.style.pointerEvents = 'none';
+        }
+        return false;
+    } else {
+        if (barrier) {
+            barrier.style.display = 'none';
+        }
+        if (mainContainer) {
+            mainContainer.removeAttribute('aria-hidden');
+            mainContainer.style.filter = 'none';
+            mainContainer.style.pointerEvents = 'auto';
+        }
+        const userEmail = localStorage.getItem('user_email');
+        const userDisplay = document.getElementById('admin-user-display');
+        if (userDisplay && userEmail) {
+            userDisplay.textContent = `Mohamed Yasser (${userEmail})`;
+        }
+        return true;
+    }
+}
+window.enforceAdminAuthorization = enforceAdminAuthorization;
+
+function handleAdminLogout(event) {
+    if (event) event.preventDefault();
+    localStorage.removeItem('user');
+    localStorage.removeItem('role');
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user_email');
+    window.location.href = 'auth.html';
+}
+window.handleAdminLogout = handleAdminLogout;
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    renderKPIs();
-    renderUsersTable();
-    renderVerificationQueue();
-    setupEventListeners();
+    const isAuthorized = enforceAdminAuthorization();
+    if (isAuthorized) {
+        renderKPIs();
+        renderUsersTable();
+        renderVerificationQueue();
+        setupEventListeners();
+    }
 });
 
 // Setup Listeners

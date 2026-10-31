@@ -69,8 +69,8 @@ HuntYourTrack/
 ├── frontend/             # Modular, organized static frontend application
 │   ├── index.html        # Product Showcase & Landing Page (Career Tracks, Internships, How It Works)
 │   ├── student.html      # Student Career Hub (Personalized roadmaps & application tracking)
-│   ├── auth.html         # Dual-panel Authentication screen (Sign In, Register & 1-Click Demo)
-│   ├── admin.html        # Executive Control Center & Corporate Accreditation Hub
+│   ├── auth.html         # Dual-panel Authentication screen (Sign In, Register & Academic Jury Drawer)
+│   ├── admin.html        # Executive Control Center & RBAC Role Authorization Guard (US14)
 │   ├── workflow.html     # Interactive Connected Architecture & System Workflow Map
 │   ├── components.html   # Reusable UI Component Library preview (Buttons, Inputs, Modals)
 │   ├── css/              # Modular stylesheets & design tokens
@@ -81,8 +81,8 @@ HuntYourTrack/
 │   │   ├── workflow.css  # Dark-mode glassmorphic cards & graph flow styles
 │   │   └── components.css# Modular design system component styling
 │   └── js/               # Client-side simulation logic & interaction handlers
-│       ├── auth.js       # Client validation, GSAP motion, session mock & 1-Click Demo
-│       ├── admin.js      # User filtering, status toggling & partner accreditation logic
+│       ├── auth.js       # Client validation, GSAP motion, password toggles & Jury Drawer
+│       ├── admin.js      # RBAC authorization guard, user filtering & accreditation logic
 │       └── components.js # Reusable dialog and component behavior helpers
 ├── docs/                 # Software engineering specifications & team reports
 │   ├── TEAM_METRICS.md   # Automated Team Performance & Accountability Leaderboard

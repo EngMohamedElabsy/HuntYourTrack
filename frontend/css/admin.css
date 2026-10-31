@@ -589,6 +589,79 @@
     margin-bottom: 0.6rem;
 }
 
+/* Role Authorization Guard Barrier (US14) */
+.admin-guard-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(15, 23, 42, 0.82);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.guard-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 2.5rem;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.guard-icon {
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+}
+
+.guard-badge {
+    display: inline-block;
+    background: #FEE2E2;
+    color: #991B1B;
+    border: 1px solid #FCA5A5;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+}
+
+.guard-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    color: #0F172A;
+    margin-bottom: 0.75rem;
+}
+
+.guard-desc {
+    font-size: 0.92rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 1.75rem;
+}
+
+.guard-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.guard-footer {
+    border-top: 1px solid #F1F5F9;
+    padding-top: 1rem;
+    font-size: 0.75rem;
+    color: #94A3B8;
+}
+
 @media (max-width: 768px) {
     .admin-navbar { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
     .nav-links { width: 100%; overflow-x: auto; }

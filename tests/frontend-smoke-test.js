@@ -191,9 +191,19 @@ async function run() {
         assert.equal(await page.locator('.demo-tooltip').evaluate((element) => getComputedStyle(element, '::after').opacity), '1', 'The tooltip should become visible on hover');
         assert.deepEqual(pageErrors, [], 'The page should not raise JavaScript errors');
 
-        // Test Admin Control Panel (US04 & US05)
+        // Test Admin Authorization Guard (US14) & Control Panel (US04 & US05)
         await page.goto(`http://127.0.0.1:${address.port}/admin.html`);
         assert.match(await page.title(), /Admin Control Panel/, 'Admin page title should match');
+        assert.equal(await page.locator('#admin-guard-barrier').isVisible(), true, 'Unauthorized student should encounter Administrative Authorization Guard barrier');
+
+        // Authenticate with verified Lead Administrator credentials
+        await page.evaluate(() => {
+            localStorage.setItem('user', 'admin');
+            localStorage.setItem('role', 'admin');
+            localStorage.setItem('auth_token', 'mock_admin_token_2026');
+        });
+        await page.reload();
+        assert.equal(await page.locator('#admin-guard-barrier').isVisible(), false, 'Authorized Lead Administrator should bypass guard barrier');
         assert.equal(await page.locator('.kpi-card').count(), 4, 'Four KPI metric cards should render');
         assert.ok(await page.locator('#users-table-body tr').count() >= 5, 'Data table should render initial users');
         
@@ -236,12 +246,27 @@ async function run() {
         assert.ok(await page.locator('.cards-grid .card').count() >= 2, 'Student internship cards should render');
         assert.equal(await page.locator('.roadmap-card').count(), 1, 'Personalized roadmap card should render');
 
-        // Test 1-Click Demo quick access on auth.html
+        // Test Password Visibility Toggle & Academic Jury Modal (US14)
         await page.goto(`http://127.0.0.1:${address.port}/auth.html`);
-        await page.locator('.btn-demo-chip').first().click();
-        assert.equal(await page.locator('#login-email').inputValue(), 'student@damanhour.edu.eg', 'Demo chip should fill student email');
+        const passwordInput = page.locator('#login-password');
+        const passwordToggle = page.locator('#login-form .password-toggle-btn');
+        assert.equal(await passwordInput.getAttribute('type'), 'password', 'Password input should initially be masked');
+        await passwordToggle.click();
+        assert.equal(await passwordInput.getAttribute('type'), 'text', 'Password toggle should unmask password to text');
+        assert.equal(await passwordToggle.getAttribute('aria-pressed'), 'true', 'Toggle button should indicate pressed state');
+        await passwordToggle.click();
+        assert.equal(await passwordInput.getAttribute('type'), 'password', 'Clicking toggle again should re-mask password');
 
-        console.log('Frontend smoke check passed: Product Landing Page (US13), auth, components, student portal, admin console, and system workflow graph.');
+        // Test Academic Jury & Evaluator Inspection Modal (US14)
+        await page.locator('#btn-jury-trigger').click();
+        assert.equal(await page.locator('#jury-dialog').evaluate(d => d.open), true, 'Jury modal should open when trigger clicked');
+        // Click the Lead Admin persona in the modal
+        await page.locator('.jury-persona-card').nth(1).click();
+        assert.equal(await page.locator('#jury-dialog').evaluate(d => d.open), false, 'Jury modal should close after persona selection');
+        assert.equal(await page.locator('#login-email').inputValue(), 'admin@damanhour.edu.eg', 'Jury persona should fill admin email');
+        assert.equal(await page.locator('#login-password').inputValue(), 'HuntLead2026!', 'Jury persona should fill admin password');
+
+        console.log('Frontend smoke check passed: Product Landing Page (US13), auth security & RBAC guard (US14), components, student portal, admin console, and system workflow graph.');
     } finally {
         if (browser) await browser.close();
         if (server.listening) {
