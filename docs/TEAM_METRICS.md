@@ -2,7 +2,7 @@
 
 **Project:** HuntYourTrack (Graduation Project 2026)
 **Institution:** Faculty of Computers & Information, Damanhour University (CS Department)
-**Generated At:** `2026-10-31 16:15:07 UTC`
+**Generated At:** `2026-10-31 17:39:12 UTC`
 **Sprint Deadline:** **Sunday, November 1, 2026**
 
 ---
@@ -52,9 +52,9 @@ Sprint Completion Velocity: [███████████░░░░░░
 
 | Issue # | Story Title | State | Deadline | Time Limit Alert | Verified |
 | :---: | :--- | :---: | :---: | :---: | :---: |
-| **#47** | US09: Student Dashboard Layout | 🔵 toprogram | Nov 1, 2026 | 🟡 Active (Due Nov 1) | 🔄 Awaiting Finish |
-| **#46** | US08: Student Authentication UI | 🔵 toprogram | Nov 1, 2026 | 🟡 Active (Due Nov 1) | 🔄 Awaiting Finish |
-| **#45** | US07: Student Landing Page Wireframe | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
+| **#47** | US09: Personalized Student Career Hub & Resume Dropzone | 🔵 toprogram | Nov 1, 2026 | 🟡 Active (Due Nov 1) | 🔄 Awaiting Finish |
+| **#46** | US08: Student Authentication & Multi-Faculty Registration Flow | 🔵 toprogram | Nov 1, 2026 | 🟡 Active (Due Nov 1) | 🔄 Awaiting Finish |
+| **#45** | US07: Multi-Faculty Student Landing Page & Interactive Showcase | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
 
 ### 👤 Abdulrahman Masoud (@abdulrhman-masoud)
 - **Role:** `Employer Portal & Reviews`
