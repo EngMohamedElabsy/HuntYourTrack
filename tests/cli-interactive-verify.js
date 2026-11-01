@@ -27,6 +27,10 @@ const mimeTypes = {
 const server = http.createServer((req, res) => {
     const safePath = path.normalize(req.url.split('?')[0]).replace(/^(\.\.[/\\])+/, '');
     let filePath = path.join(frontendDir, safePath === '/' ? 'index.html' : safePath);
+    if (!fs.existsSync(filePath)) {
+        const inPages = path.join(frontendDir, 'pages', safePath);
+        if (fs.existsSync(inPages)) filePath = inPages;
+    }
 
     fs.readFile(filePath, (err, data) => {
         if (err) {
