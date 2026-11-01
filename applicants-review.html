@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Applicant review · Hunt Your Track</title>
+<link rel="icon" href="logo.png">
+<style>
+  :root {
+    --bg: #f4f6f8; --surface: #ffffff; --ink: #16212e; --muted: #5b6776; --line: #d5dce3;
+    --accent: #6a3fd1; --accent-soft: #ece6fb; --on-accent: #ffffff;
+    --good: #12705a; --good-soft: #dff3ec; --bad: #b42318; --bad-soft: #fdecea; --warn: #8a5a00; --warn-soft: #fbf0d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10161d; --surface: #18212b; --ink: #e8edf2; --muted: #9aa7b5; --line: #2f3b48;
+      --accent: #b79cff; --accent-soft: #2a2146; --on-accent: #14102a;
+      --good: #6fd8b7; --good-soft: #15352b; --bad: #ff8a7a; --bad-soft: #3a1f1c; --warn: #f0c36a; --warn-soft: #3a2f12;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 "Segoe UI", system-ui, sans-serif; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  button { font: inherit; }
+
+  .bar { background: #000; display: flex; align-items: center; gap: 24px; padding: 0 20px; height: 88px; overflow-x: auto; }
+  .bar img { height: 88px; width: 88px; display: block; flex: none; }
+  .bar nav { display: flex; gap: 4px; }
+  .bar a { color: #c9c9d6; text-decoration: none; padding: 8px 14px; border-radius: 8px; font-weight: 600; white-space: nowrap; }
+  .bar a:hover { background: #1b1b22; }
+  .bar a[aria-current=page] { background: #6a3fd1; color: #fff; }
+
+  .wrap { display: grid; grid-template-columns: 360px 1fr; height: calc(100vh - 88px); }
+  .list { border-right: 1px solid var(--line); background: var(--surface); overflow-y: auto; }
+  .list-head { padding: 16px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--surface); z-index: 1; }
+  .list-head h1 { font-size: 1.15rem; margin: 0 0 10px; }
+  select { width: 100%; font: inherit; color: inherit; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+
+  .cand { display: flex; gap: 12px; align-items: center; width: 100%; text-align: left; background: transparent; color: inherit; border: 0; border-bottom: 1px solid var(--line); padding: 14px 16px; cursor: pointer; }
+  .cand:hover { background: var(--bg); }
+  .cand[aria-current=true] { background: var(--accent-soft); box-shadow: inset 4px 0 0 var(--accent); }
+  .score { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; border: 3px solid var(--line); }
+  .score.high { border-color: var(--good); color: var(--good); }
+  .score.mid { border-color: var(--warn); color: var(--warn); }
+  .score.low { border-color: var(--bad); color: var(--bad); }
+  .cand b { display: block; }
+  .meta { color: var(--muted); font-size: .875rem; }
+  .badge { display: inline-block; font-size: .78rem; font-weight: 600; border-radius: 999px; padding: 1px 9px; background: var(--accent-soft); color: var(--accent); }
+  .badge.shortlisted { background: var(--warn-soft); color: var(--warn); }
+  .badge.accepted { background: var(--good-soft); color: var(--good); }
+  .badge.rejected { background: var(--bad-soft); color: var(--bad); }
+  .empty { padding: 24px 16px; color: var(--muted); }
+
+  .detail { overflow-y: auto; padding: 24px 28px 48px; min-width: 0; }
+  .back { display: none; margin-bottom: 12px; background: transparent; border: 1px solid var(--line); color: var(--ink); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  .head h2 { margin: 0; font-size: 1.5rem; }
+  .big { text-align: right; }
+  .big b { font-size: 2rem; line-height: 1; display: block; }
+  .actions { position: sticky; top: 0; z-index: 2; display: flex; gap: 10px; flex-wrap: wrap; background: var(--bg); padding: 14px 0; margin-bottom: 8px; }
+  .act { border-radius: 8px; padding: 10px 22px; font-weight: 600; cursor: pointer; border: 2px solid; background: transparent; }
+  .act.accept { border-color: var(--good); color: var(--good); }
+  .act.shortlist { border-color: var(--accent); color: var(--accent); }
+  .act.reject { border-color: var(--bad); color: var(--bad); }
+  .act[aria-pressed=true].accept { background: var(--good); color: var(--surface); }
+  .act[aria-pressed=true].shortlist { background: var(--accent); color: var(--on-accent); }
+  .act[aria-pressed=true].reject { background: var(--bad); color: var(--surface); }
+
+  .cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+  .panel h3 { margin: 0 0 12px; font-size: 1.05rem; }
+  .panel h4 { margin: 16px 0 4px; font-size: .95rem; color: var(--muted); }
+  .panel p, .panel ul { margin: 0; }
+  .panel ul { padding-left: 20px; }
+  .req { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--line); }
+  .req:first-of-type { border-top: 0; }
+  .has { color: var(--good); font-weight: 600; }
+  .miss { color: var(--bad); font-weight: 600; }
+  .gap { background: var(--accent-soft); color: var(--accent); border-radius: 8px; padding: 10px 12px; margin-top: 12px; }
+  .bar2 { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; margin: 6px 0 4px; }
+  .bar2 i { display: block; height: 100%; background: var(--accent); }
+  .sr { position: absolute; left: -9999px; }
+
+  @media (max-width: 900px) {
+    .wrap { grid-template-columns: 1fr; height: auto; }
+    .list { border-right: 0; }
+    .detail { padding: 16px; }
+    .cols { grid-template-columns: 1fr; }
+    .wrap:not(.show-detail) .detail { display: none; }
+    .wrap.show-detail .list { display: none; }
+    .back { display: inline-block; }
+    .big { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<header class="bar">
+  <a href="employer-dashboard.html" aria-label="Dashboard"><img src="logo.png" alt="Hunt Your Track"></a>
+  <nav aria-label="Employer navigation">
+    <a href="employer-dashboard.html">My internships</a>
+    <a href="applicants-review.html" aria-current="page">Applicant review</a>
+    <a href="post-internship.html">Post internship</a>
+  </nav>
+</header>
+
+<div class="wrap" id="wrap">
+  <section class="list" aria-label="Candidate list">
+    <div class="list-head">
+      <h1>Candidates</h1>
+      <label class="sr" for="filter">Filter by status</label>
+      <select id="filter">
+        <option value="all">All candidates</option>
+        <option value="New">New</option>
+        <option value="Shortlisted">Shortlisted</option>
+        <option value="Accepted">Accepted</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+    </div>
+    <div id="cands"></div>
+  </section>
+
+  <section class="detail" id="detail" aria-live="polite"></section>
+</div>
+
+<script>
+  // Mock data: replace with API calls when the backend is ready.
+  const REQS = {
+    "Cloud security intern": ["AWS", "IAM", "Linux", "Python", "Terraform", "Networking"],
+    "Frontend developer intern": ["JavaScript", "React", "HTML/CSS", "Git", "REST APIs"],
+    "Data analyst intern": ["Python", "SQL", "Excel", "Statistics", "Power BI"]
+  };
+  const cands = [
+    { id: 1, name: "Mariam Hassan", post: "Cloud security intern", score: 94, status: "New", uni: "Cairo University, Computer Science, year 4",
+      skills: ["AWS", "IAM", "Linux", "Python", "Networking"],
+      ai: "Strong match. Hands-on AWS and IAM experience from two projects. Terraform is the only gap and is quick to learn on the job.",
+      exp: ["Cloud operations trainee, 3 months", "Security analyst volunteer, university club"],
+      projects: ["IAM least-privilege audit tool (Python, boto3)", "CloudTrail alerting pipeline"] },
+    { id: 2, name: "Omar Khaled", post: "Frontend developer intern", score: 91, status: "New", uni: "Ain Shams University, Computer Science, year 3",
+      skills: ["JavaScript", "React", "HTML/CSS", "Git"],
+      ai: "Strong match. Portfolio shows several shipped React apps. No direct REST API integration experience listed.",
+      exp: ["Freelance web developer, 1 year"], projects: ["E-commerce storefront (React)", "Task tracker with drag and drop"] },
+    { id: 3, name: "Nour Ibrahim", post: "Cloud security intern", score: 78, status: "Shortlisted", uni: "Alexandria University, Information Technology, year 4",
+      skills: ["Linux", "Networking", "Python"],
+      ai: "Medium match. Good networking and Linux base, but no cloud provider experience yet. Needs AWS, IAM and Terraform.",
+      exp: ["Network support intern, 2 months"], projects: ["Home lab with pfSense and Wireshark"] },
+    { id: 4, name: "Youssef Adel", post: "Data analyst intern", score: 72, status: "New", uni: "Mansoura University, Computer Science, year 3",
+      skills: ["Python", "SQL", "Excel"],
+      ai: "Medium match. Solid data wrangling basics. Missing statistics and dashboard tooling.",
+      exp: ["Teaching assistant, data structures"], projects: ["Sales dashboard in Excel", "SQL practice database"] },
+    { id: 5, name: "Salma Tarek", post: "Frontend developer intern", score: 58, status: "Rejected", uni: "Damanhour University, Computer Science, year 2",
+      skills: ["HTML/CSS", "Git"],
+      ai: "Low match. Early in her frontend journey: no JavaScript framework or API experience yet.",
+      exp: ["No professional experience listed"], projects: ["Personal landing page"] }
+  ];
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const band = n => n >= 85 ? "high" : n >= 70 ? "mid" : "low";
+  const bandName = n => n >= 85 ? "High match" : n >= 70 ? "Medium match" : "Low match";
+  let selected = null;
+
+  function renderList() {
+    const f = $("filter").value;
+    const rows = cands.filter(c => f === "all" || c.status === f).sort((a, b) => b.score - a.score);
+    $("cands").innerHTML = rows.length ? rows.map(c => `
+      <button class="cand" data-id="${c.id}" aria-current="${c.id === selected}">
+        <span class="score ${band(c.score)}" aria-label="${c.score} percent, ${bandName(c.score)}">${c.score}%</span>
+        <span><b>${esc(c.name)}</b><span class="meta">${esc(c.post)}</span><br><span class="badge ${c.status.toLowerCase()}">${c.status}</span></span>
+      </button>`).join("") : '<p class="empty">No candidates with this status.</p>';
+  }
+
+  function renderDetail() {
+    const c = cands.find(x => x.id === selected);
+    if (!c) { $("detail").innerHTML = '<p class="empty">Select a candidate to review their application.</p>'; return; }
+    const reqs = REQS[c.post];
+    const missing = reqs.filter(r => !c.skills.includes(r));
+    const pct = Math.round((reqs.length - missing.length) / reqs.length * 100);
+    const btn = (key, label) => `<button class="act ${key}" data-act="${key}" aria-pressed="${c.status.toLowerCase() === {accept:"accepted",shortlist:"shortlisted",reject:"rejected"}[key]}">${label}</button>`;
+    $("detail").innerHTML = `
+      <button class="back" id="back">← All candidates</button>
+      <div class="head">
+        <div><h2>${esc(c.name)}</h2><div class="meta">Applied for ${esc(c.post)}<br>${esc(c.uni)}</div></div>
+        <div class="big"><b>${c.score}%</b><span class="meta">${bandName(c.score)} · <span class="badge ${c.status.toLowerCase()}">${c.status}</span></span></div>
+      </div>
+      <div class="actions" role="group" aria-label="Quick actions">
+        ${btn("accept", "✓ Accept")}${btn("shortlist", "★ Shortlist")}${btn("reject", "✕ Reject")}
+      </div>
+      <div class="cols">
+        <div class="panel">
+          <h3>Requirements vs candidate</h3>
+          ${reqs.map(r => `<div class="req"><span>${esc(r)}</span>${c.skills.includes(r) ? '<span class="has">✓ Has it</span>' : '<span class="miss">✕ Missing</span>'}</div>`).join("")}
+          <div class="bar2"><i style="width:${pct}%"></i></div>
+          <span class="meta">${reqs.length - missing.length} of ${reqs.length} required skills</span>
+          <div class="gap"><b>AI analysis:</b> ${esc(c.ai)}${missing.length ? `<br><b>Skill gap:</b> ${missing.map(esc).join(", ")}` : ""}</div>
+        </div>
+        <div class="panel">
+          <h3>CV</h3>
+          <h4>Education</h4><p>${esc(c.uni)}</p>
+          <h4>Experience</h4><ul>${c.exp.map(e => `<li>${esc(e)}</li>`).join("")}</ul>
+          <h4>Projects</h4><ul>${c.projects.map(p => `<li>${esc(p)}</li>`).join("")}</ul>
+          <h4>Skills</h4><p>${c.skills.map(esc).join(", ")}</p>
+        </div>
+      </div>`;
+  }
+
+  $("cands").addEventListener("click", e => {
+    const b = e.target.closest(".cand");
+    if (!b) return;
+    selected = Number(b.dataset.id);
+    $("wrap").classList.add("show-detail");
+    renderList(); renderDetail();
+    window.scrollTo(0, 0);
+  });
+
+  $("detail").addEventListener("click", e => {
+    if (e.target.id === "back") { $("wrap").classList.remove("show-detail"); return; }
+    const act = e.target.dataset.act;
+    if (!act) return;
+    const c = cands.find(x => x.id === selected);
+    c.status = { accept: "Accepted", shortlist: "Shortlisted", reject: "Rejected" }[act];
+    renderList(); renderDetail();
+    document.querySelector('[data-act="' + act + '"]').focus();
+  });
+
+  $("filter").addEventListener("change", renderList);
+
+  selected = 1;
+  renderList(); renderDetail();
+</script>
+</body>
+</html>
