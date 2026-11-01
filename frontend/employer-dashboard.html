@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Employer dashboard · Hunt Your Track</title>
+<link rel="icon" href="logo.png">
+<style>
+  :root {
+    --bg: #f4f6f8; --surface: #ffffff; --ink: #16212e; --muted: #5b6776; --line: #d5dce3;
+    --accent: #6a3fd1; --accent-soft: #ece6fb; --on-accent: #ffffff;
+    --good: #12705a; --good-soft: #dff3ec; --warn: #8a5a00; --warn-soft: #fbf0d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10161d; --surface: #18212b; --ink: #e8edf2; --muted: #9aa7b5; --line: #2f3b48;
+      --accent: #b79cff; --accent-soft: #2a2146; --on-accent: #14102a;
+      --good: #6fd8b7; --good-soft: #15352b; --warn: #f0c36a; --warn-soft: #3a2f12;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 "Segoe UI", system-ui, sans-serif; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .app { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+
+  /* sidebar */
+  .side { background: #000; color: #e8e8ee; padding: 16px 12px; position: sticky; top: 0; height: 100vh; }
+  .side img { display: block; width: 150px; height: 150px; margin: 0 auto 12px; }
+  .nav { display: flex; flex-direction: column; gap: 4px; }
+  .nav a { display: flex; justify-content: space-between; align-items: center; color: #c9c9d6; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-weight: 600; }
+  .nav a:hover { background: #1b1b22; }
+  .nav a[aria-current=page] { background: #6a3fd1; color: #fff; }
+  .nav .sep { height: 1px; background: #26262e; margin: 10px 0; }
+  .pill { background: #fff; color: #4a2aa3; border-radius: 999px; font-size: .78rem; padding: 0 8px; }
+
+  /* main */
+  main { padding: 28px 32px 48px; min-width: 0; }
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+  h1 { font-size: 1.6rem; margin: 0; letter-spacing: -0.01em; }
+  h2 { font-size: 1.1rem; margin: 0 0 12px; }
+  .btn { font: inherit; font-weight: 600; text-decoration: none; display: inline-block; border-radius: 8px; padding: 10px 20px; cursor: pointer; border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent); }
+  .btn.small { padding: 5px 12px; font-size: .875rem; }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .stat b { display: block; font-size: 1.9rem; line-height: 1.2; }
+  .stat span { color: var(--muted); font-size: .9rem; }
+
+  .cols { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+
+  .post { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .post:first-of-type { border-top: 0; padding-top: 0; }
+  .post h3 { margin: 0; font-size: 1rem; }
+  .meta { color: var(--muted); font-size: .875rem; margin-top: 2px; }
+  .badge { display: inline-block; font-size: .78rem; font-weight: 600; border-radius: 999px; padding: 1px 9px; margin-right: 6px; background: var(--accent-soft); color: var(--accent); }
+  .badge.paid { background: var(--good-soft); color: var(--good); }
+  .badge.closed { background: var(--warn-soft); color: var(--warn); }
+  .count { text-align: right; white-space: nowrap; }
+  .count b { font-size: 1.4rem; display: block; line-height: 1.1; }
+  .count span { color: var(--muted); font-size: .8rem; }
+  .count .new { color: var(--accent); font-weight: 600; }
+
+  .note { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+  .note:first-of-type { border-top: 0; padding-top: 0; }
+  .match { flex: none; width: 48px; height: 48px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; }
+  .note p { margin: 0; }
+  .note .acts { margin-top: 6px; display: flex; gap: 8px; }
+  .empty { color: var(--muted); }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: .875rem; }
+  .hidden { display: none; }
+
+  /* responsive */
+  @media (max-width: 960px) { .cols { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) {
+    .app { grid-template-columns: 1fr; }
+    .side { position: static; height: auto; display: flex; align-items: center; gap: 8px; padding: 8px 12px; overflow-x: auto; }
+    .side img { width: 64px; height: 64px; margin: 0; flex: none; }
+    .nav { flex-direction: row; }
+    .nav a { white-space: nowrap; padding: 8px 12px; }
+    .nav .sep { display: none; }
+    main { padding: 20px 16px 40px; }
+    .stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <img src="logo.png" alt="Hunt Your Track">
+    <nav class="nav" aria-label="Employer navigation">
+      <a href="index.html" style="color: #94a3b8; font-weight: 500;">← Main Portal</a>
+      <div class="sep"></div>
+      <a href="#overview" data-view="overview">My internships</a>
+      <a href="#applicants" data-view="applicants">Manage applicants <span class="pill" id="nav-count"></span></a>
+      <a href="applicants-review.html">Applicant review matrix ↗</a>
+      <div class="sep"></div>
+      <a href="post-internship.html">Post internship</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="top">
+      <h1 id="page-title">My internships</h1>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <a class="btn ghost" href="applicants-review.html">Review applicants</a>
+        <a class="btn" href="post-internship.html">+ Post internship</a>
+      </div>
+    </div>
+
+    <!-- overview -->
+    <section id="view-overview">
+      <div class="stats">
+        <div class="stat"><b id="s-posts">0</b><span>Active internships</span></div>
+        <div class="stat"><b id="s-apps">0</b><span>Total applications</span></div>
+        <div class="stat"><b id="s-match">0</b><span>New high-match applicants</span></div>
+      </div>
+      <div class="cols">
+        <div class="panel">
+          <h2>Your postings</h2>
+          <div id="posts"></div>
+        </div>
+        <div class="panel">
+          <h2>New high-match applicants</h2>
+          <div id="notes" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- applicants -->
+    <section id="view-applicants" class="hidden">
+      <div class="panel">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Applicant</th><th>Internship</th><th>Match</th><th>Status</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // Mock data: replace with API calls later.
+  let posts = [
+    { id: 1, title: "Cloud security intern", track: "Cloud and DevOps", paid: true,  open: true,  apps: 24, fresh: 5 },
+    { id: 2, title: "Frontend developer intern", track: "Frontend", paid: false, open: true,  apps: 41, fresh: 8 },
+    { id: 3, title: "Data analyst intern", track: "Data and AI", paid: true,  open: true,  apps: 17, fresh: 0 },
+    { id: 4, title: "QA engineer intern", track: "QA", paid: false, open: false, apps: 9, fresh: 0 }
+  ];
+  try {
+    const custom = JSON.parse(localStorage.getItem('posted_internships') || '[]');
+    if (Array.isArray(custom)) {
+      posts = [...custom, ...posts];
+    }
+  } catch(e) {}
+
+  let applicants = [
+    { name: "Mariam Hassan", post: 1, match: 94, status: "New" },
+    { name: "Omar Khaled",   post: 2, match: 91, status: "New" },
+    { name: "Nour Ibrahim",  post: 1, match: 88, status: "New" },
+    { name: "Youssef Adel",  post: 3, match: 76, status: "Reviewing" },
+    { name: "Salma Tarek",   post: 2, match: 69, status: "Reviewing" }
+  ];
+  let alerts = applicants.filter(a => a.match >= 85);
+
+  const $ = id => document.getElementById(id);
+  const postTitle = id => posts.find(p => p.id === id).title;
+
+  function renderOverview() {
+    $("s-posts").textContent = posts.filter(p => p.open).length;
+    $("s-apps").textContent = posts.reduce((n, p) => n + p.apps, 0);
+    $("s-match").textContent = alerts.length;
+    $("nav-count").textContent = alerts.length || "";
+
+    $("posts").innerHTML = posts.map(p => `
+      <div class="post">
+        <div>
+          <h3>${p.title}</h3>
+          <div class="meta"><span class="badge ${p.paid ? "paid" : ""}">${p.paid ? "Paid" : "Free"}</span>${p.open ? "" : '<span class="badge closed">Closed</span>'}${p.track}</div>
+        </div>
+        <div class="count"><b>${p.apps}</b><span>applications</span>${p.fresh ? `<div class="new">${p.fresh} new</div>` : ""}</div>
+      </div>`).join("");
+
+    $("notes").innerHTML = alerts.length ? alerts.map((a, i) => `
+      <div class="note">
+        <div class="match" aria-label="${a.match} percent match">${a.match}%</div>
+        <div>
+          <p><b>${a.name}</b> applied to ${postTitle(a.post)}</p>
+          <div class="acts">
+            <a class="btn small" href="#applicants">Review</a>
+            <button class="btn small ghost" data-dismiss="${i}">Dismiss</button>
+          </div>
+        </div>
+      </div>`).join("") : '<p class="empty">No new high-match applicants. We will tell you here when a strong match applies.</p>';
+  }
+
+  function renderApplicants() {
+    $("rows").innerHTML = applicants.map(a => `
+      <tr><td>${a.name}</td><td>${postTitle(a.post)}</td><td><b>${a.match}%</b></td><td>${a.status}</td></tr>`).join("");
+  }
+
+  $("notes").addEventListener("click", e => {
+    const i = e.target.dataset.dismiss;
+    if (i === undefined) return;
+    alerts.splice(Number(i), 1);
+    renderOverview();
+  });
+
+  // navigation (hash based, so the browser back button works)
+  function route() {
+    const view = location.hash === "#applicants" ? "applicants" : "overview";
+    $("view-overview").classList.toggle("hidden", view !== "overview");
+    $("view-applicants").classList.toggle("hidden", view !== "applicants");
+    $("page-title").textContent = view === "overview" ? "My internships" : "Manage applicants";
+    document.querySelectorAll("[data-view]").forEach(a => {
+      a.toggleAttribute("aria-current", a.dataset.view === view);
+      if (a.dataset.view === view) a.setAttribute("aria-current", "page");
+    });
+  }
+  window.addEventListener("hashchange", route);
+
+  renderOverview(); renderApplicants(); route();
+</script>
+</body>
+</html>

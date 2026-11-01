@@ -67,6 +67,10 @@
 </head>
 <body>
 <main class="card">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+    <a href="employer-dashboard.html" style="color: var(--accent); text-decoration: none; font-weight: 600;">← Back to Dashboard</a>
+    <a href="index.html" style="color: var(--muted); text-decoration: none; font-size: 0.9rem;">Main Portal ↗</a>
+  </div>
   <div class="brand"><img src="logo.png" alt="Hunt Your Track" width="150" height="150"></div>
   <h1>Post an internship</h1>
   <p class="sub">Tell students what the role involves. Your required skills are used to match you with the right candidates.</p>
@@ -216,13 +220,22 @@
       return;
     }
     const payload = {
+      id: Date.now(),
       title: $("title").value.trim(),
       track: $("track").value,
       description: $("desc").value.trim(),
       requiredSkills: [...state.skills],
-      isPaid: $("pay-paid").checked
+      paid: $("pay-paid").checked,
+      open: true,
+      apps: 0,
+      fresh: 0
     };
-    console.log("Internship payload:", payload); // TODO: replace with API call
+    try {
+      const stored = JSON.parse(localStorage.getItem('posted_internships') || '[]');
+      stored.unshift(payload);
+      localStorage.setItem('posted_internships', JSON.stringify(stored));
+    } catch(err) {}
+    console.log("Internship payload:", payload);
     $("banner").classList.add("show");
   });
 

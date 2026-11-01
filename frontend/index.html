@@ -299,6 +299,9 @@
                     انضم إلى شبكة شركاء جامعة دمنهور، وانشر فرص التدريب الصيفي والكورسات المعتمدة، واستقبل طلبات وسير ذاتية مفروزة ومطابقة لمعاييرك بدقة.
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="employer-dashboard.html" class="btn btn-primary" style="padding: 0.85rem 1.75rem;">
+                        🏢 لوحة تحكم الشركة / المنظم
+                    </a>
                     <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="padding: 0.85rem 1.75rem;" data-i18n="empPostBtn">
                         ➕ نشر فرصة تدريب الآن
                     </button>
@@ -454,7 +457,7 @@
                     portalTarget = 'admin.html';
                     portalLabel = isEn ? '🛡️ Admin Console' : '🛡️ لوحة الإدارة الأكاديمية';
                 } else if (userRole === 'employer') {
-                    portalTarget = '#opportunities';
+                    portalTarget = 'employer-dashboard.html';
                     portalLabel = isEn ? '🏢 Employer Portal' : '🏢 لوحة المنظم والفرص';
                 }
 

@@ -94,8 +94,11 @@
   <aside class="side">
     <img src="logo.png" alt="Hunt Your Track">
     <nav class="nav" aria-label="Employer navigation">
+      <a href="index.html" style="color: #94a3b8; font-weight: 500;">← Main Portal</a>
+      <div class="sep"></div>
       <a href="#overview" data-view="overview">My internships</a>
       <a href="#applicants" data-view="applicants">Manage applicants <span class="pill" id="nav-count"></span></a>
+      <a href="applicants-review.html">Applicant review matrix ↗</a>
       <div class="sep"></div>
       <a href="post-internship.html">Post internship</a>
     </nav>
@@ -104,7 +107,10 @@
   <main>
     <div class="top">
       <h1 id="page-title">My internships</h1>
-      <a class="btn" href="post-internship.html">Post internship</a>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <a class="btn ghost" href="applicants-review.html">Review applicants</a>
+        <a class="btn" href="post-internship.html">+ Post internship</a>
+      </div>
     </div>
 
     <!-- overview -->
@@ -142,12 +148,19 @@
 
 <script>
   // Mock data: replace with API calls later.
-  const posts = [
+  let posts = [
     { id: 1, title: "Cloud security intern", track: "Cloud and DevOps", paid: true,  open: true,  apps: 24, fresh: 5 },
     { id: 2, title: "Frontend developer intern", track: "Frontend", paid: false, open: true,  apps: 41, fresh: 8 },
     { id: 3, title: "Data analyst intern", track: "Data and AI", paid: true,  open: true,  apps: 17, fresh: 0 },
     { id: 4, title: "QA engineer intern", track: "QA", paid: false, open: false, apps: 9, fresh: 0 }
   ];
+  try {
+    const custom = JSON.parse(localStorage.getItem('posted_internships') || '[]');
+    if (Array.isArray(custom)) {
+      posts = [...custom, ...posts];
+    }
+  } catch(e) {}
+
   let applicants = [
     { name: "Mariam Hassan", post: 1, match: 94, status: "New" },
     { name: "Omar Khaled",   post: 2, match: 91, status: "New" },

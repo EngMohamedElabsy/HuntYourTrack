@@ -151,7 +151,7 @@ function handleLoginSubmit(e) {
         localStorage.setItem('user_email', email);
         localStorage.setItem('user_name', 'Partner Organizer');
         showToast(isArabic ? 'مرحباً بك في منصة تنظيم ونشر الفرص! 🏢' : 'Welcome to Employer Portal! 🏢', 'success');
-        setTimeout(() => { window.location.href = 'index.html#opportunities'; }, 800);
+        setTimeout(() => { window.location.href = 'employer-dashboard.html'; }, 800);
     } else {
         localStorage.setItem('user', 'student');
         localStorage.setItem('role', 'student');
