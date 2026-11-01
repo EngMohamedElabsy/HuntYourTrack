@@ -38,28 +38,44 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 
 Whenever Claude, Codex, Cursor, or any AI assistant starts a session in this repository, it MUST execute this bootstrap procedure:
 
-#### 👥 Official Team Roster & Contact Registry
+#### 👥 Official Team Developer Identity Registry (حسابات GitHub المعتمدة للمطورين)
+> ⚠️ **Strict Separation Directive:** The credentials below are **strictly for Claude and AI tools** to identify which engineer is running the CLI (`gh auth status`, `git config user.email`) and match them with their GitHub Issues on Project #5. **Never confuse or mix these developer identities with frontend web prototype mock data or website personas.**
+
 - 👨‍💻 **Mohamed Yasser Elabsy (Lead Architect & Software Engineering Lead):**
   - **GitHub Username:** `@EngMohamedElabsy`
-  - **Git Committer Email:** `mohamedelabsy.biz@gmail.com`
-  - **University / Admin Domain Email:** `admin@damanhour.edu.eg`
+  - **Git Committer / GitHub Email:** `mohamedelabsy.biz@gmail.com`
+  - **GitHub Account ID:** `111818296` (`111818296+EngMohamedElabsy@users.noreply.github.com`)
   - **Engineering Scope:** System Architecture, Core Components, Executive Admin, CI/CD DevOps Pipeline, Sprint Coordination.
 - 👩‍💻 **Hager Khaled (Student Experience & Authentication Engineer):**
   - **GitHub Username:** `@hager678`
-  - **University / Student Domain Email:** `hager@damanhour.edu.eg`
+  - **GitHub Account ID:** `112729729` (`112729729+hager678@users.noreply.github.com`)
   - **Engineering Scope:** Student Landing Experience, Student Authentication UI, Onboarding Wizard, Student Dashboard & Roadmaps.
 - 👨‍💻 **Abdulrahman Masoud (Employer & Opportunities Engineer):**
   - **GitHub Username:** `@abdulrhman-masoud`
-  - **University / Recruiter Domain Email:** `abdulrhman@damanhour.edu.eg`
+  - **Git Committer / GitHub Email:** `abdulrahman.masoud.work@gmail.com`
+  - **GitHub Account ID:** `122886968` (`122886968+abdulrhman-masoud@users.noreply.github.com`)
   - **Engineering Scope:** Employer Workspace, Opportunity Posting Forms & Lifecycle, Applicant Review System.
 
-#### 🔌 Mandatory GitHub Connection & Auth Verification
-The AI assistant MUST verify that the GitHub CLI is authenticated and operational before touching code:
+#### 🔌 Mandatory GitHub Connection & Auth Verification (التحقق الإلزامي من حساب المطور)
+Before executing any task, writing code, or running commands, Claude / Codex / Cursor MUST verify the engineer's active GitHub session:
 ```bash
 gh auth status
 ```
-- If authenticated: The AI identifies the current active developer via `gh api user -q .login` or `git config user.email` and aligns all instructions with their designated scope.
-- If NOT authenticated: The AI MUST pause execution and instruct the engineer to run `gh auth login`.
+1. **Developer Identification:**
+   - Detect the logged-in GitHub account via:
+     ```bash
+     gh api user -q .login
+     git config user.email
+     ```
+   - Match the login or email with the Official Team Developer Identity Registry above (`@EngMohamedElabsy`, `@hager678`, or `@abdulrhman-masoud`).
+2. **Authentication Gate:**
+   - If `gh auth status` fails or the user is NOT authenticated: Claude MUST halt immediately and instruct the developer:
+     ```bash
+     gh auth login
+     ```
+   - Claude will NOT proceed with code modifications or issue management until GitHub authentication is verified.
+3. **Session Alignment:**
+   - Once authenticated, Claude addresses the developer by their name and scope, strictly aligning all instructions, branch names, and PR assignments to their assigned user stories.
 
 #### 📋 Automated Personal Issue Discovery ("إيه الإيشوز اللي عليّ؟")
 When any teammate asks *"What are my assigned issues?"* or *"What should I work on?"*:
