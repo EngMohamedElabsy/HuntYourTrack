@@ -34,32 +34,54 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 
 ## 3. Team Governance & Backlog Tracking
 
-### Dynamic Real-Time GitHub Backlog Tracking (No Hardcoded Issues)
-- **Zero Static Stale Data:** Never hardcode static issue numbers, statuses, or teammate backlogs into this constitution.
-- **Dynamic Inspection Required:** Claude and AI assistants MUST inspect the real-time project state using the GitHub CLI:
-  ```bash
-  # Check active sprint items on Project #5
-  gh project item-list 5 --owner EngMohamedElabsy
+### 3.1. Official Team Identity & AI Session Bootstrap (هوية أعضاء الفريق والاتصال بـ GitHub)
 
-  # Check sprint user stories and assignees
-  gh issue list --state open
+Whenever Claude, Codex, Cursor, or any AI assistant starts a session in this repository, it MUST execute this bootstrap procedure:
 
-  # View detailed specifications of a specific issue
-  gh issue view <issue_number>
+#### 👥 Official Team Roster & Contact Registry
+- 👨‍💻 **Mohamed Yasser Elabsy (Lead Architect & Software Engineering Lead):**
+  - **GitHub Username:** `@EngMohamedElabsy`
+  - **Git Committer Email:** `mohamedelabsy.biz@gmail.com`
+  - **University / Admin Domain Email:** `admin@damanhour.edu.eg`
+  - **Engineering Scope:** System Architecture, Core Components, Executive Admin, CI/CD DevOps Pipeline, Sprint Coordination.
+- 👩‍💻 **Hager Khaled (Student Experience & Authentication Engineer):**
+  - **GitHub Username:** `@hager678`
+  - **University / Student Domain Email:** `hager@damanhour.edu.eg`
+  - **Engineering Scope:** Student Landing Experience, Student Authentication UI, Onboarding Wizard, Student Dashboard & Roadmaps.
+- 👨‍💻 **Abdulrahman Masoud (Employer & Opportunities Engineer):**
+  - **GitHub Username:** `@abdulrhman-masoud`
+  - **University / Recruiter Domain Email:** `abdulrhman@damanhour.edu.eg`
+  - **Engineering Scope:** Employer Workspace, Opportunity Posting Forms & Lifecycle, Applicant Review System.
 
-  # Inspect active pull requests
-  gh pr list
-  ```
-- **Live Decision Rule:** If an issue is already marked `Closed` or `Done` on GitHub, treat it as completed. If it is `open`, inspect its assignee before touching any related code.
-- **Project Board Column Lifecycle:**
-  Tasks in **[HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com/users/EngMohamedElabsy/projects/5)** transition through 3 canonical states:
-  - `Todo`: المهام المجدولة والمعلقة في انتظار بدء العمل عليها.
-  - `toprogram` / `In Progress`: المهام الجاري برمجتها وتطويرها الآن على فرعها المستقل (`feature/usXX-...`).
-  - `Done`: المهام المنجزة بالكامل والتي اجتازت اختبارات الـ E2E Audit بنسبة 100% وتم دمج الـ PR الخاص بها في `main`.
+#### 🔌 Mandatory GitHub Connection & Auth Verification
+The AI assistant MUST verify that the GitHub CLI is authenticated and operational before touching code:
+```bash
+gh auth status
+```
+- If authenticated: The AI identifies the current active developer via `gh api user -q .login` or `git config user.email` and aligns all instructions with their designated scope.
+- If NOT authenticated: The AI MUST pause execution and instruct the engineer to run `gh auth login`.
+
+#### 📋 Automated Personal Issue Discovery ("إيه الإيشوز اللي عليّ؟")
+When any teammate asks *"What are my assigned issues?"* or *"What should I work on?"*:
+The AI MUST query GitHub live:
+```bash
+gh issue list --assignee <current_user_login> --state open
+gh project item-list 5 --owner EngMohamedElabsy
+```
+- The AI presents the list of open issues clearly with their issue number, title, and current column (`Todo` or `toprogram`).
+- The AI guides the engineer to select and solve **EXACTLY ONE issue at a time (`واحدة بواحدة`)**.
 
 ---
 
-### Mandatory Branching & Atomic Pull Request (PR) Workflow (قاعدة الـ PR المستقل لكل إيشو لمنع التداخل وحماية الكود)
+### 3.2. Project Board Status Lifecycle
+Tasks in **[HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com/users/EngMohamedElabsy/projects/5)** transition through 3 canonical states:
+- `Todo`: المهام المجدولة والمعلقة في انتظار بدء العمل عليها.
+- `toprogram` / `In Progress`: المهام الجاري برمجتها وتطويرها الآن على فرعها المستقل (`feature/usXX-...`).
+- `Done`: المهام المنجزة بالكامل والتي اجتازت اختبارات الـ E2E Audit بنسبة 100% وتم دمج الـ PR الخاص بها في `main`.
+
+---
+
+### 3.3. Mandatory Branching & Atomic Pull Request (PR) Workflow (قاعدة الـ PR المستقل لكل إيشو لمنع التداخل وحماية الكود)
 - **Strict Atomic Rule (1 Issue = 1 Dedicated Branch & 1 PR):**
   Never bundle multiple user stories or tasks into a single branch or PR. All tasks and issues MUST be solved strictly **one by one** (`واحدة بواحدة`). Every issue gets its own branch and its own dedicated PR to eliminate merge collisions between teammates, keep reviews isolated, and allow clean rollbacks.
 - **No Direct Commits to `main` for Features:**
@@ -84,7 +106,7 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 
 ---
 
-### Issue Handover & Takeover Protocol (بروتوكول تفويض واستلام مهام الزملاء)
+### 3.4. Issue Handover & Takeover Protocol (بروتوكول تفويض واستلام مهام الزملاء)
 - **Mandatory English Comment on GitHub Issue:**
   If any team member (or assistant) needs to take over an issue originally assigned to a teammate (e.g., to assist with the sprint deadline), they MUST post a formal comment on that specific issue in clear professional English before taking any action:
   ```markdown
@@ -101,7 +123,7 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 
 ---
 
-### Automated CI/CD, Deadline Tracking & Scorecard Table (إدارة المواعيد وبوت الـ GitHub Actions)
+### 3.5. Automated CI/CD, Deadline Tracking & Scorecard Table (إدارة المواعيد وبوت الـ GitHub Actions)
 - **Deadline Field on GitHub Project #5:** Every issue must have a tracked delivery date configured in the custom `Deadline` field of Project #5 and linked to the active milestone.
 - **Automated Scorecard & Velocity Table (`npm run metrics`):**
   - The script `scripts/generate-team-metrics.js` fetches live issue statuses from GitHub and updates `docs/TEAM_METRICS.md`.
@@ -113,9 +135,9 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 
 ---
 
-### Claude's 6-Phase Systematic Engineering Workflow (خريطة التفكير وحل أي Task / Issue)
+### 3.6. Claude's 6-Phase Systematic Engineering Workflow (خريطة التفكير وحل أي Task / Issue)
 
-Before writing any code or tackling any issue, Claude MUST structure thinking as a methodical plan across these 6 sequential phases:
+Before writing any code or tackling any issue, Claude and any AI assistant MUST structure thinking as a methodical plan across these 6 sequential phases:
 
 #### 🗺️ Phase 1: Architecture & File Mapping (الخطة وهنعمل إيه؟ وهنستخدم فايلات إيه؟ ونكتب كود إيه؟)
 - **Problem Analysis:** Clearly define the objective, requirements, and edge cases from `gh issue view <issue_number>`.
@@ -123,14 +145,14 @@ Before writing any code or tackling any issue, Claude MUST structure thinking as
 - **Code & Logic Specification:** Outline the specific functions, DOM structures, state models, or CSS classes that will be introduced before typing code.
 
 #### 🧰 Phase 2: Skills & Tooling Selection (هنستخدم Skills وإيه الأدوات والـ Plugins اللي هتساعدنا؟)
-- Identify and select the exact active skills from `.global_skills/` needed for the task:
-  - **`open-design` (`od lint`):** Anti-slop HTML linter for eliminating AI default colors (`#4F46E5`) and emojis.
-  - **`ui-ux-pro-max` & `frontend-design`:** For distinctive, non-templated layouts, micro-interactions, and WCAG AA contrast.
-  - **`design-system`:** For strict adherence to `MASTER.md` color tokens, typography, and density dials.
-  - **`graphify`:** For understanding module coupling and AST relations before refactoring.
-  - **`huntyourtrack-frontend`:** For multi-faculty domain invariants and client-side session mocking.
-  - **`test-audit` & `playwright-cli`:** For browser automation and verification.
-  - **`diagram`:** For Mermaid flow mapping when documenting architecture.
+- **Mandatory Base Skill — `graphify` (Token Saving & Dependency Mapping):**
+  - Claude MUST run `graphify` (e.g. `graphify path <A> <B>` or `graphify explain <Node>`) to inspect the AST coupling and file dependencies.
+  - *Why?* This prevents loading huge entire files into prompt context, saves tokens from being wasted, and guarantees structural integrity without hallucinations.
+- **Self-Assessment Question:** Claude must evaluate: *"Which active skills in `.global_skills/` match this specific issue?"*:
+  - **If UI/Visual Template:** `open-design` (`od lint`) to eliminate AI tells (`#4F46E5`, emojis) + `ui-ux-pro-max` & `frontend-design` for distinct styling and WCAG AA contrast + `design-system` for tokens.
+  - **If Domain Logic & Roadmaps:** `huntyourtrack-frontend` for multi-faculty models and simulated sessions.
+  - **If Automation & QA:** `test-audit` and `playwright-cli` for E2E browser assertions.
+  - **If Architecture & Docs:** `diagram` (Mermaid), `document-generate`, and `make-pdf`.
 
 #### ⚙️ Phase 3: Step-by-Step Isolated Execution (تنفيذ الخطوات Step by Step)
 - Create an isolated feature branch (`git checkout -b feature/usXX-<feature-name>`).
@@ -148,15 +170,23 @@ Before writing any code or tackling any issue, Claude MUST structure thinking as
 - **Data Sanitization:** Ensure inputs are sanitized against XSS and sessions in `localStorage` cannot be hijacked.
 - **Zero Secrets:** Confirm no private API tokens, `.env` values, or credentials are tracked in Git.
 
-#### 🎯 Phase 6: Verification & Definition of Done (التأكد هل حلينا المطلوب ولا لأ؟)
+#### 🎯 Phase 6: Verification, PR Merge, & Issue Closure (التحقق والدمج والإغلاق الكامل)
 - **Checklist Audit:** Verify that 100% of the acceptance criteria defined in the issue are met.
-- **E2E Test Compliance:** Ensure all 5 audit test suites pass with 0 failures:
+- **E2E Test Compliance:** Ensure all 5 audit test suites pass locally with 0 failures:
   1. 100% Bilingual i18n without text leakage or mixed languages.
   2. Zero UI element duplication or administrative tool leakage.
   3. 60fps Track Hunter Canvas rendering in both Dark/Light modes.
   4. Strict route guarding blocking unauthorized URLs.
   5. Responsive layout stability across 375px mobile and 1440px desktop.
-- **Clean Merge:** Synchronize with `main`, ensure clean tree, and merge cleanly.
+- **PR Merge to `main`:**
+  - Sync with `main`: `git fetch origin && git merge origin/main`.
+  - Push feature branch: `git push origin feature/usXX-<feature-name>`.
+  - Confirm GitHub Actions 5-stage pipeline passes green.
+  - Merge the PR cleanly into `main` (`gh pr merge --squash --delete-branch` or `git merge`).
+- **Complete Issue & Project Closure:**
+  - Verify that GitHub automatically closes the issue (`state: CLOSED` via `Closes #<id>`).
+  - Move card to `Done` in Project #5 (`HuntYourTrack - Graduation Sprint 1`).
+  - Update Section 8 (Continuous Project Ledger) in `CLAUDE.md` with the completed deliverables, timestamp, and next priority.
 
 ---
 
