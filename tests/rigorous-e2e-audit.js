@@ -29,7 +29,11 @@ const mimeTypes = {
 
 const server = http.createServer((request, response) => {
     const requestedPath = request.url === '/' ? '/index.html' : decodeURIComponent(request.url.split('?')[0]);
-    const filePath = path.resolve(frontendDirectory, `.${requestedPath}`);
+    let filePath = path.resolve(frontendDirectory, `.${requestedPath}`);
+    if (!fs.existsSync(filePath)) {
+        const inPages = path.resolve(frontendDirectory, `pages${requestedPath}`);
+        if (fs.existsSync(inPages)) filePath = inPages;
+    }
     if (!filePath.startsWith(`${frontendDirectory}${path.sep}`) || !fs.existsSync(filePath)) {
         response.writeHead(404);
         response.end('Not found');

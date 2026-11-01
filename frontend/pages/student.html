@@ -17,7 +17,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         .dashboard-layout {
             min-height: 100vh;
@@ -295,12 +295,12 @@
         
         <!-- Clean Role-Isolated Navigation Bar (No Admin or UI Kit links) -->
         <header class="navbar">
-            <a href="index.html" class="navbar-brand">
+            <a href="../index.html" class="navbar-brand">
                 <span>🎯</span> HuntYourTrack
             </a>
             
             <div class="navbar-actions">
-                <a href="index.html" class="btn btn-ghost" style="font-size: 0.9rem;" data-i18n="navExploreHome">🏠 منصة الاستكشاف</a>
+                <a href="../index.html" class="btn btn-ghost" style="font-size: 0.9rem;" data-i18n="navExploreHome">🏠 منصة الاستكشاف</a>
                 <a href="#active-opportunities" class="btn btn-ghost" style="font-size: 0.9rem;" data-i18n="navInternships">💼 فرص التدريب والكورسات</a>
                 
                 <!-- Utility Toggles -->
@@ -326,7 +326,7 @@
                     <span>👨‍🎓</span> <span id="mobile-user-display" data-i18n="userDisplayStudent">طالب أكاديمي</span>
                 </span>
             </div>
-            <a href="index.html" class="nav-drawer-link" onclick="closeStudentDrawer()" data-i18n="navExploreHome">🏠 منصة الاستكشاف</a>
+            <a href="../index.html" class="nav-drawer-link" onclick="closeStudentDrawer()" data-i18n="navExploreHome">🏠 منصة الاستكشاف</a>
             <a href="student.html" class="nav-drawer-link" onclick="closeStudentDrawer()" data-i18n="navStudentPortal">🎓 لوحة الطالب</a>
             <a href="#active-opportunities" class="nav-drawer-link" onclick="closeStudentDrawer()" data-i18n="navInternships">💼 فرص التدريب والكورسات</a>
             
@@ -461,8 +461,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="js/i18n.js"></script>
-    <script src="js/opportunities.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/opportunities.js"></script>
     <script>
         // Load student session data
         const userEmail = localStorage.getItem('user_email') || 'student@damanhour.edu.eg';
