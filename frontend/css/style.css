@@ -155,8 +155,13 @@ html[lang="ar"] body {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: -10;
+    z-index: 0;
     overflow: hidden;
+}
+
+main, footer, .landing-nav, .portal-container, .auth-top-bar, .auth-centered-wrapper, .modal {
+    position: relative;
+    z-index: 1;
 }
 
 .aurora {

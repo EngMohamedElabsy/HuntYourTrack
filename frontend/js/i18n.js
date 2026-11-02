@@ -8,6 +8,8 @@ const HYT_TRANSLATIONS = {
     ar: {
         // Brand & Meta
         brandName: "HuntYourTrack",
+        mainPageTitle: "HuntYourTrack · منصة اصطياد المسار المهني والتدريب الصيفي | Career & Internship Hub",
+        empPageTitle: "HuntYourTrack · بوابة الشركات ومنظمي التدريب | Employer Hub",
         brandTagline: "جامعة دمنهور · منصة رسم خارطة الطريق للوظائف والتدريب الصيفي",
         academicBadge: "🎓 مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور",
 
@@ -116,6 +118,7 @@ const HYT_TRANSLATIONS = {
         empBadge: "بوابة الشركات والمنظمين",
         empHeading: "هل أنت شركة أو منظمة تبحث عن كفاءات متميزة؟",
         empSub: "انضم إلى شبكة شركاء جامعة دمنهور، وانشر فرص التدريب الصيفي والكورسات المعتمدة، واستقبل طلبات وسير ذاتية مفروزة ومطابقة لمعاييرك بدقة.",
+        empDashboardBtn: "🏢 لوحة تحكم الشركة / المنظم",
         empPostBtn: "➕ نشر فرصة تدريب الآن",
         empRegisterBtn: "تسجيل حساب شركة / منظم →",
 
@@ -304,6 +307,15 @@ const HYT_TRANSLATIONS = {
         empFreeLabel: "تدريب تطوعي / أكاديمي (Free)",
         empSubmitPostBtn: "🚀 نشر التدريب الآن",
         empResetFormBtn: "إفراغ النموذج",
+        empCharSuffix: "/ 1000 حرف",
+        empTrackCloud: "السحابية والعمليات (Cloud & DevOps)",
+        empTrackCyber: "الأمن السيبراني (Cybersecurity)",
+        empTrackFrontend: "واجهات الويب (Frontend Development)",
+        empTrackBackend: "الخوادم والأنظمة (Backend Development)",
+        empTrackDataAI: "البيانات والذكاء الاصطناعي (Data Science & AI)",
+        empTrackMobile: "تطبيقات الهواتف (Mobile Development)",
+        empTrackUIUX: "التصميم وتجربة المستخدم (UI/UX Design)",
+        empTrackQA: "ضمان الجودة والاختبار (Quality Assurance)",
         empSuccessBanner: "✅ تم نشر فرصة التدريب بنجاح! أصبحت متاحة الآن لطلاب جامعة دمنهور وظهرت في لوحة المتابعة.",
         empMatrixHeading: "مصفوفة مراجعة وتقييم المتقدمين (Applicant Review Matrix)",
         empMatrixSub: "فرز وتقييم دقيق للمرشحين بالذكاء الاصطناعي وفق نسبة تطابق الـ ATS.",
@@ -343,6 +355,8 @@ const HYT_TRANSLATIONS = {
     en: {
         // Brand & Meta
         brandName: "HuntYourTrack",
+        mainPageTitle: "HuntYourTrack · Career Track Navigation & Internship Matching Hub",
+        empPageTitle: "HuntYourTrack · Employer & Partner Workspace | Employer Hub",
         brandTagline: "Damanhour University · Career Roadmap & Internship Matching Platform",
         academicBadge: "🎓 Graduation Project 2026 · Faculty of Computers & Information, Damanhour Univ",
 
@@ -451,6 +465,7 @@ const HYT_TRANSLATIONS = {
         empBadge: "Corporate Gateway",
         empHeading: "Are You an Employer Seeking Top Engineering Talent?",
         empSub: "Partner with Damanhour University to publish summer internships and certified training tracks. Receive pre-screened, skills-matched applicant profiles.",
+        empDashboardBtn: "🏢 Employer / Partner Portal",
         empPostBtn: "➕ Post Internship Now",
         empRegisterBtn: "Register Corporate Account →",
 
@@ -639,6 +654,15 @@ const HYT_TRANSLATIONS = {
         empFreeLabel: "Academic / Non-Stipend",
         empSubmitPostBtn: "🚀 Publish Internship Now",
         empResetFormBtn: "Reset Form",
+        empCharSuffix: "/ 1000 characters",
+        empTrackCloud: "Cloud & DevOps",
+        empTrackCyber: "Cybersecurity",
+        empTrackFrontend: "Frontend Development",
+        empTrackBackend: "Backend Development",
+        empTrackDataAI: "Data Science & AI",
+        empTrackMobile: "Mobile Development",
+        empTrackUIUX: "UI/UX Design",
+        empTrackQA: "Quality Assurance (QA)",
         empSuccessBanner: "✅ Internship published successfully! Now live and visible to Damanhour University students.",
         empMatrixHeading: "Applicant Review & Screening Matrix",
         empMatrixSub: "Precise candidate evaluation and ATS keyword match scoring powered by AI algorithms.",
@@ -715,6 +739,8 @@ class I18nManager {
                     el.placeholder = val;
                 } else if (el.tagName === 'OPTION') {
                     el.textContent = val;
+                } else if (el.tagName === 'TITLE') {
+                    document.title = val;
                 } else {
                     el.innerHTML = val;
                 }
