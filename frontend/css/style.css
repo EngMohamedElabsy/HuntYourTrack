@@ -59,9 +59,12 @@
     --color-background: #0B1915;
     --color-foreground: #E3F2EC;
     --color-card: #132E25;
+    --color-card-solid: #132E25;
     --color-border: rgba(227, 242, 236, 0.14);
     --color-muted: rgba(255, 255, 255, 0.06);
     --color-muted-foreground: #86A397;
+    --glass: rgba(19, 46, 37, 0.7);
+    --glass-strong: rgba(11, 25, 21, 0.95);
 }
 
 [data-theme="nebula"] {
@@ -74,9 +77,12 @@
     --color-background: #110F25;
     --color-foreground: #ECE8F7;
     --color-card: #1D193B;
+    --color-card-solid: #1D193B;
     --color-border: rgba(236, 232, 247, 0.14);
     --color-muted: rgba(255, 255, 255, 0.06);
     --color-muted-foreground: #9A93B3;
+    --glass: rgba(29, 25, 59, 0.7);
+    --glass-strong: rgba(17, 15, 37, 0.95);
 }
 
 [data-theme="ember"] {
@@ -89,9 +95,12 @@
     --color-background: #19120B;
     --color-foreground: #F5ECE3;
     --color-card: #2B1D13;
+    --color-card-solid: #2B1D13;
     --color-border: rgba(245, 236, 227, 0.14);
     --color-muted: rgba(255, 255, 255, 0.06);
     --color-muted-foreground: #AD9C8B;
+    --glass: rgba(43, 29, 19, 0.7);
+    --glass-strong: rgba(25, 18, 11, 0.95);
 }
 
 * {
@@ -1041,5 +1050,242 @@ select.form-control option {
     transform: translateX(-50%);
     font-size: 9px;
     color: var(--color-muted-foreground);
+}
+
+/* ==========================================================================
+   3D Interactive Card Flip & Floating Physics ("شوية دلع")
+   ========================================================================== */
+.track-card-3d-wrapper {
+    perspective: 1200px;
+    height: 100%;
+}
+
+.track-card {
+    position: relative;
+    background: transparent;
+    border: none;
+    border-radius: 18px;
+    padding: 0;
+    min-height: 400px;
+    transform-style: preserve-3d;
+    transition: transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: none;
+}
+
+.track-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.track-card-face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.track-card-front {
+    z-index: 2;
+    transform: rotateY(0deg);
+}
+
+.track-card-back {
+    transform: rotateY(180deg);
+    background: var(--color-card-solid);
+}
+
+.track-card:hover .track-card-face {
+    border-color: var(--color-primary);
+    box-shadow: 0 16px 36px -8px color-mix(in srgb, var(--color-primary) 22%, transparent);
+}
+
+/* 3D Floating Icon Animation */
+.track-icon-box {
+    transform-style: preserve-3d;
+    animation: floatIcon3D 4s ease-in-out infinite;
+    filter: drop-shadow(0 8px 12px color-mix(in srgb, var(--color-primary) 35%, transparent));
+}
+
+@keyframes floatIcon3D {
+    0%, 100% {
+        transform: translateY(0px) rotateZ(0deg) scale(1);
+    }
+    50% {
+        transform: translateY(-6px) rotateZ(3deg) scale(1.05);
+    }
+}
+
+.btn-flip-card,
+.btn-flip-card-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 25%, transparent);
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-flip-card:hover,
+.btn-flip-card-back:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+    transform: scale(1.03);
+}
+
+.card-back-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.card-back-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+}
+
+.card-syllabus-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.card-syllabus-item {
+    font-size: 0.82rem;
+    color: var(--color-muted-foreground);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    line-height: 1.35;
+}
+
+.card-syllabus-item::before {
+    content: "✦";
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Hunter Search Bar (Pill Shape with Aura & Autocomplete)
+   ========================================================================== */
+.hunter-search-box {
+    border-radius: 9999px !important;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    transition: all 0.25s ease;
+}
+
+.hunter-search-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    margin: 0.75rem auto 1rem;
+}
+
+.hunter-autocomplete-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--color-card-solid);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: 0 16px 32px -4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(20px);
+    z-index: 100;
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+.hunter-autocomplete-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 0.85rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+}
+
+.hunter-autocomplete-item:hover {
+    background: var(--color-muted);
+    border-color: var(--color-primary);
+}
+
+.hunter-autocomplete-track-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+}
+
+.hunter-autocomplete-faculty-tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    background: var(--color-muted);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.no-track-match-banner {
+    padding: 0.85rem 1rem;
+    text-align: center;
+    font-size: 0.84rem;
+    color: #F59E0B;
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.hunter-quick-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    color: var(--color-muted-foreground);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.hunter-quick-chip:hover,
+.hunter-quick-chip.active {
+    background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-1px);
 }
 
