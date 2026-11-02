@@ -463,6 +463,7 @@
     <!-- Scripts -->
     <script src="../js/i18n.js"></script>
     <script src="../js/opportunities.js"></script>
+    <script src="../js/ocean-background.js"></script>
     <script>
         // Load student session data
         const userEmail = localStorage.getItem('user_email') || 'student@damanhour.edu.eg';
@@ -523,15 +524,17 @@
             const dept = document.getElementById('student-dept-select').value;
             localStorage.setItem('faculty', fac);
             localStorage.setItem('department', dept);
-            showStudentToast('تم تحديث تخصصك الأكاديمي بنجاح! تم ضبط المسارات المتوافقة 🎯', 'success');
+            const isEn = document.documentElement.lang === 'en';
+            showStudentToast(isEn ? 'Academic specialization updated successfully! Compatible tracks aligned 🎯' : 'تم تحديث تخصصك الأكاديمي بنجاح! تم ضبط المسارات المتوافقة 🎯', 'success');
         }
 
         function simulateCvUpload() {
             const status = document.getElementById('cv-status-text');
-            status.innerHTML = '⏳ جاري فحص ومطابقة السيرة الذاتية عبر خوارزمية الذكاء الاصطناعي...';
+            const isEn = document.documentElement.lang === 'en';
+            status.innerHTML = isEn ? '⏳ Scanning and parsing resume via AI matching algorithm...' : '⏳ جاري فحص ومطابقة السيرة الذاتية عبر خوارزمية الذكاء الاصطناعي...';
             setTimeout(() => {
-                status.innerHTML = '✅ تم رفع السيرة الذاتية بنجاح! نسبة تطابق المهارات: 96% مع الشركات الشريكة.';
-                showStudentToast('تم استخراج المهارات بنجاح ومطابقتها مع فرص التدريب المتاحة! 🚀', 'success');
+                status.innerHTML = isEn ? '✅ Resume uploaded successfully! Skill match: 96% with partner companies.' : '✅ تم رفع السيرة الذاتية بنجاح! نسبة تطابق المهارات: 96% مع الشركات الشريكة.';
+                showStudentToast(isEn ? 'Skills extracted and matched with active internship opportunities! 🚀' : 'تم استخراج المهارات بنجاح ومطابقتها مع فرص التدريب المتاحة! 🚀', 'success');
             }, 1200);
         }
 

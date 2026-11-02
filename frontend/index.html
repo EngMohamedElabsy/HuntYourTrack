@@ -86,6 +86,10 @@
             <p class="hero-description" data-i18n="heroDesc">
                 المنصة الذكية الأولى في جامعة دمنهور لرسم خريطة طريق مهنية مخصصة لكل طالب في مختلف الكليات (حاسبات، هندسة، تجارة، حقوق)، مع ربط مباشر بفرص التدريب الصيفي والكورسات المعتمدة وإشراف أكاديمي معتمد.
             </p>
+            <div class="hero-typewriter-box">
+                <span class="typewriter-icon">✨</span>
+                <span id="hyt-typewriter"></span><span class="typewriter-cursor">|</span>
+            </div>
             <div class="hero-actions">
                 <a href="#tracks" class="btn btn-primary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnExplore">
                     🎯 استكشف المسارات
@@ -127,6 +131,22 @@
                 <p class="section-subtitle" data-i18n="hunterSub">
                     حرّك مؤشر الماوس لاكتشاف العقد المهنية ونسج شبكة مهاراتك المتكاملة وتتبع مسارك حتى الاحتراف.
                 </p>
+            </div>
+
+            <!-- Interactive Faculty Dock & Real-time Hunter Filter -->
+            <div class="hunter-controls-bar">
+                <div class="hero-faculty-dock" role="toolbar" aria-label="Faculty filter dock">
+                    <button class="dock-pill active" onclick="setHunterFaculty('all', this)" data-faculty="all" data-i18n="dockAll">🌐 كافة الكليات</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('computing', this)" data-faculty="computing" data-i18n="dockComputing">💻 الحاسبات والذكاء الاصطناعي</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('engineering', this)" data-faculty="engineering" data-i18n="dockEngineering">⚙️ الهندسة والتكنولوجيا</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('science', this)" data-faculty="science" data-i18n="dockScience">🔬 العلوم الأساسية</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('business', this)" data-faculty="business" data-i18n="dockBusiness">📊 التجارة وإدارة الأعمال</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('law', this)" data-faculty="law" data-i18n="dockLaw">⚖️ الحقوق والتشريعات الرقمية</button>
+                </div>
+                <div class="hunter-search-box aura" style="display: flex; gap: 0.5rem; align-items: center;">
+                    <input type="text" id="hunter-quick-search" placeholder="ابحث عن مسار لاصطياده (AI, Mechatronics, FinTech...)" oninput="handleHunterSearch(this.value)" data-i18n="hunterSearchPh" style="flex: 1;" />
+                    <button type="button" class="btn btn-secondary" style="padding: 0.5rem 0.9rem; font-size: 0.85rem; border-radius: 9999px; white-space: nowrap;" onclick="if(window.hytHunter) window.hytHunter.shuffleTrack();" data-i18n="hunterShuffleBtn">🎲 اصطياد عشوائي</button>
+                </div>
             </div>
 
             <div class="hunter-canvas-wrapper">
@@ -383,8 +403,91 @@
         </form>
     </dialog>
 
-    <!-- Footer (Canonical Link) -->
-    <footer class="landing-footer">
+        <!-- Cyber Theme Gallery (5 bespoke palettes from v0) -->
+        <section class="section-wrapper" id="themes" style="padding-top: 2rem; padding-bottom: 3.5rem;">
+            <div class="section-head">
+                <span class="section-badge" data-i18n="themesBadge">تخصيص المظهر الحركي</span>
+                <h2 class="section-title" data-i18n="themesTitle">معرض المظاهر والألوان التفاعلية</h2>
+                <p class="section-subtitle" data-i18n="themesSub">
+                    اختر نسق الألوان والمؤثرات التي تناسبك لإعادة إضاءة المحيط التفاعلي وشبكة المسارات في الوقت الحقيقي.
+                </p>
+            </div>
+
+            <div class="theme-gallery-grid">
+                <button type="button" class="theme-gallery-card active" data-theme-id="abyss" onclick="window.setHytTheme('abyss')">
+                    <div class="theme-card-preview" style="background: radial-gradient(60% 80% at 25% 20%, #00F2FE66, transparent 70%), radial-gradient(60% 80% at 85% 30%, #6366F166, transparent 70%), #05070B;">
+                        <div class="swatch-dots">
+                            <span style="background: #00F2FE;"></span>
+                            <span style="background: #10B981;"></span>
+                            <span style="background: #6366F1;"></span>
+                        </div>
+                    </div>
+                    <div class="theme-card-info">
+                        <strong data-i18n="themeAbyss">🌌 أعماق المحيط (Abyss)</strong>
+                        <span data-i18n="themeAbyssMood">سايبربانك مظلم ورادارات نيون</span>
+                    </div>
+                </button>
+
+                <button type="button" class="theme-gallery-card" data-theme-id="reef" onclick="window.setHytTheme('reef')">
+                    <div class="theme-card-preview" style="background: radial-gradient(60% 80% at 25% 20%, #10B98166, transparent 70%), radial-gradient(60% 80% at 85% 30%, #22D3EE66, transparent 70%), #030A08;">
+                        <div class="swatch-dots">
+                            <span style="background: #10B981;"></span>
+                            <span style="background: #A3E635;"></span>
+                            <span style="background: #22D3EE;"></span>
+                        </div>
+                    </div>
+                    <div class="theme-card-info">
+                        <strong data-i18n="themeReef">🪸 الشعب المرجانية (Reef)</strong>
+                        <span data-i18n="themeReefMood">أخضر زمردي حيوي وأمواج متلألئة</span>
+                    </div>
+                </button>
+
+                <button type="button" class="theme-gallery-card" data-theme-id="nebula" onclick="window.setHytTheme('nebula')">
+                    <div class="theme-card-preview" style="background: radial-gradient(60% 80% at 25% 20%, #A78BFA66, transparent 70%), radial-gradient(60% 80% at 85% 30%, #6366F166, transparent 70%), #07060F;">
+                        <div class="swatch-dots">
+                            <span style="background: #A78BFA;"></span>
+                            <span style="background: #F472B6;"></span>
+                            <span style="background: #6366F1;"></span>
+                        </div>
+                    </div>
+                    <div class="theme-card-info">
+                        <strong data-i18n="themeNebula">🔮 سديم الفضاء (Nebula)</strong>
+                        <span data-i18n="themeNebulaMood">أرجواني وفوسفوري وأجرام كونية</span>
+                    </div>
+                </button>
+
+                <button type="button" class="theme-gallery-card" data-theme-id="ember" onclick="window.setHytTheme('ember')">
+                    <div class="theme-card-preview" style="background: radial-gradient(60% 80% at 25% 20%, #F5B84166, transparent 70%), radial-gradient(60% 80% at 85% 30%, #F43F5E66, transparent 70%), #0A0705;">
+                        <div class="swatch-dots">
+                            <span style="background: #F5B841;"></span>
+                            <span style="background: #FF6B4A;"></span>
+                            <span style="background: #F43F5E;"></span>
+                        </div>
+                    </div>
+                    <div class="theme-card-info">
+                        <strong data-i18n="themeEmber">🔥 الوهج الشمسي (Ember)</strong>
+                        <span data-i18n="themeEmberMood">طاقة نارية ودفء حركي متقد</span>
+                    </div>
+                </button>
+
+                <button type="button" class="theme-gallery-card" data-theme-id="daylight" onclick="window.setHytTheme('daylight')">
+                    <div class="theme-card-preview" style="background: radial-gradient(60% 80% at 25% 20%, #0284C766, transparent 70%), radial-gradient(60% 80% at 85% 30%, #4F46E566, transparent 70%), #EEF3F9;">
+                        <div class="swatch-dots">
+                            <span style="background: #0284C7;"></span>
+                            <span style="background: #059669;"></span>
+                            <span style="background: #4F46E5;"></span>
+                        </div>
+                    </div>
+                    <div class="theme-card-info">
+                        <strong data-i18n="themeDaylight">☀️ وضح النهار (Daylight)</strong>
+                        <span data-i18n="themeDaylightMood">نسق مضيء وتباين فائق الوضوح</span>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer (Canonical Link) -->
+        <footer class="landing-footer">
         <div class="footer-container">
             <div class="footer-col">
                 <h4 style="display: flex; align-items: center; gap: 0.5rem;" data-i18n="footerAboutTitle">
@@ -433,6 +536,7 @@
 
     <!-- Scripts -->
     <script src="js/i18n.js"></script>
+    <script src="js/ocean-background.js"></script>
     <script src="js/hunter-canvas.js"></script>
     <script src="js/opportunities.js"></script>
     <script>
@@ -528,15 +632,30 @@
                     startDate,
                     endDate,
                     applyUrl,
-                    stipend: "معتمد أكاديمياً + شهادة تدريب",
+                    stipend: (document.documentElement.lang === 'en') ? "Accredited Training + Certificate" : "معتمد أكاديمياً + شهادة تدريب",
                     imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80"
                 });
             }
 
             closePublishOpportunityModal();
-            showToast('تم اعتماد ونشر الفرصة بنجاح في المنصة الموحدة! 🚀', 'success');
+            const isEn = (document.documentElement.lang === 'en');
+            showToast(isEn ? 'Opportunity successfully accredited and published to unified catalog! 🚀' : 'تم اعتماد ونشر الفرصة بنجاح في المنصة الموحدة! 🚀', 'success');
         }
-        window.handlePublishOpportunitySubmit = handlePublishOpportunitySubmit;
+        function setHunterFaculty(faculty, btn) {
+            document.querySelectorAll('.dock-pill').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            if (window.hytHunter) {
+                window.hytHunter.filterFaculty(faculty);
+            }
+        }
+        window.setHunterFaculty = setHunterFaculty;
+
+        function handleHunterSearch(query) {
+            if (window.hytHunter) {
+                window.hytHunter.searchTrack(query);
+            }
+        }
+        window.handleHunterSearch = handleHunterSearch;
 
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');

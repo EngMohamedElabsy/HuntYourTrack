@@ -1,7 +1,12 @@
 /**
- * HuntYourTrack - Interactive "Track Hunter" Radar & Skill Constellation Canvas
- * Custom bespoke motion graphics visual identity (Non-AI look).
- * Simulates a career explorer hunting skills and weaving a connected track network.
+ * HuntYourTrack - DreamWorks Cloud Fisherman & Anti-Gravity Canvas Engine
+ * Inspired by classic fantasy silhouette (crescent moon fisherman in clouds).
+ * Features:
+ * - Anti-gravity cosmic/nebula particle atmosphere responding to mouse coordinates.
+ * - Glowing crescent moon with sitting fisherman silhouette and bending neon rod.
+ * - Multi-Hook laser line branching to latch onto multiple discipline nodes simultaneously.
+ * - Interactive mouse physics & camera parallax.
+ * - Rotating intelligent typewriter engine for idle explanations.
  */
 
 class TrackHunterCanvas {
@@ -11,42 +16,62 @@ class TrackHunterCanvas {
         this.ctx = this.canvas.getContext('2d');
         this.width = 0;
         this.height = 0;
-        this.nodes = [];
-        this.mouse = { x: -1000, y: -1000, isHovering: false, targetX: 0, targetY: 0 };
-        this.radarAngle = 0;
-        this.radarRadius = 0;
+        this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        // State & Physics
+        this.mouse = { x: 0, y: 0, targetX: 0, targetY: 0, isHovering: false, active: false };
+        this.time = 0;
         this.animationId = null;
         this.isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 
-        this.careerCompetencies = [
-            { label: "Frontend & UI/UX", track: "Web", xRel: 0.22, yRel: 0.32, color: "#6366F1", radius: 8 },
-            { label: "Backend Cloud API", track: "Cloud", xRel: 0.40, yRel: 0.22, color: "#10B981", radius: 9 },
-            { label: "AI & Machine Learning", track: "AI/ML", xRel: 0.65, yRel: 0.30, color: "#8B5CF6", radius: 11 },
-            { label: "Cybersecurity SOC", track: "Security", xRel: 0.82, yRel: 0.42, color: "#EF4444", radius: 8 },
-            { label: "Embedded & IoT", track: "Hardware", xRel: 0.28, yRel: 0.70, color: "#F59E0B", radius: 8 },
-            { label: "DevOps & Docker", track: "DevOps", xRel: 0.50, yRel: 0.78, color: "#06B6D4", radius: 10 },
-            { label: "Mobile Flutter", track: "Mobile", xRel: 0.74, yRel: 0.72, color: "#EC4899", radius: 8 },
-            { label: "Data Analytics", track: "Data", xRel: 0.88, yRel: 0.25, color: "#3B82F6", radius: 7 },
-            { label: "FinTech & Systems", track: "Business", xRel: 0.12, yRel: 0.55, color: "#14B8A6", radius: 8 }
+        // Multi-Hook targets & current active faculty
+        this.activeFaculty = 'all';
+        this.searchQuery = '';
+        this.hookedNodes = [];
+
+        // Particles & Clouds for Anti-Gravity atmosphere
+        this.stardust = [];
+        this.clouds = [];
+
+        // Discipline Nodes across 5 faculties
+        this.nodes = [
+            // Computing
+            { id: 'cs-ai', label: 'AI & Deep Learning', faculty: 'computing', xRel: 0.22, yRel: 0.65, color: '#00F2FE', radius: 8, glow: 15 },
+            { id: 'cs-cloud', label: 'Full-Stack Cloud & DevOps', faculty: 'computing', xRel: 0.38, yRel: 0.78, color: '#38BDF8', radius: 9, glow: 18 },
+            { id: 'cs-sec', label: 'Cybersecurity SOC', faculty: 'computing', xRel: 0.52, yRel: 0.62, color: '#818CF8', radius: 8, glow: 14 },
+            // Engineering
+            { id: 'eng-mecha', label: 'Mechatronics & Robotics', faculty: 'engineering', xRel: 0.68, yRel: 0.70, color: '#34D399', radius: 9, glow: 18 },
+            { id: 'eng-auto', label: 'Embedded Automotive', faculty: 'engineering', xRel: 0.82, yRel: 0.60, color: '#10B981', radius: 8, glow: 16 },
+            // Science
+            { id: 'sci-bio', label: 'Bioinformatics & Genomics', faculty: 'science', xRel: 0.16, yRel: 0.82, color: '#A78BFA', radius: 8, glow: 15 },
+            { id: 'sci-chem', label: 'Computational Chemistry', faculty: 'science', xRel: 0.30, yRel: 0.90, color: '#C084FC', radius: 7, glow: 12 },
+            // Business
+            { id: 'bus-fintech', label: 'FinTech Algorithmic Trading', faculty: 'business', xRel: 0.62, yRel: 0.88, color: '#FBBF24', radius: 8, glow: 16 },
+            { id: 'bus-analytics', label: 'Business Intelligence & BI', faculty: 'business', xRel: 0.76, yRel: 0.84, color: '#F59E0B', radius: 8, glow: 14 },
+            // Law
+            { id: 'law-cyber', label: 'Cyber Law & Digital Evidence', faculty: 'law', xRel: 0.44, yRel: 0.92, color: '#F472B6', radius: 8, glow: 14 },
+            { id: 'law-ip', label: 'Tech & AI IP Protection', faculty: 'law', xRel: 0.88, yRel: 0.74, color: '#FB7185', radius: 7, glow: 12 }
         ];
 
         this.init();
+        this.initTypewriter();
     }
 
     init() {
         this.resize();
         window.addEventListener('resize', () => this.resize());
 
-        // Mouse & Touch Tracking
-        this.canvas.addEventListener('mousemove', (e) => {
+        // Mouse Parallax
+        window.addEventListener('mousemove', (e) => {
             const rect = this.canvas.getBoundingClientRect();
-            this.mouse.targetX = e.clientX - rect.left;
-            this.mouse.targetY = e.clientY - rect.top;
-            this.mouse.isHovering = true;
-        });
-
-        this.canvas.addEventListener('mouseleave', () => {
-            this.mouse.isHovering = false;
+            if (e.clientY >= rect.top - 100 && e.clientY <= rect.bottom + 100) {
+                this.mouse.targetX = e.clientX - rect.left;
+                this.mouse.targetY = e.clientY - rect.top;
+                this.mouse.isHovering = true;
+                this.mouse.active = true;
+            } else {
+                this.mouse.isHovering = false;
+            }
         });
 
         // Theme sync
@@ -54,240 +79,501 @@ class TrackHunterCanvas {
             this.isDark = e.detail.theme === 'dark';
         });
 
-        this.createNodes();
+        // Click to hook nearest nodes
+        this.canvas.addEventListener('click', (e) => {
+            const rect = this.canvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+            this.selectNearestNodes(clickX, clickY);
+        });
+
+        this.initAtmosphere();
+        this.updateHookedNodes();
         this.animate();
+
+        // Register global bridge
+        window.hytHunter = this;
     }
 
     resize() {
         if (!this.canvas) return;
         const parent = this.canvas.parentElement;
-        this.width = this.canvas.width = parent ? parent.clientWidth : window.innerWidth;
-        this.height = this.canvas.height = parent ? Math.max(380, parent.clientHeight) : 480;
-        this.radarRadius = Math.min(this.width, this.height) * 0.48;
-        this.updateNodePositions();
+        this.width = parent ? parent.clientWidth : window.innerWidth;
+        this.height = parent ? Math.max(460, parent.clientHeight) : 520;
+        this.canvas.width = this.width * this.dpr;
+        this.canvas.height = this.height * this.dpr;
+        this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+
+        this.updateNodeCoordinates();
+        this.initAtmosphere();
     }
 
-    createNodes() {
-        this.nodes = this.careerCompetencies.map((c, i) => {
-            return {
-                ...c,
-                id: i,
-                x: c.xRel * this.width,
-                y: c.yRel * this.height,
-                vx: (Math.random() - 0.5) * 0.35,
-                vy: (Math.random() - 0.5) * 0.35,
-                pulse: Math.random() * Math.PI,
-                locked: false
-            };
-        });
+    initAtmosphere() {
+        // Floating anti-gravity stardust
+        this.stardust = Array.from({ length: 65 }, () => ({
+            x: Math.random() * this.width,
+            y: Math.random() * this.height,
+            size: Math.random() * 2 + 0.8,
+            speedY: (Math.random() * 0.25 + 0.08) * -1, // gentle upward float (anti-gravity)
+            speedX: (Math.random() - 0.5) * 0.15,
+            opacity: Math.random() * 0.7 + 0.3,
+            pulse: Math.random() * Math.PI * 2,
+            z: Math.random() * 0.8 + 0.2
+        }));
+
+        // Dreamy volumetric clouds surrounding moon
+        this.clouds = [
+            { xRel: 0.32, yRel: 0.28, r: 70, opacity: 0.14, speed: 0.08, phase: 0 },
+            { xRel: 0.44, yRel: 0.32, r: 95, opacity: 0.18, speed: -0.06, phase: 1.2 },
+            { xRel: 0.56, yRel: 0.26, r: 80, opacity: 0.15, speed: 0.07, phase: 2.4 },
+            { xRel: 0.68, yRel: 0.34, r: 105, opacity: 0.12, speed: -0.05, phase: 3.6 },
+            { xRel: 0.50, yRel: 0.38, r: 120, opacity: 0.20, speed: 0.04, phase: 4.8 }
+        ];
     }
 
-    updateNodePositions() {
+    updateNodeCoordinates() {
         this.nodes.forEach(n => {
             n.x = n.xRel * this.width;
             n.y = n.yRel * this.height;
+            n.baseX = n.x;
+            n.baseY = n.y;
+            n.vx = (Math.random() - 0.5) * 0.25;
+            n.vy = (Math.random() - 0.5) * 0.25;
         });
+    }
+
+    filterFaculty(facId) {
+        this.activeFaculty = facId;
+        this.updateHookedNodes();
+    }
+
+    searchTrack(query) {
+        this.searchQuery = (query || '').toLowerCase().trim();
+        this.updateHookedNodes();
+    }
+
+    updateHookedNodes() {
+        if (this.searchQuery) {
+            this.hookedNodes = this.nodes.filter(n => 
+                n.label.toLowerCase().includes(this.searchQuery) ||
+                n.faculty.toLowerCase().includes(this.searchQuery)
+            );
+        } else if (this.activeFaculty !== 'all') {
+            this.hookedNodes = this.nodes.filter(n => n.faculty === this.activeFaculty);
+        } else {
+            // Default: Hook top primary tracks across major faculties simultaneously!
+            this.hookedNodes = [
+                this.nodes.find(n => n.id === 'cs-ai'),
+                this.nodes.find(n => n.id === 'cs-cloud'),
+                this.nodes.find(n => n.id === 'eng-mecha'),
+                this.nodes.find(n => n.id === 'bus-fintech')
+            ].filter(Boolean);
+        }
+    }
+
+    selectNearestNodes(x, y) {
+        const sorted = [...this.nodes].sort((a, b) => {
+            const da = Math.hypot(a.x - x, a.y - y);
+            const db = Math.hypot(b.x - x, b.y - y);
+            return da - db;
+        });
+        // Hook the 2 nearest nodes simultaneously
+        this.hookedNodes = sorted.slice(0, 2);
+    }
+
+    shuffleTrack() {
+        const shuffled = [...this.nodes].sort(() => 0.5 - Math.random());
+        this.hookedNodes = shuffled.slice(0, 3);
     }
 
     animate() {
+        this.time += 0.016;
+
+        // Anti-Gravity Mouse Damping
+        this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.05;
+        this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.05;
+
         this.ctx.clearRect(0, 0, this.width, this.height);
 
-        // Center coordinates
-        const cx = this.width / 2;
-        const cy = this.height / 2;
+        // 1. Draw Living Cosmic Atmosphere & Floating Stardust
+        this.drawAtmosphere();
 
-        // Smooth Hunter cursor spring interpolation
-        if (this.mouse.isHovering) {
-            this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.12;
-            this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.12;
-        } else {
-            // Autonomous patrol orbit when user is not hovering
-            const autoRadius = this.radarRadius * 0.55;
-            this.mouse.x = cx + Math.cos(this.radarAngle * 1.5) * autoRadius;
-            this.mouse.y = cy + Math.sin(this.radarAngle * 1.5) * (autoRadius * 0.6);
-        }
+        // 2. Draw Volumetric Clouds behind Moon
+        this.drawClouds(true);
 
-        this.drawRadarGrid(cx, cy);
-        this.updateAndDrawNodes();
-        this.drawConnections();
-        this.drawHunterReticle(this.mouse.x, this.mouse.y);
+        // 3. Draw DreamWorks Crescent Moon & Sitting Fisherman
+        const moonPos = this.drawDreamWorksFisherman();
 
-        this.radarAngle += 0.015;
+        // 4. Draw Floating Clouds in front of Moon (Depth)
+        this.drawClouds(false);
+
+        // 5. Draw Multi-Hook Glowing Fishing Lines
+        this.drawMultiHookLines(moonPos);
+
+        // 6. Draw Discipline Nodes & Hover Tooltips
+        this.drawNodes();
+
         this.animationId = requestAnimationFrame(() => this.animate());
     }
 
-    drawRadarGrid(cx, cy) {
-        this.ctx.save();
-        const baseColor = this.isDark ? 'rgba(99, 102, 241, ' : 'rgba(79, 70, 229, ';
+    drawAtmosphere() {
+        // Deep background gradient
+        const bgGrad = this.ctx.createRadialGradient(
+            this.width / 2, this.height * 0.35, 20,
+            this.width / 2, this.height * 0.5, this.width * 0.75
+        );
+        if (this.isDark) {
+            bgGrad.addColorStop(0, 'rgba(15, 23, 42, 0.95)');
+            bgGrad.addColorStop(0.5, 'rgba(10, 15, 29, 0.98)');
+            bgGrad.addColorStop(1, 'rgba(5, 7, 14, 1)');
+        } else {
+            bgGrad.addColorStop(0, 'rgba(238, 242, 255, 0.95)');
+            bgGrad.addColorStop(0.5, 'rgba(224, 231, 255, 0.9)');
+            bgGrad.addColorStop(1, 'rgba(248, 250, 252, 1)');
+        }
+        this.ctx.fillStyle = bgGrad;
+        this.ctx.fillRect(0, 0, this.width, this.height);
 
-        // Subtle radar concentric rings
-        [0.25, 0.5, 0.75, 1.0].forEach((ratio) => {
+        // Anti-Gravity Floating Stardust Particles
+        this.stardust.forEach(p => {
+            p.y += p.speedY;
+            p.x += p.speedX;
+            p.pulse += 0.02;
+
+            // Mouse gravitational repulsion
+            if (this.mouse.isHovering) {
+                const dx = p.x - this.mouse.x;
+                const dy = p.y - this.mouse.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 120 && dist > 1) {
+                    p.x += (dx / dist) * 1.2;
+                    p.y += (dy / dist) * 1.2;
+                }
+            }
+
+            // Wrap around screen vertically (anti-gravity continuous rise)
+            if (p.y < 0) {
+                p.y = this.height;
+                p.x = Math.random() * this.width;
+            }
+            if (p.x < 0) p.x = this.width;
+            if (p.x > this.width) p.x = 0;
+
+            const alpha = p.opacity * (0.6 + 0.4 * Math.sin(p.pulse));
             this.ctx.beginPath();
-            this.ctx.arc(cx, cy, this.radarRadius * ratio, 0, Math.PI * 2);
-            this.ctx.strokeStyle = baseColor + (ratio === 1.0 ? '0.22)' : '0.10)');
-            this.ctx.lineWidth = 1;
-            this.ctx.setLineDash([4, 6]);
-            this.ctx.stroke();
+            this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            this.ctx.fillStyle = this.isDark ? `rgba(147, 197, 253, ${alpha})` : `rgba(99, 102, 241, ${alpha * 0.7})`;
+            this.ctx.fill();
         });
+    }
 
-        // Crosshairs
-        this.ctx.setLineDash([]);
+    drawClouds(isBack) {
+        const parallaxX = (this.mouse.x - this.width / 2) * (isBack ? 0.02 : 0.05);
+        const parallaxY = (this.mouse.y - this.height / 2) * (isBack ? 0.015 : 0.04);
+
+        this.clouds.forEach((c, idx) => {
+            if (isBack && idx >= 3) return;
+            if (!isBack && idx < 3) return;
+
+            const cx = c.xRel * this.width + Math.sin(this.time * c.speed + c.phase) * 14 + parallaxX;
+            const cy = c.yRel * this.height + Math.cos(this.time * c.speed + c.phase) * 6 + parallaxY;
+
+            const cloudGrad = this.ctx.createRadialGradient(cx, cy, 5, cx, cy, c.r);
+            if (this.isDark) {
+                cloudGrad.addColorStop(0, `rgba(56, 189, 248, ${c.opacity})`);
+                cloudGrad.addColorStop(0.6, `rgba(30, 41, 59, ${c.opacity * 0.5})`);
+                cloudGrad.addColorStop(1, 'rgba(15, 23, 42, 0)');
+            } else {
+                cloudGrad.addColorStop(0, `rgba(199, 210, 254, ${c.opacity * 1.2})`);
+                cloudGrad.addColorStop(0.7, `rgba(224, 231, 255, ${c.opacity * 0.4})`);
+                cloudGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            }
+
+            this.ctx.beginPath();
+            this.ctx.arc(cx, cy, c.r, 0, Math.PI * 2);
+            this.ctx.fillStyle = cloudGrad;
+            this.ctx.fill();
+        });
+    }
+
+    drawDreamWorksFisherman() {
+        // Parallax coordinates for Crescent Moon & Fisherman
+        const parallaxX = (this.mouse.x - this.width / 2) * 0.035;
+        const parallaxY = (this.mouse.y - this.height / 2) * 0.025;
+        const moonX = this.width * 0.5 + parallaxX;
+        const moonY = this.height * 0.22 + Math.sin(this.time * 0.8) * 5 + parallaxY;
+        const moonRadius = Math.min(this.width, this.height) * 0.12;
+
+        this.ctx.save();
+
+        // 1. Crescent Moon Outer Glow
+        const glowGrad = this.ctx.createRadialGradient(moonX, moonY, moonRadius * 0.5, moonX, moonY, moonRadius * 2);
+        glowGrad.addColorStop(0, 'rgba(250, 204, 21, 0.35)');
+        glowGrad.addColorStop(0.5, 'rgba(56, 189, 248, 0.12)');
+        glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        this.ctx.fillStyle = glowGrad;
         this.ctx.beginPath();
-        this.ctx.moveTo(cx - this.radarRadius, cy);
-        this.ctx.lineTo(cx + this.radarRadius, cy);
-        this.ctx.moveTo(cx, cy - this.radarRadius);
-        this.ctx.lineTo(cx, cy + this.radarRadius);
-        this.ctx.strokeStyle = baseColor + '0.07)';
+        this.ctx.arc(moonX, moonY, moonRadius * 2, 0, Math.PI * 2);
+        this.ctx.fill();
+
+        // 2. Draw Classic Crescent Moon Shape
+        this.ctx.beginPath();
+        this.ctx.arc(moonX, moonY, moonRadius, Math.PI * 0.25, Math.PI * 1.75, false);
+        this.ctx.arc(moonX + moonRadius * 0.42, moonY, moonRadius * 0.88, Math.PI * 1.7, Math.PI * 0.3, true);
+        this.ctx.closePath();
+
+        const moonGrad = this.ctx.createLinearGradient(moonX - moonRadius, moonY - moonRadius, moonX + moonRadius, moonY + moonRadius);
+        moonGrad.addColorStop(0, '#FEF08A');
+        moonGrad.addColorStop(0.6, '#FACC15');
+        moonGrad.addColorStop(1, '#38BDF8');
+        this.ctx.fillStyle = moonGrad;
+        this.ctx.shadowColor = '#FACC15';
+        this.ctx.shadowBlur = 18;
+        this.ctx.fill();
+        this.ctx.shadowBlur = 0;
+
+        // 3. Draw Fisherman Silhouette sitting gracefully on the lower cusp of the moon
+        const seatX = moonX - moonRadius * 0.15;
+        const seatY = moonY + moonRadius * 0.48;
+
+        this.ctx.fillStyle = this.isDark ? '#030712' : '#1E1B4B';
+
+        // Torso / Legs
+        this.ctx.beginPath();
+        this.ctx.ellipse(seatX, seatY, 7, 10, -0.2, 0, Math.PI * 2);
+        this.ctx.fill();
+
+        // Dangling legs
+        this.ctx.beginPath();
+        this.ctx.moveTo(seatX - 2, seatY + 6);
+        this.ctx.lineTo(seatX - 4, seatY + 16);
+        this.ctx.lineTo(seatX - 1, seatY + 22);
+        this.ctx.lineWidth = 3.5;
+        this.ctx.strokeStyle = this.isDark ? '#030712' : '#1E1B4B';
         this.ctx.stroke();
 
-        // Rotating radar beam
-        const sweepX = cx + Math.cos(this.radarAngle) * this.radarRadius;
-        const sweepY = cy + Math.sin(this.radarAngle) * this.radarRadius;
+        // Head & Classic Fisherman Straw Hat
+        const headX = seatX + 2;
+        const headY = seatY - 14;
+        this.ctx.beginPath();
+        this.ctx.arc(headX, headY, 5, 0, Math.PI * 2);
+        this.ctx.fill();
 
-        const grad = this.ctx.createLinearGradient(cx, cy, sweepX, sweepY);
-        grad.addColorStop(0, baseColor + '0.25)');
-        grad.addColorStop(1, baseColor + '0.0)');
+        // Hat brim
+        this.ctx.beginPath();
+        this.ctx.ellipse(headX, headY - 3, 11, 3.5, -0.15, 0, Math.PI * 2);
+        this.ctx.fill();
+
+        // 4. Slender Curved Fishing Rod (Neon Luminous Carbon Fiber)
+        const handX = seatX + 5;
+        const handY = seatY - 4;
+        const rodTipX = handX + 55;
+        const rodTipY = handY - 42;
 
         this.ctx.beginPath();
-        this.ctx.moveTo(cx, cy);
-        this.ctx.arc(cx, cy, this.radarRadius, this.radarAngle - 0.25, this.radarAngle);
-        this.ctx.closePath();
-        this.ctx.fillStyle = grad;
+        this.ctx.moveTo(handX - 12, handY + 10);
+        this.ctx.quadraticCurveTo(handX + 15, handY - 15, rodTipX, rodTipY);
+        this.ctx.lineWidth = 2.5;
+        this.ctx.strokeStyle = '#F8FAFC';
+        this.ctx.shadowColor = '#00F2FE';
+        this.ctx.shadowBlur = 10;
+        this.ctx.stroke();
+        this.ctx.shadowBlur = 0;
+
+        // Luminous glowing tip ring
+        this.ctx.beginPath();
+        this.ctx.arc(rodTipX, rodTipY, 3, 0, Math.PI * 2);
+        this.ctx.fillStyle = '#00F2FE';
+        this.ctx.shadowColor = '#00F2FE';
+        this.ctx.shadowBlur = 12;
         this.ctx.fill();
+        this.ctx.shadowBlur = 0;
+
+        this.ctx.restore();
+
+        return { rodTipX, rodTipY };
+    }
+
+    drawMultiHookLines(moonPos) {
+        if (!this.hookedNodes.length) return;
+
+        const startX = moonPos.rodTipX;
+        const startY = moonPos.rodTipY;
+
+        // Central junction point beneath clouds where line branches into Multi-Hooks
+        const junctionX = startX + (this.mouse.x - startX) * 0.15;
+        const junctionY = startY + (this.height * 0.45 - startY);
+
+        this.ctx.save();
+
+        // 1. Main Line from Rod Tip to Multi-Hook Junction
+        this.ctx.beginPath();
+        this.ctx.moveTo(startX, startY);
+        const sagX = (startX + junctionX) / 2 + Math.sin(this.time * 2) * 4;
+        const sagY = (startY + junctionY) / 2 + 15;
+        this.ctx.quadraticCurveTo(sagX, sagY, junctionX, junctionY);
+        this.ctx.strokeStyle = 'rgba(0, 242, 254, 0.75)';
+        this.ctx.lineWidth = 1.8;
+        this.ctx.shadowColor = '#00F2FE';
+        this.ctx.shadowBlur = 8;
+        this.ctx.stroke();
+
+        // Glowing Multi-Hook Splitter Crystal
+        this.ctx.beginPath();
+        this.ctx.arc(junctionX, junctionY, 4.5, 0, Math.PI * 2);
+        this.ctx.fillStyle = '#FFFFFF';
+        this.ctx.shadowColor = '#00F2FE';
+        this.ctx.shadowBlur = 14;
+        this.ctx.fill();
+
+        // 2. Branching Neon Lines connecting to multiple nodes simultaneously!
+        this.hookedNodes.forEach((node, i) => {
+            const destX = node.x;
+            const destY = node.y;
+
+            // Animated laser pulse offset
+            const pulse = (this.time * 3 + i * 1.5) % 1;
+
+            this.ctx.beginPath();
+            this.ctx.moveTo(junctionX, junctionY);
+            const ctrlX = (junctionX + destX) / 2 + Math.sin(this.time * 2 + i) * 12;
+            const ctrlY = (junctionY + destY) / 2 - 10;
+            this.ctx.quadraticCurveTo(ctrlX, ctrlY, destX, destY);
+
+            this.ctx.strokeStyle = node.color;
+            this.ctx.lineWidth = 1.6;
+            this.ctx.shadowColor = node.color;
+            this.ctx.shadowBlur = 12;
+            this.ctx.stroke();
+
+            // Energy pulse bead traveling along the line to target
+            const t = pulse;
+            const bx = (1 - t) * (1 - t) * junctionX + 2 * (1 - t) * t * ctrlX + t * t * destX;
+            const by = (1 - t) * (1 - t) * junctionY + 2 * (1 - t) * t * ctrlY + t * t * destY;
+
+            this.ctx.beginPath();
+            this.ctx.arc(bx, by, 3, 0, Math.PI * 2);
+            this.ctx.fillStyle = '#FFFFFF';
+            this.ctx.shadowColor = node.color;
+            this.ctx.shadowBlur = 10;
+            this.ctx.fill();
+
+            // Target node lock-on rings & ripples
+            this.ctx.beginPath();
+            this.ctx.arc(destX, destY, node.radius + 8 + Math.sin(this.time * 4 + i) * 3, 0, Math.PI * 2);
+            this.ctx.strokeStyle = node.color;
+            this.ctx.lineWidth = 1.2;
+            this.ctx.stroke();
+        });
 
         this.ctx.restore();
     }
 
-    updateAndDrawNodes() {
-        this.nodes.forEach(node => {
-            // Gentle floating drift
-            node.x += node.vx;
-            node.y += node.vy;
+    drawNodes() {
+        this.nodes.forEach(n => {
+            // Gentle anti-gravity bobbing
+            n.x = n.baseX + Math.sin(this.time * 1.2 + n.id.charCodeAt(0)) * 6;
+            n.y = n.baseY + Math.cos(this.time * 1.4 + n.id.charCodeAt(1)) * 5;
 
-            // Soft bounds bounce
-            if (node.x < 40 || node.x > this.width - 40) node.vx *= -1;
-            if (node.y < 40 || node.y > this.height - 40) node.vy *= -1;
+            const isHooked = this.hookedNodes.some(hn => hn.id === n.id);
 
-            // Distance to hunter cursor
-            const dx = this.mouse.x - node.x;
-            const dy = this.mouse.y - node.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            node.locked = dist < 120;
-
-            node.pulse += 0.04;
-            const pulseFactor = 1 + Math.sin(node.pulse) * 0.25;
-
-            // Draw Node Glow
             this.ctx.save();
+
+            // Node Glow
             this.ctx.beginPath();
-            this.ctx.arc(node.x, node.y, (node.radius + (node.locked ? 6 : 0)) * pulseFactor, 0, Math.PI * 2);
-            this.ctx.fillStyle = node.locked ? node.color : (this.isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(99, 102, 241, 0.2)');
-            this.ctx.shadowColor = node.color;
-            this.ctx.shadowBlur = node.locked ? 16 : 8;
+            this.ctx.arc(n.x, n.y, n.radius * 2.2, 0, Math.PI * 2);
+            this.ctx.fillStyle = isHooked 
+                ? (this.isDark ? 'rgba(0, 242, 254, 0.25)' : 'rgba(99, 102, 241, 0.2)')
+                : 'rgba(100, 116, 139, 0.08)';
             this.ctx.fill();
 
-            // Inner Core
+            // Node Core Circle
             this.ctx.beginPath();
-            this.ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-            this.ctx.fillStyle = node.color;
+            this.ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+            this.ctx.fillStyle = isHooked ? '#FFFFFF' : n.color;
+            this.ctx.shadowColor = n.color;
+            this.ctx.shadowBlur = isHooked ? 20 : 8;
             this.ctx.fill();
-
-            // Text Label
-            this.ctx.font = `${node.locked ? 'bold 12px' : '500 11px'} Poppins, Cairo, sans-serif`;
-            this.ctx.fillStyle = this.isDark ? '#F1F5F9' : '#1E293B';
             this.ctx.shadowBlur = 0;
-            this.ctx.textAlign = 'center';
-            this.ctx.fillText(node.label, node.x, node.y + node.radius + 16);
 
-            if (node.locked) {
-                this.ctx.font = 'bold 9px Poppins, sans-serif';
-                this.ctx.fillStyle = '#10B981';
-                this.ctx.fillText('🎯 TARGET LOCKED', node.x, node.y - node.radius - 8);
+            // Label text beneath node
+            this.ctx.font = isHooked ? 'bold 12px Inter, sans-serif' : '11px Inter, sans-serif';
+            this.ctx.textAlign = 'center';
+            this.ctx.fillStyle = isHooked 
+                ? (this.isDark ? '#F8FAFC' : '#0F172A')
+                : (this.isDark ? '#94A3B8' : '#64748B');
+            this.ctx.fillText(n.label, n.x, n.y + n.radius + 14);
+
+            // Faculty badge
+            if (isHooked) {
+                this.ctx.font = '9px monospace';
+                this.ctx.fillStyle = n.color;
+                this.ctx.fillText(`[${n.faculty.toUpperCase()}]`, n.x, n.y + n.radius + 26);
             }
+
             this.ctx.restore();
         });
     }
 
-    drawConnections() {
-        this.ctx.save();
-        // Connect nearby nodes to form the constellation network
-        for (let i = 0; i < this.nodes.length; i++) {
-            for (let j = i + 1; j < this.nodes.length; j++) {
-                const ni = this.nodes[i];
-                const nj = this.nodes[j];
-                const dx = ni.x - nj.x;
-                const dy = ni.y - nj.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
+    initTypewriter() {
+        const el = document.getElementById('hyt-typewriter');
+        if (!el) return;
 
-                if (dist < 180) {
-                    const alpha = (1 - dist / 180) * (ni.locked || nj.locked ? 0.65 : 0.2);
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(ni.x, ni.y);
-                    this.ctx.lineTo(nj.x, nj.y);
-                    this.ctx.strokeStyle = this.isDark ? `rgba(165, 180, 252, ${alpha})` : `rgba(99, 102, 241, ${alpha})`;
-                    this.ctx.lineWidth = ni.locked && nj.locked ? 2 : 1;
-                    this.ctx.stroke();
-                }
+        const messagesEn = [
+            "Hunting verified corporate internships across 5 university faculties...",
+            "Casting multi-discipline roadmaps: Computing, Engineering, Science, Business & Law...",
+            "Scanning student resume keywords with instant ATS match scoring...",
+            "Connecting Damanhour University coursework with certified industry careers..."
+        ];
+
+        const messagesAr = [
+            "اصطياد فرص التدريب الصيفي المعتمدة لطلاب ٥ كليات جامعية...",
+            "رسم خرائط المهن خطوة بخطوة: حاسبات، هندسة، علوم، تجارة، وحقوق...",
+            "فحص ومطابقة الكلمات المفتاحية في السيرة الذاتية بنظام الـ ATS...",
+            "ربط المقررات الدراسية بجامعة دمنهور باحتياجات سوق العمل الحقيقية..."
+        ];
+
+        let msgIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let currentMsg = '';
+
+        const type = () => {
+            const isRtl = document.documentElement.dir === 'rtl';
+            const messages = isRtl ? messagesAr : messagesEn;
+            const fullMsg = messages[msgIndex % messages.length];
+
+            if (isDeleting) {
+                currentMsg = fullMsg.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                currentMsg = fullMsg.substring(0, charIndex + 1);
+                charIndex++;
             }
-        }
-        this.ctx.restore();
-    }
 
-    drawHunterReticle(x, y) {
-        this.ctx.save();
-        this.ctx.translate(x, y);
+            el.textContent = currentMsg;
 
-        // Rotate reticle outer brackets
-        this.ctx.rotate(this.radarAngle * 0.7);
+            let delay = isDeleting ? 25 : 45;
 
-        const r = 26;
-        this.ctx.strokeStyle = '#10B981'; // Emerald Hunter Green
-        this.ctx.lineWidth = 2;
-        this.ctx.shadowColor = '#10B981';
-        this.ctx.shadowBlur = 10;
-
-        // 4 Reticle Brackets
-        for (let i = 0; i < 4; i++) {
-            this.ctx.rotate(Math.PI / 2);
-            this.ctx.beginPath();
-            this.ctx.arc(0, 0, r, 0, Math.PI / 4);
-            this.ctx.stroke();
-        }
-
-        // Center crosshair dot
-        this.ctx.rotate(-this.radarAngle * 0.7);
-        this.ctx.beginPath();
-        this.ctx.arc(0, 0, 3, 0, Math.PI * 2);
-        this.ctx.fillStyle = '#EF4444'; // Red laser center
-        this.ctx.fill();
-
-        // Connect Hunter reticle with nearest locked nodes
-        this.nodes.forEach(node => {
-            if (node.locked) {
-                this.ctx.save();
-                this.ctx.beginPath();
-                this.ctx.moveTo(0, 0);
-                this.ctx.lineTo(node.x - x, node.y - y);
-                this.ctx.strokeStyle = 'rgba(16, 185, 129, 0.75)';
-                this.ctx.lineWidth = 1.5;
-                this.ctx.setLineDash([3, 3]);
-                this.ctx.stroke();
-                this.ctx.restore();
+            if (!isDeleting && charIndex === fullMsg.length) {
+                delay = 2400; // Hold full sentence for 2.4s
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                msgIndex++;
+                delay = 400;
             }
-        });
 
-        this.ctx.restore();
-    }
+            setTimeout(type, delay);
+        };
 
-    destroy() {
-        if (this.animationId) cancelAnimationFrame(this.animationId);
+        type();
     }
 }
 
-// Auto-mount if canvas exists
+// Global initialization
 document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('hunter-radar-canvas');
-    if (canvas) {
-        window.hytHunterCanvas = new TrackHunterCanvas('hunter-radar-canvas');
+    if (document.getElementById('hunter-radar-canvas')) {
+        new TrackHunterCanvas('hunter-radar-canvas');
     }
 });

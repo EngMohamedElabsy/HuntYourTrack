@@ -46,6 +46,14 @@ const HYT_TRANSLATIONS = {
         hunterSub: "حرّك مؤشر الماوس لاكتشاف العقد المهنية ونسج شبكة مهاراتك المتكاملة وتتبع مسارك حتى الاحتراف.",
         hunterRadarStatus: "📡 مسح راداري نشط ومستمر",
         hunterPhysicsStatus: "محاكاة فيزيائية حية · 60 إطاراً في الثانية",
+        dockAll: "🌐 كافة الكليات",
+        dockComputing: "💻 الحاسبات والذكاء الاصطناعي",
+        dockEngineering: "⚙️ الهندسة والتكنولوجيا",
+        dockScience: "🔬 العلوم الأساسية",
+        dockBusiness: "📊 التجارة وإدارة الأعمال",
+        dockLaw: "⚖️ الحقوق والتشريعات الرقمية",
+        hunterSearchPh: "ابحث عن مسار لاصطياده (AI, Mechatronics, FinTech...)",
+        hunterShuffleBtn: "🎲 اصطياد عشوائي",
 
         // Opportunities Catalog Section
         oppBadge: "الشراكات المعتمدة",
@@ -269,6 +277,64 @@ const HYT_TRANSLATIONS = {
         adminQueueSub: "مراجعة السجلات التجارية والبطاقات الضريبية وسلامة النطاق المؤسسي قبل منح صلاحية نشر التدريبات.",
         adminSettingsTitle: "قواعد النظام ومعايير المواءمة الذكية",
 
+        // Employer Portal Specific Keys
+        empTabOverview: "📊 لوحة المتابعة",
+        empTabPost: "➕ نشر تدريب جديد",
+        empTabApplicants: "👥 مراجعة المتقدمين",
+        empHomeBtn: "🏠 البوابة الرئيسية",
+        empSignOut: "خروج 🚪",
+        empKpiPosts: "فرص التدريب النشطة (Active Postings)",
+        empKpiApps: "إجمالي طلبات التقديم (Applications)",
+        empKpiMatched: "مرشحون بتوافق عالٍ جداً (High Match > 85%)",
+        empYourPostings: "فرص التدريب الخاصة بك (Your Postings)",
+        empAddPostBtn: "+ إضافة تدريب",
+        empAlertsHeading: "تنبيهات المرشحين المتميزين 🎯",
+        empPostTitle: "نشر فرصة تدريب صيفي أو كورس معتمد",
+        empPostDescSub: "حدد متطلبات الفرصة والمهارات الأساسية ليتم مواءمتها آلياً مع طلاب الكليات المتخصصة.",
+        empFormTitleLabel: "عنوان التدريب / الوظيفة (Title) *",
+        empFormTitlePh: "مثال: Cloud Security Intern",
+        empFormTrackLabel: "المسار التقني أو الأكاديمي (Track) *",
+        empTrackSelectPh: "اختر المسار المعني...",
+        empFormDescLabel: "تفاصيل التدريب والمسؤوليات (Description) *",
+        empFormDescPh: "اكتب وصفاً مفصلاً لمهام المتدرب والمهارات التي سيكتسبها...",
+        empSkillsLabel: "المهارات المطلوبة (Required Skills) *",
+        empSkillInputPh: "ابحث عن مهارة أو اكتب واضغط Enter لإضافتها...",
+        empCompLabel: "طبيعة المكافأة المالية (Compensation)",
+        empPaidLabel: "مدفوع الأجر (Paid)",
+        empFreeLabel: "تدريب تطوعي / أكاديمي (Free)",
+        empSubmitPostBtn: "🚀 نشر التدريب الآن",
+        empResetFormBtn: "إفراغ النموذج",
+        empSuccessBanner: "✅ تم نشر فرصة التدريب بنجاح! أصبحت متاحة الآن لطلاب جامعة دمنهور وظهرت في لوحة المتابعة.",
+        empMatrixHeading: "مصفوفة مراجعة وتقييم المتقدمين (Applicant Review Matrix)",
+        empMatrixSub: "فرز وتقييم دقيق للمرشحين بالذكاء الاصطناعي وفق نسبة تطابق الـ ATS.",
+        empFilterStatusLabel: "تصفية حسب الحالة:",
+        empStatusAll: "كافة الحالات (All)",
+        empStatusNew: "جديد (New)",
+        empStatusShortlisted: "في القائمة المختصرة (Shortlisted)",
+        empStatusAccepted: "مقبول (Accepted)",
+        empStatusRejected: "مرفوض (Rejected)",
+
+        // Missing Global/Portal Keys
+        authNamePh: "محمد ياسر",
+        authDemoHeading: "اختر إحدى الشخصيات التمثيلية للاختبار السريع والتحقق من صلاحيات النظام وعزل الواجهات:",
+        footerGradDesc: "مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور (قسم علوم الحاسب).",
+        shuffleHuntBtn: "🎲 اصطياد عشوائي للمسارات",
+
+        // Theme Gallery Keys
+        themesBadge: "تخصيص المظهر الحركي",
+        themesTitle: "معرض المظاهر والألوان التفاعلية",
+        themesSub: "اختر نسق الألوان والمؤثرات التي تناسبك لإعادة إضاءة المحيط التفاعلي وشبكة المسارات في الوقت الحقيقي.",
+        themeAbyss: "🌌 أعماق المحيط (Abyss)",
+        themeAbyssMood: "سايبربانك مظلم ورادارات نيون",
+        themeReef: "🪸 الشعب المرجانية (Reef)",
+        themeReefMood: "أخضر زمردي حيوي وأمواج متلألئة",
+        themeNebula: "🔮 سديم الفضاء (Nebula)",
+        themeNebulaMood: "أرجواني وفوسفوري وأجرام كونية",
+        themeEmber: "🔥 الوهج الشمسي (Ember)",
+        themeEmberMood: "طاقة نارية ودفء حركي متقد",
+        themeDaylight: "☀️ وضح النهار (Daylight)",
+        themeDaylightMood: "نسق مضيء وتباين فائق الوضوح",
+
         // Controls
         langToggleLabel: "🌐 English",
         themeToggleDark: "🌙",
@@ -315,6 +381,14 @@ const HYT_TRANSLATIONS = {
         hunterSub: "Move your cursor to discover competency nodes, lock onto targets, and weave your connected skill constellation.",
         hunterRadarStatus: "📡 Continuous Radar Sweep Active",
         hunterPhysicsStatus: "Live Physics Simulation · 60 FPS",
+        dockAll: "🌐 All Disciplines",
+        dockComputing: "💻 Computing & AI",
+        dockEngineering: "⚙️ Engineering & Tech",
+        dockScience: "🔬 Pure & Applied Sciences",
+        dockBusiness: "📊 Business & FinTech",
+        dockLaw: "⚖️ Cyber Law & Regulations",
+        hunterSearchPh: "Search a career track to hook (AI, Cloud, Mechatronics...)",
+        hunterShuffleBtn: "🎲 Shuffle Hunt",
 
         // Opportunities Catalog Section
         oppBadge: "Accredited Partnerships",
@@ -538,6 +612,64 @@ const HYT_TRANSLATIONS = {
         adminQueueSub: "Review commercial credentials, tax card IDs, and domain integrity before granting university internship posting privileges.",
         adminSettingsTitle: "System Rules & Matching Parameters",
 
+        // Employer Portal Specific Keys
+        empTabOverview: "📊 Dashboard Overview",
+        empTabPost: "➕ Post New Internship",
+        empTabApplicants: "👥 Review Applicants",
+        empHomeBtn: "🏠 Explore Hub",
+        empSignOut: "Sign Out 🚪",
+        empKpiPosts: "Active Internship Postings",
+        empKpiApps: "Total Candidate Applications",
+        empKpiMatched: "High-Match Candidates (> 85%)",
+        empYourPostings: "Your Published Postings",
+        empAddPostBtn: "+ Add Internship",
+        empAlertsHeading: "High-Match Candidate Alerts 🎯",
+        empPostTitle: "Publish Summer Internship or Accredited Course",
+        empPostDescSub: "Specify role competencies and skill prerequisites to automatically match qualified students across target faculties.",
+        empFormTitleLabel: "Internship / Role Title *",
+        empFormTitlePh: "e.g. Cloud Security Intern",
+        empFormTrackLabel: "Career or Academic Track *",
+        empTrackSelectPh: "Select relevant track...",
+        empFormDescLabel: "Description & Responsibilities *",
+        empFormDescPh: "Write a detailed description of intern tasks, deliverables, and competencies gained...",
+        empSkillsLabel: "Required Skills & Competencies *",
+        empSkillInputPh: "Search skills or type and press Enter to add...",
+        empCompLabel: "Financial Compensation",
+        empPaidLabel: "Paid Internship",
+        empFreeLabel: "Academic / Non-Stipend",
+        empSubmitPostBtn: "🚀 Publish Internship Now",
+        empResetFormBtn: "Reset Form",
+        empSuccessBanner: "✅ Internship published successfully! Now live and visible to Damanhour University students.",
+        empMatrixHeading: "Applicant Review & Screening Matrix",
+        empMatrixSub: "Precise candidate evaluation and ATS keyword match scoring powered by AI algorithms.",
+        empFilterStatusLabel: "Filter by Status:",
+        empStatusAll: "All Statuses",
+        empStatusNew: "New",
+        empStatusShortlisted: "Shortlisted",
+        empStatusAccepted: "Accepted",
+        empStatusRejected: "Rejected",
+
+        // Missing Global/Portal Keys
+        authNamePh: "Mohamed Yasser",
+        authDemoHeading: "Select an evaluation persona for rapid testing and interface isolation verification:",
+        footerGradDesc: "Graduation Project 2026 · Faculty of Computers & Information, Damanhour University (CS Department).",
+        shuffleHuntBtn: "🎲 Shuffle & Hunt Tracks",
+
+        // Theme Gallery Keys
+        themesBadge: "Atmospheric Customization",
+        themesTitle: "Dynamic Cyber Theme Gallery",
+        themesSub: "Choose a bespoke color scheme and atmospheric lighting to re-illuminate the 3D waving ocean and constellation nodes in real-time.",
+        themeAbyss: "🌌 Abyss Deep",
+        themeAbyssMood: "Dark Cyberpunk with Neon Radars",
+        themeReef: "🪸 Coral Reef",
+        themeReefMood: "Vibrant Emerald & Bioluminescent Waves",
+        themeNebula: "🔮 Deep Nebula",
+        themeNebulaMood: "Cosmic Violet & Stellar Flares",
+        themeEmber: "🔥 Solar Ember",
+        themeEmberMood: "Warm Radiant Energy & Fiery Glow",
+        themeDaylight: "☀️ Daylight Sky",
+        themeDaylightMood: "Clean High-Contrast Daylight Palette",
+
         // Controls
         langToggleLabel: "🌐 العربية",
         themeToggleDark: "🌙",
@@ -612,15 +744,23 @@ class I18nManager {
 
         const themeToggleBtn = document.getElementById('hyt-theme-toggle');
         if (themeToggleBtn) {
-            themeToggleBtn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
-            themeToggleBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+            const isDark = theme === 'dark' || theme === 'abyss' || theme === 'reef' || theme === 'nebula' || theme === 'ember';
+            themeToggleBtn.innerHTML = isDark ? '☀️' : '🌙';
+            themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
         }
+
+        // Highlight active theme pill in theme gallery if present
+        document.querySelectorAll('.theme-gallery-card').forEach(card => {
+            const cardTheme = card.getAttribute('data-theme-id');
+            card.classList.toggle('active', cardTheme === theme || (theme === 'dark' && cardTheme === 'abyss') || (theme === 'light' && cardTheme === 'daylight'));
+        });
 
         window.dispatchEvent(new CustomEvent('hyt:themeChanged', { detail: { theme } }));
     }
 
     toggleTheme() {
-        const nextTheme = this.theme === 'dark' ? 'light' : 'dark';
+        const isCurrentDark = this.theme === 'dark' || this.theme === 'abyss' || this.theme === 'reef' || this.theme === 'nebula' || this.theme === 'ember';
+        const nextTheme = isCurrentDark ? 'light' : 'dark';
         this.applyTheme(nextTheme);
     }
 
@@ -649,6 +789,9 @@ class I18nManager {
 
 // Global instance
 window.hytI18n = new I18nManager();
+window.setHytTheme = function(theme) {
+    if (window.hytI18n) window.hytI18n.applyTheme(theme);
+};
 document.addEventListener('DOMContentLoaded', () => {
     window.hytI18n.init();
 });
