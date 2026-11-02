@@ -45,6 +45,7 @@ This repository satisfies all formal graduation project evaluation requirements:
 | **🎨 UI & UX Specifications** | Wireframe layouts, high-fidelity mockups, design tokens & visual assets | **[docs/ui-ux/UI_UX_DESIGN.md](docs/ui-ux/UI_UX_DESIGN.md)** |
 | **🔗 Figma Design File** | Live interactive Figma canvas with high-fidelity UI mockup frames | **[Figma Design File](https://www.figma.com/design/1IRQUalpMLnDSrWdByB0uW)** |
 | **🔗 FigJam Architecture Board**| Interactive FigJam whiteboarding canvas for system flows & lifecycles | **[FigJam System Board](https://www.figma.com/board/LZD5TcXR4hOkupzCyXfzoq)** |
+| **💬 Technical Discussions (Q&A)**| Peer-reviewed architectural Q&A covering 3D transforms & theme synchronization | **[GitHub Discussions](https://github.com/EngMohamedElabsy/HuntYourTrack/discussions)** |
 | **📊 Project Backlog Board** | Agile Scrum backlog tracking user story progress & milestones | **[GitHub Project #5](https://github.com/users/EngMohamedElabsy/projects/5)** |
 
 ---
