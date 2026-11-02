@@ -420,7 +420,16 @@ async function runAudit() {
         console.log('  Computed Coral Reef nav background:', reefNavBg);
         assert.ok(!reefNavBg.includes('255, 255, 255'), `Coral Reef nav must not be white. Got: ${reefNavBg}`);
 
-        console.log('  ✓ 3D card flipping, hunter autocomplete guard, and multi-theme navbar contrast verified.');
+        const reefHunterWrapperBg = await page.evaluate(() => window.getComputedStyle(document.querySelector('.hunter-canvas-wrapper')).backgroundColor);
+        console.log('  Computed Coral Reef hunter wrapper background:', reefHunterWrapperBg);
+        assert.ok(!reefHunterWrapperBg.includes('255, 255, 255'), `Coral Reef hunter wrapper must not be white. Got: ${reefHunterWrapperBg}`);
+
+        const hunterState = await page.evaluate(() => window.hytHunter ? { theme: window.hytHunter.theme, isDark: window.hytHunter.isDark } : null);
+        assert.ok(hunterState, 'Hunter canvas must be instantiated');
+        assert.equal(hunterState.theme, 'reef', 'Hunter canvas must synchronize to reef theme');
+        assert.equal(hunterState.isDark, true, 'Hunter canvas reef theme must be treated as dark palette');
+
+        console.log('  ✓ 3D card flipping, hunter autocomplete guard, and multi-theme canvas contrast verified.');
         console.log('\n🎉 ALL 9 E2E SYSTEM AUDIT SECTIONS PASSED WITH 100% COMPLIANCE!');
 
     } finally {

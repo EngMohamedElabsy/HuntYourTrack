@@ -22,7 +22,9 @@ class TrackHunterCanvas {
         this.mouse = { x: 0, y: 0, targetX: 0, targetY: 0, isHovering: false, active: false };
         this.time = 0;
         this.animationId = null;
-        this.isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const initialTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        this.theme = initialTheme;
+        this.isDark = !['light', 'daylight'].includes(initialTheme);
 
         // Multi-Hook targets & current active faculty
         this.activeFaculty = 'all';
@@ -318,7 +320,8 @@ class TrackHunterCanvas {
 
         // Theme sync
         window.addEventListener('hyt:themeChanged', (e) => {
-            this.isDark = e.detail.theme === 'dark';
+            this.theme = e.detail && e.detail.theme ? e.detail.theme : (document.documentElement.getAttribute('data-theme') || 'dark');
+            this.isDark = !['light', 'daylight'].includes(this.theme);
         });
 
         // Language sync
@@ -913,21 +916,97 @@ class TrackHunterCanvas {
         this.ctx.restore();
     }
 
+    getThemePalette() {
+        const theme = this.theme || document.documentElement.getAttribute('data-theme') || 'dark';
+        switch (theme) {
+            case 'reef':
+                return {
+                    bgCenter: 'rgba(19, 46, 37, 0.95)',
+                    bgMid: 'rgba(11, 25, 21, 0.98)',
+                    bgOuter: 'rgba(6, 16, 13, 1)',
+                    starColor: '#6EE7B7',
+                    stardust: 'rgba(52, 211, 153, ',
+                    cloud0: 'rgba(16, 185, 129, ',
+                    cloud1: 'rgba(19, 46, 37, ',
+                    fishermanFill: '#06100D',
+                    glowColor: '#10B981',
+                    textColor: '#E3F2EC',
+                    mutedText: '#86A397'
+                };
+            case 'nebula':
+                return {
+                    bgCenter: 'rgba(29, 25, 59, 0.95)',
+                    bgMid: 'rgba(17, 15, 37, 0.98)',
+                    bgOuter: 'rgba(11, 10, 24, 1)',
+                    starColor: '#C4B5FD',
+                    stardust: 'rgba(196, 181, 253, ',
+                    cloud0: 'rgba(244, 114, 182, ',
+                    cloud1: 'rgba(29, 25, 59, ',
+                    fishermanFill: '#0B0A18',
+                    glowColor: '#A78BFA',
+                    textColor: '#ECE8F7',
+                    mutedText: '#9A93B3'
+                };
+            case 'ember':
+                return {
+                    bgCenter: 'rgba(43, 29, 19, 0.95)',
+                    bgMid: 'rgba(25, 18, 11, 0.98)',
+                    bgOuter: 'rgba(15, 11, 7, 1)',
+                    starColor: '#FCD34D',
+                    stardust: 'rgba(251, 191, 36, ',
+                    cloud0: 'rgba(255, 107, 74, ',
+                    cloud1: 'rgba(43, 29, 19, ',
+                    fishermanFill: '#0F0B07',
+                    glowColor: '#F5B841',
+                    textColor: '#F5ECE3',
+                    mutedText: '#AD9C8B'
+                };
+            case 'light':
+            case 'daylight':
+                return {
+                    bgCenter: 'rgba(238, 242, 255, 0.95)',
+                    bgMid: 'rgba(224, 231, 255, 0.9)',
+                    bgOuter: 'rgba(241, 245, 249, 1)',
+                    starColor: '#818CF8',
+                    stardust: 'rgba(99, 102, 241, ',
+                    cloud0: 'rgba(199, 210, 254, ',
+                    cloud1: 'rgba(224, 231, 255, ',
+                    fishermanFill: '#1E1B4B',
+                    glowColor: '#6366F1',
+                    textColor: '#0F172A',
+                    mutedText: '#64748B'
+                };
+            case 'dark':
+            case 'abyss':
+            default:
+                return {
+                    bgCenter: 'rgba(15, 23, 42, 0.95)',
+                    bgMid: 'rgba(10, 15, 29, 0.98)',
+                    bgOuter: 'rgba(5, 7, 14, 1)',
+                    starColor: '#BAE6FD',
+                    stardust: 'rgba(147, 197, 253, ',
+                    cloud0: 'rgba(56, 189, 248, ',
+                    cloud1: 'rgba(30, 41, 59, ',
+                    fishermanFill: '#030712',
+                    glowColor: '#00F2FE',
+                    textColor: '#F8FAFC',
+                    mutedText: '#94A3B8'
+                };
+        }
+    }
+
     drawAtmosphere() {
-        // Deep background gradient
+        const pal = this.getThemePalette();
+
+        // Deep background gradient tailored to active theme
         const bgGrad = this.ctx.createRadialGradient(
             this.width / 2, this.height * 0.35, 20,
             this.width / 2, this.height * 0.5, this.width * 0.75
         );
-        if (this.isDark) {
-            bgGrad.addColorStop(0, 'rgba(15, 23, 42, 0.95)');
-            bgGrad.addColorStop(0.5, 'rgba(10, 15, 29, 0.98)');
-            bgGrad.addColorStop(1, 'rgba(5, 7, 14, 1)');
-        } else {
-            bgGrad.addColorStop(0, 'rgba(238, 242, 255, 0.95)');
-            bgGrad.addColorStop(0.5, 'rgba(224, 231, 255, 0.9)');
-            bgGrad.addColorStop(1, 'rgba(248, 250, 252, 1)');
-        }
+        bgGrad.addColorStop(0, pal.bgCenter);
+        bgGrad.addColorStop(0.5, pal.bgMid);
+        bgGrad.addColorStop(1, pal.bgOuter);
+
         this.ctx.fillStyle = bgGrad;
         this.ctx.fillRect(0, 0, this.width, this.height);
 
@@ -958,18 +1037,18 @@ class TrackHunterCanvas {
 
             const alpha = p.opacity * (0.55 + 0.45 * Math.sin(p.pulse));
             if (p.isStar) {
-                const starColor = this.isDark ? '#BAE6FD' : '#818CF8';
-                this.drawSparkleStar(p.x, p.y, p.size * 2.4, starColor, alpha * 0.8, p.pulse * 0.8);
+                this.drawSparkleStar(p.x, p.y, p.size * 2.4, pal.starColor, alpha * 0.8, p.pulse * 0.8);
             } else {
                 this.ctx.beginPath();
                 this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                this.ctx.fillStyle = this.isDark ? `rgba(147, 197, 253, ${alpha})` : `rgba(99, 102, 241, ${alpha * 0.7})`;
+                this.ctx.fillStyle = `${pal.stardust}${alpha})`;
                 this.ctx.fill();
             }
         });
     }
 
     drawClouds(isBack) {
+        const pal = this.getThemePalette();
         const parallaxX = (this.mouse.x - this.width / 2) * (isBack ? 0.02 : 0.05);
         const parallaxY = (this.mouse.y - this.height / 2) * (isBack ? 0.015 : 0.04);
 
@@ -982,9 +1061,9 @@ class TrackHunterCanvas {
 
             const cloudGrad = this.ctx.createRadialGradient(cx, cy, 5, cx, cy, c.r);
             if (this.isDark) {
-                cloudGrad.addColorStop(0, `rgba(56, 189, 248, ${c.opacity})`);
-                cloudGrad.addColorStop(0.6, `rgba(30, 41, 59, ${c.opacity * 0.5})`);
-                cloudGrad.addColorStop(1, 'rgba(15, 23, 42, 0)');
+                cloudGrad.addColorStop(0, `${pal.cloud0}${c.opacity})`);
+                cloudGrad.addColorStop(0.6, `${pal.cloud1}${c.opacity * 0.5})`);
+                cloudGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
             } else {
                 cloudGrad.addColorStop(0, `rgba(199, 210, 254, ${c.opacity * 1.2})`);
                 cloudGrad.addColorStop(0.7, `rgba(224, 231, 255, ${c.opacity * 0.4})`);
@@ -1037,8 +1116,9 @@ class TrackHunterCanvas {
         // 3. Draw Fisherman Silhouette sitting gracefully on the lower cusp of the moon
         const seatX = moonX - moonRadius * 0.15;
         const seatY = moonY + moonRadius * 0.48;
+        const pal = this.getThemePalette();
 
-        this.ctx.fillStyle = this.isDark ? '#030712' : '#1E1B4B';
+        this.ctx.fillStyle = pal.fishermanFill;
 
         // Torso / Legs
         this.ctx.beginPath();
@@ -1051,7 +1131,7 @@ class TrackHunterCanvas {
         this.ctx.lineTo(seatX - 4, seatY + 16);
         this.ctx.lineTo(seatX - 1, seatY + 22);
         this.ctx.lineWidth = 3.5;
-        this.ctx.strokeStyle = this.isDark ? '#030712' : '#1E1B4B';
+        this.ctx.strokeStyle = pal.fishermanFill;
         this.ctx.stroke();
 
         // Head & Classic Fisherman Straw Hat
@@ -1201,11 +1281,12 @@ class TrackHunterCanvas {
             }
 
             // Node Glow
+            const pal = this.getThemePalette();
             this.ctx.beginPath();
             this.ctx.arc(n.x, n.y, n.radius * 2.2, 0, Math.PI * 2);
             this.ctx.fillStyle = isHooked 
                 ? (this.isDark ? 'rgba(0, 242, 254, 0.25)' : 'rgba(99, 102, 241, 0.2)')
-                : 'rgba(100, 116, 139, 0.08)';
+                : (this.isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(100, 116, 139, 0.08)');
             this.ctx.fill();
 
             // Node Core Circle
@@ -1220,9 +1301,7 @@ class TrackHunterCanvas {
             // Label text beneath node
             this.ctx.font = isHooked ? 'bold 12px Inter, sans-serif' : '11px Inter, sans-serif';
             this.ctx.textAlign = 'center';
-            this.ctx.fillStyle = isHooked 
-                ? (this.isDark ? '#F8FAFC' : '#0F172A')
-                : (this.isDark ? '#94A3B8' : '#64748B');
+            this.ctx.fillStyle = isHooked ? pal.textColor : pal.mutedText;
             this.ctx.fillText(n.label, n.x, n.y + n.radius + 14);
 
             // Faculty badge

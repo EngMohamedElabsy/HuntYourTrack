@@ -5,7 +5,10 @@
 
 [![Frontend CI](https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/ci.yml/badge.svg)](https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/ci.yml)
 [![GitHub Pages Deployment](https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/deploy.yml/badge.svg)](https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/deploy.yml)
+[![Release](https://img.shields.io/github/v/release/EngMohamedElabsy/HuntYourTrack?color=00F2FE&logo=github&label=Release)](https://github.com/EngMohamedElabsy/HuntYourTrack/releases)
+[![E2E Audits](https://img.shields.io/badge/Playwright%20E2E-9%2F9%20Passed-10B981?style=flat&logo=playwright)](tests/rigorous-e2e-audit.js)
 [![Sprint Project](https://img.shields.io/badge/Project%20Board-Sprint%201-6366F1?style=flat&logo=github)](https://github.com/users/EngMohamedElabsy/projects/5)
+[![Node Runtime](https://img.shields.io/badge/Node.js-20%2B-339933?style=flat&logo=node.js)](package.json)
 
 ---
 

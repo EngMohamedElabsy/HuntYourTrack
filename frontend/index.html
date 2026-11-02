@@ -19,19 +19,17 @@
         <div class="nav-container">
             <a href="index.html" class="brand-wrapper">
                 <span class="brand-icon">🎯</span>
-                <div>
-                    <span class="brand-title" data-i18n="brandName">HuntYourTrack</span>
-                    <span class="brand-tagline" data-i18n="brandTagline">جامعة دمنهور · منصة رسم خارطة الطريق للوظائف والتدريب الصيفي</span>
-                </div>
+                <span class="brand-title" data-i18n="brandName">HuntYourTrack</span>
+                <span class="brand-sub-badge" data-i18n="brandBadge">جامعة دمنهور</span>
             </a>
 
             <!-- Desktop Links -->
             <ul class="nav-menu">
-                <li><a href="#tracks" class="nav-link" data-i18n="navTracks">🎯 مسارات التخصص</a></li>
-                <li><a href="#opportunities" class="nav-link" data-i18n="navInternships">💼 فرص التدريب والكورسات</a></li>
-                <li><a href="#hunter-radar-section" class="nav-link" data-i18n="navHunterRadar">🕸️ رادار اصطياد المسار</a></li>
-                <li><a href="#how-it-works" class="nav-link" data-i18n="navHowItWorks">⚡ كيف تعمل المنصة</a></li>
-                <li><a href="#employers" class="nav-link" data-i18n="navEmployers">🏢 للشركات والمنظمين</a></li>
+                <li><a href="#tracks" class="nav-link" data-i18n="navTracks">مسارات التخصص</a></li>
+                <li><a href="#opportunities" class="nav-link" data-i18n="navInternships">فرص التدريب والكورسات</a></li>
+                <li><a href="#hunter-radar-section" class="nav-link" data-i18n="navHunterRadar">رادار اصطياد المسار</a></li>
+                <li><a href="#how-it-works" class="nav-link" data-i18n="navHowItWorks">كيف تعمل المنصة</a></li>
+                <li><a href="#employers" class="nav-link" data-i18n="navEmployers">للشركات والمنظمين</a></li>
             </ul>
 
             <!-- Controls & Auth CTAs -->
@@ -97,11 +95,11 @@
 
         <!-- Mobile Drawer (Cleaned of developer links) -->
         <div class="mobile-drawer" id="mobile-drawer">
-            <a href="#tracks" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navTracks">🎯 مسارات التخصص</a>
-            <a href="#opportunities" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navInternships">💼 فرص التدريب والكورسات</a>
-            <a href="#hunter-radar-section" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHunterRadar">🕸️ رادار اصطياد المسار</a>
-            <a href="#how-it-works" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHowItWorks">⚡ كيف تعمل المنصة</a>
-            <a href="#employers" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navEmployers">🏢 للشركات والمنظمين</a>
+            <a href="#tracks" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navTracks">مسارات التخصص</a>
+            <a href="#opportunities" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navInternships">فرص التدريب والكورسات</a>
+            <a href="#hunter-radar-section" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHunterRadar">رادار اصطياد المسار</a>
+            <a href="#how-it-works" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHowItWorks">كيف تعمل المنصة</a>
+            <a href="#employers" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navEmployers">للشركات والمنظمين</a>
             
             <div style="display: flex; gap: 0.5rem; margin: 1rem 0;">
                 <button onclick="window.hytI18n.toggleLanguage(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="langToggleLabel">🌐 اللغة</button>
@@ -704,10 +702,16 @@
         function updateNavSession() {
             const userRole = localStorage.getItem('user');
             const userEmail = localStorage.getItem('user_email');
-            const userName = localStorage.getItem('user_name') || (userEmail ? userEmail.split('@')[0] : 'المستخدم');
+            const isEn = (document.documentElement.lang === 'en');
+            let storedName = localStorage.getItem('user_name');
+            if (isEn && (!storedName || storedName === 'المستخدم' || storedName === 'طالب أكاديمي')) {
+                storedName = userEmail ? userEmail.split('@')[0] : 'Student Account';
+            } else if (!isEn && (!storedName || storedName === 'Student Account' || storedName === 'Academic Student')) {
+                storedName = userEmail ? userEmail.split('@')[0] : 'المستخدم';
+            }
+            const userName = storedName || (userEmail ? userEmail.split('@')[0] : (isEn ? 'Student Account' : 'المستخدم'));
             const navActions = document.getElementById('nav-auth-actions');
             const mobileAuthActions = document.getElementById('mobile-auth-actions');
-            const isEn = (document.documentElement.lang === 'en');
 
             if (userRole) {
                 let portalTarget = 'pages/student.html';
