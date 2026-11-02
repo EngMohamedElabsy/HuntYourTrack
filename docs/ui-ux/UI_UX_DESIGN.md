@@ -2,8 +2,11 @@
 
 > **Academic Evaluation Document:** User Interface & User Experience Design Specification  
 > **Institution:** Faculty of Computers & Information, Damanhour University (CS Department)  
-> **Course Supervisor:** Teaching Assistant Eng. Menna  
-> **Lead Architect & UI Lead:** Mohamed Yasser Elabsy ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy))  
+> **Section Teaching Assistant:** Eng. Hoda  
+> **Student Engineering Team:**  
+> - **Mohamed Yasser Elabsy** ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) — CS Department (Computer Science) · Project Lead & Lead Architect  
+> - **Hager Khaled** ([@hager678](https://github.com/hager678)) — IS Department (Information Systems) · Student Experience & Auth  
+> - **Abdulrahman Masoud** ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud)) — IT Department (Information Technology) · Employer Experience & Opportunities  
 > **Canonical Figma Design File:** [HuntYourTrack Figma Wireframes & Mockups](https://www.figma.com/design/1IRQUalpMLnDSrWdByB0uW)  
 > **FigJam Design & Architecture Board:** [HuntYourTrack FigJam Workspace](https://www.figma.com/board/LZD5TcXR4hOkupzCyXfzoq)
 

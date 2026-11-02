@@ -2,8 +2,11 @@
 
 > **Academic Evaluation Document:** Software Architecture, UML & Visual System Models  
 > **Institution:** Faculty of Computers & Information, Damanhour University (CS Department)  
-> **Course Supervisor:** Teaching Assistant Eng. Menna  
-> **Lead Architect:** Mohamed Yasser Elabsy ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy))  
+> **Section Teaching Assistant:** Eng. Hoda  
+> **Student Engineering Team:**  
+> - **Mohamed Yasser Elabsy** ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) — CS Department (Computer Science) · Project Lead & Lead Architect  
+> - **Hager Khaled** ([@hager678](https://github.com/hager678)) — IS Department (Information Systems) · Student Experience & Auth  
+> - **Abdulrahman Masoud** ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud)) — IT Department (Information Technology) · Employer Experience & Opportunities  
 > **FigJam Collaborative Architecture Board:** [HuntYourTrack FigJam Board](https://www.figma.com/board/LZD5TcXR4hOkupzCyXfzoq)  
 > **Figma UI/UX Design System File:** [HuntYourTrack Figma Design File](https://www.figma.com/design/1IRQUalpMLnDSrWdByB0uW)
 
