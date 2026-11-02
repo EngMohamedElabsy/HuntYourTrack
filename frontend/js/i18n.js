@@ -547,7 +547,7 @@ const HYT_TRANSLATIONS = {
 
 class I18nManager {
     constructor() {
-        this.currentLang = localStorage.getItem('hyt_lang') || 'en';
+        this.currentLang = localStorage.getItem('hyt_lang') || 'ar';
         this.theme = localStorage.getItem('hyt_theme') || 'light';
     }
 
