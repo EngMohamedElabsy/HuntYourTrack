@@ -128,16 +128,13 @@ HuntYourTrack/
 
 ---
 
-## Team & Academic Affiliation
+## Academic Affiliation & Course Context
+This project is an academic course project built for the **Software Engineering** course (Academic Year 2025–2026) at the **Faculty of Computers and Information, Damanhour University**, developed collaboratively by undergraduate students via GitHub to serve students and the academic community.
 
-- **Institution:** Faculty of Computers and Information, Damanhour University
-- **Academic Year:** 2025 – 2026 (Graduation Project)
-- **Department:** Computer Science (CS)
-
-### Contributors
-- **Mohamed Yasser Elabsy** ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) – *Project Lead & Software Architect*
-- **Hager Khaled** ([@hager678](https://github.com/hager678)) – *Student Experience & Portal*
-- **Abdulrahman Masoud** ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud)) – *Employer Experience & Verification*
+### Student Engineering Contributors
+- **Mohamed Yasser Elabsy** ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) – *Computer Science Department (CS) · Project Lead & Lead Architect*
+- **Hager Khaled** ([@hager678](https://github.com/hager678)) – *Information Systems Department (IS) · Student Experience & Auth*
+- **Abdulrahman Masoud** ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud)) – *Information Technology Department (IT) · Employer Experience & Opportunities*
 
 ---
 
