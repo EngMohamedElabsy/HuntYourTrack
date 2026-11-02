@@ -376,7 +376,52 @@ async function runAudit() {
         assert.equal(isCompleted, true, 'Topic card must mark as completed when clicked');
 
         console.log('  ✓ roadmap.sh hierarchical tree renders full syllabus with interactive topic progress tracking.');
-        console.log('\n🎉 ALL 8 E2E SYSTEM AUDIT SECTIONS PASSED WITH 100% COMPLIANCE!');
+
+        // -------------------------------------------------------------------------------------------------
+        // AUDIT 9: 3D Card Flip, Validated Hunter Autocomplete & Coral Reef Cohesion (US22)
+        // -------------------------------------------------------------------------------------------------
+        console.log('\n--- [9/9] Testing 3D Card Flip, Autocomplete Guard & Theme Cohesion ---');
+
+        // 9a. Test 3D Interactive Card Flip
+        const firstFlipBtn = page.locator('.btn-flip-card').first();
+        assert.ok(await firstFlipBtn.count() > 0, 'Career track cards must feature 3D Flip buttons');
+        await firstFlipBtn.click();
+        await page.waitForTimeout(300);
+        const isCardFlipped = await page.locator('.track-card').first().evaluate(el => el.classList.contains('flipped'));
+        assert.equal(isCardFlipped, true, 'Clicking flip button must activate 3D flipped state on track card');
+
+        const firstFlipBackBtn = page.locator('.btn-flip-card-back').first();
+        await firstFlipBackBtn.click();
+        await page.waitForTimeout(300);
+        const isCardRestored = await page.locator('.track-card').first().evaluate(el => !el.classList.contains('flipped'));
+        assert.equal(isCardRestored, true, 'Clicking flip back button must restore front face of track card');
+
+        // 9b. Test Hunter Autocomplete & Non-Existent Input Guard
+        const hunterInput = page.locator('#hunter-quick-search');
+        await hunterInput.fill('mechatronics');
+        await page.waitForTimeout(200);
+        const autocompleteDropdown = page.locator('#hunter-autocomplete-dropdown');
+        assert.equal(await autocompleteDropdown.isVisible(), true, 'Typing search query must open autocomplete dropdown');
+        const autoItems = page.locator('.hunter-autocomplete-item');
+        assert.ok(await autoItems.count() > 0, 'Autocomplete dropdown must show matching track items');
+
+        // Non-existent search query test
+        await hunterInput.fill('xyz_unknown_quantum_track_99');
+        await page.waitForTimeout(200);
+        const noMatchBanner = page.locator('.no-track-match-banner');
+        assert.equal(await noMatchBanner.isVisible(), true, 'Non-existent search query must display friendly guard banner');
+
+        // 9c. Test Theme Cohesion in Coral Reef (No White Navbar!)
+        await page.evaluate(() => {
+            if (window.setHytTheme) window.setHytTheme('reef');
+        });
+        await page.waitForTimeout(300);
+        const reefNavBg = await page.evaluate(() => window.getComputedStyle(document.querySelector('.landing-nav')).backgroundColor);
+        console.log('  Computed Coral Reef nav background:', reefNavBg);
+        assert.ok(!reefNavBg.includes('255, 255, 255'), `Coral Reef nav must not be white. Got: ${reefNavBg}`);
+
+        console.log('  ✓ 3D card flipping, hunter autocomplete guard, and multi-theme navbar contrast verified.');
+        console.log('\n🎉 ALL 9 E2E SYSTEM AUDIT SECTIONS PASSED WITH 100% COMPLIANCE!');
 
     } finally {
         if (browser) await browser.close();

@@ -363,16 +363,17 @@ class TrackHunterCanvas {
     }
 
     initAtmosphere() {
-        // Floating anti-gravity stardust
+        // Floating anti-gravity stardust and celestial starlets
         this.stardust = Array.from({ length: 65 }, () => ({
             x: Math.random() * this.width,
             y: Math.random() * this.height,
-            size: Math.random() * 2 + 0.8,
+            size: Math.random() * 2.2 + 0.8,
             speedY: (Math.random() * 0.25 + 0.08) * -1, // gentle upward float (anti-gravity)
             speedX: (Math.random() - 0.5) * 0.15,
             opacity: Math.random() * 0.7 + 0.3,
             pulse: Math.random() * Math.PI * 2,
-            z: Math.random() * 0.8 + 0.2
+            z: Math.random() * 0.8 + 0.2,
+            isStar: Math.random() > 0.65
         }));
 
         // Dreamy volumetric clouds surrounding moon
@@ -401,19 +402,38 @@ class TrackHunterCanvas {
         this.updateHookedNodes();
     }
 
+    getMatchingTracks(query) {
+        if (!query) return this.nodes;
+        const q = (query || '').toLowerCase().trim();
+        return this.nodes.filter(n =>
+            (n.label && n.label.toLowerCase().includes(q)) ||
+            (n.labelAr && n.labelAr.toLowerCase().includes(q)) ||
+            (n.faculty && n.faculty.toLowerCase().includes(q)) ||
+            (n.facultyAr && n.facultyAr.toLowerCase().includes(q)) ||
+            (n.skills && n.skills.some(s => s.toLowerCase().includes(q)))
+        );
+    }
+
     searchTrack(query) {
         this.searchQuery = (query || '').toLowerCase().trim();
         this.updateHookedNodes();
+        if (window.updateHunterAutocomplete) {
+            window.updateHunterAutocomplete(this.searchQuery, this.getMatchingTracks(this.searchQuery));
+        }
     }
 
     updateHookedNodes() {
         if (this.searchQuery) {
-            this.hookedNodes = this.nodes.filter(n => 
-                n.label.toLowerCase().includes(this.searchQuery) ||
-                n.faculty.toLowerCase().includes(this.searchQuery)
-            );
+            const matches = this.getMatchingTracks(this.searchQuery);
+            this.hookedNodes = matches;
+            if (matches.length > 0) {
+                this.renderHookedPanel(matches[0]);
+            } else {
+                this.renderHookedPanel(null);
+            }
         } else if (this.activeFaculty !== 'all') {
             this.hookedNodes = this.nodes.filter(n => n.faculty === this.activeFaculty);
+            if (this.hookedNodes.length > 0) this.renderHookedPanel(this.hookedNodes[0]);
         } else {
             // Default: Hook top primary tracks across major faculties simultaneously!
             this.hookedNodes = [
@@ -422,7 +442,9 @@ class TrackHunterCanvas {
                 this.nodes.find(n => n.id === 'eng-mecha'),
                 this.nodes.find(n => n.id === 'bus-fintech')
             ].filter(Boolean);
+            if (this.hookedNodes.length > 0) this.renderHookedPanel(this.hookedNodes[0]);
         }
+        this.updateLiveStatus();
     }
 
     toggleTrackHook(id) {
@@ -868,6 +890,29 @@ class TrackHunterCanvas {
         this.animationId = requestAnimationFrame(() => this.animate());
     }
 
+    drawSparkleStar(cx, cy, outerRadius, color, alpha = 1, rotation = 0) {
+        const innerRadius = outerRadius * 0.22;
+        this.ctx.save();
+        this.ctx.translate(cx, cy);
+        this.ctx.rotate(rotation);
+        this.ctx.beginPath();
+        for (let i = 0; i < 8; i++) {
+            const r = (i % 2 === 0) ? outerRadius : innerRadius;
+            const angle = (i * Math.PI) / 4;
+            const x = Math.cos(angle) * r;
+            const y = Math.sin(angle) * r;
+            if (i === 0) this.ctx.moveTo(x, y);
+            else this.ctx.lineTo(x, y);
+        }
+        this.ctx.closePath();
+        this.ctx.fillStyle = color;
+        this.ctx.shadowColor = color;
+        this.ctx.shadowBlur = outerRadius * 1.4;
+        this.ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+        this.ctx.fill();
+        this.ctx.restore();
+    }
+
     drawAtmosphere() {
         // Deep background gradient
         const bgGrad = this.ctx.createRadialGradient(
@@ -886,11 +931,11 @@ class TrackHunterCanvas {
         this.ctx.fillStyle = bgGrad;
         this.ctx.fillRect(0, 0, this.width, this.height);
 
-        // Anti-Gravity Floating Stardust Particles
+        // Anti-Gravity Floating Stardust & Sparkling Starlets
         this.stardust.forEach(p => {
             p.y += p.speedY;
             p.x += p.speedX;
-            p.pulse += 0.02;
+            p.pulse += 0.025;
 
             // Mouse gravitational repulsion
             if (this.mouse.isHovering) {
@@ -911,11 +956,16 @@ class TrackHunterCanvas {
             if (p.x < 0) p.x = this.width;
             if (p.x > this.width) p.x = 0;
 
-            const alpha = p.opacity * (0.6 + 0.4 * Math.sin(p.pulse));
-            this.ctx.beginPath();
-            this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            this.ctx.fillStyle = this.isDark ? `rgba(147, 197, 253, ${alpha})` : `rgba(99, 102, 241, ${alpha * 0.7})`;
-            this.ctx.fill();
+            const alpha = p.opacity * (0.55 + 0.45 * Math.sin(p.pulse));
+            if (p.isStar) {
+                const starColor = this.isDark ? '#BAE6FD' : '#818CF8';
+                this.drawSparkleStar(p.x, p.y, p.size * 2.4, starColor, alpha * 0.8, p.pulse * 0.8);
+            } else {
+                this.ctx.beginPath();
+                this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                this.ctx.fillStyle = this.isDark ? `rgba(147, 197, 253, ${alpha})` : `rgba(99, 102, 241, ${alpha * 0.7})`;
+                this.ctx.fill();
+            }
         });
     }
 
@@ -1130,6 +1180,25 @@ class TrackHunterCanvas {
             const isHooked = this.hookedNodes.some(hn => hn.id === n.id);
 
             this.ctx.save();
+
+            // Shimmering Celestial Starbursts
+            if (isHooked) {
+                const starRadius = n.radius * 2.8 + Math.sin(this.time * 3 + n.id.charCodeAt(0)) * 2.5;
+                this.drawSparkleStar(n.x, n.y, starRadius, n.color, 0.75, this.time * 1.2);
+
+                // Orbiting celestial starlets ✨
+                for (let s = 0; s < 3; s++) {
+                    const orbitAngle = this.time * 2 + (s * Math.PI * 2) / 3;
+                    const orbitDist = n.radius * 2.3;
+                    const ox = n.x + Math.cos(orbitAngle) * orbitDist;
+                    const oy = n.y + Math.sin(orbitAngle) * orbitDist;
+                    this.drawSparkleStar(ox, oy, 3.5, '#FFFFFF', 0.9, -this.time * 3);
+                }
+            } else {
+                // Subtle gentle twinkle for background nodes
+                const starRadius = n.radius * 1.4 + Math.sin(this.time * 2 + n.id.charCodeAt(0)) * 1.2;
+                this.drawSparkleStar(n.x, n.y, starRadius, n.color, 0.22, this.time * 0.4);
+            }
 
             // Node Glow
             this.ctx.beginPath();

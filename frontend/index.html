@@ -185,9 +185,25 @@
                     <button class="dock-pill" onclick="setHunterFaculty('business', this)" data-faculty="business" data-i18n="dockBusiness">📊 التجارة وإدارة الأعمال</button>
                     <button class="dock-pill" onclick="setHunterFaculty('law', this)" data-faculty="law" data-i18n="dockLaw">⚖️ الحقوق والتشريعات الرقمية</button>
                 </div>
-                <div class="hunter-search-box aura" style="display: flex; gap: 0.5rem; align-items: center;">
-                    <input type="text" id="hunter-quick-search" placeholder="ابحث عن مسار لاصطياده (AI, Mechatronics, FinTech...)" oninput="handleHunterSearch(this.value)" data-i18n="hunterSearchPh" style="flex: 1;" />
-                    <button type="button" class="btn btn-secondary" style="padding: 0.5rem 0.9rem; font-size: 0.85rem; border-radius: 9999px; white-space: nowrap;" onclick="if(window.hytHunter) window.hytHunter.shuffleTrack();" data-i18n="hunterShuffleBtn">🎲 اصطياد عشوائي</button>
+                <!-- Enriched Hunter Search with Autocomplete & Non-Existent Input Guard -->
+                <div class="hunter-search-wrapper">
+                    <div class="hunter-search-box aura" style="display: flex; gap: 0.5rem; align-items: center; padding: 0.35rem 0.65rem;">
+                        <span style="font-size: 1.1rem; opacity: 0.85; margin-inline-start: 4px;">✨</span>
+                        <input type="text" id="hunter-quick-search" placeholder="ابحث عن مسار لاصطياده واستعراض خارطة طريقه (AI, Cloud, Mechatronics...)" oninput="handleHunterSearch(this.value)" onfocus="handleHunterSearch(this.value)" data-i18n="hunterSearchPh" style="flex: 1; border: none; background: transparent; color: var(--color-foreground); outline: none; font-size: 0.92rem;" autocomplete="off" />
+                        <button type="button" class="btn btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.82rem; border-radius: 9999px; white-space: nowrap;" onclick="if(window.hytHunter) window.hytHunter.shuffleTrack();" data-i18n="hunterShuffleBtn">🎲 اصطياد عشوائي</button>
+                    </div>
+                    <div id="hunter-autocomplete-dropdown" class="hunter-autocomplete-dropdown" style="display: none;"></div>
+                </div>
+
+                <!-- Quick-Hook Interactive Track Chips -->
+                <div class="hunter-quick-chips" style="display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center; margin-top: 0.75rem;">
+                    <button type="button" class="hunter-quick-chip active" onclick="hookQuickChip('all', this)">✨ كافة المسارات (12)</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-ai', this)">🧠 AI & Deep Learning</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-cloud', this)">🌐 Full-Stack Cloud</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-sec', this)">🛡️ Cybersecurity SOC</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('eng-mecha', this)">⚙️ Mechatronics & Robotics</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('bus-fintech', this)">💳 FinTech Trading</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('sci-bio', this)">🧬 Bioinformatics</button>
                 </div>
             </div>
 
@@ -237,88 +253,216 @@
 
             <div class="tracks-grid">
                 <!-- Track 1: Software & Web -->
-                <article class="track-card">
-                    <div>
-                        <div class="track-icon-box icon-web">💻</div>
-                        <h3 class="track-title" data-i18n="track1Title">هندسة البرمجيات وتطبيقات الويب (Full-Stack)</h3>
-                        <p class="track-desc" data-i18n="track1Desc">
-                            معمارية الواجهات الحديثة، الربط بالخدمات الخلفية، تصميم الأنظمة السحابية، وضمان جودة الكود واختبارات الأداء القياسية.
-                        </p>
-                        <div class="skills-pill-group">
-                            <span class="skill-pill" data-i18n="skillPillT1_1">React & TypeScript</span>
-                            <span class="skill-pill" data-i18n="skillPillT1_2">Node.js API</span>
-                            <span class="skill-pill" data-i18n="skillPillT1_3">Docker & Cloud</span>
-                            <span class="skill-pill" data-i18n="skillPillT1_4">PostgreSQL</span>
+                <div class="track-card-3d-wrapper">
+                    <article class="track-card">
+                        <!-- Front Face -->
+                        <div class="track-card-face track-card-front">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div class="track-icon-box icon-web">💻</div>
+                                    <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
+                                        <span data-i18n="flipCardBtn">🔄 الخطة والمناهج</span>
+                                    </button>
+                                </div>
+                                <h3 class="track-title" data-i18n="track1Title">هندسة البرمجيات وتطبيقات الويب (Full-Stack)</h3>
+                                <p class="track-desc" data-i18n="track1Desc">
+                                    معمارية الواجهات الحديثة، الربط بالخدمات الخلفية، تصميم الأنظمة السحابية، وضمان جودة الكود واختبارات الأداء القياسية.
+                                </p>
+                                <div class="skills-pill-group">
+                                    <span class="skill-pill" data-i18n="skillPillT1_1">React & TypeScript</span>
+                                    <span class="skill-pill" data-i18n="skillPillT1_2">Node.js API</span>
+                                    <span class="skill-pill" data-i18n="skillPillT1_3">Docker & Cloud</span>
+                                    <span class="skill-pill" data-i18n="skillPillT1_4">PostgreSQL</span>
+                                </div>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration" data-i18n="track1Duration">⏱️ مسار 16 أسبوعاً</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="track-footer">
-                        <span class="track-duration" data-i18n="track1Duration">⏱️ مسار 16 أسبوعاً</span>
-                        <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
-                    </div>
-                </article>
+
+                        <!-- Back Face (Curriculum & Prerequisites) -->
+                        <div class="track-card-face track-card-back">
+                            <div>
+                                <div class="card-back-header">
+                                    <span class="card-back-title">📚 المنهج والمخرجات المهنية</span>
+                                    <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
+                                        <span data-i18n="flipBackBtn">↩️ العودة</span>
+                                    </button>
+                                </div>
+                                <ul class="card-syllabus-list">
+                                    <li class="card-syllabus-item">معمارية React 19 والأنماط المؤسسية في TypeScript</li>
+                                    <li class="card-syllabus-item">واجهات Node.js وقواعد بيانات PostgreSQL الموزعة</li>
+                                    <li class="card-syllabus-item">حاويات Docker وخطوط أتمتة CI/CD والنشر السحابي</li>
+                                    <li class="card-syllabus-item">مشروع تخرج تطبيقي متوافق مع معايير الشركات الشريكة</li>
+                                </ul>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration">🎯 Full-Stack Engineer</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
                 <!-- Track 2: AI & Data Science -->
-                <article class="track-card">
-                    <div>
-                        <div class="track-icon-box icon-ai">🧠</div>
-                        <h3 class="track-title" data-i18n="track2Title">الذكاء الاصطناعي وعلم البيانات (AI & Data)</h3>
-                        <p class="track-desc" data-i18n="track2Desc">
-                            التعلم الآلي والعميق، معالجة اللغات الطبيعية، نماذج التوليد الذكي، وهندسة البيانات الكبيرة وتحليلها لخدمة متطلبات السوق.
-                        </p>
-                        <div class="skills-pill-group">
-                            <span class="skill-pill" data-i18n="skillPillT2_1">Python & PyTorch</span>
-                            <span class="skill-pill" data-i18n="skillPillT2_2">NLP & GenAI</span>
-                            <span class="skill-pill" data-i18n="skillPillT2_3">Data Pipelines</span>
-                            <span class="skill-pill" data-i18n="skillPillT2_4">Model Deployment</span>
+                <div class="track-card-3d-wrapper">
+                    <article class="track-card">
+                        <!-- Front Face -->
+                        <div class="track-card-face track-card-front">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div class="track-icon-box icon-ai">🧠</div>
+                                    <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
+                                        <span data-i18n="flipCardBtn">🔄 الخطة والمناهج</span>
+                                    </button>
+                                </div>
+                                <h3 class="track-title" data-i18n="track2Title">الذكاء الاصطناعي وعلم البيانات (AI & Data)</h3>
+                                <p class="track-desc" data-i18n="track2Desc">
+                                    التعلم الآلي والعميق، معالجة اللغات الطبيعية، نماذج التوليد الذكي، وهندسة البيانات الكبيرة وتحليلها لخدمة متطلبات السوق.
+                                </p>
+                                <div class="skills-pill-group">
+                                    <span class="skill-pill" data-i18n="skillPillT2_1">Python & PyTorch</span>
+                                    <span class="skill-pill" data-i18n="skillPillT2_2">NLP & GenAI</span>
+                                    <span class="skill-pill" data-i18n="skillPillT2_3">Data Pipelines</span>
+                                    <span class="skill-pill" data-i18n="skillPillT2_4">Model Deployment</span>
+                                </div>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration" data-i18n="track2Duration">⏱️ مسار 20 أسبوعاً</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="track-footer">
-                        <span class="track-duration" data-i18n="track2Duration">⏱️ مسار 20 أسبوعاً</span>
-                        <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
-                    </div>
-                </article>
+
+                        <!-- Back Face (Curriculum & Prerequisites) -->
+                        <div class="track-card-face track-card-back">
+                            <div>
+                                <div class="card-back-header">
+                                    <span class="card-back-title">📚 المنهج والمخرجات المهنية</span>
+                                    <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
+                                        <span data-i18n="flipBackBtn">↩️ العودة</span>
+                                    </button>
+                                </div>
+                                <ul class="card-syllabus-list">
+                                    <li class="card-syllabus-item">الجبر الخطي وتحليل البيانات بـ NumPy و Pandas</li>
+                                    <li class="card-syllabus-item">تدريب وتقييم خوارزميات التعلم الآلي الكلاسيكي</li>
+                                    <li class="card-syllabus-item">الشبكات العصبية العميقة ونماذج الرؤية ومعالجة اللغات</li>
+                                    <li class="card-syllabus-item">أنظمة الـ RAG والوكلاء ونشر النماذج بـ FastAPI</li>
+                                </ul>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration">🎯 AI & ML Engineer</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
                 <!-- Track 3: Embedded Systems (Engineering) -->
-                <article class="track-card">
-                    <div>
-                        <div class="track-icon-box icon-embedded">⚡</div>
-                        <h3 class="track-title" data-i18n="track3Title">الأنظمة المدمجة وبرمجيات السيارات (Embedded)</h3>
-                        <p class="track-desc" data-i18n="track3Desc">
-                            مخصص لطلاب هندسة وحاسبات: لغات C/C++ المتقدمة، معمارية AUTOSAR، أنظمة التشغيل في الوقت الحقيقي RTOS، وبروتوكولات CAN-bus.
-                        </p>
-                        <div class="skills-pill-group">
-                            <span class="skill-pill" data-i18n="skillPillT3_1">Embedded C/C++</span>
-                            <span class="skill-pill" data-i18n="skillPillT3_2">AUTOSAR</span>
-                            <span class="skill-pill" data-i18n="skillPillT3_3">RTOS</span>
-                            <span class="skill-pill" data-i18n="skillPillT3_4">Microcontrollers</span>
+                <div class="track-card-3d-wrapper">
+                    <article class="track-card">
+                        <!-- Front Face -->
+                        <div class="track-card-face track-card-front">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div class="track-icon-box icon-embedded">⚡</div>
+                                    <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
+                                        <span data-i18n="flipCardBtn">🔄 الخطة والمناهج</span>
+                                    </button>
+                                </div>
+                                <h3 class="track-title" data-i18n="track3Title">الأنظمة المدمجة وبرمجيات السيارات (Embedded)</h3>
+                                <p class="track-desc" data-i18n="track3Desc">
+                                    مخصص لطلاب هندسة وحاسبات: لغات C/C++ المتقدمة، معمارية AUTOSAR، أنظمة التشغيل في الوقت الحقيقي RTOS، وبروتوكولات CAN-bus.
+                                </p>
+                                <div class="skills-pill-group">
+                                    <span class="skill-pill" data-i18n="skillPillT3_1">Embedded C/C++</span>
+                                    <span class="skill-pill" data-i18n="skillPillT3_2">AUTOSAR</span>
+                                    <span class="skill-pill" data-i18n="skillPillT3_3">RTOS</span>
+                                    <span class="skill-pill" data-i18n="skillPillT3_4">Microcontrollers</span>
+                                </div>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration" data-i18n="track3Duration">⏱️ مسار 18 أسبوعاً</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="track-footer">
-                        <span class="track-duration" data-i18n="track3Duration">⏱️ مسار 18 أسبوعاً</span>
-                        <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
-                    </div>
-                </article>
+
+                        <!-- Back Face (Curriculum & Prerequisites) -->
+                        <div class="track-card-face track-card-back">
+                            <div>
+                                <div class="card-back-header">
+                                    <span class="card-back-title">📚 المنهج والمخرجات المهنية</span>
+                                    <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
+                                        <span data-i18n="flipBackBtn">↩️ العودة</span>
+                                    </button>
+                                </div>
+                                <ul class="card-syllabus-list">
+                                    <li class="card-syllabus-item">أساسيات Embedded C/C++ وبرمجة العتاد المباشر</li>
+                                    <li class="card-syllabus-item">معمارية الـ AUTOSAR Classic وبروتوكولات CAN/LIN</li>
+                                    <li class="card-syllabus-item">أنظمة التشغيل في الوقت الحقيقي FreeRTOS & Scheduling</li>
+                                    <li class="card-syllabus-item">تطبيق معايير MISRA-C والأمان الوظيفي ISO 26262</li>
+                                </ul>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration">🎯 Embedded Software Engineer</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
                 <!-- Track 4: FinTech & Business (Commerce) -->
-                <article class="track-card">
-                    <div>
-                        <div class="track-icon-box icon-fintech">💳</div>
-                        <h3 class="track-title" data-i18n="track4Title">تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)</h3>
-                        <p class="track-desc" data-i18n="track4Desc">
-                            مخصص لطلاب تجارة وحاسبات: تحليل البيانات المالية، بوابات الدفع الإلكتروني، أنظمة ERP، ومواءمة التقنية مع الأعمال التجارية.
-                        </p>
-                        <div class="skills-pill-group">
-                            <span class="skill-pill" data-i18n="skillPillT4_1">FinTech APIs</span>
-                            <span class="skill-pill" data-i18n="skillPillT4_2">Business Analytics</span>
-                            <span class="skill-pill" data-i18n="skillPillT4_3">SQL & BI</span>
-                            <span class="skill-pill" data-i18n="skillPillT4_4">ERP Systems</span>
+                <div class="track-card-3d-wrapper">
+                    <article class="track-card">
+                        <!-- Front Face -->
+                        <div class="track-card-face track-card-front">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div class="track-icon-box icon-fintech">💳</div>
+                                    <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
+                                        <span data-i18n="flipCardBtn">🔄 الخطة والمناهج</span>
+                                    </button>
+                                </div>
+                                <h3 class="track-title" data-i18n="track4Title">تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)</h3>
+                                <p class="track-desc" data-i18n="track4Desc">
+                                    مخصص لطلاب تجارة وحاسبات: تحليل البيانات المالية، بوابات الدفع الإلكتروني، أنظمة ERP، ومواءمة التقنية مع الأعمال التجارية.
+                                </p>
+                                <div class="skills-pill-group">
+                                    <span class="skill-pill" data-i18n="skillPillT4_1">FinTech APIs</span>
+                                    <span class="skill-pill" data-i18n="skillPillT4_2">Business Analytics</span>
+                                    <span class="skill-pill" data-i18n="skillPillT4_3">SQL & BI</span>
+                                    <span class="skill-pill" data-i18n="skillPillT4_4">ERP Systems</span>
+                                </div>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration" data-i18n="track4Duration">⏱️ مسار 14 أسبوعاً</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="track-footer">
-                        <span class="track-duration" data-i18n="track4Duration">⏱️ مسار 14 أسبوعاً</span>
-                        <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
-                    </div>
-                </article>
+
+                        <!-- Back Face (Curriculum & Prerequisites) -->
+                        <div class="track-card-face track-card-back">
+                            <div>
+                                <div class="card-back-header">
+                                    <span class="card-back-title">📚 المنهج والمخرجات المهنية</span>
+                                    <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
+                                        <span data-i18n="flipBackBtn">↩️ العودة</span>
+                                    </button>
+                                </div>
+                                <ul class="card-syllabus-list">
+                                    <li class="card-syllabus-item">الأسواق المالية والمشتقات وتحليل السلاسل الزمنية</li>
+                                    <li class="card-syllabus-item">بناء بوابات الدفع الإلكتروني وتكامل الـ APIs المصرفية</li>
+                                    <li class="card-syllabus-item">مستودعات البيانات ونمذجة لوحات التحكم في Power BI</li>
+                                    <li class="card-syllabus-item">أنظمة الـ ERP والامتثال التشريعي المالي PCI-DSS</li>
+                                </ul>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration">🎯 FinTech Quantitative Analyst</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
             </div>
         </section>
 
@@ -843,6 +987,92 @@
             }
         }
         window.handleHunterSearch = handleHunterSearch;
+
+        // 3D Card Flip Handler ("شوية دلع")
+        function toggleCardFlip(btn) {
+            const card = btn.closest('.track-card');
+            if (card) {
+                card.classList.toggle('flipped');
+            }
+        }
+        window.toggleCardFlip = toggleCardFlip;
+
+        // Interactive Hunter Autocomplete & Non-Existent Input Guard
+        function updateHunterAutocomplete(query, matches) {
+            const dropdown = document.getElementById('hunter-autocomplete-dropdown');
+            if (!dropdown) return;
+            if (!query) {
+                dropdown.style.display = 'none';
+                dropdown.innerHTML = '';
+                return;
+            }
+
+            const isAr = document.documentElement.lang === 'ar';
+            if (!matches || matches.length === 0) {
+                dropdown.style.display = 'block';
+                dropdown.innerHTML = `
+                    <div class="no-track-match-banner">
+                        ⚠️ <span data-i18n="noTrackFoundMsg">${isAr ? 'المسار غير موجود — يرجى الاختيار من المسارات الـ 12 المعتمدة أدناه' : 'Track not found — please select from the 12 accredited tracks below'}</span>
+                    </div>
+                `;
+                return;
+            }
+
+            dropdown.style.display = 'block';
+            dropdown.innerHTML = matches.map(track => `
+                <div class="hunter-autocomplete-item" onclick="selectHunterTrack('${track.id}')">
+                    <div>
+                        <div class="hunter-autocomplete-track-title">${isAr ? (track.labelAr || track.label) : track.label}</div>
+                        <div style="font-size: 0.75rem; color: var(--color-muted-foreground); margin-top: 2px;">
+                            ${isAr ? track.weeks : track.weeksEn} · ${(track.skills || []).slice(0, 3).join(', ')}
+                        </div>
+                    </div>
+                    <span class="hunter-autocomplete-faculty-tag">${track.faculty.toUpperCase()}</span>
+                </div>
+            `).join('');
+        }
+        window.updateHunterAutocomplete = updateHunterAutocomplete;
+
+        function selectHunterTrack(trackId) {
+            const dropdown = document.getElementById('hunter-autocomplete-dropdown');
+            if (dropdown) dropdown.style.display = 'none';
+            const input = document.getElementById('hunter-quick-search');
+            if (window.hytHunter) {
+                const track = window.hytHunter.nodes.find(n => n.id === trackId);
+                if (track && input) {
+                    const isAr = document.documentElement.lang === 'ar';
+                    input.value = isAr ? (track.labelAr || track.label) : track.label;
+                }
+                window.hytHunter.focusTrack(trackId);
+            }
+        }
+        window.selectHunterTrack = selectHunterTrack;
+
+        function hookQuickChip(trackId, chipBtn) {
+            document.querySelectorAll('.hunter-quick-chip').forEach(c => c.classList.remove('active'));
+            if (chipBtn) chipBtn.classList.add('active');
+            const input = document.getElementById('hunter-quick-search');
+            if (input) input.value = '';
+            const dropdown = document.getElementById('hunter-autocomplete-dropdown');
+            if (dropdown) dropdown.style.display = 'none';
+
+            if (window.hytHunter) {
+                if (trackId === 'all') {
+                    window.hytHunter.searchTrack('');
+                } else {
+                    window.hytHunter.focusTrack(trackId);
+                }
+            }
+        }
+        window.hookQuickChip = hookQuickChip;
+
+        // Close hunter autocomplete on outside click
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('hunter-autocomplete-dropdown');
+            if (dropdown && !e.target.closest('.hunter-search-wrapper')) {
+                dropdown.style.display = 'none';
+            }
+        });
 
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
