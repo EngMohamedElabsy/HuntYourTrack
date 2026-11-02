@@ -36,13 +36,44 @@
 
             <!-- Controls & Auth CTAs -->
             <div class="nav-cta-group">
+                <!-- Command Palette Trigger Button -->
+                <button type="button" class="nav-util-btn" onclick="openCommandSearch()" aria-label="Quick Search" title="Quick Search (Ctrl+K)">
+                    🔍 <span style="font-size: 0.72rem; opacity: 0.8; margin-inline-start: 2px;">Ctrl+K</span>
+                </button>
+
                 <!-- Language & Theme Switchers -->
                 <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language">🌐 English</button>
-                <button id="hyt-theme-toggle" class="nav-util-btn" type="button" aria-label="Toggle Theme">🌙</button>
+
+                <!-- Dynamic Theme Palette Dropdown -->
+                <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
+                    <button id="hyt-theme-toggle" class="nav-util-btn" type="button" aria-label="Toggle Theme">🌙</button>
+                    <button id="theme-palette-btn" class="nav-util-btn" type="button" aria-label="Select Color Theme" onclick="toggleThemeDropdown(event)" title="Theme Palettes">🎨</button>
+                    <div class="theme-dropdown-menu" id="theme-dropdown-menu">
+                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('abyss')">
+                            <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
+                            <span data-i18n="themeAbyss">🌌 أعماق المحيط (Abyss)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('reef')">
+                            <span class="theme-swatch-dot" style="background: #10B981;"></span>
+                            <span data-i18n="themeReef">🪸 الشعب المرجانية (Reef)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('nebula')">
+                            <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
+                            <span data-i18n="themeNebula">🔮 سديم الفضاء (Nebula)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('ember')">
+                            <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
+                            <span data-i18n="themeEmber">🔥 الوهج الشمسي (Ember)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('daylight')">
+                            <span class="theme-swatch-dot" style="background: #0284C7;"></span>
+                            <span data-i18n="themeDaylight">☀️ وضح النهار (Daylight)</span>
+                        </button>
+                    </div>
+                </div>
 
                 <div id="nav-auth-actions" style="display: flex; gap: 0.5rem; align-items: center;">
-                    <a href="pages/auth.html" class="btn btn-secondary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;" data-i18n="navSignIn">تسجيل الدخول</a>
-                    <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;" data-i18n="navGetStarted">انضم الآن مجاناً</a>
+                    <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.5rem 1.15rem; font-size: 0.88rem;" data-i18n="navUnifiedAuth">🔐 دخول المنصة</a>
                 </div>
             </div>
 
@@ -66,8 +97,7 @@
             </div>
 
             <div class="nav-cta-group" id="mobile-auth-actions" style="display: flex; flex-direction: column; gap: 0.5rem;">
-                <a href="pages/auth.html" class="btn btn-secondary" style="width: 100%;" data-i18n="navSignIn">تسجيل الدخول</a>
-                <a href="pages/auth.html" class="btn btn-primary" style="width: 100%;" data-i18n="navGetStarted">انضم الآن مجاناً</a>
+                <a href="pages/auth.html" class="btn btn-primary" style="width: 100%;" data-i18n="navUnifiedAuth">🔐 دخول المنصة</a>
             </div>
         </div>
     </nav>
@@ -91,15 +121,15 @@
                 <span id="hyt-typewriter"></span><span class="typewriter-cursor">|</span>
             </div>
             <div class="hero-actions">
-                <a href="#tracks" class="btn btn-primary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnExplore">
-                    🎯 استكشف المسارات
+                <a href="#hunter-radar-section" class="btn btn-primary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnExplore">
+                    🎯 استكشف واصطد مسارك
                 </a>
                 <a href="#opportunities" class="btn btn-secondary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnBrowse">
                     💼 تصفح التدريبات الصيفية
                 </a>
-                <a href="pages/auth.html" class="btn btn-accent" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnAuth">
-                    🔐 الدخول للمنصة
-                </a>
+                <button type="button" class="btn btn-accent" style="font-size: 1rem; padding: 0.85rem 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem;" onclick="openCommandSearch()">
+                    <span data-i18n="heroCmdBtn">🔍 بحث سريع (Ctrl+K)</span>
+                </button>
             </div>
 
             <!-- Key Metrics Strip -->
@@ -152,9 +182,11 @@
             <div class="hunter-canvas-wrapper">
                 <div class="hunter-canvas-header">
                     <span class="hunter-status-chip" data-i18n="hunterRadarStatus">📡 مسح راداري نشط ومستمر</span>
-                    <span style="font-size: 0.82rem; font-weight: 600; color: var(--color-muted-foreground);" data-i18n="hunterPhysicsStatus">محاكاة فيزيائية حية · 60 إطاراً في الثانية</span>
+                    <span id="hunter-tracks-counter" class="hunter-live-stat" data-i18n="hunterLiveStat">🎯 12 مساراً مهنياً معتمداً · اضغط على أي مسار لاصطياده واستعراض خارطة طريقه</span>
                 </div>
                 <canvas id="hunter-radar-canvas"></canvas>
+                <!-- Live Hooked Track Roadmap Panel -->
+                <div id="hooked-track-panel" class="hooked-track-panel"></div>
             </div>
         </section>
 
@@ -195,7 +227,7 @@
                 <!-- Track 1: Software & Web -->
                 <article class="track-card">
                     <div>
-                        <div class="track-icon-box" style="background: #EEF2FF; color: #4F46E5;">💻</div>
+                        <div class="track-icon-box icon-web">💻</div>
                         <h3 class="track-title" data-i18n="track1Title">هندسة البرمجيات وتطبيقات الويب (Full-Stack)</h3>
                         <p class="track-desc" data-i18n="track1Desc">
                             معمارية الواجهات الحديثة، الربط بالخدمات الخلفية، تصميم الأنظمة السحابية، وضمان جودة الكود واختبارات الأداء القياسية.
@@ -216,7 +248,7 @@
                 <!-- Track 2: AI & Data Science -->
                 <article class="track-card">
                     <div>
-                        <div class="track-icon-box" style="background: #FAF5FF; color: #8B5CF6;">🧠</div>
+                        <div class="track-icon-box icon-ai">🧠</div>
                         <h3 class="track-title" data-i18n="track2Title">الذكاء الاصطناعي وعلم البيانات (AI & Data)</h3>
                         <p class="track-desc" data-i18n="track2Desc">
                             التعلم الآلي والعميق، معالجة اللغات الطبيعية، نماذج التوليد الذكي، وهندسة البيانات الكبيرة وتحليلها لخدمة متطلبات السوق.
@@ -237,7 +269,7 @@
                 <!-- Track 3: Embedded Systems (Engineering) -->
                 <article class="track-card">
                     <div>
-                        <div class="track-icon-box" style="background: #FFFBEB; color: #D97706;">⚡</div>
+                        <div class="track-icon-box icon-embedded">⚡</div>
                         <h3 class="track-title" data-i18n="track3Title">الأنظمة المدمجة وبرمجيات السيارات (Embedded)</h3>
                         <p class="track-desc" data-i18n="track3Desc">
                             مخصص لطلاب هندسة وحاسبات: لغات C/C++ المتقدمة، معمارية AUTOSAR، أنظمة التشغيل في الوقت الحقيقي RTOS، وبروتوكولات CAN-bus.
@@ -258,7 +290,7 @@
                 <!-- Track 4: FinTech & Business (Commerce) -->
                 <article class="track-card">
                     <div>
-                        <div class="track-icon-box" style="background: #F0FDF4; color: #16A34A;">💳</div>
+                        <div class="track-icon-box icon-fintech">💳</div>
                         <h3 class="track-title" data-i18n="track4Title">تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)</h3>
                         <p class="track-desc" data-i18n="track4Desc">
                             مخصص لطلاب تجارة وحاسبات: تحليل البيانات المالية، بوابات الدفع الإلكتروني، أنظمة ERP، ومواءمة التقنية مع الأعمال التجارية.
@@ -403,88 +435,15 @@
         </form>
     </dialog>
 
-        <!-- Cyber Theme Gallery (5 bespoke palettes from v0) -->
-        <section class="section-wrapper" id="themes" style="padding-top: 2rem; padding-bottom: 3.5rem;">
-            <div class="section-head">
-                <span class="section-badge" data-i18n="themesBadge">تخصيص المظهر الحركي</span>
-                <h2 class="section-title" data-i18n="themesTitle">معرض المظاهر والألوان التفاعلية</h2>
-                <p class="section-subtitle" data-i18n="themesSub">
-                    اختر نسق الألوان والمؤثرات التي تناسبك لإعادة إضاءة المحيط التفاعلي وشبكة المسارات في الوقت الحقيقي.
-                </p>
-            </div>
-
-            <div class="theme-gallery-grid">
-                <button type="button" class="theme-gallery-card active" data-theme-id="abyss" onclick="window.setHytTheme('abyss')">
-                    <div class="theme-card-preview" style="background: radial-gradient(60% 80% at 25% 20%, #00F2FE66, transparent 70%), radial-gradient(60% 80% at 85% 30%, #6366F166, transparent 70%), #05070B;">
-                        <div class="swatch-dots">
-                            <span style="background: #00F2FE;"></span>
-                            <span style="background: #10B981;"></span>
-                            <span style="background: #6366F1;"></span>
-                        </div>
-                    </div>
-                    <div class="theme-card-info">
-                        <strong data-i18n="themeAbyss">🌌 أعماق المحيط (Abyss)</strong>
-                        <span data-i18n="themeAbyssMood">سايبربانك مظلم ورادارات نيون</span>
-                    </div>
-                </button>
-
-                <button type="button" class="theme-gallery-card" data-theme-id="reef" onclick="window.setHytTheme('reef')">
-                    <div class="theme-card-preview" style="background: radial-gradient(60% 80% at 25% 20%, #10B98166, transparent 70%), radial-gradient(60% 80% at 85% 30%, #22D3EE66, transparent 70%), #030A08;">
-                        <div class="swatch-dots">
-                            <span style="background: #10B981;"></span>
-                            <span style="background: #A3E635;"></span>
-                            <span style="background: #22D3EE;"></span>
-                        </div>
-                    </div>
-                    <div class="theme-card-info">
-                        <strong data-i18n="themeReef">🪸 الشعب المرجانية (Reef)</strong>
-                        <span data-i18n="themeReefMood">أخضر زمردي حيوي وأمواج متلألئة</span>
-                    </div>
-                </button>
-
-                <button type="button" class="theme-gallery-card" data-theme-id="nebula" onclick="window.setHytTheme('nebula')">
-                    <div class="theme-card-preview" style="background: radial-gradient(60% 80% at 25% 20%, #A78BFA66, transparent 70%), radial-gradient(60% 80% at 85% 30%, #6366F166, transparent 70%), #07060F;">
-                        <div class="swatch-dots">
-                            <span style="background: #A78BFA;"></span>
-                            <span style="background: #F472B6;"></span>
-                            <span style="background: #6366F1;"></span>
-                        </div>
-                    </div>
-                    <div class="theme-card-info">
-                        <strong data-i18n="themeNebula">🔮 سديم الفضاء (Nebula)</strong>
-                        <span data-i18n="themeNebulaMood">أرجواني وفوسفوري وأجرام كونية</span>
-                    </div>
-                </button>
-
-                <button type="button" class="theme-gallery-card" data-theme-id="ember" onclick="window.setHytTheme('ember')">
-                    <div class="theme-card-preview" style="background: radial-gradient(60% 80% at 25% 20%, #F5B84166, transparent 70%), radial-gradient(60% 80% at 85% 30%, #F43F5E66, transparent 70%), #0A0705;">
-                        <div class="swatch-dots">
-                            <span style="background: #F5B841;"></span>
-                            <span style="background: #FF6B4A;"></span>
-                            <span style="background: #F43F5E;"></span>
-                        </div>
-                    </div>
-                    <div class="theme-card-info">
-                        <strong data-i18n="themeEmber">🔥 الوهج الشمسي (Ember)</strong>
-                        <span data-i18n="themeEmberMood">طاقة نارية ودفء حركي متقد</span>
-                    </div>
-                </button>
-
-                <button type="button" class="theme-gallery-card" data-theme-id="daylight" onclick="window.setHytTheme('daylight')">
-                    <div class="theme-card-preview" style="background: radial-gradient(60% 80% at 25% 20%, #0284C766, transparent 70%), radial-gradient(60% 80% at 85% 30%, #4F46E566, transparent 70%), #EEF3F9;">
-                        <div class="swatch-dots">
-                            <span style="background: #0284C7;"></span>
-                            <span style="background: #059669;"></span>
-                            <span style="background: #4F46E5;"></span>
-                        </div>
-                    </div>
-                    <div class="theme-card-info">
-                        <strong data-i18n="themeDaylight">☀️ وضح النهار (Daylight)</strong>
-                        <span data-i18n="themeDaylightMood">نسق مضيء وتباين فائق الوضوح</span>
-                    </div>
-                </button>
-            </div>
-        </section>
+    <!-- Command Search Palette Modal (Ctrl+K) -->
+    <dialog class="cmd-palette-dialog" id="command-search-modal">
+        <div class="cmd-search-input-box">
+            <span>🔍</span>
+            <input type="text" id="cmd-search-input" placeholder="ابحث عن مسار مهني أو فرصة تدريب (Full-Stack, AI, Python)..." data-i18n="cmdSearchPh" oninput="handleCommandSearch(this.value)" autocomplete="off">
+            <button type="button" onclick="closeCommandSearch()" class="nav-util-btn" style="border: none; padding: 0.25rem 0.5rem; font-size: 1.1rem;" aria-label="Close">&times;</button>
+        </div>
+        <div class="cmd-results-list" id="cmd-results-list"></div>
+    </dialog>
 
         <!-- Footer (Canonical Link) -->
         <footer class="landing-footer">
@@ -540,15 +499,52 @@
     <script src="js/hunter-canvas.js"></script>
     <script src="js/opportunities.js"></script>
     <script>
-        // Adjust navbar buttons based on active session
-        const userEmail = localStorage.getItem('user_email');
-        const userRole = localStorage.getItem('user');
-        const userName = localStorage.getItem('user_name') || (userEmail ? userEmail.split('@')[0] : '');
-        const navActions = document.getElementById('nav-auth-actions');
-        const mobileAuthActions = document.getElementById('mobile-auth-actions');
+        // Dynamic Theme Dropdown Controls
+        function toggleThemeDropdown(e) {
+            if (e) e.stopPropagation();
+            const menu = document.getElementById('theme-dropdown-menu');
+            if (menu) menu.classList.toggle('show');
+        }
+        window.toggleThemeDropdown = toggleThemeDropdown;
 
+        function setAppTheme(theme) {
+            if (window.setHytTheme) window.setHytTheme(theme);
+            const menu = document.getElementById('theme-dropdown-menu');
+            if (menu) menu.classList.remove('show');
+        }
+        window.setAppTheme = setAppTheme;
+
+        // User Account Dropdown Controls
+        function toggleUserDropdown(e) {
+            if (e) e.stopPropagation();
+            const menu = document.getElementById('user-menu-dropdown');
+            if (menu) menu.classList.toggle('show');
+        }
+        window.toggleUserDropdown = toggleUserDropdown;
+
+        function hytSignOut() {
+            localStorage.clear();
+            window.location.reload();
+        }
+        window.hytSignOut = hytSignOut;
+
+        // Close dropdowns on outside click
+        document.addEventListener('click', (e) => {
+            const themeMenu = document.getElementById('theme-dropdown-menu');
+            if (themeMenu && !e.target.closest('#theme-dropdown-wrapper')) {
+                themeMenu.classList.remove('show');
+            }
+            const userMenu = document.getElementById('user-menu-dropdown');
+            if (userMenu && !e.target.closest('#user-profile-menu-wrapper')) {
+                userMenu.classList.remove('show');
+            }
+        });
+
+        // Adjust navbar buttons based on active session
         function updateNavSession() {
             const userRole = localStorage.getItem('user');
+            const userEmail = localStorage.getItem('user_email');
+            const userName = localStorage.getItem('user_name') || (userEmail ? userEmail.split('@')[0] : 'المستخدم');
             const navActions = document.getElementById('nav-auth-actions');
             const mobileAuthActions = document.getElementById('mobile-auth-actions');
             const isEn = (document.documentElement.lang === 'en');
@@ -556,27 +552,202 @@
             if (userRole) {
                 let portalTarget = 'pages/student.html';
                 let portalLabel = isEn ? '🎓 Student Portal' : '🎓 لوحة الطالب';
+                let roleBadge = isEn ? 'Student' : 'طالب';
 
                 if (userRole === 'admin') {
                     portalTarget = 'pages/admin.html';
                     portalLabel = isEn ? '🛡️ Admin Console' : '🛡️ لوحة الإدارة الأكاديمية';
+                    roleBadge = isEn ? 'Admin' : 'مشرف';
                 } else if (userRole === 'employer') {
                     portalTarget = 'pages/employer.html';
                     portalLabel = isEn ? '🏢 Employer Portal' : '🏢 لوحة المنظم والفرص';
+                    roleBadge = isEn ? 'Partner' : 'شريك';
                 }
 
                 const signOutLabel = isEn ? 'Sign Out 🚪' : 'خروج 🚪';
                 const sessionHtml = `
-                    <a href="${portalTarget}" class="btn btn-primary" style="padding: 0.5rem 1.1rem; font-size: 0.88rem;">${portalLabel}</a>
-                    <button onclick="localStorage.clear(); window.location.reload();" class="btn btn-secondary" style="padding: 0.5rem 0.8rem; font-size: 0.88rem;">${signOutLabel}</button>
+                    <div class="user-profile-menu-wrapper" id="user-profile-menu-wrapper">
+                        <button class="nav-user-pill" type="button" onclick="toggleUserDropdown(event)" aria-label="User Menu">
+                            <span class="user-avatar-circle">👤</span>
+                            <span class="user-name-text">${userName}</span>
+                            <span class="user-role-badge">${roleBadge}</span>
+                            <span class="dropdown-caret">▾</span>
+                        </button>
+                        <div class="user-menu-dropdown" id="user-menu-dropdown">
+                            <div class="user-dropdown-header">
+                                <strong>${userName}</strong>
+                                <small>${userEmail || ''}</small>
+                            </div>
+                            <a href="${portalTarget}" class="user-dropdown-item">${portalLabel}</a>
+                            <button type="button" class="user-dropdown-item signout-item" onclick="hytSignOut()">${signOutLabel}</button>
+                        </div>
+                    </div>
+                `;
+
+                const mobileSessionHtml = `
+                    <a href="${portalTarget}" class="btn btn-primary" style="width: 100%;">${portalLabel}</a>
+                    <button onclick="hytSignOut()" class="btn btn-secondary" style="width: 100%;">${signOutLabel}</button>
                 `;
 
                 if (navActions) navActions.innerHTML = sessionHtml;
-                if (mobileAuthActions) mobileAuthActions.innerHTML = sessionHtml;
+                if (mobileAuthActions) mobileAuthActions.innerHTML = mobileSessionHtml;
+            } else {
+                const guestHtml = `<a href="pages/auth.html" class="btn btn-primary" style="padding: 0.5rem 1.15rem; font-size: 0.88rem;" data-i18n="navUnifiedAuth">${isEn ? '🔐 Enter Platform' : '🔐 دخول المنصة'}</a>`;
+                const mobileGuestHtml = `<a href="pages/auth.html" class="btn btn-primary" style="width: 100%;" data-i18n="navUnifiedAuth">${isEn ? '🔐 Enter Platform' : '🔐 دخول المنصة'}</a>`;
+                if (navActions) navActions.innerHTML = guestHtml;
+                if (mobileAuthActions) mobileAuthActions.innerHTML = mobileGuestHtml;
             }
         }
         updateNavSession();
         window.addEventListener('hyt:langChanged', updateNavSession);
+
+        // Command Palette Search Catalog & Logic
+        const COMMAND_TRACKS = [
+            { id: 'fullstack', titleAr: 'هندسة البرمجيات وتطبيقات الويب (Full-Stack)', titleEn: 'Full-Stack Software Engineering', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '💻' },
+            { id: 'ai', titleAr: 'الذكاء الاصطناعي وعلم البيانات (AI & Data Science)', titleEn: 'AI & Data Science Engineering', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '🧠' },
+            { id: 'cyber', titleAr: 'الأمن السيبراني والتحقيق الجنائي الرقمي', titleEn: 'Cybersecurity & Digital Forensics', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '🛡️' },
+            { id: 'cloud', titleAr: 'الحوسبة السحابية وهندسة الـ DevOps', titleEn: 'Cloud Computing & DevOps', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '☁️' },
+            { id: 'embedded', titleAr: 'الأنظمة المدمجة وبرمجيات السيارات (AUTOSAR)', titleEn: 'Embedded Systems & Automotive', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '⚡' },
+            { id: 'robotics', titleAr: 'الميكاترونكس وهندسة الروبوتات الذكية', titleEn: 'Robotics & Intelligent Mechatronics', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '🤖' },
+            { id: 'energy', titleAr: 'الطاقة المتجددة والشبكات الذكية', titleEn: 'Renewable Energy & Smart Grids', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '☀️' },
+            { id: 'bioinfo', titleAr: 'المعلوماتية الحيوية والبيولوجيا الحاسوبية', titleEn: 'Bioinformatics & Computational Biology', facultyAr: 'العلوم الأساسية', facultyEn: 'Sciences', icon: '🧬' },
+            { id: 'nano', titleAr: 'النانوتكنولوجي وعلوم المواد المتقدمة', titleEn: 'Nanotechnology & Advanced Materials', facultyAr: 'العلوم الأساسية', facultyEn: 'Sciences', icon: '🔬' },
+            { id: 'fintech', titleAr: 'تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)', titleEn: 'FinTech & Business Intelligence', facultyAr: 'التجارة وإدارة الأعمال', facultyEn: 'Business & Finance', icon: '💳' },
+            { id: 'cyberlaw', titleAr: 'التشريعات الرقمية وحوكمة البيانات والعقود الذكية', titleEn: 'Digital Law & Smart Contracts', facultyAr: 'الحقوق والتشريعات الرقمية', facultyEn: 'Law & Governance', icon: '⚖️' }
+        ];
+
+        function openCommandSearch() {
+            const modal = document.getElementById('command-search-modal');
+            if (modal) {
+                modal.showModal();
+                const input = document.getElementById('cmd-search-input');
+                if (input) {
+                    input.value = '';
+                    input.focus();
+                }
+                handleCommandSearch('');
+            }
+        }
+        window.openCommandSearch = openCommandSearch;
+
+        function closeCommandSearch() {
+            const modal = document.getElementById('command-search-modal');
+            if (modal) modal.close();
+        }
+        window.closeCommandSearch = closeCommandSearch;
+
+        function handleCommandSearch(query) {
+            const list = document.getElementById('cmd-results-list');
+            if (!list) return;
+            const isEn = (document.documentElement.lang === 'en');
+            const q = (query || '').trim().toLowerCase();
+
+            let matchedTracks = COMMAND_TRACKS.filter(t => {
+                if (!q) return true;
+                return t.titleAr.toLowerCase().includes(q) ||
+                       t.titleEn.toLowerCase().includes(q) ||
+                       t.facultyAr.toLowerCase().includes(q) ||
+                       t.facultyEn.toLowerCase().includes(q) ||
+                       t.id.toLowerCase().includes(q);
+            });
+
+            let html = '';
+            if (matchedTracks.length > 0) {
+                html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.25rem 0.75rem; text-transform: uppercase;">${isEn ? '🎯 Career Tracks' : '🎯 المسارات المهنية'}</div>`;
+                matchedTracks.forEach(t => {
+                    const title = isEn ? t.titleEn : t.titleAr;
+                    const faculty = isEn ? t.facultyEn : t.facultyAr;
+                    html += `
+                        <div class="cmd-result-item" onclick="selectCommandTrack('${t.id}')">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <span style="font-size: 1.25rem;">${t.icon}</span>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 0.95rem;">${title}</div>
+                                    <small style="color: var(--color-muted-foreground); font-size: 0.78rem;">${faculty}</small>
+                                </div>
+                            </div>
+                            <span style="font-size: 0.78rem; color: #6366F1; font-weight: 600;">${isEn ? 'Hook Track 🎯' : 'اصطياد المسار 🎯'}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            // Search corporate opportunities if available
+            if (window.hytOpportunities && window.hytOpportunities.opportunities) {
+                const opps = window.hytOpportunities.opportunities.filter(o => {
+                    if (!q) return true;
+                    return (o.title || '').toLowerCase().includes(q) ||
+                           (o.orgName || '').toLowerCase().includes(q) ||
+                           (o.type || '').toLowerCase().includes(q);
+                }).slice(0, 5);
+
+                if (opps.length > 0) {
+                    html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.5rem 0.75rem 0.25rem; text-transform: uppercase;">${isEn ? '💼 Internship Opportunities' : '💼 فرص التدريب المتاحة'}</div>`;
+                    opps.forEach(o => {
+                        html += `
+                            <div class="cmd-result-item" onclick="selectCommandOpportunity('${o.id}')">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <span style="font-size: 1.25rem;">💼</span>
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 0.95rem;">${o.title}</div>
+                                        <small style="color: var(--color-muted-foreground); font-size: 0.78rem;">${o.orgName} · ${o.type}</small>
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.78rem; color: #10B981; font-weight: 600;">${isEn ? 'View ↗' : 'استعراض ↗'}</span>
+                            </div>
+                        `;
+                    });
+                }
+            }
+
+            if (!html) {
+                html = `<div style="text-align: center; padding: 2rem; color: var(--color-muted-foreground);">${isEn ? 'No matching results found.' : 'لا توجد نتائج مطابقة لبحثك.'}</div>`;
+            }
+
+            list.innerHTML = html;
+        }
+        window.handleCommandSearch = handleCommandSearch;
+
+        function selectCommandTrack(trackId) {
+            closeCommandSearch();
+            const radarSection = document.getElementById('hunter-radar-section');
+            if (radarSection) radarSection.scrollIntoView({ behavior: 'smooth' });
+            if (window.hytHunter && window.hytHunter.toggleTrackHook) {
+                window.hytHunter.toggleTrackHook(trackId);
+            }
+        }
+        window.selectCommandTrack = selectCommandTrack;
+
+        function selectCommandOpportunity(oppId) {
+            closeCommandSearch();
+            const oppsSection = document.getElementById('opportunities');
+            if (oppsSection) oppsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        window.selectCommandOpportunity = selectCommandOpportunity;
+
+        // Global Keyboard Shortcut (Ctrl+K or Cmd+K)
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                openCommandSearch();
+            }
+            if (e.key === 'Escape') {
+                closeCommandSearch();
+            }
+        });
+
+        // Close Command Modal when clicking backdrop
+        const cmdModal = document.getElementById('command-search-modal');
+        if (cmdModal) {
+            cmdModal.addEventListener('click', (e) => {
+                const rect = cmdModal.getBoundingClientRect();
+                const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+                                    rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+                if (!isInDialog) {
+                    cmdModal.close();
+                }
+            });
+        }
 
         // Mobile drawer toggling
         const mobileToggle = document.getElementById('mobile-toggle');
