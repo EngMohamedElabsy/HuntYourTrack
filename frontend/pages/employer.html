@@ -391,26 +391,29 @@
         <!-- Navigation Tabs -->
         <nav class="nav-tabs" aria-label="Employer Sections">
             <button type="button" class="tab-btn active" data-tab="overview" onclick="switchSection('overview')">
-                <span>📊 لوحة المتابعة</span>
+                <span data-i18n="empTabOverview">📊 لوحة المتابعة</span>
             </button>
             <button type="button" class="tab-btn" data-tab="post" onclick="switchSection('post')">
-                <span>➕ نشر تدريب جديد</span>
+                <span data-i18n="empTabPost">➕ نشر تدريب جديد</span>
             </button>
             <button type="button" class="tab-btn" data-tab="applicants" onclick="switchSection('applicants')">
-                <span>👥 مراجعة المتقدمين</span>
+                <span data-i18n="empTabApplicants">👥 مراجعة المتقدمين</span>
                 <span class="tab-badge" id="applicants-badge">5</span>
             </button>
         </nav>
 
         <!-- Actions & Theme Toggle -->
         <div class="nav-actions">
-            <a href="../index.html" class="btn btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;">
+            <a href="../index.html" class="btn btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;" data-i18n="empHomeBtn">
                 🏠 البوابة الرئيسية
             </a>
-            <button type="button" onclick="toggleTheme()" class="nav-util-btn" title="تبديل المظهر (Dark / Light)">
+            <button type="button" id="hyt-lang-toggle" onclick="window.hytI18n.toggleLanguage()" class="nav-util-btn" title="Language Switcher">
+                🌐 English
+            </button>
+            <button type="button" id="hyt-theme-toggle" onclick="window.hytI18n.toggleTheme()" class="nav-util-btn" title="Toggle Theme">
                 🌓
             </button>
-            <button type="button" onclick="localStorage.clear(); window.location.href='auth.html';" class="btn btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;">
+            <button type="button" onclick="localStorage.clear(); window.location.href='auth.html';" class="btn btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;" data-i18n="empSignOut">
                 خروج 🚪
             </button>
         </div>
@@ -424,15 +427,15 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <span class="stat-val" id="kpi-posts">4</span>
-                    <span class="stat-title">فرص التدريب النشطة (Active Postings)</span>
+                    <span class="stat-title" data-i18n="empKpiPosts">فرص التدريب النشطة (Active Postings)</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-val" id="kpi-apps">91</span>
-                    <span class="stat-title">إجمالي طلبات التقديم (Applications)</span>
+                    <span class="stat-title" data-i18n="empKpiApps">إجمالي طلبات التقديم (Applications)</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-val" id="kpi-matched">3</span>
-                    <span class="stat-title">مرشحون بتوافق عالٍ جداً (High Match > 85%)</span>
+                    <span class="stat-title" data-i18n="empKpiMatched">مرشحون بتوافق عالٍ جداً (High Match > 85%)</span>
                 </div>
             </div>
 
@@ -440,8 +443,8 @@
                 <!-- Active Postings Panel -->
                 <div class="panel-card">
                     <div class="panel-head">
-                        <h2>فرص التدريب الخاصة بك (Your Postings)</h2>
-                        <button type="button" onclick="switchSection('post')" class="btn btn-primary" style="padding: 0.45rem 0.95rem; font-size: 0.85rem;">
+                        <h2 data-i18n="empYourPostings">فرص التدريب الخاصة بك (Your Postings)</h2>
+                        <button type="button" onclick="switchSection('post')" class="btn btn-primary" style="padding: 0.45rem 0.95rem; font-size: 0.85rem;" data-i18n="empAddPostBtn">
                             + إضافة تدريب
                         </button>
                     </div>
@@ -453,7 +456,7 @@
                 <!-- High-Match Alerts Panel -->
                 <div class="panel-card">
                     <div class="panel-head">
-                        <h3>تنبيهات المرشحين المتميزين 🎯</h3>
+                        <h3 data-i18n="empAlertsHeading">تنبيهات المرشحين المتميزين 🎯</h3>
                     </div>
                     <div id="alerts-list">
                         <!-- Populated by JavaScript -->
@@ -467,8 +470,8 @@
             <div class="panel-card" style="max-width: 760px; margin: 0 auto;">
                 <div class="panel-head">
                     <div>
-                        <h2>نشر فرصة تدريب صيفي أو كورس معتمد</h2>
-                        <p style="color: var(--color-muted-foreground); font-size: 0.88rem; margin-top: 0.25rem;">
+                        <h2 data-i18n="empPostTitle">نشر فرصة تدريب صيفي أو كورس معتمد</h2>
+                        <p style="color: var(--color-muted-foreground); font-size: 0.88rem; margin-top: 0.25rem;" data-i18n="empPostDescSub">
                             حدد متطلبات الفرصة والمهارات الأساسية ليتم مواءمتها آلياً مع طلاب الكليات المتخصصة.
                         </p>
                     </div>
@@ -476,14 +479,14 @@
 
                 <form id="post-internship-form" onsubmit="handlePostSubmit(event)">
                     <div class="form-group">
-                        <label for="post-title">عنوان التدريب / الوظيفة (Title) *</label>
-                        <input type="text" id="post-title" class="form-control" placeholder="مثال: Cloud Security Intern" required minlength="5">
+                        <label for="post-title" data-i18n="empFormTitleLabel">عنوان التدريب / الوظيفة (Title) *</label>
+                        <input type="text" id="post-title" class="form-control" placeholder="مثال: Cloud Security Intern" data-i18n="empFormTitlePh" required minlength="5">
                     </div>
 
                     <div class="form-group">
-                        <label for="post-track">المسار التقني أو الأكاديمي (Track) *</label>
+                        <label for="post-track" data-i18n="empFormTrackLabel">المسار التقني أو الأكاديمي (Track) *</label>
                         <select id="post-track" class="form-control" required>
-                            <option value="">اختر المسار المعني...</option>
+                            <option value="" data-i18n="empTrackSelectPh">اختر المسار المعني...</option>
                             <option value="Cloud and DevOps">Cloud & DevOps / السحابية والعمليات</option>
                             <option value="Cybersecurity">Cybersecurity / الأمن السيبراني</option>
                             <option value="Frontend">Frontend Development / واجهات الويب</option>
@@ -496,44 +499,44 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="post-desc">تفاصيل التدريب والمسؤوليات (Description) *</label>
-                        <textarea id="post-desc" class="form-control" rows="4" placeholder="اكتب وصفاً مفصلاً لمهام المتدرب والمهارات التي سيكتسبها..." required minlength="30" oninput="updateCharCount(this)"></textarea>
+                        <label for="post-desc" data-i18n="empFormDescLabel">تفاصيل التدريب والمسؤوليات (Description) *</label>
+                        <textarea id="post-desc" class="form-control" rows="4" placeholder="اكتب وصفاً مفصلاً لمهام المتدرب والمهارات التي سيكتسبها..." data-i18n="empFormDescPh" required minlength="30" oninput="updateCharCount(this)"></textarea>
                         <div style="text-align: end; font-size: 0.8rem; color: var(--color-muted-foreground); margin-top: 0.25rem;">
                             <span id="char-counter">0</span> / 1000 حرف
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>المهارات المطلوبة (Required Skills) *</label>
+                        <label data-i18n="empSkillsLabel">المهارات المطلوبة (Required Skills) *</label>
                         <div class="skills-picker">
                             <div class="selected-skills" id="selected-skills-box"></div>
-                            <input type="text" id="skill-input-search" class="form-control" placeholder="ابحث عن مهارة أو اكتب واضغط Enter لإضافتها..." onkeydown="handleSkillKey(event)">
+                            <input type="text" id="skill-input-search" class="form-control" placeholder="ابحث عن مهارة أو اكتب واضغط Enter لإضافتها..." data-i18n="empSkillInputPh" onkeydown="handleSkillKey(event)">
                             <div class="skill-options" id="predefined-skills-box"></div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>طبيعة المكافأة المالية (Compensation)</label>
+                        <label data-i18n="empCompLabel">طبيعة المكافأة المالية (Compensation)</label>
                         <div style="display: flex; gap: 1rem; align-items: center;">
                             <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-weight: normal; cursor: pointer;">
-                                <input type="radio" name="pay-type" value="paid" checked> مدفوع الأجر (Paid)
+                                <input type="radio" name="pay-type" value="paid" checked> <span data-i18n="empPaidLabel">مدفوع الأجر (Paid)</span>
                             </label>
                             <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-weight: normal; cursor: pointer;">
-                                <input type="radio" name="pay-type" value="free"> تدريب تطوعي / أكاديمي (Free)
+                                <input type="radio" name="pay-type" value="free"> <span data-i18n="empFreeLabel">تدريب تطوعي / أكاديمي (Free)</span>
                             </label>
                         </div>
                     </div>
 
                     <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
-                        <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem;">
+                        <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem;" data-i18n="empSubmitPostBtn">
                             🚀 نشر التدريب الآن
                         </button>
-                        <button type="reset" class="btn btn-secondary" onclick="resetSkillForm()">
+                        <button type="reset" class="btn btn-secondary" onclick="resetSkillForm()" data-i18n="empResetFormBtn">
                             إفراغ النموذج
                         </button>
                     </div>
 
-                    <div id="post-success-banner" style="display: none; background: rgba(22, 163, 74, 0.15); border: 1px solid #16A34A; color: #16A34A; padding: 1rem; border-radius: 12px; margin-top: 1.25rem; font-weight: 600;">
+                    <div id="post-success-banner" style="display: none; background: rgba(22, 163, 74, 0.15); border: 1px solid #16A34A; color: #16A34A; padding: 1rem; border-radius: 12px; margin-top: 1.25rem; font-weight: 600;" data-i18n="empSuccessBanner">
                         ✅ تم نشر فرصة التدريب بنجاح! أصبحت متاحة الآن لطلاب جامعة دمنهور وظهرت في لوحة المتابعة.
                     </div>
                 </form>
@@ -545,19 +548,19 @@
             <div class="panel-card">
                 <div class="panel-head">
                     <div>
-                        <h2>مصفوفة مراجعة وتقييم المتقدمين (Applicant Review Matrix)</h2>
-                        <p style="color: var(--color-muted-foreground); font-size: 0.88rem; margin-top: 0.25rem;">
+                        <h2 data-i18n="empMatrixHeading">مصفوفة مراجعة وتقييم المتقدمين (Applicant Review Matrix)</h2>
+                        <p style="color: var(--color-muted-foreground); font-size: 0.88rem; margin-top: 0.25rem;" data-i18n="empMatrixSub">
                             فرز وتقييم دقيق للمرشحين بالذكاء الاصطناعي وفق نسبة تطابق الـ ATS.
                         </p>
                     </div>
                     <div style="display: flex; gap: 0.5rem; align-items: center;">
-                        <label for="filter-status-select" style="font-size: 0.85rem; font-weight: 600;">Filter by Status:</label>
+                        <label for="filter-status-select" style="font-size: 0.85rem; font-weight: 600;" data-i18n="empFilterStatusLabel">Filter by Status:</label>
                         <select id="filter-status-select" class="form-control" style="width: auto; padding: 0.4rem 0.75rem;" onchange="renderApplicants()">
-                            <option value="all">All Statuses</option>
-                            <option value="New">New</option>
-                            <option value="Shortlisted">Shortlisted</option>
-                            <option value="Accepted">Accepted</option>
-                            <option value="Rejected">Rejected</option>
+                            <option value="all" data-i18n="empStatusAll">All Statuses</option>
+                            <option value="New" data-i18n="empStatusNew">New</option>
+                            <option value="Shortlisted" data-i18n="empStatusShortlisted">Shortlisted</option>
+                            <option value="Accepted" data-i18n="empStatusAccepted">Accepted</option>
+                            <option value="Rejected" data-i18n="empStatusRejected">Rejected</option>
                         </select>
                     </div>
                 </div>
@@ -870,19 +873,10 @@
             }, 1400);
         }
 
-        // Theme Toggle Support
-        function toggleTheme() {
-            const root = document.documentElement;
-            const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            root.setAttribute('data-theme', nextTheme);
-            localStorage.setItem('theme', nextTheme);
-        }
-
-        (function initTheme() {
-            const saved = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', saved);
-        })();
-
+    <!-- Unified Framework Scripts -->
+    <script src="../js/i18n.js"></script>
+    <script src="../js/ocean-background.js"></script>
+    <script>
         // Initial Routing on Load
         window.addEventListener('load', () => {
             const hash = (window.location.hash || '').replace('#', '');
@@ -892,6 +886,11 @@
                 switchSection('overview');
             }
             renderSkillChips();
+        });
+
+        window.addEventListener('hyt:langChanged', () => {
+            renderOverview();
+            renderApplicants();
         });
     </script>
 </body>

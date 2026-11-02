@@ -181,6 +181,11 @@ class TrackHunterCanvas {
         this.hookedNodes = sorted.slice(0, 2);
     }
 
+    shuffleTrack() {
+        const shuffled = [...this.nodes].sort(() => 0.5 - Math.random());
+        this.hookedNodes = shuffled.slice(0, 3);
+    }
+
     animate() {
         this.time += 0.016;
 

@@ -3,36 +3,95 @@
  * Academic Release 2026 - Damanhour University
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=Open+Sans:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Poppins:wght@500;600;700&display=swap');
 
-:root {
-    --color-primary: #6366F1;
-    --color-primary-dark: #4F46E5;
-    --color-secondary: #818CF8;
-    --color-accent: #16A34A;
-    --color-background: #EEF2FF;
-    --color-foreground: #312E81;
-    --color-card: #FFFFFF;
-    --color-border: #C7D2FE;
-    --color-muted: #EBEFF9;
-    --color-muted-foreground: #475569;
-    --font-heading: 'Poppins', sans-serif;
-    --font-main: 'Open Sans', sans-serif;
+:root,
+[data-theme="light"],
+[data-theme="daylight"] {
+    --color-primary: #00F2FE;
+    --color-primary-dark: #0284C7;
+    --color-secondary: #6366F1;
+    --color-accent: #10B981;
+    --color-glow-2: #10B981;
+    --color-glow-3: #6366F1;
+    --color-background: #EEF3F9;
+    --color-foreground: #0B1220;
+    --color-card: rgba(255, 255, 255, 0.85);
+    --color-card-solid: #FFFFFF;
+    --color-border: rgba(11, 18, 32, 0.12);
+    --color-muted: rgba(11, 18, 32, 0.05);
+    --color-muted-foreground: #4B5768;
+    --font-heading: 'Inter', sans-serif;
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-arabic: 'Cairo', 'Tajawal', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --glass: rgba(255, 255, 255, 0.7);
+    --glass-strong: rgba(255, 255, 255, 0.95);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-[data-theme="dark"] {
-    --color-primary: #818CF8;
-    --color-primary-dark: #6366F1;
-    --color-secondary: #4F46E5;
-    --color-accent: #22C55E;
-    --color-background: #0B0F19;
-    --color-foreground: #F8FAFC;
+[data-theme="dark"],
+[data-theme="abyss"] {
+    --color-primary: #00F2FE;
+    --color-primary-dark: #00C8D4;
+    --color-secondary: #6366F1;
+    --color-accent: #10B981;
+    --color-glow-2: #10B981;
+    --color-glow-3: #6366F1;
+    --color-background: #0B0F19; /* High-contrast deep cyber-ocean (#0B0F19 -> rgb(11,15,25)) */
+    --color-foreground: #E6EDF5;
     --color-card: #131B2E;
-    --color-border: #1E293B;
-    --color-muted: #1E293B;
-    --color-muted-foreground: #94A3B8;
+    --color-card-solid: #131B2E;
+    --color-border: rgba(230, 237, 245, 0.12);
+    --color-muted: rgba(255, 255, 255, 0.06);
+    --color-muted-foreground: #8B97AA;
+    --glass: rgba(19, 27, 46, 0.65);
+    --glass-strong: rgba(11, 15, 25, 0.92);
+}
+
+[data-theme="reef"] {
+    --color-primary: #10B981;
+    --color-primary-dark: #059669;
+    --color-secondary: #22D3EE;
+    --color-accent: #A3E635;
+    --color-glow-2: #A3E635;
+    --color-glow-3: #22D3EE;
+    --color-background: #0B1915;
+    --color-foreground: #E3F2EC;
+    --color-card: #132E25;
+    --color-border: rgba(227, 242, 236, 0.14);
+    --color-muted: rgba(255, 255, 255, 0.06);
+    --color-muted-foreground: #86A397;
+}
+
+[data-theme="nebula"] {
+    --color-primary: #A78BFA;
+    --color-primary-dark: #8B5CF6;
+    --color-secondary: #F472B6;
+    --color-accent: #38BDF8;
+    --color-glow-2: #F472B6;
+    --color-glow-3: #6366F1;
+    --color-background: #110F25;
+    --color-foreground: #ECE8F7;
+    --color-card: #1D193B;
+    --color-border: rgba(236, 232, 247, 0.14);
+    --color-muted: rgba(255, 255, 255, 0.06);
+    --color-muted-foreground: #9A93B3;
+}
+
+[data-theme="ember"] {
+    --color-primary: #F5B841;
+    --color-primary-dark: #D97706;
+    --color-secondary: #FF6B4A;
+    --color-accent: #10B981;
+    --color-glow-2: #FF6B4A;
+    --color-glow-3: #F43F5E;
+    --color-background: #19120B;
+    --color-foreground: #F5ECE3;
+    --color-card: #2B1D13;
+    --color-border: rgba(245, 236, 227, 0.14);
+    --color-muted: rgba(255, 255, 255, 0.06);
+    --color-muted-foreground: #AD9C8B;
 }
 
 * {
@@ -49,10 +108,33 @@ body {
     transition: background-color 250ms ease, color 250ms ease;
 }
 
-/* RTL Typography & Direction */
+/* English Typography & Direction (Inter) */
+[dir="ltr"],
+[dir="ltr"] body,
+html[lang="en"],
+html[lang="en"] body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+[dir="ltr"] .btn,
+[dir="ltr"] h1,
+[dir="ltr"] h2,
+[dir="ltr"] h3,
+[dir="ltr"] h4,
+[dir="ltr"] h5,
+[dir="ltr"] h6,
+[dir="ltr"] .hero-headline,
+[dir="ltr"] .brand-title {
+    font-family: 'Inter', sans-serif !important;
+    letter-spacing: -0.02em;
+}
+
+/* Arabic Typography & Direction (Cairo & Tajawal) */
+[dir="rtl"],
 [dir="rtl"] body,
-[dir="rtl"] {
-    font-family: var(--font-arabic);
+html[lang="ar"],
+html[lang="ar"] body {
+    font-family: 'Cairo', 'Tajawal', sans-serif !important;
 }
 
 [dir="rtl"] .btn,
@@ -61,8 +143,138 @@ body {
 [dir="rtl"] h3,
 [dir="rtl"] h4,
 [dir="rtl"] h5,
-[dir="rtl"] h6 {
-    font-family: var(--font-arabic);
+[dir="rtl"] h6,
+[dir="rtl"] .hero-headline,
+[dir="rtl"] .brand-title {
+    font-family: 'Cairo', 'Tajawal', sans-serif !important;
+    letter-spacing: 0;
+}
+
+/* Fixed 3D Ocean Perspective Background & Aurora Glow */
+.ocean-bg-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -10;
+    overflow: hidden;
+}
+
+.aurora {
+    position: absolute;
+    inset: -15%;
+    background:
+        radial-gradient(55% 45% at 18% 8%, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 70%),
+        radial-gradient(45% 40% at 88% 18%, color-mix(in srgb, var(--color-glow-3) 22%, transparent), transparent 70%),
+        radial-gradient(60% 45% at 50% 105%, color-mix(in srgb, var(--color-glow-2) 16%, transparent), transparent 70%);
+    animation: aurora-drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift {
+    to {
+        transform: translate3d(0, -3%, 0) scale(1.08);
+    }
+}
+
+#ocean-bg-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.ocean-radial-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 35%, transparent 35%, var(--color-background) 100%);
+    opacity: 0.85;
+}
+
+/* Glassmorphism Classes */
+.glass {
+    background: var(--glass);
+    border: 1px solid var(--color-border);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+.glass-strong {
+    background: var(--glass-strong);
+    border: 1px solid var(--color-border);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+}
+
+/* Spinning Aura Search / Command Bar */
+@property --aura-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
+.aura {
+    position: relative;
+    isolation: isolate;
+}
+
+.aura::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(from var(--aura-angle, 0deg), var(--color-primary), var(--color-glow-2), var(--color-glow-3), var(--color-primary));
+    animation: aura-spin 6s linear infinite;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.aura::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: inherit;
+    background: conic-gradient(from var(--aura-angle, 0deg), var(--color-primary), var(--color-glow-2), var(--color-glow-3), var(--color-primary));
+    animation: aura-spin 6s linear infinite;
+    filter: blur(18px);
+    opacity: 0.35;
+    z-index: -2;
+    pointer-events: none;
+}
+
+@keyframes aura-spin {
+    to {
+        --aura-angle: 360deg;
+    }
+}
+
+/* Neon Glow Effect */
+.neon {
+    filter: drop-shadow(0 0 6px var(--color-primary)) drop-shadow(0 0 16px var(--color-primary));
+}
+
+/* 3D Glass Orbs */
+.orb {
+    background:
+        radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.55) 0, transparent 20%),
+        radial-gradient(circle at 50% 62%, color-mix(in srgb, var(--color-primary) 30%, transparent), color-mix(in srgb, var(--color-glow-3) 22%, transparent) 72%);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 45%, transparent);
+    box-shadow:
+        inset 0 -10px 20px color-mix(in srgb, var(--color-glow-3) 40%, transparent),
+        inset 0 4px 10px rgba(255, 255, 255, 0.12),
+        0 0 26px color-mix(in srgb, var(--color-primary) 28%, transparent);
+    backdrop-filter: blur(6px);
+}
+
+.orb-hooked {
+    border-color: color-mix(in srgb, var(--color-glow-2) 70%, transparent);
+    box-shadow:
+        inset 0 -10px 22px color-mix(in srgb, var(--color-glow-2) 45%, transparent),
+        0 0 40px color-mix(in srgb, var(--color-glow-2) 55%, transparent),
+        0 0 90px color-mix(in srgb, var(--color-primary) 30%, transparent);
 }
 
 /* Professional Button System with Accessible Touch Targets (min 44px) */
