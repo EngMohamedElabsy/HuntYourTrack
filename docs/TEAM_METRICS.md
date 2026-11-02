@@ -22,7 +22,8 @@ Sprint Completion Velocity: [███████████████░░
 ## 2. Team Member Scorecards & Leaderboard 🏆
 
 ### 👤 Mohamed Yasser Elabsy (@EngMohamedElabsy)
-- **Role:** `Lead Architect & Core/Admin`
+- **Academic Department:** Computer Science (CS)
+- **Role:** `Project Lead & Lead Architect`
 - **Assigned Stories:** **14** Issues
 - **Completion Status:** 🟢 **11 Done** (79%) · 🔵 **0 In Progress** · ⚪ **3 Todo**
 - **Engineering Badge:** 🚀 Early Achiever (Ahead of Schedule)
@@ -45,6 +46,7 @@ Sprint Completion Velocity: [███████████████░░
 | **#39** | US01: Global Design System & UI Kit | 🟢 Done | Nov 1, 2026 | 🟢 Delivered on Time | ✅ Fully Verified |
 
 ### 👤 Hager Khaled (@hager678)
+- **Academic Department:** Information Systems (IS)
 - **Role:** `Student Experience & Auth`
 - **Assigned Stories:** **3** Issues
 - **Completion Status:** 🟢 **1 Done** (33%) · 🔵 **1 In Progress** · ⚪ **1 Todo**
@@ -57,6 +59,7 @@ Sprint Completion Velocity: [███████████████░░
 | **#45** | US07: Multi-Faculty Student Landing Page & Interactive Showcase | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
 
 ### 👤 Abdulrahman Masoud (@abdulrhman-masoud)
+- **Academic Department:** Information Technology (IT)
 - **Role:** `Employer Portal & Reviews`
 - **Assigned Stories:** **3** Issues
 - **Completion Status:** 🟢 **3 Done** (100%) · 🔵 **0 In Progress** · ⚪ **0 Todo**

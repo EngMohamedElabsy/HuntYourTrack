@@ -305,7 +305,34 @@
                 
                 <!-- Utility Toggles -->
                 <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language">🌐 English</button>
-                <button id="hyt-theme-toggle" class="nav-util-btn" type="button" aria-label="Toggle Theme">🌙</button>
+
+                <!-- Dynamic Theme Palette Dropdown -->
+                <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
+                    <button id="hyt-theme-toggle" class="nav-util-btn" type="button" aria-label="Toggle Theme">🌙</button>
+                    <button id="theme-palette-btn" class="nav-util-btn" type="button" aria-label="Select Color Theme" onclick="toggleThemeDropdown(event)" title="Theme Palettes">🎨</button>
+                    <div class="theme-dropdown-menu" id="theme-dropdown-menu">
+                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('abyss')">
+                            <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
+                            <span data-i18n="themeAbyss">🌌 أعماق المحيط (Abyss)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('reef')">
+                            <span class="theme-swatch-dot" style="background: #10B981;"></span>
+                            <span data-i18n="themeReef">🪸 الشعب المرجانية (Reef)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('nebula')">
+                            <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
+                            <span data-i18n="themeNebula">🔮 سديم الفضاء (Nebula)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('ember')">
+                            <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
+                            <span data-i18n="themeEmber">🔥 الوهج الشمسي (Ember)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('daylight')">
+                            <span class="theme-swatch-dot" style="background: #0284C7;"></span>
+                            <span data-i18n="themeDaylight">☀️ وضح النهار (Daylight)</span>
+                        </button>
+                    </div>
+                </div>
 
                 <span class="user-badge" id="student-badge">
                     <span>👨‍🎓</span> <span id="user-display" data-i18n="userDisplayStudent">طالب أكاديمي</span>
@@ -557,6 +584,28 @@
             if (window.showToast) window.showToast(msg, type);
             else alert(msg);
         }
+
+        // Dynamic Theme Palette Controls
+        function toggleThemeDropdown(e) {
+            if (e) e.stopPropagation();
+            const menu = document.getElementById('theme-dropdown-menu');
+            if (menu) menu.classList.toggle('show');
+        }
+        window.toggleThemeDropdown = toggleThemeDropdown;
+
+        function setAppTheme(theme) {
+            if (window.setHytTheme) window.setHytTheme(theme);
+            const menu = document.getElementById('theme-dropdown-menu');
+            if (menu) menu.classList.remove('show');
+        }
+        window.setAppTheme = setAppTheme;
+
+        document.addEventListener('click', (e) => {
+            const themeMenu = document.getElementById('theme-dropdown-menu');
+            if (themeMenu && !e.target.closest('#theme-dropdown-wrapper')) {
+                themeMenu.classList.remove('show');
+            }
+        });
 
         document.getElementById('logout-btn').addEventListener('click', handleStudentLogout);
     </script>

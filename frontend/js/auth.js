@@ -106,15 +106,15 @@ function selectJuryPersona(persona) {
     if (persona === 'admin') {
         localStorage.setItem('user', 'admin');
         localStorage.setItem('role', 'admin');
-        localStorage.setItem('user_email', 'elabsy@damanhour.edu.eg');
-        localStorage.setItem('user_name', 'Mohamed Yasser Elabsy');
+        localStorage.setItem('user_email', 'admin@damanhour.edu.eg');
+        localStorage.setItem('user_name', isArabic ? 'المشرف الأكاديمي' : 'Academic Admin');
         localStorage.setItem('faculty', 'Computers & Artificial Intelligence');
         showToast(isArabic ? 'تم تفعيل حساب المشرف الأكاديمي (Admin) بنجاح 🛡️' : 'Admin Academic session activated 🛡️', 'success');
         setTimeout(() => { window.location.href = 'admin.html'; }, 800);
     } else if (persona === 'employer') {
         localStorage.setItem('user', 'employer');
         localStorage.setItem('role', 'employer');
-        localStorage.setItem('user_email', 'abdulrhman@damanhour.edu.eg');
+        localStorage.setItem('user_email', 'partner@techcorp.eg');
         localStorage.setItem('user_name', 'TechCorp Organizer');
         localStorage.setItem('faculty', 'Corporate Partner Hub');
         showToast(isArabic ? 'تم تفعيل حساب جهة العمل (Employer Partner) 🏢' : 'Employer Organizer session activated 🏢', 'success');
@@ -122,8 +122,8 @@ function selectJuryPersona(persona) {
     } else {
         localStorage.setItem('user', 'student');
         localStorage.setItem('role', 'student');
-        localStorage.setItem('user_email', 'hager@damanhour.edu.eg');
-        localStorage.setItem('user_name', 'Hager Khaled');
+        localStorage.setItem('user_email', 'student@damanhour.edu.eg');
+        localStorage.setItem('user_name', isArabic ? 'طالب أكاديمي' : 'Academic Student');
         localStorage.setItem('faculty', 'Faculty of Computers & Artificial Intelligence');
         localStorage.setItem('department', 'Computer Science (CS)');
         showToast(isArabic ? 'تم تفعيل حساب الطالب الأكاديمي (Student) 🎓' : 'Student session activated 🎓', 'success');
@@ -138,11 +138,11 @@ function handleLoginSubmit(e) {
     const isArabic = document.documentElement.lang === 'ar';
     const status = document.getElementById('auth-status');
 
-    if (email.includes('admin') || email === 'elabsy@damanhour.edu.eg') {
+    if (email.includes('admin') || email === 'admin@damanhour.edu.eg') {
         localStorage.setItem('user', 'admin');
         localStorage.setItem('role', 'admin');
         localStorage.setItem('user_email', email);
-        localStorage.setItem('user_name', 'Mohamed Yasser');
+        localStorage.setItem('user_name', isArabic ? 'المشرف الأكاديمي' : 'Academic Admin');
         showToast(isArabic ? 'مرحباً بك في لوحة الإدارة الأكاديمية! 🛡️' : 'Welcome to Admin Console! 🛡️', 'success');
         setTimeout(() => { window.location.href = 'admin.html'; }, 800);
     } else if (email.includes('employer') || email.includes('partner') || email.includes('hr')) {

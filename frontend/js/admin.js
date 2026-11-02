@@ -5,9 +5,9 @@
 
 // Initial Mock Database
 let usersData = [
-    { id: 1, name: "Mohamed Yasser Elabsy", email: "elabsy@damanhour.edu.eg", role: "Admin", faculty: "Computers & Information (CS)", status: "Active", joined: "2026-09-01" },
-    { id: 2, name: "Hager Khaled", email: "hager@damanhour.edu.eg", role: "Student", faculty: "Computers & Information (CS)", status: "Active", joined: "2026-09-15" },
-    { id: 3, name: "Abdulrahman Masoud", email: "abdulrhman@damanhour.edu.eg", role: "Employer", faculty: "TechCorp Labs Partner", status: "Active", joined: "2026-09-20" },
+    { id: 1, name: "Dr. Ahmed Mostafa (Dean)", email: "dean.computers@damanhour.edu.eg", role: "Admin", faculty: "Computers & Artificial Intelligence", status: "Active", joined: "2026-09-01" },
+    { id: 2, name: "Kareem El-Sayed", email: "kareem.s@damanhour.edu.eg", role: "Student", faculty: "Computers & Information (CS)", status: "Active", joined: "2026-09-15" },
+    { id: 3, name: "TechCorp Labs Partner", email: "partners@techcorp.eg", role: "Employer", faculty: "TechCorp Labs Partner", status: "Active", joined: "2026-09-20" },
     { id: 4, name: "Ahmed Mostafa", email: "ahmed.m@damanhour.edu.eg", role: "Student", faculty: "Computers & Information (AI)", status: "Active", joined: "2026-10-02" },
     { id: 5, name: "Salma Hassan", email: "salma.h@damanhour.edu.eg", role: "Student", faculty: "Computers & Information (IS)", status: "Suspended", joined: "2026-10-10" },
     { id: 6, name: "NextGen Analytics HR", email: "hr@nextgen-analytics.com", role: "Employer", faculty: "Alexandria Tech Hub", status: "Active", joined: "2026-10-12" },
@@ -89,7 +89,8 @@ function enforceAdminAuthorization() {
         const userEmail = localStorage.getItem('user_email');
         const userDisplay = document.getElementById('admin-user-display');
         if (userDisplay && userEmail) {
-            userDisplay.textContent = `Mohamed Yasser (${userEmail})`;
+            const userName = localStorage.getItem('user_name') || 'المشرف الأكاديمي';
+            userDisplay.textContent = `${userName} (${userEmail})`;
         }
         return true;
     }

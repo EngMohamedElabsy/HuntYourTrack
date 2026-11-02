@@ -1,10 +1,12 @@
 # HuntYourTrack — Project Concept, Problem, Solution & Technology Stack
 
-> **Academic Course:** Software Engineering · Project Deliverable 2025–2026  
-> **Institution:** Faculty of Computers and Information, Damanhour University (Computer Science Department)  
+> **Academic Course:** Software Engineering · Course Project 2025–2026  
+> **Institution:** Faculty of Computers and Information, Damanhour University  
 > **Course Supervisor:** Teaching Assistant Eng. Menna  
-> **Project Lead & Software Architect:** Mohamed Yasser Elabsy ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy))  
-> **Team Members:** Hager Khaled ([@hager678](https://github.com/hager678)), Abdulrahman Masoud ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud))  
+> **Student Engineering Team:**  
+> - **Mohamed Yasser Elabsy** ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) — CS Department (Computer Science) · Project Lead & Lead Architect  
+> - **Hager Khaled** ([@hager678](https://github.com/hager678)) — IS Department (Information Systems) · Student Experience & Auth  
+> - **Abdulrahman Masoud** ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud)) — IT Department (Information Technology) · Employer Experience & Opportunities  
 > **Canonical Live Platform:** [https://engmohamedelabsy.github.io/HuntYourTrack/](https://engmohamedelabsy.github.io/HuntYourTrack/)  
 > **Sprint Project Board:** [HuntYourTrack - Graduation Sprint 1 & 2 (Project #5)](https://github.com/users/EngMohamedElabsy/projects/5)  
 > **Figma UI/UX Design File:** [Figma Wireframes & Mockups](https://www.figma.com/design/1IRQUalpMLnDSrWdByB0uW)  

@@ -39,18 +39,22 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 Whenever Claude, Codex, Cursor, or any AI assistant starts a session in this repository, it MUST execute this bootstrap procedure:
 
 #### 👥 Official Team Developer Identity Registry
-> ⚠️ **Strict Separation Directive:** The credentials below are **strictly for Claude and AI tools** to identify which engineer is running the CLI (`gh auth status`, `git config user.email`) and match them with their GitHub Issues on Project #5. **Never confuse or mix these developer identities with frontend web prototype mock data or website personas.**
+> ⚠️ **Strict Separation Directive:** The credentials below are **strictly for Claude and AI tools** to identify which engineer is running the CLI (`gh auth status`, `git config user.email`) and match them with their GitHub Issues on Project #5.
+> **Student Academic Project Context:** Mohamed (@EngMohamedElabsy), Hager (@hager678), and Abdulrahman (@abdulrhman-masoud) are undergraduate students at the Faculty of Computers and Information, Damanhour University, collaborating on a course project for the "Software Engineering" course. They communicate exclusively via GitHub for development. They have no corporate employment or commercial ownership in the platform. **Never confuse or mix these student developer identities with frontend web prototype mock data, and NEVER expose their names or personal emails in user-facing website pages.**
 
-- 👨‍💻 **Mohamed Yasser Elabsy (Lead Architect & Software Engineering Lead):**
+- 👨‍💻 **Mohamed Yasser Elabsy (Project Lead & Software Architect — CS Department):**
+  - **Academic Role:** Student, Computer Science (CS) Department, Faculty of Computers and Information, Damanhour University.
   - **GitHub Username:** `@EngMohamedElabsy`
   - **Git Committer / GitHub Email:** `mohamedelabsy.biz@gmail.com`
   - **GitHub Account ID:** `111818296` (`111818296+EngMohamedElabsy@users.noreply.github.com`)
   - **Engineering Scope:** System Architecture, Core Components, Executive Admin, CI/CD DevOps Pipeline, Sprint Coordination.
-- 👩‍💻 **Hager Khaled (Student Experience & Authentication Engineer):**
+- 👩‍💻 **Hager Khaled (Student Experience & Auth Engineer — IS Department):**
+  - **Academic Role:** Student, Information Systems (IS) Department, Faculty of Computers and Information, Damanhour University.
   - **GitHub Username:** `@hager678`
   - **GitHub Account ID:** `112729729` (`112729729+hager678@users.noreply.github.com`)
   - **Engineering Scope:** Student Landing Experience, Student Authentication UI, Onboarding Wizard, Student Dashboard & Roadmaps.
-- 👨‍💻 **Abdulrahman Masoud (Employer & Opportunities Engineer):**
+- 👨‍💻 **Abdulrahman Masoud (Employer & Opportunities Engineer — IT Department):**
+  - **Academic Role:** Student, Information Technology (IT) Department, Faculty of Computers and Information, Damanhour University.
   - **GitHub Username:** `@abdulrhman-masoud`
   - **Git Committer / GitHub Email:** `abdulrahman.masoud.work@gmail.com`
   - **GitHub Account ID:** `122886968` (`122886968+abdulrhman-masoud@users.noreply.github.com`)

@@ -178,18 +178,18 @@ const HYT_TRANSLATIONS = {
         juryModalTitle: "دخول لجان التحكيم والمناقشة",
         juryModalDesc: "اختر إحدى الشخصيات التمثيلية للاختبار السريع والتحقق من صلاحيات النظام وعزل الواجهات:",
         adminPersonaTitle: "🛡️ المشرف الأكاديمي (System Admin)",
-        adminPersonaSub: "elabsy@damanhour.edu.eg · صلاحيات كاملة",
+        adminPersonaSub: "admin@damanhour.edu.eg · صلاحيات كاملة",
         studentPersonaTitle: "👨‍🎓 حساب طالب (Enrolled Student)",
-        studentPersonaSub: "hager@damanhour.edu.eg · استكشاف ومواءمة المسار",
+        studentPersonaSub: "student@damanhour.edu.eg · استكشاف ومواءمة المسار",
         employerPersonaTitle: "🏢 حساب شركة / منظم (Employer Partner)",
-        employerPersonaSub: "abdulrhman@damanhour.edu.eg · نشر وإدارة الفرص",
+        employerPersonaSub: "partner@techcorp.eg · نشر وإدارة الفرص",
         selectPersonaBtn: "تحديد",
         closeModalBtn: "إغلاق النافذة",
 
         // Footer
         footerAboutTitle: "🎯 HuntYourTrack",
         footerAboutText: "مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور (قسم علوم الحاسب).",
-        footerLeadText: "المهندس المسؤول: محمد ياسر العبسي (@EngMohamedElabsy)",
+        footerLeadText: "منظومة برمجية موحدة ومعتمدة · جامعة دمنهور",
         footerPlatformHeading: "المنصة",
         footerPortalsHeading: "البوابات الرسمية",
         footerStudentHubLink: "لوحة الطالب الأكاديمي",
@@ -337,7 +337,7 @@ const HYT_TRANSLATIONS = {
         empStatusRejected: "مرفوض (Rejected)",
 
         // Missing Global/Portal Keys
-        authNamePh: "محمد ياسر",
+        authNamePh: "الاسم بالكامل (مثال: أحمد محمود علي)",
         authDemoHeading: "اختر إحدى الشخصيات التمثيلية للاختبار السريع والتحقق من صلاحيات النظام وعزل الواجهات:",
         footerGradDesc: "مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور (قسم علوم الحاسب).",
         shuffleHuntBtn: "🎲 اصطياد عشوائي للمسارات",
@@ -534,18 +534,18 @@ const HYT_TRANSLATIONS = {
         juryModalTitle: "Academic Jury & Defense Access",
         juryModalDesc: "Choose a representative demo persona for rapid evaluation and role verification:",
         adminPersonaTitle: "🛡️ Lead Academic Administrator",
-        adminPersonaSub: "elabsy@damanhour.edu.eg · Full Administrative Clearance",
+        adminPersonaSub: "admin@damanhour.edu.eg · Full Administrative Clearance",
         studentPersonaTitle: "👨‍🎓 Enrolled Student Persona",
-        studentPersonaSub: "hager@damanhour.edu.eg · Track discovery and roadmap view",
+        studentPersonaSub: "student@damanhour.edu.eg · Track discovery and roadmap view",
         employerPersonaTitle: "🏢 Corporate Partner Persona",
-        employerPersonaSub: "abdulrhman@damanhour.edu.eg · Publishing & managing listings",
+        employerPersonaSub: "partner@techcorp.eg · Publishing & managing listings",
         selectPersonaBtn: "Select",
         closeModalBtn: "Close Dialog",
 
         // Footer
         footerAboutTitle: "🎯 HuntYourTrack",
         footerAboutText: "Graduation Project 2026 · Faculty of Computers & Information, Damanhour University (CS Department).",
-        footerLeadText: "Lead Engineer: Mohamed Yasser Elabsy (@EngMohamedElabsy)",
+        footerLeadText: "Accredited Unified Academic Platform · Damanhour University",
         footerPlatformHeading: "Platform",
         footerPortalsHeading: "Official Portals",
         footerStudentHubLink: "Student Career Hub",
@@ -693,7 +693,7 @@ const HYT_TRANSLATIONS = {
         empStatusRejected: "Rejected",
 
         // Missing Global/Portal Keys
-        authNamePh: "Mohamed Yasser",
+        authNamePh: "Full Name (e.g. Alex Johnson)",
         authDemoHeading: "Select an evaluation persona for rapid testing and interface isolation verification:",
         footerGradDesc: "Graduation Project 2026 · Faculty of Computers & Information, Damanhour University (CS Department).",
         shuffleHuntBtn: "🎲 Shuffle & Hunt Tracks",
@@ -837,6 +837,22 @@ window.hytI18n = new I18nManager();
 window.setHytTheme = function(theme) {
     if (window.hytI18n) window.hytI18n.applyTheme(theme);
 };
+window.toggleThemeDropdown = function(e) {
+    if (e) e.stopPropagation();
+    const menu = document.getElementById('theme-dropdown-menu');
+    if (menu) menu.classList.toggle('show');
+};
+window.setAppTheme = function(theme) {
+    if (window.setHytTheme) window.setHytTheme(theme);
+    const menu = document.getElementById('theme-dropdown-menu');
+    if (menu) menu.classList.remove('show');
+};
+document.addEventListener('click', (e) => {
+    const themeMenu = document.getElementById('theme-dropdown-menu');
+    if (themeMenu && !e.target.closest('#theme-dropdown-wrapper')) {
+        themeMenu.classList.remove('show');
+    }
+});
 document.addEventListener('DOMContentLoaded', () => {
     window.hytI18n.init();
 });
