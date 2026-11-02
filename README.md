@@ -29,37 +29,68 @@ The static frontend prototype is continuously deployed to GitHub Pages on every 
 
 ---
 
+---
+
+## 🎓 Academic Evaluation Deliverables (لجنة التقييم الأكاديمي)
+
+This repository satisfies all formal graduation project evaluation requirements:
+
+| Deliverable | Description | Direct Repository Link |
+| :--- | :--- | :--- |
+| **📑 Concept & Tools** | فكرة المشروع، المشكلة، الحل، الجمهور المستهدف، وحزمة التقنيات بالتفصيل | **[CONCEPT_AND_TOOLS.md](CONCEPT_AND_TOOLS.md)** |
+| **📋 Requirements (SRS)** | توثيق متطلبات المشروع الوظيفية وغير الوظيفية ومصفوفة تتبع الـ Issues | **[docs/REQUIREMENTS.md](docs/REQUIREMENTS.md)** |
+| **📐 Software Designs & UML** | مخططات هندسة البرمجيات (Use Case, Class, State, Component, Sequence) | **[docs/DESIGNS.md](docs/DESIGNS.md)** |
+| **🎨 UI & UX Specifications** | التصاميم والـ Wireframes والـ Mockups ونظام التصميم وأكواد التوكنز | **[docs/UI_UX_DESIGN.md](docs/UI_UX_DESIGN.md)** |
+| **🔗 Figma Design File** | ملف تصاميم فيجما التفاعلي المباشر (Wireframes & High-Fidelity) | **[Figma Design File](https://www.figma.com/design/1IRQUalpMLnDSrWdByB0uW)** |
+| **🔗 FigJam Architecture Board**| لوحة فيجام التفاعلية لمخططات النظام ودورة حياة البيانات | **[FigJam Diagrams Board](https://www.figma.com/board/LZD5TcXR4hOkupzCyXfzoq)** |
+| **📊 Project Backlog Board** | لوحة متابعة المهام وتوزيع قصص المستخدم (Agile Kanban) | **[GitHub Project #5](https://github.com/users/EngMohamedElabsy/projects/5)** |
+
+---
+
 ## Technical Architecture
 
 ```
 HuntYourTrack/
+├── CONCEPT_AND_TOOLS.md      # Project vision, problem statement, solution & tech stack
 ├── frontend/
-│   ├── index.html            # Public Product Landing Page
-│   ├── auth.html             # Multi-role authentication & registration
-│   ├── student.html          # Student Career Hub & roadmap progression
-│   ├── admin.html            # Executive administration & company verification
-│   ├── workflow.html         # Interactive platform architecture flow
-│   ├── components.html       # Shared design system & UI component library
-│   ├── css/
-│   │   ├── style.css         # Global design tokens, typography, and dark theme
-│   │   ├── landing.css       # Landing page hero, tracks grid, and internship cards
+│   ├── index.html            # Public Product Landing Entry Point
+│   ├── assets/               # Brand imagery & official logo
+│   │   └── logo.png
+│   ├── pages/                # Modular HTML workspaces & secondary portals
+│   │   ├── student.html      # Student Career Hub & roadmap progression
+│   │   ├── employer.html     # Unified Employer Portal (Dashboard, Posting, Review)
+│   │   ├── employer-dashboard.html # Postings KPI monitor
+│   │   ├── post-internship.html    # Interactive internship publisher form
+│   │   ├── applicants-review.html  # Split-pane candidate ATS review matrix
+│   │   ├── admin.html        # Executive administration & accreditation
+│   │   ├── auth.html         # Multi-faculty authentication & registration
+│   │   ├── workflow.html     # Interactive platform architecture flow
+│   │   └── components.html   # Shared design system & UI component library
+│   ├── css/                  # Shared design tokens, typography, and dark theme
+│   │   ├── style.css         # Global variables, button semantics, and layouts
+│   │   ├── landing.css       # Landing page hero, tracks grid, and cards
 │   │   ├── auth.css          # Split-panel responsive authentication styling
-│   │   ├── admin.css         # Admin data tables, metrics cards, and review modals
+│   │   ├── admin.css         # Admin data tables and review modals
 │   │   ├── workflow.css      # Visual pipeline graph and YAML studio
 │   │   └── components.css    # Reusable component kit styling
-│   └── js/
-│       ├── i18n.js           # Bilingual localization engine & theme persistence
-│       ├── hunter-canvas.js  # HTML5 Canvas skill constellation & radar graphics
-│       ├── opportunities.js  # Pre-seeded internship catalog & countdown timers
-│       ├── auth.js           # Session simulation, form validation & jury tools
+│   └── js/                   # Modular ES6+ client-side logic
+│       ├── auth.js           # Session simulation, form validation & role guards
 │       ├── admin.js          # Authorization guards & verification actions
+│       ├── opportunities.js  # Pre-seeded internship catalog & countdown timers
+│       ├── hunter-canvas.js  # HTML5 Canvas skill constellation & radar graphics
+│       ├── i18n.js           # Bilingual localization engine & theme persistence
 │       └── components.js     # Shared modal and toast notification helpers
 ├── tests/
 │   ├── frontend-smoke-test.js # Playwright automated smoke suite across all views
 │   └── rigorous-e2e-audit.js  # Deep E2E audit: i18n leaks, RBAC & contrast checks
-├── docs/                     # Specifications, diagrams, and sprint performance reports
+├── docs/                     # Specifications, requirements, diagrams, and scorecards
+│   ├── REQUIREMENTS.md       # Software Requirements Specification (SRS) & traceability
+│   ├── DESIGNS.md            # UML diagrams, Use Cases, Class & State models
+│   ├── UI_UX_DESIGN.md       # Figma links, wireframes, and design token specs
+│   ├── TEAM_METRICS.md       # Automated sprint velocity & deadline tracker
+│   └── diagrams/             # Version-controlled PlantUML source files (.puml)
 ├── scripts/                  # CI/CD metric generation and environment utilities
-└── .github/workflows/        # Automated testing, deployment, and sprint tracking
+└── .github/workflows/        # Automated 5-stage testing, deployment, and sprint tracking
 ```
 
 ### Technology Stack
@@ -104,9 +135,9 @@ HuntYourTrack/
 - **Department:** Computer Science (CS)
 
 ### Contributors
-- **Mohamed Yasser Elabsy** ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) – *Project Lead & Software Architect*
-- **Hager Khaled** ([@hager678](https://github.com/hager678)) – *Student Experience & Portal*
-- **Abdulrahman Masoud** ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud)) – *Employer Experience & Verification*
+- **Mohamed Yasser Elabsy (محمد ياسر العبسي)** ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) – *Project Lead & Software Architect*
+- **Hager Khaled (هاجر خالد)** ([@hager678](https://github.com/hager678)) – *Student Experience & Portal*
+- **Abdulrahman Masoud (عبد الرحمن مسعود)** ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud)) – *Employer Experience & Verification*
 
 ---
 
