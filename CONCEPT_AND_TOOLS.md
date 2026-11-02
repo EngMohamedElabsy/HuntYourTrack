@@ -2,7 +2,7 @@
 
 > **Academic Course:** Software Engineering · Course Project 2025–2026  
 > **Institution:** Faculty of Computers and Information, Damanhour University  
-> **Course Supervisor:** Teaching Assistant Eng. Menna  
+> **Section Teaching Assistant:** Eng. Hoda  
 > **Student Engineering Team:**  
 > - **Mohamed Yasser Elabsy** ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) — CS Department (Computer Science) · Project Lead & Lead Architect  
 > - **Hager Khaled** ([@hager678](https://github.com/hager678)) — IS Department (Information Systems) · Student Experience & Auth  

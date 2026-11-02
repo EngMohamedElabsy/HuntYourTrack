@@ -2,7 +2,7 @@
 
 > **Academic Evaluation Document:** Software Engineering Requirements & Backlog Traceability  
 > **Institution:** Faculty of Computers & Information, Damanhour University (CS Department)  
-> **Course Supervisor:** Teaching Assistant Eng. Menna  
+> **Section Teaching Assistant:** Eng. Hoda  
 > **Student Engineering Team:**  
 > - Mohamed Yasser Elabsy ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) · *Computer Science Department (CS) · Project Lead & Lead Architect*  
 > - Hager Khaled ([@hager678](https://github.com/hager678)) · *Information Systems Department (IS) · Student Experience & Auth*  
