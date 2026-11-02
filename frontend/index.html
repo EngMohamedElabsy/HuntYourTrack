@@ -44,28 +44,40 @@
                 <!-- Language & Theme Switchers -->
                 <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language">🌐 English</button>
 
-                <!-- Dynamic Theme Palette Dropdown -->
+                <!-- Unified Theme & Appearance Dropdown -->
                 <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
-                    <button id="hyt-theme-toggle" class="nav-util-btn" type="button" aria-label="Toggle Theme">🌙</button>
-                    <button id="theme-palette-btn" class="nav-util-btn" type="button" aria-label="Select Color Theme" onclick="toggleThemeDropdown(event)" title="Theme Palettes">🎨</button>
+                    <button id="hyt-theme-btn" class="nav-util-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
+                        <span id="theme-btn-icon">🌓</span> <span style="font-size: 0.8rem; margin-inline-start: 4px;" data-i18n="themeDropdownLabel">المظهر</span>
+                    </button>
                     <div class="theme-dropdown-menu" id="theme-dropdown-menu">
-                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('abyss')">
+                        <div class="theme-menu-header" data-i18n="themeModesHeader">نمط الإضاءة</div>
+                        <button type="button" class="theme-opt-btn" data-theme-val="dark" onclick="setAppThemeMode('dark')">
+                            <span style="font-size: 0.95rem;">🌙</span>
+                            <span data-i18n="themeDarkOption">الوضع الليلي (Dark Mode)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" data-theme-val="light" onclick="setAppThemeMode('light')">
+                            <span style="font-size: 0.95rem;">☀️</span>
+                            <span data-i18n="themeLightOption">الوضع النهاري (Light Mode)</span>
+                        </button>
+                        <div class="theme-menu-divider"></div>
+                        <div class="theme-menu-header" data-i18n="themePalettesHeader">لوحات الألوان المخصصة</div>
+                        <button type="button" class="theme-opt-btn" data-theme-val="abyss" onclick="setAppTheme('abyss')">
                             <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
                             <span data-i18n="themeAbyss">🌌 أعماق المحيط (Abyss)</span>
                         </button>
-                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('reef')">
+                        <button type="button" class="theme-opt-btn" data-theme-val="reef" onclick="setAppTheme('reef')">
                             <span class="theme-swatch-dot" style="background: #10B981;"></span>
                             <span data-i18n="themeReef">🪸 الشعب المرجانية (Reef)</span>
                         </button>
-                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('nebula')">
+                        <button type="button" class="theme-opt-btn" data-theme-val="nebula" onclick="setAppTheme('nebula')">
                             <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
                             <span data-i18n="themeNebula">🔮 سديم الفضاء (Nebula)</span>
                         </button>
-                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('ember')">
+                        <button type="button" class="theme-opt-btn" data-theme-val="ember" onclick="setAppTheme('ember')">
                             <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
                             <span data-i18n="themeEmber">🔥 الوهج الشمسي (Ember)</span>
                         </button>
-                        <button type="button" class="theme-opt-btn" onclick="setAppTheme('daylight')">
+                        <button type="button" class="theme-opt-btn" data-theme-val="daylight" onclick="setAppTheme('daylight')">
                             <span class="theme-swatch-dot" style="background: #0284C7;"></span>
                             <span data-i18n="themeDaylight">☀️ وضح النهار (Daylight)</span>
                         </button>
@@ -522,9 +534,13 @@
         }
         window.toggleUserDropdown = toggleUserDropdown;
 
-        function hytSignOut() {
-            localStorage.clear();
-            window.location.reload();
+        function hytSignOut(e) {
+            if (window.hytI18n && window.hytSignOut) {
+                window.hytSignOut(e);
+            } else {
+                localStorage.clear();
+                window.location.reload();
+            }
         }
         window.hytSignOut = hytSignOut;
 
