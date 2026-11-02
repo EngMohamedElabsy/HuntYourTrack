@@ -31,19 +31,19 @@ The static frontend prototype is continuously deployed to GitHub Pages on every 
 
 ---
 
-## 🎓 Academic Evaluation Deliverables (لجنة التقييم الأكاديمي)
+## 🎓 Academic Evaluation Deliverables
 
 This repository satisfies all formal graduation project evaluation requirements:
 
 | Deliverable | Description | Direct Repository Link |
 | :--- | :--- | :--- |
-| **📑 Concept & Tools** | فكرة المشروع، المشكلة، الحل، الجمهور المستهدف، وحزمة التقنيات بالتفصيل | **[CONCEPT_AND_TOOLS.md](CONCEPT_AND_TOOLS.md)** |
-| **📋 Requirements (SRS)** | توثيق متطلبات المشروع الوظيفية وغير الوظيفية ومصفوفة تتبع الـ Issues | **[docs/REQUIREMENTS.md](docs/REQUIREMENTS.md)** |
-| **📐 Software Designs & UML** | مخططات هندسة البرمجيات (Use Case, Class, State, Component, Sequence) | **[docs/DESIGNS.md](docs/DESIGNS.md)** |
-| **🎨 UI & UX Specifications** | التصاميم والـ Wireframes والـ Mockups ونظام التصميم وأكواد التوكنز | **[docs/UI_UX_DESIGN.md](docs/UI_UX_DESIGN.md)** |
-| **🔗 Figma Design File** | ملف تصاميم فيجما التفاعلي المباشر (Wireframes & High-Fidelity) | **[Figma Design File](https://www.figma.com/design/1IRQUalpMLnDSrWdByB0uW)** |
-| **🔗 FigJam Architecture Board**| لوحة فيجام التفاعلية لمخططات النظام ودورة حياة البيانات | **[FigJam Diagrams Board](https://www.figma.com/board/LZD5TcXR4hOkupzCyXfzoq)** |
-| **📊 Project Backlog Board** | لوحة متابعة المهام وتوزيع قصص المستخدم (Agile Kanban) | **[GitHub Project #5](https://github.com/users/EngMohamedElabsy/projects/5)** |
+| **📑 Concept & Tools** | Project vision, problem statement, solution, target personas & tech stack | **[CONCEPT_AND_TOOLS.md](CONCEPT_AND_TOOLS.md)** |
+| **📋 Requirements (SRS)** | Functional & Non-Functional specifications with issue traceability matrix | **[docs/requirements/REQUIREMENTS.md](docs/requirements/REQUIREMENTS.md)** |
+| **📐 Software Designs & UML** | Software architecture diagrams (Use Case, Class, State, Component, Sequence) | **[docs/designs/DESIGNS.md](docs/designs/DESIGNS.md)** |
+| **🎨 UI & UX Specifications** | Wireframe layouts, high-fidelity mockups, design tokens & visual assets | **[docs/ui-ux/UI_UX_DESIGN.md](docs/ui-ux/UI_UX_DESIGN.md)** |
+| **🔗 Figma Design File** | Live interactive Figma canvas with high-fidelity UI mockup frames | **[Figma Design File](https://www.figma.com/design/1IRQUalpMLnDSrWdByB0uW)** |
+| **🔗 FigJam Architecture Board**| Interactive FigJam whiteboarding canvas for system flows & lifecycles | **[FigJam System Board](https://www.figma.com/board/LZD5TcXR4hOkupzCyXfzoq)** |
+| **📊 Project Backlog Board** | Agile Scrum backlog tracking user story progress & milestones | **[GitHub Project #5](https://github.com/users/EngMohamedElabsy/projects/5)** |
 
 ---
 
@@ -135,9 +135,9 @@ HuntYourTrack/
 - **Department:** Computer Science (CS)
 
 ### Contributors
-- **Mohamed Yasser Elabsy (محمد ياسر العبسي)** ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) – *Project Lead & Software Architect*
-- **Hager Khaled (هاجر خالد)** ([@hager678](https://github.com/hager678)) – *Student Experience & Portal*
-- **Abdulrahman Masoud (عبد الرحمن مسعود)** ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud)) – *Employer Experience & Verification*
+- **Mohamed Yasser Elabsy** ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) – *Project Lead & Software Architect*
+- **Hager Khaled** ([@hager678](https://github.com/hager678)) – *Student Experience & Portal*
+- **Abdulrahman Masoud** ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud)) – *Employer Experience & Verification*
 
 ---
 

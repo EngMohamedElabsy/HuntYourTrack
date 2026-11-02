@@ -102,7 +102,7 @@ The interface is built strictly upon CSS custom properties defined in `frontend/
 +-------------------------------------------------------------------------+
 | CANDIDATES LIST (Filter: All v)   | CANDIDATE ATS DETAIL PANE           |
 | --------------------------------- | ----------------------------------- |
-| (94%) Mariam Hassan · Cloud Sec   | Mariam Hassan (حاسبات وذكاء اصطناعي)|
+| (94%) Mariam Hassan · Cloud Sec   | Mariam Hassan (Computing & AI)      |
 | (91%) Omar Khaled · Frontend      | Match: 94% ATS Score                |
 | (88%) Nour Ibrahim · DevOps       | Skills: [✓ AWS] [✓ Docker] [✓ Linux]|
 | (76%) Youssef Adel · Data Analyst | Gaps:   [✕ Terraform]               |
@@ -112,27 +112,18 @@ The interface is built strictly upon CSS custom properties defined in `frontend/
 
 ---
 
-## 4. High-Fidelity Screens Specification
+## 4. High-Fidelity Screens Specification & Exported Mockups
 
-1. **Product Landing Page (`frontend/index.html`):**
-   - High-impact hero section with value proposition and verified corporate badges.
-   - Interactive Track Hunter Radar Canvas rendered at 60fps.
-   - 5-Faculty roadmap tabs with discipline-specific competencies.
-   - Live opportunities catalog with countdown urgency timers (`Active`, `Closing Soon`).
-2. **Student Hub (`frontend/pages/student.html`):**
-   - Personalized session strip with welcome greeting and dynamic metrics.
-   - Drag-and-drop resume dropzone accepting Word, PDF, and Excel files.
-   - Visual milestone progression tracker.
-3. **Employer Portal (`frontend/pages/employer.html`):**
-   - Clean tabbed workspace for postings, new listing publication, and candidate review.
-   - Interactive skill picker with search and custom tag addition.
-   - Split-pane applicant review matrix with ATS matching scores.
-4. **Admin Executive Console (`frontend/pages/admin.html`):**
-   - Executive user directory with status switches.
-   - Modal dialog for partner verification and accreditation.
-5. **Authentication Portal (`frontend/pages/auth.html`):**
-   - Quick-fill persona switcher for evaluation demo (Student, Employer, Lead Admin).
-   - Multi-faculty registration dropdown with department auto-updates.
+All 6 high-fidelity mockups have been generated in retina resolution and uploaded as native visual frames onto the **[Official Figma Design Canvas](https://www.figma.com/design/1IRQUalpMLnDSrWdByB0uW)**:
+
+| # | Screen Name | Layout Spec | Exported Retina Mockup |
+| :---: | :--- | :--- | :--- |
+| **01** | **Landing Page (Desktop)** | Hero section, Track Hunter radar canvas, multi-faculty tabs | [01_Landing_Page_Desktop.png](screens/01_Landing_Page_Desktop.png) |
+| **02** | **Authentication Portal** | Sign in/up, Google auth simulation, role onboarding wizard | [02_Authentication_Portal.png](screens/02_Authentication_Portal.png) |
+| **03** | **Student Career Hub** | Dynamic student header, resume dropzone, roadmap milestones | [03_Student_Career_Hub.png](screens/03_Student_Career_Hub.png) |
+| **04** | **Employer Portal** | Publishing form, status lifecycle tabs, candidate review | [04_Employer_Opportunities_Manager.png](screens/04_Employer_Opportunities_Manager.png) |
+| **05** | **Admin Governance Console** | Accreditation queue, user directory, audit trails | [05_Admin_Governance_Console.png](screens/05_Admin_Governance_Console.png) |
+| **06** | **Mobile Responsive View** | Stacked 375px mobile experience with zero layout shift | [06_Mobile_Responsive_Experience.png](screens/06_Mobile_Responsive_Experience.png) |
 
 ---
 

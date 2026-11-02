@@ -226,10 +226,10 @@ sequenceDiagram
 
 ## 6. Diagram Artifacts Repository
 
-All source diagram scripts are version-controlled in the repository:
-- **Architecture Diagram:** [docs/diagrams/HuntYourTrack_Architecture.puml](file:///home/elabsy/HuntYourTrack/docs/diagrams/HuntYourTrack_Architecture.puml)
-- **Component Diagram:** [docs/diagrams/HuntYourTrack_ComponentDiagram.puml](file:///home/elabsy/HuntYourTrack/docs/diagrams/HuntYourTrack_ComponentDiagram.puml)
-- **Class Model (UML):** [docs/diagrams/HuntYourTrack_UML.puml](file:///home/elabsy/HuntYourTrack/docs/diagrams/HuntYourTrack_UML.puml)
-- **Entity Relationship Model (ERD):** [docs/diagrams/HuntYourTrack_ERD.puml](file:///home/elabsy/HuntYourTrack/docs/diagrams/HuntYourTrack_ERD.puml)
-- **Database Schema:** [docs/diagrams/HuntYourTrack_DataBase.puml](file:///home/elabsy/HuntYourTrack/docs/diagrams/HuntYourTrack_DataBase.puml)
-- **FigJam Online Board:** [HuntYourTrack Live FigJam](https://www.figma.com/board/LZD5TcXR4hOkupzCyXfzoq)
+All source diagram scripts and vector PDF exports are organized in this directory:
+- **Architecture Diagram:** [diagrams/HuntYourTrack_Architecture.puml](diagrams/HuntYourTrack_Architecture.puml) · [PDF Export](pdf_exports/Architecture.pdf)
+- **Component Diagram:** [diagrams/HuntYourTrack_ComponentDiagram.puml](diagrams/HuntYourTrack_ComponentDiagram.puml) · [PDF Export](pdf_exports/ComponentDiagram.pdf)
+- **Class Model (UML):** [diagrams/HuntYourTrack_UML.puml](diagrams/HuntYourTrack_UML.puml) · [PDF Export](pdf_exports/UML.pdf)
+- **Entity Relationship Model (ERD):** [diagrams/HuntYourTrack_ERD.puml](diagrams/HuntYourTrack_ERD.puml) · [PDF Export](pdf_exports/ERD.pdf)
+- **Database Schema:** [diagrams/HuntYourTrack_DataBase.puml](diagrams/HuntYourTrack_DataBase.puml) · [PDF Export](pdf_exports/DataBase.pdf)
+- **FigJam Interactive Whiteboard:** [HuntYourTrack Live FigJam Board](https://www.figma.com/board/LZD5TcXR4hOkupzCyXfzoq)
