@@ -2,7 +2,7 @@
 
 **Project:** HuntYourTrack (Graduation Project 2026)
 **Institution:** Faculty of Computers & Information, Damanhour University (CS Department)
-**Generated At:** `2026-11-02 11:55:53 UTC`
+**Generated At:** `2026-11-02 11:56:17 UTC`
 **Sprint Deadline:** **Sunday, November 1, 2026**
 
 ---
@@ -11,10 +11,10 @@
 
 | Total User Stories | Completed (Done) | In Progress (`toprogram`) | Pending (`Todo`) | Overall Sprint Completion |
 | :---: | :---: | :---: | :---: | :---: |
-| **20** | 🟢 **16** | 🔵 **1** | ⚪ **3** | **80%** |
+| **20** | 🟢 **15** | 🔵 **1** | ⚪ **4** | **75%** |
 
 ```
-Sprint Completion Velocity: [████████████████░░░░] 80%
+Sprint Completion Velocity: [███████████████░░░░░] 75%
 ```
 
 ---
@@ -24,12 +24,12 @@ Sprint Completion Velocity: [████████████████░
 ### 👤 Mohamed Yasser Elabsy (@EngMohamedElabsy)
 - **Role:** `Lead Architect & Core/Admin`
 - **Assigned Stories:** **14** Issues
-- **Completion Status:** 🟢 **12 Done** (86%) · 🔵 **0 In Progress** · ⚪ **2 Todo**
+- **Completion Status:** 🟢 **11 Done** (79%) · 🔵 **0 In Progress** · ⚪ **3 Todo**
 - **Engineering Badge:** 🚀 Early Achiever (Ahead of Schedule)
 
 | Issue # | Story Title | State | Deadline | Time Limit Alert | Verified |
 | :---: | :--- | :---: | :---: | :---: | :---: |
-| **#65** | US20: Comprehensive Opportunity Organization, Deadlines & Publishing Lifecycle | 🟢 Done | Nov 1, 2026 | 🟢 Delivered on Time | ✅ Fully Verified |
+| **#65** | US20: Comprehensive Opportunity Organization, Deadlines & Publishing Lifecycle | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
 | **#64** | US19: Interactive Role-Based Onboarding & Intelligent Resume Keyword Parser | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
 | **#63** | US18: Universal Multi-Faculty Roadmaps & Production SaaS Sanitization | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
 | **#61** | US17: Architectural Overhaul: Unified Single-Portal Experience, Dynamic Multi-Role Journeys & Custom Hunter Visual Identity | 🟢 Done | Nov 1, 2026 | 🟢 Delivered on Time | ✅ Fully Verified |
