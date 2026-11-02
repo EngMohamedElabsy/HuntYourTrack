@@ -119,6 +119,24 @@ Tasks in **[HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com
     ```
   - Resolve any merge conflicts cleanly, run the full test suite (`npm test`), verify the live server (`http://localhost:8080`), and only merge to `main` when all checks pass with 100% compliance.
   - Never use destructive force pushes (`--force`) to `main`.
+- **Mandatory Post-Merge Branch Deletion Protocol (Zero Stale Branches):**
+  - Immediately upon merging any Pull Request into `main`, the feature branch MUST be deleted both locally and on the remote repository:
+    ```bash
+    git checkout main
+    git pull origin main
+    git branch -d feature/<branch-name>
+    git push origin --delete feature/<branch-name>
+    ```
+  - `main` is the single source of truth for the entire team. No orphan, merged, or unassigned feature branches may remain lingering on GitHub or locally, preventing branch proliferation and merge confusion.
+
+---
+
+### 3.4. Arabic Input Processing & Systematic Task Decomposition
+When the project lead or any teammate communicates in Arabic with detailed or multi-faceted instructions:
+1. **Semantic Deconstruction:** Break down the Arabic input systematically into distinct, concrete engineering goals (UI/UX, bug triage, i18n, Git hygiene, testing).
+2. **Contextual Alignment:** Cross-reference goals with `CLAUDE.md` constitutional guidelines and existing user stories.
+3. **Skill Activation:** Proactively activate the required design and engineering skills (`ui-ux-pro-max`, `frontend-design`, `diagram`, `test-audit`).
+4. **Structured Planning & Visual Diagrams:** Formulate an explicit technical implementation plan utilizing Mermaid flowcharts and system diagrams to clearly communicate architecture and state transitions.
 
 ---
 

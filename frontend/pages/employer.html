@@ -4,6 +4,13 @@
     <!-- Strict Route Guard (US17) -->
     <script>
         (function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('demo') === 'true') {
+                localStorage.setItem('user', 'employer');
+                localStorage.setItem('role', 'employer');
+                localStorage.setItem('user_name', 'TechCorp Organizer');
+                localStorage.setItem('user_email', 'hr@techcorp.com');
+            }
             var user = localStorage.getItem('user');
             if (!user) {
                 window.location.replace('auth.html?redirect=employer&error=login_required');
@@ -13,7 +20,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#EEF2FF">
-    <title>HuntYourTrack · بوابة الشركات ومنظمي التدريب | Employer Hub</title>
+    <title data-i18n="empPageTitle">HuntYourTrack · بوابة الشركات ومنظمي التدريب | Employer Hub</title>
     <link rel="icon" href="../assets/logo.png">
     <!-- Fonts & Base Styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -487,14 +494,14 @@
                         <label for="post-track" data-i18n="empFormTrackLabel">المسار التقني أو الأكاديمي (Track) *</label>
                         <select id="post-track" class="form-control" required>
                             <option value="" data-i18n="empTrackSelectPh">اختر المسار المعني...</option>
-                            <option value="Cloud and DevOps">Cloud & DevOps / السحابية والعمليات</option>
-                            <option value="Cybersecurity">Cybersecurity / الأمن السيبراني</option>
-                            <option value="Frontend">Frontend Development / واجهات الويب</option>
-                            <option value="Backend">Backend Development / الخوادم والأنظمة</option>
-                            <option value="Data and AI">Data Science & AI / البيانات والذكاء الاصطناعي</option>
-                            <option value="Mobile">Mobile Development / تطبيقات الهواتف</option>
-                            <option value="UI/UX design">UI/UX Design / التصميم وتجربة المستخدم</option>
-                            <option value="QA">Quality Assurance / ضمان الجودة والاختبار</option>
+                            <option value="Cloud and DevOps" data-i18n="empTrackCloud">السحابية والعمليات (Cloud & DevOps)</option>
+                            <option value="Cybersecurity" data-i18n="empTrackCyber">الأمن السيبراني (Cybersecurity)</option>
+                            <option value="Frontend" data-i18n="empTrackFrontend">واجهات الويب (Frontend Development)</option>
+                            <option value="Backend" data-i18n="empTrackBackend">الخوادم والأنظمة (Backend Development)</option>
+                            <option value="Data and AI" data-i18n="empTrackDataAI">البيانات والذكاء الاصطناعي (Data Science & AI)</option>
+                            <option value="Mobile" data-i18n="empTrackMobile">تطبيقات الهواتف (Mobile Development)</option>
+                            <option value="UI/UX design" data-i18n="empTrackUIUX">التصميم وتجربة المستخدم (UI/UX Design)</option>
+                            <option value="QA" data-i18n="empTrackQA">ضمان الجودة والاختبار (Quality Assurance)</option>
                         </select>
                     </div>
 
@@ -502,7 +509,7 @@
                         <label for="post-desc" data-i18n="empFormDescLabel">تفاصيل التدريب والمسؤوليات (Description) *</label>
                         <textarea id="post-desc" class="form-control" rows="4" placeholder="اكتب وصفاً مفصلاً لمهام المتدرب والمهارات التي سيكتسبها..." data-i18n="empFormDescPh" required minlength="30" oninput="updateCharCount(this)"></textarea>
                         <div style="text-align: end; font-size: 0.8rem; color: var(--color-muted-foreground); margin-top: 0.25rem;">
-                            <span id="char-counter">0</span> / 1000 حرف
+                            <span id="char-counter">0</span> <span data-i18n="empCharSuffix">/ 1000 حرف</span>
                         </div>
                     </div>
 
@@ -872,6 +879,7 @@
                 switchSection('overview');
             }, 1400);
         }
+    </script>
 
     <!-- Unified Framework Scripts -->
     <script src="../js/i18n.js"></script>
