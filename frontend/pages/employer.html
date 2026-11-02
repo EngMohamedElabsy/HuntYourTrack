@@ -551,13 +551,13 @@
                         </p>
                     </div>
                     <div style="display: flex; gap: 0.5rem; align-items: center;">
-                        <label for="filter-status-select" style="font-size: 0.85rem; font-weight: 600;">تصفية بحسب الحالة:</label>
+                        <label for="filter-status-select" style="font-size: 0.85rem; font-weight: 600;">Filter by Status:</label>
                         <select id="filter-status-select" class="form-control" style="width: auto; padding: 0.4rem 0.75rem;" onchange="renderApplicants()">
-                            <option value="all">كافة الحالات</option>
-                            <option value="New">جديد (New)</option>
-                            <option value="Shortlisted">في القائمة القصيرة (Shortlisted)</option>
-                            <option value="Accepted">مقبول (Accepted)</option>
-                            <option value="Rejected">مرفوض (Rejected)</option>
+                            <option value="all">All Statuses</option>
+                            <option value="New">New</option>
+                            <option value="Shortlisted">Shortlisted</option>
+                            <option value="Accepted">Accepted</option>
+                            <option value="Rejected">Rejected</option>
                         </select>
                     </div>
                 </div>
@@ -589,11 +589,11 @@
         ];
 
         let applicants = [
-            { id: 101, name: "Mariam Hassan", post: 1, match: 94, status: "New", faculty: "حاسبات وذكاء اصطناعي", major: "أمن سيبراني", skills: ["Linux", "AWS", "Docker", "Python"], missing: ["Terraform"], experience: "مشروع تخرج في أمن الحوسبة السحابية ومحللة بيانات متدربة" },
-            { id: 102, name: "Omar Khaled", post: 2, match: 91, status: "New", faculty: "حاسبات وذكاء اصطناعي", major: "علوم حاسب", skills: ["React", "JavaScript", "HTML5", "CSS3"], missing: ["TypeScript"], experience: "تطوير واجهات مستخدم تفاعلية لمشاريع جامعية متعددة" },
-            { id: 103, name: "Nour Ibrahim", post: 1, match: 88, status: "New", faculty: "هندسة", major: "اتصالات وحاسبات", skills: ["Networking", "Linux", "Git"], missing: ["AWS"], experience: "شهادة CCNA ومشاريع شبكات معملية" },
-            { id: 104, name: "Youssef Adel", post: 3, match: 76, status: "Shortlisted", faculty: "تجارة", major: "نظم معلومات", skills: ["SQL", "Excel", "PowerBI"], missing: ["Python"], experience: "تحليل قوائم مالية وإعداد لوحات تحكم تفاعلية" },
-            { id: 105, name: "Salma Tarek", post: 2, match: 69, status: "Reviewing", faculty: "حاسبات وذكاء اصطناعي", major: "تكنولوجيا معلومات", skills: ["HTML5", "CSS3"], missing: ["React", "Git"], experience: "مطور مبتدئ للواجهات الأمامية" }
+            { id: 101, name: "Mariam Hassan", post: 1, match: 94, status: "New", faculty: "Computing & AI", major: "Cybersecurity", skills: ["Linux", "AWS", "Docker", "Python"], missing: ["Terraform"], experience: "Graduation project in cloud security architecture and trainee security analyst" },
+            { id: 102, name: "Omar Khaled", post: 2, match: 91, status: "New", faculty: "Computing & AI", major: "Computer Science", skills: ["React", "JavaScript", "HTML5", "CSS3"], missing: ["TypeScript"], experience: "Built modular interactive frontend interfaces across multiple university projects" },
+            { id: 103, name: "Nour Ibrahim", post: 1, match: 88, status: "New", faculty: "Engineering", major: "Communications & Electronics", skills: ["Networking", "Linux", "Git"], missing: ["AWS"], experience: "CCNA certified with hands-on lab networking configuration experience" },
+            { id: 104, name: "Youssef Adel", post: 3, match: 76, status: "Shortlisted", faculty: "Business & Commerce", major: "Information Systems", skills: ["SQL", "Excel", "PowerBI"], missing: ["Python"], experience: "Financial statement modeling and executive dashboard reporting" },
+            { id: 105, name: "Salma Tarek", post: 2, match: 69, status: "Reviewing", faculty: "Computing & AI", major: "Information Technology", skills: ["HTML5", "CSS3"], missing: ["React", "Git"], experience: "Junior web developer with responsive design portfolio" }
         ];
 
         let selectedCandidateId = 101;
@@ -647,14 +647,14 @@
                     <div>
                         <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">${p.title}</h4>
                         <div>
-                            <span class="tag-pill ${p.paid ? 'paid' : 'free'}">${p.paid ? 'مدفوع (Paid)' : 'مجاني (Free)'}</span>
+                            <span class="tag-pill ${p.paid ? 'paid' : 'free'}">${p.paid ? 'Paid' : 'Free'}</span>
                             <span class="tag-pill">${p.track}</span>
-                            ${!p.open ? '<span class="tag-pill" style="background: rgba(239,68,68,0.15); color: #EF4444;">مغلق</span>' : ''}
+                            ${!p.open ? '<span class="tag-pill" style="background: rgba(239,68,68,0.15); color: #EF4444;">Closed</span>' : ''}
                         </div>
                     </div>
                     <div style="text-align: end;">
                         <b style="font-size: 1.35rem; color: var(--color-primary);">${p.apps}</b>
-                        <div style="font-size: 0.78rem; color: var(--color-muted-foreground);">متقدم</div>
+                        <div style="font-size: 0.78rem; color: var(--color-muted-foreground);">Applicants</div>
                     </div>
                 </div>
             `).join('');
@@ -665,10 +665,10 @@
                     <div class="match-circle match-high">${a.match}%</div>
                     <div style="flex: 1;">
                         <b>${a.name}</b>
-                        <div style="font-size: 0.8rem; color: var(--color-muted-foreground);">متقدم لتدريب رقم #${a.post}</div>
+                        <div style="font-size: 0.8rem; color: var(--color-muted-foreground);">Applied for #${a.post}</div>
                     </div>
                     <button type="button" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.78rem;" onclick="openApplicantDetail(${a.id})">
-                        مراجعة
+                        Review
                     </button>
                 </div>
             `).join('');
@@ -683,14 +683,14 @@
             const filtered = applicants.filter(a => filter === 'all' || a.status === filter);
 
             if (!filtered.length) {
-                container.innerHTML = '<p style="padding: 1.5rem; text-align: center; color: var(--color-muted-foreground);">لا توجد طلبات تقديم مطابقة للمحددات.</p>';
+                container.innerHTML = '<p style="padding: 1.5rem; text-align: center; color: var(--color-muted-foreground);">No applications matching filter criteria.</p>';
                 return;
             }
 
             container.innerHTML = filtered.map(a => {
                 const matchClass = a.match >= 85 ? 'match-high' : (a.match >= 70 ? 'match-mid' : 'match-low');
                 const isSelected = a.id === selectedCandidateId;
-                const post = posts.find(p => p.id === a.post) || { title: 'تدريب رقم #' + a.post };
+                const post = posts.find(p => p.id === a.post) || { title: 'Posting #' + a.post };
                 return `
                     <div class="applicant-item ${isSelected ? 'selected' : ''}" onclick="selectCandidate(${a.id})">
                         <div class="match-circle ${matchClass}">${a.match}%</div>
@@ -733,11 +733,11 @@
             const posts = getPosts();
 
             if (!cand) {
-                pane.innerHTML = '<p style="color: var(--color-muted-foreground);">اختر مرشحاً لعرض تفاصيل ملفه.</p>';
+                pane.innerHTML = '<p style="color: var(--color-muted-foreground);">Select a candidate to review full profile details.</p>';
                 return;
             }
 
-            const post = posts.find(p => p.id === cand.post) || { title: 'تدريب متخصص' };
+            const post = posts.find(p => p.id === cand.post) || { title: 'Specialized Internship' };
             const matchClass = cand.match >= 85 ? 'match-high' : (cand.match >= 70 ? 'match-mid' : 'match-low');
 
             pane.innerHTML = `
@@ -745,40 +745,40 @@
                     <div>
                         <h3 style="font-size: 1.35rem; margin-bottom: 0.25rem;">${cand.name}</h3>
                         <p style="color: var(--color-muted-foreground); font-size: 0.88rem;">${cand.faculty} · ${cand.major}</p>
-                        <div style="margin-top: 0.35rem; font-size: 0.85rem;">التقديم على: <b>${post.title}</b></div>
+                        <div style="margin-top: 0.35rem; font-size: 0.85rem;">Applied for: <b>${post.title}</b></div>
                     </div>
                     <div style="text-align: end;">
                         <div class="match-circle ${matchClass}" style="width: 56px; height: 56px; font-size: 1.15rem; margin-inline-start: auto;">${cand.match}%</div>
-                        <span style="font-size: 0.75rem; color: var(--color-muted-foreground);">تطابق الـ ATS</span>
+                        <span style="font-size: 0.75rem; color: var(--color-muted-foreground);">ATS Match</span>
                     </div>
                 </div>
 
                 <div style="background: var(--color-card); border-radius: 12px; padding: 1rem; border: 1px solid var(--color-border); margin-bottom: 1rem;">
-                    <h4 style="font-size: 0.92rem; margin-bottom: 0.5rem;">المهارات المتطابقة (Matching Skills):</h4>
+                    <h4 style="font-size: 0.92rem; margin-bottom: 0.5rem;">Matching Skills:</h4>
                     <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem;">
                         ${cand.skills.map(s => `<span class="tag-pill" style="background: rgba(22, 163, 74, 0.15); color: #16A34A;">✓ ${s}</span>`).join('')}
                     </div>
-                    <h4 style="font-size: 0.92rem; margin-bottom: 0.5rem;">الفجوات المهارية (Skill Gaps):</h4>
+                    <h4 style="font-size: 0.92rem; margin-bottom: 0.5rem;">Skill Gaps:</h4>
                     <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
                         ${cand.missing.map(m => `<span class="tag-pill" style="background: rgba(239, 68, 68, 0.12); color: #DC2626;">✕ ${m}</span>`).join('')}
                     </div>
                 </div>
 
                 <div style="background: var(--color-card); border-radius: 12px; padding: 1rem; border: 1px solid var(--color-border); margin-bottom: 1.25rem;">
-                    <h4 style="font-size: 0.92rem; margin-bottom: 0.35rem;">الملخص الأكاديمي والخبرات:</h4>
+                    <h4 style="font-size: 0.92rem; margin-bottom: 0.35rem;">Academic Summary & Background:</h4>
                     <p style="font-size: 0.88rem; color: var(--color-foreground); line-height: 1.5;">${cand.experience}</p>
                 </div>
 
                 <!-- Action Buttons -->
                 <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
                     <button type="button" class="btn" style="background: #16A34A; color: #FFF; border: none; padding: 0.6rem 1.25rem; font-weight: 700;" onclick="setApplicantStatus(${cand.id}, 'Accepted')">
-                        ✓ قبول المترشح (Accept)
+                        ✓ Accept Candidate
                     </button>
                     <button type="button" class="btn btn-primary" style="padding: 0.6rem 1.25rem;" onclick="setApplicantStatus(${cand.id}, 'Shortlisted')">
-                        ★ القائمة القصيرة (Shortlist)
+                        ★ Shortlist
                     </button>
                     <button type="button" class="btn" style="background: #EF4444; color: #FFF; border: none; padding: 0.6rem 1.25rem;" onclick="setApplicantStatus(${cand.id}, 'Rejected')">
-                        ✕ رفض (Reject)
+                        ✕ Reject
                     </button>
                 </div>
             `;

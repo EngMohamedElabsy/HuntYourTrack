@@ -124,8 +124,8 @@ function selectJuryPersona(persona) {
         localStorage.setItem('role', 'student');
         localStorage.setItem('user_email', 'hager@damanhour.edu.eg');
         localStorage.setItem('user_name', 'Hager Khaled');
-        localStorage.setItem('faculty', 'كلية الحاسبات والذكاء الاصطناعي');
-        localStorage.setItem('department', 'علوم الحاسب (CS)');
+        localStorage.setItem('faculty', 'Faculty of Computers & Artificial Intelligence');
+        localStorage.setItem('department', 'Computer Science (CS)');
         showToast(isArabic ? 'تم تفعيل حساب الطالب الأكاديمي (Student) 🎓' : 'Student session activated 🎓', 'success');
         setTimeout(() => { window.location.href = 'student.html'; }, 800);
     }
@@ -157,8 +157,8 @@ function handleLoginSubmit(e) {
         localStorage.setItem('role', 'student');
         localStorage.setItem('user_email', email);
         localStorage.setItem('user_name', email.split('@')[0]);
-        localStorage.setItem('faculty', 'كلية الحاسبات والذكاء الاصطناعي');
-        localStorage.setItem('department', 'علوم الحاسب (CS)');
+        localStorage.setItem('faculty', 'Faculty of Computers & Artificial Intelligence');
+        localStorage.setItem('department', 'Computer Science (CS)');
         showToast(isArabic ? 'تم تسجيل الدخول بنجاح! جاري توجيهك لخارطة طريقك 🎓' : 'Signed in! Redirecting to Student Hub 🎓', 'success');
         setTimeout(() => { window.location.href = 'student.html'; }, 800);
     }

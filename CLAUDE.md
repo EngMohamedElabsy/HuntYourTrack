@@ -34,11 +34,11 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 
 ## 3. Team Governance & Backlog Tracking
 
-### 3.1. Official Team Identity & AI Session Bootstrap (هوية أعضاء الفريق والاتصال بـ GitHub)
+### 3.1. Official Team Identity & AI Session Bootstrap
 
 Whenever Claude, Codex, Cursor, or any AI assistant starts a session in this repository, it MUST execute this bootstrap procedure:
 
-#### 👥 Official Team Developer Identity Registry (حسابات GitHub المعتمدة للمطورين)
+#### 👥 Official Team Developer Identity Registry
 > ⚠️ **Strict Separation Directive:** The credentials below are **strictly for Claude and AI tools** to identify which engineer is running the CLI (`gh auth status`, `git config user.email`) and match them with their GitHub Issues on Project #5. **Never confuse or mix these developer identities with frontend web prototype mock data or website personas.**
 
 - 👨‍💻 **Mohamed Yasser Elabsy (Lead Architect & Software Engineering Lead):**
@@ -56,7 +56,7 @@ Whenever Claude, Codex, Cursor, or any AI assistant starts a session in this rep
   - **GitHub Account ID:** `122886968` (`122886968+abdulrhman-masoud@users.noreply.github.com`)
   - **Engineering Scope:** Employer Workspace, Opportunity Posting Forms & Lifecycle, Applicant Review System.
 
-#### 🔌 Mandatory GitHub Connection & Auth Verification (التحقق الإلزامي من حساب المطور)
+#### 🔌 Mandatory GitHub Connection & Auth Verification
 Before executing any task, writing code, or running commands, Claude / Codex / Cursor MUST verify the engineer's active GitHub session:
 ```bash
 gh auth status
@@ -77,7 +77,7 @@ gh auth status
 3. **Session Alignment:**
    - Once authenticated, Claude addresses the developer by their name and scope, strictly aligning all instructions, branch names, and PR assignments to their assigned user stories.
 
-#### 📋 Automated Personal Issue Discovery ("إيه الإيشوز اللي عليّ؟")
+#### 📋 Automated Personal Issue Discovery
 When any teammate asks *"What are my assigned issues?"* or *"What should I work on?"*:
 The AI MUST query GitHub live:
 ```bash
@@ -85,21 +85,21 @@ gh issue list --assignee <current_user_login> --state open
 gh project item-list 5 --owner EngMohamedElabsy
 ```
 - The AI presents the list of open issues clearly with their issue number, title, and current column (`Todo` or `toprogram`).
-- The AI guides the engineer to select and solve **EXACTLY ONE issue at a time (`واحدة بواحدة`)**.
+- The AI guides the engineer to select and solve **EXACTLY ONE issue at a time**.
 
 ---
 
 ### 3.2. Project Board Status Lifecycle
 Tasks in **[HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com/users/EngMohamedElabsy/projects/5)** transition through 3 canonical states:
-- `Todo`: المهام المجدولة والمعلقة في انتظار بدء العمل عليها.
-- `toprogram` / `In Progress`: المهام الجاري برمجتها وتطويرها الآن على فرعها المستقل (`feature/usXX-...`).
-- `Done`: المهام المنجزة بالكامل والتي اجتازت اختبارات الـ E2E Audit بنسبة 100% وتم دمج الـ PR الخاص بها في `main`.
+- `Todo`: Scheduled tasks pending commencement.
+- `toprogram` / `In Progress`: Tasks actively being developed on their dedicated feature branch (`feature/usXX-...`).
+- `Done`: Fully completed tasks that have passed 100% of E2E audits and whose PRs have merged into `main`.
 
 ---
 
-### 3.3. Mandatory Branching & Atomic Pull Request (PR) Workflow (قاعدة الـ PR المستقل لكل إيشو لمنع التداخل وحماية الكود)
+### 3.3. Mandatory Branching & Atomic Pull Request (PR) Workflow
 - **Strict Atomic Rule (1 Issue = 1 Dedicated Branch & 1 PR):**
-  Never bundle multiple user stories or tasks into a single branch or PR. All tasks and issues MUST be solved strictly **one by one** (`واحدة بواحدة`). Every issue gets its own branch and its own dedicated PR to eliminate merge collisions between teammates, keep reviews isolated, and allow clean rollbacks.
+  Never bundle multiple user stories or tasks into a single branch or PR. All tasks and issues MUST be solved strictly **one by one**. Every issue gets its own branch and its own dedicated PR to eliminate merge collisions between teammates, keep reviews isolated, and allow clean rollbacks.
 - **No Direct Commits to `main` for Features:**
   To guarantee that work does not collide, overwrite, or drift between teammates, **every engineer (including Mohamed @EngMohamedElabsy, Hager @hager678, and Abdulrahman @abdulrhman-masoud)** MUST create an isolated branch before beginning work on any feature or user story:
   ```bash
@@ -122,7 +122,7 @@ Tasks in **[HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com
 
 ---
 
-### 3.4. Issue Handover & Takeover Protocol (بروتوكول تفويض واستلام مهام الزملاء)
+### 3.4. Issue Handover & Takeover Protocol
 - **Mandatory English Comment on GitHub Issue:**
   If any team member (or assistant) needs to take over an issue originally assigned to a teammate (e.g., to assist with the sprint deadline), they MUST post a formal comment on that specific issue in clear professional English before taking any action:
   ```markdown
@@ -139,7 +139,7 @@ Tasks in **[HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com
 
 ---
 
-### 3.5. Automated CI/CD, Deadline Tracking & Scorecard Table (إدارة المواعيد وبوت الـ GitHub Actions)
+### 3.5. Automated CI/CD, Deadline Tracking & Scorecard Table
 - **Deadline Field on GitHub Project #5:** Every issue must have a tracked delivery date configured in the custom `Deadline` field of Project #5 and linked to the active milestone.
 - **Automated Scorecard & Velocity Table (`npm run metrics`):**
   - The script `scripts/generate-team-metrics.js` fetches live issue statuses from GitHub and updates `docs/TEAM_METRICS.md`.
@@ -151,16 +151,16 @@ Tasks in **[HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com
 
 ---
 
-### 3.6. Claude's 6-Phase Systematic Engineering Workflow (خريطة التفكير وحل أي Task / Issue)
+### 3.6. Claude's 6-Phase Systematic Engineering Workflow
 
 Before writing any code or tackling any issue, Claude and any AI assistant MUST structure thinking as a methodical plan across these 6 sequential phases:
 
-#### 🗺️ Phase 1: Architecture & File Mapping (الخطة وهنعمل إيه؟ وهنستخدم فايلات إيه؟ ونكتب كود إيه؟)
+#### 🗺️ Phase 1: Architecture & File Mapping
 - **Problem Analysis:** Clearly define the objective, requirements, and edge cases from `gh issue view <issue_number>`.
 - **Target File Map:** Specify the exact files to be created, modified, or deleted (`frontend/index.html`, `frontend/js/...`, `frontend/css/...`, `tests/...`).
 - **Code & Logic Specification:** Outline the specific functions, DOM structures, state models, or CSS classes that will be introduced before typing code.
 
-#### 🧰 Phase 2: Skills & Tooling Selection (هنستخدم Skills وإيه الأدوات والـ Plugins اللي هتساعدنا؟)
+#### 🧰 Phase 2: Skills & Tooling Selection
 - **Mandatory Base Skill — `graphify` (Token Saving & Dependency Mapping):**
   - Claude MUST run `graphify` (e.g. `graphify path <A> <B>` or `graphify explain <Node>`) to inspect the AST coupling and file dependencies.
   - *Why?* This prevents loading huge entire files into prompt context, saves tokens from being wasted, and guarantees structural integrity without hallucinations.
@@ -170,23 +170,23 @@ Before writing any code or tackling any issue, Claude and any AI assistant MUST 
   - **If Automation & QA:** `test-audit` and `playwright-cli` for E2E browser assertions.
   - **If Architecture & Docs:** `diagram` (Mermaid), `document-generate`, and `make-pdf`.
 
-#### ⚙️ Phase 3: Step-by-Step Isolated Execution (تنفيذ الخطوات Step by Step)
+#### ⚙️ Phase 3: Step-by-Step Isolated Execution
 - Create an isolated feature branch (`git checkout -b feature/usXX-<feature-name>`).
 - Open an immediate draft/tracking PR against `main` (`gh pr create`).
 - Implement the planned logic incrementally, one cohesive unit at a time, keeping code clean, modular, and in professional English.
 
-#### 🐛 Phase 4: Problem Solving & Bug Triage (حل المشاكل وإصلاح الأخطاء)
+#### 🐛 Phase 4: Problem Solving & Bug Triage
 - Execute `npm test` locally to catch any regression.
 - Inspect browser console logs, DOM mismatches, and responsive overflow.
 - Resolve all identified bugs systematically before moving forward.
 
-#### 🔒 Phase 5: Security & Privacy Audit (فحص الأمان والخصوصية وحماية البيانات)
+#### 🔒 Phase 5: Security & Privacy Audit
 - **Zero Academic/Personal Names:** Verify that no real student/instructor names, emails, or personal data leak into user-facing HTML.
 - **Route Guard Integrity (RBAC):** Confirm client-side authentication guards execute in `<head>` before DOM render.
 - **Data Sanitization:** Ensure inputs are sanitized against XSS and sessions in `localStorage` cannot be hijacked.
 - **Zero Secrets:** Confirm no private API tokens, `.env` values, or credentials are tracked in Git.
 
-#### 🎯 Phase 6: Verification, PR Merge, & Issue Closure (التحقق والدمج والإغلاق الكامل)
+#### 🎯 Phase 6: Verification, PR Merge, & Issue Closure
 - **Checklist Audit:** Verify that 100% of the acceptance criteria defined in the issue are met.
 - **E2E Test Compliance:** Ensure all 5 audit test suites pass locally with 0 failures:
   1. 100% Bilingual i18n without text leakage or mixed languages.
@@ -274,7 +274,7 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
 
 ---
 
-## 7. Living Constitution & Continuous Learning Directive (عقل متطور وذاكرة مستمرة)
+## 7. Living Constitution & Continuous Learning Directive
 
 - **Mandatory Session Initialization:** At the start of every session or task, Claude MUST read `CLAUDE.md` and inspect `.global_skills/` to ground all decisions in the project's living rules.
 - **Strict 6-Phase Pipeline Adherence:** Claude must execute every single task through the 6-phase engineering workflow defined in Section 3 without skipping steps.
@@ -284,7 +284,7 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
 
 ---
 
-## 8. Continuous Project Ledger & Active Changelog (سجل التحديثات الحية وموقف المشروع)
+## 8. Continuous Project Ledger & Active Changelog
 
 > **Directive for Claude:** When closing any task or merging any PR, append an entry to this ledger with the timestamp, files touched, deliverables verified, and next priority so any new chat session immediately inherits 100% of the project's context.
 
