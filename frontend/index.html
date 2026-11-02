@@ -86,6 +86,10 @@
             <p class="hero-description" data-i18n="heroDesc">
                 المنصة الذكية الأولى في جامعة دمنهور لرسم خريطة طريق مهنية مخصصة لكل طالب في مختلف الكليات (حاسبات، هندسة، تجارة، حقوق)، مع ربط مباشر بفرص التدريب الصيفي والكورسات المعتمدة وإشراف أكاديمي معتمد.
             </p>
+            <div class="hero-typewriter-box">
+                <span class="typewriter-icon">✨</span>
+                <span id="hyt-typewriter"></span><span class="typewriter-cursor">|</span>
+            </div>
             <div class="hero-actions">
                 <a href="#tracks" class="btn btn-primary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnExplore">
                     🎯 استكشف المسارات
@@ -127,6 +131,21 @@
                 <p class="section-subtitle" data-i18n="hunterSub">
                     حرّك مؤشر الماوس لاكتشاف العقد المهنية ونسج شبكة مهاراتك المتكاملة وتتبع مسارك حتى الاحتراف.
                 </p>
+            </div>
+
+            <!-- Interactive Faculty Dock & Real-time Hunter Filter -->
+            <div class="hunter-controls-bar">
+                <div class="hero-faculty-dock" role="toolbar" aria-label="Faculty filter dock">
+                    <button class="dock-pill active" onclick="setHunterFaculty('all', this)" data-faculty="all" data-i18n="dockAll">🌐 كافة الكليات</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('computing', this)" data-faculty="computing" data-i18n="dockComputing">💻 الحاسبات والذكاء الاصطناعي</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('engineering', this)" data-faculty="engineering" data-i18n="dockEngineering">⚙️ الهندسة والتكنولوجيا</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('science', this)" data-faculty="science" data-i18n="dockScience">🔬 العلوم الأساسية</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('business', this)" data-faculty="business" data-i18n="dockBusiness">📊 التجارة وإدارة الأعمال</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('law', this)" data-faculty="law" data-i18n="dockLaw">⚖️ الحقوق والتشريعات الرقمية</button>
+                </div>
+                <div class="hunter-search-box">
+                    <input type="text" id="hunter-quick-search" placeholder="ابحث عن مسار لاصطياده (AI, Mechatronics, FinTech...)" oninput="handleHunterSearch(this.value)" data-i18n="hunterSearchPh" />
+                </div>
             </div>
 
             <div class="hunter-canvas-wrapper">
@@ -536,7 +555,21 @@
             closePublishOpportunityModal();
             showToast('تم اعتماد ونشر الفرصة بنجاح في المنصة الموحدة! 🚀', 'success');
         }
-        window.handlePublishOpportunitySubmit = handlePublishOpportunitySubmit;
+        function setHunterFaculty(faculty, btn) {
+            document.querySelectorAll('.dock-pill').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            if (window.hytHunter) {
+                window.hytHunter.filterFaculty(faculty);
+            }
+        }
+        window.setHunterFaculty = setHunterFaculty;
+
+        function handleHunterSearch(query) {
+            if (window.hytHunter) {
+                window.hytHunter.searchTrack(query);
+            }
+        }
+        window.handleHunterSearch = handleHunterSearch;
 
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');

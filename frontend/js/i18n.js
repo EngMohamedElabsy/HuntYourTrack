@@ -46,6 +46,13 @@ const HYT_TRANSLATIONS = {
         hunterSub: "حرّك مؤشر الماوس لاكتشاف العقد المهنية ونسج شبكة مهاراتك المتكاملة وتتبع مسارك حتى الاحتراف.",
         hunterRadarStatus: "📡 مسح راداري نشط ومستمر",
         hunterPhysicsStatus: "محاكاة فيزيائية حية · 60 إطاراً في الثانية",
+        dockAll: "🌐 كافة الكليات",
+        dockComputing: "💻 الحاسبات والذكاء الاصطناعي",
+        dockEngineering: "⚙️ الهندسة والتكنولوجيا",
+        dockScience: "🔬 العلوم الأساسية",
+        dockBusiness: "📊 التجارة وإدارة الأعمال",
+        dockLaw: "⚖️ الحقوق والتشريعات الرقمية",
+        hunterSearchPh: "ابحث عن مسار لاصطياده (AI, Mechatronics, FinTech...)",
 
         // Opportunities Catalog Section
         oppBadge: "الشراكات المعتمدة",
@@ -315,6 +322,13 @@ const HYT_TRANSLATIONS = {
         hunterSub: "Move your cursor to discover competency nodes, lock onto targets, and weave your connected skill constellation.",
         hunterRadarStatus: "📡 Continuous Radar Sweep Active",
         hunterPhysicsStatus: "Live Physics Simulation · 60 FPS",
+        dockAll: "🌐 All Disciplines",
+        dockComputing: "💻 Computing & AI",
+        dockEngineering: "⚙️ Engineering & Tech",
+        dockScience: "🔬 Pure & Applied Sciences",
+        dockBusiness: "📊 Business & FinTech",
+        dockLaw: "⚖️ Cyber Law & Regulations",
+        hunterSearchPh: "Search a career track to hook (AI, Cloud, Mechatronics...)",
 
         // Opportunities Catalog Section
         oppBadge: "Accredited Partnerships",
