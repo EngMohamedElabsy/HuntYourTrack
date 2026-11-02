@@ -44,8 +44,8 @@
 
                 <!-- Unified Theme & Appearance Dropdown -->
                 <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
-                    <button id="hyt-theme-btn" class="nav-util-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
-                        <span id="theme-btn-icon">🌓</span> <span style="font-size: 0.8rem; margin-inline-start: 4px;" data-i18n="themeDropdownLabel">المظهر</span>
+                    <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
+                        <span id="theme-btn-icon">🌓</span>
                     </button>
                     <div class="theme-dropdown-menu" id="theme-dropdown-menu">
                         <div class="theme-menu-header" data-i18n="themeModesHeader">نمط الإضاءة</div>
@@ -728,18 +728,23 @@
                     roleBadge = isEn ? 'Partner' : 'شريك';
                 }
 
+                let displayName = roleBadge;
+                if (storedName && !['Student Account', 'المستخدم', 'طالب أكاديمي', 'Academic Student'].includes(storedName)) {
+                    displayName = storedName.split(' ')[0];
+                }
+
                 const signOutLabel = isEn ? 'Sign Out 🚪' : 'خروج 🚪';
                 const sessionHtml = `
                     <div class="user-profile-menu-wrapper" id="user-profile-menu-wrapper">
                         <button class="nav-user-pill" type="button" onclick="toggleUserDropdown(event)" aria-label="User Menu">
                             <span class="user-avatar-circle">👤</span>
-                            <span class="user-name-text">${userName}</span>
-                            <span class="user-role-badge">${roleBadge}</span>
+                            <span class="user-name-text">${displayName}</span>
                             <span class="dropdown-caret">▾</span>
                         </button>
                         <div class="user-menu-dropdown" id="user-menu-dropdown">
                             <div class="user-dropdown-header">
                                 <strong>${userName}</strong>
+                                <span class="user-role-badge">${roleBadge}</span>
                                 <small>${userEmail || ''}</small>
                             </div>
                             <a href="${portalTarget}" class="user-dropdown-item">${portalLabel}</a>
@@ -756,8 +761,8 @@
                 if (navActions) navActions.innerHTML = sessionHtml;
                 if (mobileAuthActions) mobileAuthActions.innerHTML = mobileSessionHtml;
             } else {
-                const guestHtml = `<a href="pages/auth.html" class="btn btn-primary" style="padding: 0.5rem 1.15rem; font-size: 0.88rem;" data-i18n="navUnifiedAuth">${isEn ? '🔐 Enter Platform' : '🔐 دخول المنصة'}</a>`;
-                const mobileGuestHtml = `<a href="pages/auth.html" class="btn btn-primary" style="width: 100%;" data-i18n="navUnifiedAuth">${isEn ? '🔐 Enter Platform' : '🔐 دخول المنصة'}</a>`;
+                const guestHtml = `<a href="pages/auth.html" class="btn btn-primary nav-auth-btn" data-i18n="navUnifiedAuth">${isEn ? 'Sign In' : 'دخول'}</a>`;
+                const mobileGuestHtml = `<a href="pages/auth.html" class="btn btn-primary nav-auth-btn" style="width: 100%;" data-i18n="navUnifiedAuth">${isEn ? 'Sign In' : 'دخول'}</a>`;
                 if (navActions) navActions.innerHTML = guestHtml;
                 if (mobileAuthActions) mobileAuthActions.innerHTML = mobileGuestHtml;
             }

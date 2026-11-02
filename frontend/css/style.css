@@ -586,7 +586,9 @@ select.form-control option {
     position: relative;
     width: 100%;
     min-height: 420px;
-    margin: 2rem 0;
+    height: clamp(420px, 48vh, 520px);
+    max-height: 520px;
+    margin: 1.5rem 0 2rem;
     border-radius: 24px;
     overflow: hidden;
     background: var(--color-background);

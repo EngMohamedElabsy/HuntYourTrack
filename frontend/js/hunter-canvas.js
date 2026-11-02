@@ -356,7 +356,8 @@ class TrackHunterCanvas {
         if (!this.canvas) return;
         const parent = this.canvas.parentElement;
         this.width = parent ? parent.clientWidth : window.innerWidth;
-        this.height = parent ? Math.max(460, parent.clientHeight) : 520;
+        const parentH = parent ? parent.clientHeight : 480;
+        this.height = Math.min(520, Math.max(420, parentH || 480));
         this.canvas.width = this.width * this.dpr;
         this.canvas.height = this.height * this.dpr;
         this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
@@ -1083,7 +1084,7 @@ class TrackHunterCanvas {
         const parallaxY = (this.mouse.y - this.height / 2) * 0.025;
         const moonX = this.width * 0.5 + parallaxX;
         const moonY = this.height * 0.22 + Math.sin(this.time * 0.8) * 5 + parallaxY;
-        const moonRadius = Math.min(this.width, this.height) * 0.12;
+        const moonRadius = Math.min(Math.max(this.height * 0.10, 36), 54);
 
         this.ctx.save();
 
