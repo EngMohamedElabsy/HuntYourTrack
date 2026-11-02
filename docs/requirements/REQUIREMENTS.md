@@ -3,8 +3,12 @@
 > **Academic Evaluation Document:** Software Engineering Requirements & Backlog Traceability  
 > **Institution:** Faculty of Computers & Information, Damanhour University (CS Department)  
 > **Course Supervisor:** Teaching Assistant Eng. Menna  
-> **Project Lead:** Mohamed Yasser Elabsy ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy))  
+> **Student Engineering Team:**  
+> - Mohamed Yasser Elabsy ([@EngMohamedElabsy](https://github.com/EngMohamedElabsy)) · *Computer Science Department (CS) · Project Lead & Lead Architect*  
+> - Hager Khaled ([@hager678](https://github.com/hager678)) · *Information Systems Department (IS) · Student Experience & Auth*  
+> - Abdulrahman Masoud ([@abdulrhman-masoud](https://github.com/abdulrhman-masoud)) · *Information Technology Department (IT) · Employer Experience & Opportunities*  
 > **Repository:** [EngMohamedElabsy/HuntYourTrack](https://github.com/EngMohamedElabsy/HuntYourTrack)  
+> **Technical Discussions (Q&A):** [HuntYourTrack Discussions](https://github.com/EngMohamedElabsy/HuntYourTrack/discussions)  
 > **Sprint Project Board:** [HuntYourTrack - Graduation Sprint 1 & 2 (Project #5)](https://github.com/users/EngMohamedElabsy/projects/5)
 
 ---
