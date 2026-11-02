@@ -872,3 +872,174 @@ select.form-control option {
     border: 1px solid rgba(255, 255, 255, 0.4);
     display: inline-block;
 }
+
+.theme-menu-header {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-muted-foreground);
+    padding: 0.35rem 0.65rem 0.2rem;
+    font-weight: 700;
+}
+
+.theme-menu-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin: 0.35rem 0;
+}
+
+/* ==========================================================================
+   roadmap.sh-Style Interactive Hierarchical Career Roadmap Tree
+   ========================================================================== */
+.roadmap-tree-container {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: relative;
+}
+
+.roadmap-header-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.roadmap-phase-card {
+    position: relative;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+    padding: 1.5rem;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+.roadmap-phase-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.12);
+}
+
+.roadmap-phase-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.roadmap-phase-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #FFFFFF;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.roadmap-node-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.75rem;
+}
+
+.roadmap-node-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: var(--color-muted);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    user-select: none;
+}
+
+.roadmap-node-card:hover {
+    border-color: var(--color-primary);
+    background: rgba(99, 102, 241, 0.06);
+    transform: translateY(-2px);
+}
+
+.roadmap-node-card.completed {
+    background: rgba(16, 185, 129, 0.08);
+    border-color: rgba(16, 185, 129, 0.35);
+}
+
+.roadmap-node-card.completed .roadmap-node-title {
+    text-decoration: line-through;
+    opacity: 0.75;
+}
+
+.roadmap-checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 6px;
+    border: 2px solid var(--color-border);
+    background: var(--color-card);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #FFFFFF;
+    transition: all 0.15s ease;
+}
+
+.roadmap-node-card.completed .roadmap-checkbox {
+    background: #10B981;
+    border-color: #10B981;
+}
+
+.roadmap-node-content {
+    flex: 1;
+}
+
+.roadmap-node-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin-bottom: 0.2rem;
+}
+
+.roadmap-node-desc {
+    font-size: 0.78rem;
+    color: var(--color-muted-foreground);
+    line-height: 1.35;
+}
+
+.roadmap-connector-v {
+    width: 2px;
+    height: 20px;
+    background: var(--color-border);
+    margin: 0 auto;
+    position: relative;
+}
+
+.roadmap-connector-v::after {
+    content: "▼";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: var(--color-muted-foreground);
+}
+

@@ -360,7 +360,12 @@ const HYT_TRANSLATIONS = {
         // Controls
         langToggleLabel: "🌐 English",
         themeToggleDark: "🌙",
-        themeToggleLight: "☀️"
+        themeToggleLight: "☀️",
+        themeDropdownLabel: "المظهر",
+        themeModesHeader: "نمط الإضاءة",
+        themeDarkOption: "الوضع الليلي (Dark Mode)",
+        themeLightOption: "الوضع النهاري (Light Mode)",
+        themePalettesHeader: "لوحات الألوان المخصصة"
     },
     en: {
         // Brand & Meta
@@ -716,7 +721,12 @@ const HYT_TRANSLATIONS = {
         // Controls
         langToggleLabel: "🌐 العربية",
         themeToggleDark: "🌙",
-        themeToggleLight: "☀️"
+        themeToggleLight: "☀️",
+        themeDropdownLabel: "Appearance",
+        themeModesHeader: "Lighting Mode",
+        themeDarkOption: "Dark Mode (Night)",
+        themeLightOption: "Light Mode (Daylight)",
+        themePalettesHeader: "Curated Color Palettes"
     }
 };
 
@@ -788,11 +798,25 @@ class I18nManager {
         document.documentElement.setAttribute('data-theme', theme);
 
         const themeToggleBtn = document.getElementById('hyt-theme-toggle');
+        const isDark = theme === 'dark' || theme === 'abyss' || theme === 'reef' || theme === 'nebula' || theme === 'ember';
         if (themeToggleBtn) {
-            const isDark = theme === 'dark' || theme === 'abyss' || theme === 'reef' || theme === 'nebula' || theme === 'ember';
             themeToggleBtn.innerHTML = isDark ? '☀️' : '🌙';
             themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
         }
+
+        const unifiedThemeIcon = document.getElementById('theme-btn-icon');
+        if (unifiedThemeIcon) {
+            unifiedThemeIcon.textContent = isDark ? '🌙' : '☀️';
+        }
+
+        // Highlight active theme option in unified dropdown
+        document.querySelectorAll('.theme-opt-btn').forEach(btn => {
+            const optVal = btn.getAttribute('data-theme-val');
+            if (optVal) {
+                const isSelected = optVal === theme || (optVal === 'dark' && isDark) || (optVal === 'light' && !isDark);
+                btn.classList.toggle('active', isSelected);
+            }
+        });
 
         // Highlight active theme pill in theme gallery if present
         document.querySelectorAll('.theme-gallery-card').forEach(card => {
@@ -846,6 +870,32 @@ window.setAppTheme = function(theme) {
     if (window.setHytTheme) window.setHytTheme(theme);
     const menu = document.getElementById('theme-dropdown-menu');
     if (menu) menu.classList.remove('show');
+};
+window.setAppThemeMode = function(mode) {
+    if (window.hytI18n) {
+        window.hytI18n.applyTheme(mode === 'light' ? 'light' : 'dark');
+    }
+    const menu = document.getElementById('theme-dropdown-menu');
+    if (menu) menu.classList.remove('show');
+};
+window.hytSignOut = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const savedLang = localStorage.getItem('hyt_lang') || 'en';
+    const savedTheme = localStorage.getItem('hyt_theme') || 'abyss';
+
+    // Clear user credentials and session variables
+    localStorage.removeItem('user_role');
+    localStorage.removeItem('user_name');
+    localStorage.removeItem('user_email');
+    localStorage.removeItem('faculty');
+    localStorage.removeItem('department');
+
+    // Preserve language and visual theme preferences
+    localStorage.setItem('hyt_lang', savedLang);
+    localStorage.setItem('hyt_theme', savedTheme);
+
+    const isInPages = window.location.pathname.includes('/pages/');
+    window.location.href = isInPages ? 'auth.html' : 'pages/auth.html';
 };
 document.addEventListener('click', (e) => {
     const themeMenu = document.getElementById('theme-dropdown-menu');

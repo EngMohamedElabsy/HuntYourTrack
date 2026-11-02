@@ -178,8 +178,9 @@ async function runAudit() {
         assert.equal(canvasContainerOverflow, false, 'Hunter canvas wrapper must have zero horizontal overflow');
 
         // Check Theme Tokens (High Contrast)
-        const themeBtn = page.locator('#hyt-theme-toggle');
+        const themeBtn = page.locator('#hyt-theme-btn');
         await themeBtn.click();
+        await page.locator('[onclick="setAppThemeMode(\'dark\')"]').click();
         await page.waitForTimeout(350);
         const darkTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
         assert.equal(darkTheme, 'dark', 'Dark theme token must activate');
@@ -203,6 +204,7 @@ async function runAudit() {
         console.log('  Computed dark nav background:', navBg);
 
         await themeBtn.click();
+        await page.locator('[onclick="setAppThemeMode(\'light\')"]').click();
         await page.waitForTimeout(350);
         const lightTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
         assert.equal(lightTheme, 'light', 'Light theme token must restore');
@@ -284,7 +286,97 @@ async function runAudit() {
         assert.equal(juryModalOpen, true, 'Academic Jury modal dialog must open');
 
         console.log('  ✓ auth.html is centered, constrained, and has 0 overflow on 375px mobile and 1440px desktop.');
-        console.log('\n🎉 ALL 5 E2E SYSTEM AUDIT SECTIONS PASSED WITH 100% COMPLIANCE!');
+
+        // -------------------------------------------------------------------------------------------------
+        // AUDIT 6: Unified Theme Dropdown & Multi-Palette Switching
+        // -------------------------------------------------------------------------------------------------
+        console.log('\n--- [6/8] Testing Unified Theme Dropdown & Multi-Palette Switching ---');
+        await page.goto(`${baseUrl}/index.html`);
+        const unifiedThemeBtn = page.locator('#hyt-theme-btn');
+        assert.equal(await unifiedThemeBtn.count(), 1, '#hyt-theme-btn must exist in header');
+        await unifiedThemeBtn.click();
+        await page.waitForTimeout(150);
+        const menuVisible = await page.locator('#theme-dropdown-menu').evaluate(el => el.classList.contains('show'));
+        assert.equal(menuVisible, true, 'Unified theme dropdown menu must open on click');
+
+        // Switch to Nebula palette
+        await page.locator('.theme-opt-btn[data-theme-val="nebula"]').click();
+        await page.waitForTimeout(200);
+        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'nebula', 'Theme must switch to nebula palette');
+
+        // Switch to Light Mode
+        await unifiedThemeBtn.click();
+        await page.waitForTimeout(150);
+        await page.locator('.theme-opt-btn[data-theme-val="light"]').click();
+        await page.waitForTimeout(200);
+        const lightThemeVal = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
+        assert.ok(['light', 'daylight'].includes(lightThemeVal), `Light mode option must apply light or daylight theme (got ${lightThemeVal})`);
+        console.log('  ✓ Unified theme dropdown switches lighting modes and curated palettes cleanly.');
+
+        // -------------------------------------------------------------------------------------------------
+        // AUDIT 7: Sign-Out Language & Theme Preference Persistence
+        // -------------------------------------------------------------------------------------------------
+        console.log('\n--- [7/8] Testing Sign-Out Language & Theme Persistence ---');
+        await page.evaluate(() => {
+            localStorage.setItem('user_role', 'student');
+            localStorage.setItem('user_name', 'Student Test');
+            localStorage.setItem('user_email', 'student@damanhour.edu.eg');
+            localStorage.setItem('hyt_lang', 'en');
+            localStorage.setItem('hyt_theme', 'nebula');
+        });
+        await page.goto(`${baseUrl}/student.html`);
+        await page.waitForTimeout(200);
+
+        // Click sign out
+        const studentLogoutBtn = page.locator('#logout-btn');
+        await studentLogoutBtn.click();
+        await page.waitForTimeout(400);
+
+        // Verify preserved preferences after sign out
+        const postLogoutLang = await page.evaluate(() => localStorage.getItem('hyt_lang'));
+        const postLogoutTheme = await page.evaluate(() => localStorage.getItem('hyt_theme'));
+        const postLogoutRole = await page.evaluate(() => localStorage.getItem('user_role'));
+        assert.equal(postLogoutLang, 'en', 'User selected language (en) must be preserved upon sign out');
+        assert.equal(postLogoutTheme, 'nebula', 'User selected theme (nebula) must be preserved upon sign out');
+        assert.equal(postLogoutRole, null, 'User role session variable must be wiped');
+        console.log('  ✓ Signing out clears session credentials while preserving user language and theme preferences.');
+
+        // -------------------------------------------------------------------------------------------------
+        // AUDIT 8: roadmap.sh Hierarchical Career Tree & Interactive Checkboxes
+        // -------------------------------------------------------------------------------------------------
+        console.log('\n--- [8/8] Testing roadmap.sh Hierarchical Career Tree & Progress Tracking ---');
+        await page.goto(`${baseUrl}/index.html`);
+        await page.waitForTimeout(300);
+
+        // Trigger track focus on AI & Deep Learning (cs-ai)
+        await page.evaluate(() => {
+            if (window.hytHunter) {
+                window.hytHunter.focusTrack('cs-ai');
+            }
+        });
+        await page.waitForTimeout(400);
+
+        const hookedPanel = page.locator('#hooked-track-panel');
+        const isPanelActive = await hookedPanel.evaluate(el => el.classList.contains('active'));
+        assert.equal(isPanelActive, true, 'Hooked track panel must activate when track is hooked');
+
+        const phaseCards = page.locator('.roadmap-phase-card');
+        const phaseCount = await phaseCards.count();
+        assert.ok(phaseCount >= 4, `roadmap.sh tree must render at least 4 detailed phases (got ${phaseCount})`);
+
+        const nodeCards = page.locator('.roadmap-node-card');
+        const nodeCount = await nodeCards.count();
+        assert.ok(nodeCount >= 10, `roadmap.sh tree must render extensive topic modules (got ${nodeCount})`);
+
+        // Test interactive completion toggle
+        const firstTopicCard = nodeCards.first();
+        await firstTopicCard.click();
+        await page.waitForTimeout(300);
+        const isCompleted = await firstTopicCard.evaluate(el => el.classList.contains('completed'));
+        assert.equal(isCompleted, true, 'Topic card must mark as completed when clicked');
+
+        console.log('  ✓ roadmap.sh hierarchical tree renders full syllabus with interactive topic progress tracking.');
+        console.log('\n🎉 ALL 8 E2E SYSTEM AUDIT SECTIONS PASSED WITH 100% COMPLIANCE!');
 
     } finally {
         if (browser) await browser.close();

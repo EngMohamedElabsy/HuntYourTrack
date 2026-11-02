@@ -98,12 +98,16 @@ function enforceAdminAuthorization() {
 window.enforceAdminAuthorization = enforceAdminAuthorization;
 
 function handleAdminLogout(event) {
-    if (event) event.preventDefault();
-    localStorage.removeItem('user');
-    localStorage.removeItem('role');
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user_email');
-    window.location.href = 'auth.html';
+    if (window.hytSignOut) {
+        window.hytSignOut(event);
+    } else {
+        if (event) event.preventDefault();
+        localStorage.removeItem('user');
+        localStorage.removeItem('role');
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user_email');
+        window.location.href = 'auth.html';
+    }
 }
 window.handleAdminLogout = handleAdminLogout;
 
