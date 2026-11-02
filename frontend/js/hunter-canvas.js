@@ -33,24 +33,266 @@ class TrackHunterCanvas {
         this.stardust = [];
         this.clouds = [];
 
-        // Discipline Nodes across 5 faculties
+        // Discipline Nodes across 5 faculties with rich curriculum roadmaps
         this.nodes = [
             // Computing
-            { id: 'cs-ai', label: 'AI & Deep Learning', faculty: 'computing', xRel: 0.22, yRel: 0.65, color: '#00F2FE', radius: 8, glow: 15 },
-            { id: 'cs-cloud', label: 'Full-Stack Cloud & DevOps', faculty: 'computing', xRel: 0.38, yRel: 0.78, color: '#38BDF8', radius: 9, glow: 18 },
-            { id: 'cs-sec', label: 'Cybersecurity SOC', faculty: 'computing', xRel: 0.52, yRel: 0.62, color: '#818CF8', radius: 8, glow: 14 },
+            {
+                id: 'cs-ai',
+                label: 'AI & Deep Learning',
+                labelAr: 'الذكاء الاصطناعي وتعلم الآلة',
+                faculty: 'computing',
+                facultyAr: 'الحاسبات والذكاء الاصطناعي',
+                weeks: '12 أسبوعاً',
+                weeksEn: '12 Weeks',
+                skills: ['Python', 'PyTorch', 'Transformers', 'FastAPI', 'Vector DBs'],
+                milestonesAr: [
+                    'الرياضيات التطبيقية والتعلم الآلي الكلاسيكي',
+                    'الشبكات العصبية العميقة ورؤية الحاسب',
+                    'معالجة اللغات الطبيعية ونماذج التوليد LLMs',
+                    'نشر النماذج سحابياً في بيئة الإنتاج المباشرة'
+                ],
+                milestonesEn: [
+                    'Applied Mathematics & Classical ML Foundations',
+                    'Deep Neural Networks & Computer Vision',
+                    'NLP Architectures & Generative LLM Engineering',
+                    'Production AI Microservice & Cloud Deployment'
+                ],
+                xRel: 0.22, yRel: 0.65, color: '#00F2FE', radius: 8, glow: 15
+            },
+            {
+                id: 'cs-cloud',
+                label: 'Full-Stack Cloud & DevOps',
+                labelAr: 'الحوسبة السحابية والأنظمة الموزعة',
+                faculty: 'computing',
+                facultyAr: 'الحاسبات والذكاء الاصطناعي',
+                weeks: '14 أسبوعاً',
+                weeksEn: '14 Weeks',
+                skills: ['TypeScript', 'Node.js', 'Docker', 'Kubernetes', 'AWS'],
+                milestonesAr: [
+                    'معمارية الويب والخدمات المصغرة Microservices',
+                    'الحاويات Docker وهندسة Kubernetes',
+                    'خطوط التكامل المستمر CI/CD والبنية ككود Terraform',
+                    'المراقبة ورصد الأداء وقابلية التوسع الأفقي'
+                ],
+                milestonesEn: [
+                    'Web Architecture & Microservices Protocols',
+                    'Containerization with Docker & Kubernetes',
+                    'CI/CD Automation Pipelines & Terraform IaC',
+                    'Observability, Performance & Horizontal Scaling'
+                ],
+                xRel: 0.38, yRel: 0.78, color: '#38BDF8', radius: 9, glow: 18
+            },
+            {
+                id: 'cs-sec',
+                label: 'Cybersecurity SOC',
+                labelAr: 'الأمن السيبراني وعمليات الدفاع',
+                faculty: 'computing',
+                facultyAr: 'الحاسبات والذكاء الاصطناعي',
+                weeks: '10 أسابيع',
+                weeksEn: '10 Weeks',
+                skills: ['Network Security', 'Wireshark', 'SIEM', 'Linux Hardening'],
+                milestonesAr: [
+                    'أساسيات الشبكات والتحليل الجنائي الرقمي',
+                    'إدارة مراكز العمليات الأمنية SOC و SIEM',
+                    'اختبار الاختراق الأخلاقي وتقييم الثغرات',
+                    'الاستجابة للحوادث الأمنية والتعافي الرقمي'
+                ],
+                milestonesEn: [
+                    'Network Security & Digital Forensics Fundamentals',
+                    'SOC Operations & SIEM Telemetry Analysis',
+                    'Ethical Penetration Testing & Vulnerability Assessment',
+                    'Incident Response & Business Continuity Planning'
+                ],
+                xRel: 0.52, yRel: 0.62, color: '#818CF8', radius: 8, glow: 14
+            },
             // Engineering
-            { id: 'eng-mecha', label: 'Mechatronics & Robotics', faculty: 'engineering', xRel: 0.68, yRel: 0.70, color: '#34D399', radius: 9, glow: 18 },
-            { id: 'eng-auto', label: 'Embedded Automotive', faculty: 'engineering', xRel: 0.82, yRel: 0.60, color: '#10B981', radius: 8, glow: 16 },
+            {
+                id: 'eng-mecha',
+                label: 'Mechatronics & Robotics',
+                labelAr: 'الميكاترونكس وهندسة الروبوتات',
+                faculty: 'engineering',
+                facultyAr: 'الهندسة والتكنولوجيا',
+                weeks: '14 أسبوعاً',
+                weeksEn: '14 Weeks',
+                skills: ['ROS2', 'C++', 'Control Systems', 'SolidWorks', 'MATLAB'],
+                milestonesAr: [
+                    'الديناميكا والحركية الميكانيكية وتصميم CAD',
+                    'الدوائر الإلكترونية والمتحكمات الدقيقة',
+                    'برمجة الروبوتات بنظام ROS2 و C++',
+                    'تكامل الأنظمة ذاتية القيادة والأتمتة الصناعية'
+                ],
+                milestonesEn: [
+                    'Kinematics, Dynamics & CAD Modeling',
+                    'Embedded Electronics & Microcontroller Interfacing',
+                    'Robot Operating System (ROS2) & Real-time C++',
+                    'Autonomous Navigation & Industrial Automation'
+                ],
+                xRel: 0.68, yRel: 0.70, color: '#34D399', radius: 9, glow: 18
+            },
+            {
+                id: 'eng-auto',
+                label: 'Embedded Automotive',
+                labelAr: 'الأنظمة المدمجة وبرمجيات السيارات',
+                faculty: 'engineering',
+                facultyAr: 'الهندسة والتكنولوجيا',
+                weeks: '12 أسبوعاً',
+                weeksEn: '12 Weeks',
+                skills: ['Embedded C', 'AUTOSAR', 'CAN-bus', 'RTOS', 'ARM Cortex'],
+                milestonesAr: [
+                    'برمجة المتحكمات بلغة Embedded C المتقدمة',
+                    'أنظمة التشغيل في الوقت الحقيقي FreeRTOS',
+                    'معمارية برمجيات السيارات القياسية AUTOSAR',
+                    'بروتوكولات الاتصال CAN-bus و LIN والتشخيص'
+                ],
+                milestonesEn: [
+                    'Embedded C & Hardware Register Programming',
+                    'Real-Time Operating Systems (RTOS) Scheduling',
+                    'AUTOSAR Architecture & ECU Layering',
+                    'In-Vehicle Networks: CAN, LIN & Diagnostics'
+                ],
+                xRel: 0.82, yRel: 0.60, color: '#10B981', radius: 8, glow: 16
+            },
             // Science
-            { id: 'sci-bio', label: 'Bioinformatics & Genomics', faculty: 'science', xRel: 0.16, yRel: 0.82, color: '#A78BFA', radius: 8, glow: 15 },
-            { id: 'sci-chem', label: 'Computational Chemistry', faculty: 'science', xRel: 0.30, yRel: 0.90, color: '#C084FC', radius: 7, glow: 12 },
+            {
+                id: 'sci-bio',
+                label: 'Bioinformatics & Genomics',
+                labelAr: 'المعلوماتية الحيوية والجينوم الحاسوبي',
+                faculty: 'science',
+                facultyAr: 'العلوم الأساسية',
+                weeks: '10 أسابيع',
+                weeksEn: '10 Weeks',
+                skills: ['Python', 'Biopython', 'Nextflow', 'BLAST', 'R/Bioconductor'],
+                milestonesAr: [
+                    'البيولوجيا الجزيئية ومصادر البيانات الحيوية',
+                    'خوارزميات محاذاة التسلسلات وتسلسل الجيل التالي NGS',
+                    'بناء خطوط الأنابيب التحليلية باستخدام Nextflow',
+                    'الطب الدقيق والنمذجة الهيكلية للبروتينات'
+                ],
+                milestonesEn: [
+                    'Molecular Biology & NCBI Database Interfacing',
+                    'Sequence Alignment & Next-Gen Sequencing (NGS)',
+                    'Automated Analysis Pipelines with Nextflow',
+                    'Precision Medicine & Protein Structure Prediction'
+                ],
+                xRel: 0.16, yRel: 0.82, color: '#A78BFA', radius: 8, glow: 15
+            },
+            {
+                id: 'sci-chem',
+                label: 'Computational Chemistry',
+                labelAr: 'الكيمياء الحاسوبية والنمذجة الدوائية',
+                faculty: 'science',
+                facultyAr: 'العلوم الأساسية',
+                weeks: '8 أسابيع',
+                weeksEn: '8 Weeks',
+                skills: ['Molecular Dynamics', 'GROMACS', 'PyMOL', 'QSAR'],
+                milestonesAr: [
+                    'مبادئ ميكانيكا الكم والنمذجة الجزيئية',
+                    'محاكاة الديناميكا الجزيئية ببرنامج GROMACS',
+                    'الالتحام الجزيئي وتصميم الأدوية بمساعدة الحاسوب',
+                    'تحليل علاقات النشاط بالتركيب الكيميائي QSAR'
+                ],
+                milestonesEn: [
+                    'Quantum Chemistry & Force Field Principles',
+                    'Molecular Dynamics Simulation with GROMACS',
+                    'Structure-Based Virtual Screening & Molecular Docking',
+                    'Quantitative Structure-Activity Relationships (QSAR)'
+                ],
+                xRel: 0.30, yRel: 0.90, color: '#C084FC', radius: 7, glow: 12
+            },
             // Business
-            { id: 'bus-fintech', label: 'FinTech Algorithmic Trading', faculty: 'business', xRel: 0.62, yRel: 0.88, color: '#FBBF24', radius: 8, glow: 16 },
-            { id: 'bus-analytics', label: 'Business Intelligence & BI', faculty: 'business', xRel: 0.76, yRel: 0.84, color: '#F59E0B', radius: 8, glow: 14 },
+            {
+                id: 'bus-fintech',
+                label: 'FinTech Algorithmic Trading',
+                labelAr: 'التكنولوجيا المالية والتداول الخوارزمي',
+                faculty: 'business',
+                facultyAr: 'التجارة وإدارة الأعمال',
+                weeks: '10 أسابيع',
+                weeksEn: '10 Weeks',
+                skills: ['Financial Modeling', 'Python Pandas', 'SQL', 'Risk Management'],
+                milestonesAr: [
+                    'الأسواق المالية والمشتقات وإدارة المخاطر',
+                    'تحليل السلاسل الزمنية المالية بلغة بايثون',
+                    'بناء واختبار استراتيجيات التداول الخوارزمي',
+                    'أنظمة المدفوعات الرقمية وبوابات التكنولوجيا المالية'
+                ],
+                milestonesEn: [
+                    'Financial Markets, Derivatives & Risk Metrics',
+                    'Time Series Quantitative Analysis in Python',
+                    'Algorithmic Strategy Backtesting & Optimization',
+                    'Digital Payment Rails, Open Banking & FinTech Compliance'
+                ],
+                xRel: 0.62, yRel: 0.88, color: '#FBBF24', radius: 8, glow: 16
+            },
+            {
+                id: 'bus-analytics',
+                label: 'Business Intelligence & BI',
+                labelAr: 'ذكاء الأعمال وتحليل البيانات المؤسسية',
+                faculty: 'business',
+                facultyAr: 'التجارة وإدارة الأعمال',
+                weeks: '8 أسابيع',
+                weeksEn: '8 Weeks',
+                skills: ['Power BI', 'SQL Server', 'Tableau', 'DAX', 'Excel Advanced'],
+                milestonesAr: [
+                    'مستودعات البيانات ونمذجة الأبعاد Star Schema',
+                    'تطوير مؤشرات الأداء ولوحات التحكم في Power BI',
+                    'صياغة معادلات DAX المتقدمة للتحليل التجاري',
+                    'رواية القصص بالبيانات ودعم القرارات الاستراتيجية'
+                ],
+                milestonesEn: [
+                    'Enterprise Data Warehousing & Dimensional Modeling',
+                    'Power BI Executive Dashboard Engineering',
+                    'Advanced DAX & Business Calculation Engines',
+                    'Data Storytelling & Executive Decision Support'
+                ],
+                xRel: 0.76, yRel: 0.84, color: '#F59E0B', radius: 8, glow: 14
+            },
             // Law
-            { id: 'law-cyber', label: 'Cyber Law & Digital Evidence', faculty: 'law', xRel: 0.44, yRel: 0.92, color: '#F472B6', radius: 8, glow: 14 },
-            { id: 'law-ip', label: 'Tech & AI IP Protection', faculty: 'law', xRel: 0.88, yRel: 0.74, color: '#FB7185', radius: 7, glow: 12 }
+            {
+                id: 'law-cyber',
+                label: 'Cyber Law & Digital Evidence',
+                labelAr: 'القانون السيبراني والأدلة الرقمية',
+                faculty: 'law',
+                facultyAr: 'الحقوق والتشريعات الرقمية',
+                weeks: '8 أسابيع',
+                weeksEn: '8 Weeks',
+                skills: ['Cybercrime Law', 'GDPR', 'Digital Evidence', 'Compliance'],
+                milestonesAr: [
+                    'أطر وتشريعات مكافحة الجرائم الإلكترونية',
+                    'حجية الأدلة الرقمية وسلسلة الحيازة القانونية',
+                    'قوانين حماية البيانات والخصوصية GDPR واللوائح الوطنية',
+                    'الامتثال المؤسسي والحوكمة الرقمية'
+                ],
+                milestonesEn: [
+                    'Cybercrime Legal Frameworks & Jurisdictions',
+                    'Digital Forensics Chain of Custody & Admissibility',
+                    'GDPR & National Data Protection Compliance',
+                    'Corporate Digital Governance & Risk Auditing'
+                ],
+                xRel: 0.44, yRel: 0.92, color: '#F472B6', radius: 8, glow: 14
+            },
+            {
+                id: 'law-ip',
+                label: 'Tech & AI IP Protection',
+                labelAr: 'الملكية الفكرية في التكنولوجيا والذكاء الاصطناعي',
+                faculty: 'law',
+                facultyAr: 'الحقوق والتشريعات الرقمية',
+                weeks: '8 أسابيع',
+                weeksEn: '8 Weeks',
+                skills: ['IP Law', 'Patents', 'Software Licensing', 'AI Ethics'],
+                milestonesAr: [
+                    'براءات الاختراع للبرمجيات والخوارزميات',
+                    'تراخيص البرمجيات مفتوحة المصدر والملكية التجارية',
+                    'التشريعات الدولية للمصنفات المولدة بالذكاء الاصطناعي',
+                    'صياغة عقود التكنولوجيا واتفاقيات عدم الإفصاح NDA'
+                ],
+                milestonesEn: [
+                    'Software & Algorithmic Patentability Principles',
+                    'Open-Source Licensing, Copyleft & Commercial IP',
+                    'AI-Generated Output Copyright & Ethical Regulations',
+                    'Technology Licensing, NDAs & Commercial Contract Drafting'
+                ],
+                xRel: 0.88, yRel: 0.74, color: '#FB7185', radius: 7, glow: 12
+            }
         ];
 
         this.init();
@@ -79,7 +321,15 @@ class TrackHunterCanvas {
             this.isDark = e.detail.theme === 'dark';
         });
 
-        // Click to hook nearest nodes
+        // Language sync
+        window.addEventListener('hyt:langChanged', () => {
+            if (this.hookedNodes.length > 0) {
+                this.renderHookedPanel(this.hookedNodes[this.hookedNodes.length - 1]);
+            }
+            this.updateLiveStatus();
+        });
+
+        // Click to hook/unhook node
         this.canvas.addEventListener('click', (e) => {
             const rect = this.canvas.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
@@ -89,6 +339,10 @@ class TrackHunterCanvas {
 
         this.initAtmosphere();
         this.updateHookedNodes();
+        if (this.hookedNodes.length > 0) {
+            this.renderHookedPanel(this.hookedNodes[0]);
+        }
+        this.updateLiveStatus();
         this.animate();
 
         // Register global bridge
@@ -171,19 +425,135 @@ class TrackHunterCanvas {
         }
     }
 
+    toggleTrackHook(id) {
+        const node = this.nodes.find(n => n.id === id);
+        if (!node) return;
+        const idx = this.hookedNodes.findIndex(hn => hn.id === id);
+        if (idx !== -1) {
+            // Unhook
+            this.hookedNodes.splice(idx, 1);
+        } else {
+            // Hook
+            this.hookedNodes.push(node);
+        }
+        const lastHooked = this.hookedNodes[this.hookedNodes.length - 1] || null;
+        this.renderHookedPanel(lastHooked);
+        this.updateLiveStatus();
+    }
+
     selectNearestNodes(x, y) {
-        const sorted = [...this.nodes].sort((a, b) => {
-            const da = Math.hypot(a.x - x, a.y - y);
-            const db = Math.hypot(b.x - x, b.y - y);
-            return da - db;
-        });
-        // Hook the 2 nearest nodes simultaneously
-        this.hookedNodes = sorted.slice(0, 2);
+        let closest = null;
+        let minDist = 45;
+        for (const n of this.nodes) {
+            const d = Math.hypot(n.x - x, n.y - y);
+            if (d < minDist) {
+                minDist = d;
+                closest = n;
+            }
+        }
+        if (closest) {
+            this.toggleTrackHook(closest.id);
+        } else {
+            const sorted = [...this.nodes].sort((a, b) => Math.hypot(a.x - x, a.y - y) - Math.hypot(b.x - x, b.y - y));
+            if (sorted[0]) this.toggleTrackHook(sorted[0].id);
+        }
     }
 
     shuffleTrack() {
         const shuffled = [...this.nodes].sort(() => 0.5 - Math.random());
-        this.hookedNodes = shuffled.slice(0, 3);
+        this.hookedNodes = shuffled.slice(0, 2);
+        this.renderHookedPanel(this.hookedNodes[0] || null);
+        this.updateLiveStatus();
+    }
+
+    updateLiveStatus() {
+        const statusEl = document.getElementById('hunter-tracks-counter');
+        if (!statusEl) return;
+        const isAr = document.documentElement.lang === 'ar';
+        const count = this.hookedNodes.length;
+        if (count === 0) {
+            statusEl.textContent = isAr 
+                ? '🎯 انقر على أي مسار في الرادار لاصطياده واستعراض خارطة طريقه' 
+                : '🎯 Click any track node on the radar to hook and explore its roadmap';
+        } else {
+            statusEl.textContent = isAr 
+                ? `🎯 تم اصطياد ${count} مسار${count > 2 ? 'ات' : ''} بنجاح · انقر على أي مسار لاصطياده أو إلغائه`
+                : `🎯 ${count} track${count > 1 ? 's' : ''} hooked · Click any node to hook or release`;
+        }
+    }
+
+    renderHookedPanel(node) {
+        const panel = document.getElementById('hooked-track-panel');
+        if (!panel) return;
+        if (!node) {
+            panel.classList.remove('active');
+            return;
+        }
+
+        const isAr = document.documentElement.lang === 'ar';
+        const title = isAr ? (node.labelAr || node.label) : node.label;
+        const faculty = isAr ? (node.facultyAr || node.faculty) : node.faculty.toUpperCase();
+        const duration = isAr ? node.weeks : node.weeksEn;
+        const milestones = isAr ? node.milestonesAr : node.milestonesEn;
+
+        panel.innerHTML = `
+            <div class="hooked-track-header">
+                <div>
+                    <span class="badge-tag badge-remote" style="margin-bottom: 0.5rem; display: inline-block;">
+                        ${isAr ? '🎣 مسار مصطاد حالياً' : '🎣 Active Hooked Track'} · ${faculty}
+                    </span>
+                    <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--color-foreground);">
+                        ${title}
+                    </h3>
+                    <p style="color: var(--color-muted-foreground); font-size: 0.95rem; margin: 0;">
+                        ⏱️ ${duration} · ${isAr ? 'منهج معتمد ومربوط بمتطلبات التوظيف والتدريب الصيفي' : 'Accredited curriculum aligned with corporate hiring prerequisites'}
+                    </p>
+                </div>
+                <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                    <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.65rem 1.4rem;">
+                        ${isAr ? '🚀 بدء هذا المسار المهني' : '🚀 Start This Track'}
+                    </a>
+                    <a href="#opportunities" class="btn btn-secondary" style="padding: 0.65rem 1.4rem;">
+                        ${isAr ? '💼 التدريبات المرتبطة' : '💼 Matching Internships'}
+                    </a>
+                    <button type="button" class="btn btn-outline" onclick="window.hytHunter.toggleTrackHook('${node.id}')" style="padding: 0.65rem 1.1rem;">
+                        ${isAr ? '❌ إلغاء الاصطياد' : '❌ Unhook'}
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <strong style="display: block; font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--color-foreground);">
+                    ${isAr ? '🛠️ المهارات والتقنيات الأساسية المكتسبة:' : '🛠️ Core Competencies & Skills Gained:'}
+                </strong>
+                <div class="skills-pill-group" style="margin-bottom: 1.5rem;">
+                    ${(node.skills || []).map(s => `<span class="skill-pill" style="font-size: 0.85rem; padding: 0.35rem 0.8rem;">${s}</span>`).join('')}
+                </div>
+            </div>
+
+            <div>
+                <strong style="display: block; font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--color-foreground);">
+                    ${isAr ? '🗺️ خطوات وخارطة طريق المسار (4 محطات رئيسية):' : '🗺️ Career Track Milestone Roadmap (4 Key Stages):'}
+                </strong>
+                <div class="hooked-milestones-grid">
+                    ${(milestones || []).map((m, i) => `
+                        <div class="milestone-step-box">
+                            <span class="milestone-step-num">${i + 1}</span>
+                            <div>
+                                <strong style="display: block; font-size: 0.88rem; color: var(--color-foreground); margin-bottom: 0.25rem;">
+                                    ${isAr ? `المرحلة ${i + 1}` : `Stage ${i + 1}`}
+                                </strong>
+                                <span style="font-size: 0.82rem; color: var(--color-muted-foreground); line-height: 1.4; display: block;">
+                                    ${m}
+                                </span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        panel.classList.add('active');
     }
 
     animate() {
