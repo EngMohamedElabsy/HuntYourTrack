@@ -2,7 +2,7 @@
 
 **Project:** HuntYourTrack (Graduation Project 2026)
 **Institution:** Faculty of Computers & Information, Damanhour University (CS Department)
-**Generated At:** `2026-11-02 19:11:19 UTC`
+**Generated At:** `2026-11-03 11:41:54 UTC`
 **Sprint Deadline:** **Sunday, November 1, 2026**
 
 ---
@@ -11,7 +11,7 @@
 
 | Total User Stories | Completed (Done) | In Progress (`toprogram`) | Pending (`Todo`) | Overall Sprint Completion |
 | :---: | :---: | :---: | :---: | :---: |
-| **20** | 🟢 **20** | 🔵 **0** | ⚪ **0** | **100%** |
+| **23** | 🟢 **23** | 🔵 **0** | ⚪ **0** | **100%** |
 
 ```
 Sprint Completion Velocity: [████████████████████] 100%
@@ -22,7 +22,6 @@ Sprint Completion Velocity: [█████████████████
 ## 2. Team Member Scorecards & Leaderboard 🏆
 
 ### 👤 Mohamed Yasser Elabsy (@EngMohamedElabsy)
-- **Academic Department:** Computer Science (CS)
 - **Role:** `Lead Architect & Core/Admin`
 - **Assigned Stories:** **16** Issues
 - **Completion Status:** 🟢 **16 Done** (100%) · 🔵 **0 In Progress** · ⚪ **0 Todo**
@@ -48,7 +47,6 @@ Sprint Completion Velocity: [█████████████████
 | **#39** | US01: Global Design System & UI Kit | 🟢 Done | Nov 1, 2026 | 🟢 Delivered on Time | ✅ Fully Verified |
 
 ### 👤 Hager Khaled (@hager678)
-- **Academic Department:** Information Systems (IS)
 - **Role:** `Student Experience & Auth`
 - **Assigned Stories:** **1** Issues
 - **Completion Status:** 🟢 **1 Done** (100%) · 🔵 **0 In Progress** · ⚪ **0 Todo**
@@ -59,7 +57,6 @@ Sprint Completion Velocity: [█████████████████
 | **#46** | US08: Student Authentication & Multi-Faculty Registration Flow | 🟢 Done | Nov 1, 2026 | 🟢 Delivered on Time | ✅ Fully Verified |
 
 ### 👤 Abdulrahman Masoud (@abdulrhman-masoud)
-- **Academic Department:** Information Technology (IT)
 - **Role:** `Employer Portal & Reviews`
 - **Assigned Stories:** **3** Issues
 - **Completion Status:** 🟢 **3 Done** (100%) · 🔵 **0 In Progress** · ⚪ **0 Todo**
