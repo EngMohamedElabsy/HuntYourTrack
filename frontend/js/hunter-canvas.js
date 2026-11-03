@@ -820,7 +820,55 @@ class TrackHunterCanvas {
                 </div>
             </div>
 
-            <!-- roadmap.sh Deep Hierarchical Tree -->
+            <!-- Interactive Visual Roadmap Graph ("بشكل جراف تفاعلي") -->
+            <div class="roadmap-visual-graph">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.25rem;">🕸️</span>
+                        <div>
+                            <strong style="font-size: 1.05rem; color: var(--color-foreground);">
+                                ${isAr ? 'المخطط البصري لخارطة الطريق (Visual Roadmap Flowchart Graph)' : 'Visual Roadmap Graph (Interactive Node Flowchart)'}
+                            </strong>
+                            <span style="display: block; font-size: 0.8rem; color: var(--color-muted-foreground);">
+                                ${isAr ? 'شبكة العقد والمهارات المتتابعة من البداية وحتى الجاهزية لسوق العمل' : 'Connected milestone progression from foundational theory to market readiness'}
+                            </span>
+                        </div>
+                    </div>
+                    <span class="badge-tag" style="background: rgba(16, 185, 129, 0.12); color: #10B981; font-weight: 700;">
+                        ${isAr ? '⚡ شبكة تفاعلية مترابطة' : '⚡ Live Interconnected Nodes'}
+                    </span>
+                </div>
+
+                <div class="roadmap-graph-timeline">
+                    <div class="roadmap-graph-connector-line"></div>
+                    ${syllabus.map((p) => `
+                        <div class="roadmap-graph-node-col">
+                            <div class="roadmap-graph-node-bubble" title="${isAr ? p.titleAr : p.titleEn}">
+                                ${p.phase}
+                            </div>
+                            <div class="roadmap-graph-node-title">
+                                ${isAr ? p.titleAr : p.titleEn}
+                            </div>
+                            <div class="roadmap-graph-node-desc">
+                                ${isAr ? p.descAr : p.descEn}
+                            </div>
+                            <div class="roadmap-graph-subtopics">
+                                ${p.nodes.map(n => {
+                                    const isDone = completedTopics.includes(n.id);
+                                    return `
+                                        <div class="roadmap-graph-subtopic-pill ${isDone ? 'completed' : ''}" onclick="window.hytHunter.toggleTopicComplete('${node.id}', '${n.id}')" title="${isAr ? 'اضغط لتحديد الإنجاز' : 'Click to toggle completion'}">
+                                            <span>${isAr ? n.titleAr : n.titleEn}</span>
+                                            <span>${isDone ? '✓' : '○'}</span>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- roadmap.sh Deep Hierarchical Tree Syllabus -->
             <div class="roadmap-tree-container">
                 ${syllabus.map((p, pIdx) => `
                     <div class="roadmap-phase-card">
@@ -862,6 +910,9 @@ class TrackHunterCanvas {
         `;
 
         panel.classList.add('active');
+        setTimeout(() => {
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 50);
     }
 
     animate() {
