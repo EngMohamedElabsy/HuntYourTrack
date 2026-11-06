@@ -1,0 +1,140 @@
+{
+  "source": "code-archive",
+  "artifact": "New_folder.zip (single saved HTML page: file.html)",
+  "summary": "Archive contains one server-rendered HTML snapshot of the HuntYourTrack 'Explore Opportunities' page. No source code, stylesheet, scripts, package.json, schema, or record exports were included.",
+  "capabilities": [
+    {
+      "capability": "Explore Opportunities page (/)",
+      "source": "file.html markup + og:image screenshot",
+      "outcome": "rebuild",
+      "status": "migrated",
+      "next_action": "none"
+    },
+    {
+      "capability": "Header, mobile nav, footer",
+      "source": "file.html markup",
+      "outcome": "rebuild",
+      "status": "migrated",
+      "next_action": "none"
+    },
+    {
+      "capability": "Visual design (colors, fonts, spacing)",
+      "source": "compiled stylesheet missing; reconstructed from screenshot and class names",
+      "outcome": "rebuild",
+      "status": "migrated",
+      "next_action": "none"
+    },
+    {
+      "capability": "Opportunity listings (6 roles)",
+      "source": "hard-coded in rendered page",
+      "outcome": "migrate as bundled data",
+      "status": "migrated",
+      "next_action": "none"
+    },
+    {
+      "capability": "Search, location, sort, track, type, work mode, duration, compensation, standing, keyword filters",
+      "source": "rendered controls; original logic not included",
+      "outcome": "rebuild client-side",
+      "status": "migrated",
+      "next_action": "none"
+    },
+    {
+      "capability": "Save (bookmark) listing",
+      "source": "aria-pressed toggle in markup",
+      "outcome": "rebuild with on-device storage",
+      "status": "migrated",
+      "next_action": "Move to Lovable Cloud if accounts are added"
+    },
+    {
+      "capability": "Details / Apply buttons",
+      "source": "buttons present, behaviour not included",
+      "outcome": "rebuild as details dialog + applied state",
+      "status": "migrated",
+      "next_action": "Confirm intended Apply behaviour with user"
+    },
+    {
+      "capability": "Saved page (/saved)",
+      "source": "nav link only",
+      "outcome": "rebuild from saved listings",
+      "status": "migrated",
+      "next_action": "Replace with original content if provided"
+    },
+    {
+      "capability": "Home page (/home)",
+      "source": "nav link only, content not in archive",
+      "outcome": "pending",
+      "status": "pending",
+      "next_action": "User to provide saved HTML of this page"
+    },
+    {
+      "capability": "Career Radar page (/career-radar)",
+      "source": "nav link only, content not in archive",
+      "outcome": "pending",
+      "status": "pending",
+      "next_action": "User to provide saved HTML of this page"
+    },
+    {
+      "capability": "Dashboard page (/dashboard)",
+      "source": "nav link only, content not in archive",
+      "outcome": "pending",
+      "status": "pending",
+      "next_action": "User to provide saved HTML of this page"
+    },
+    {
+      "capability": "My Profile page (/my-profile)",
+      "source": "nav link only, content not in archive",
+      "outcome": "pending",
+      "status": "pending",
+      "next_action": "User to provide saved HTML of this page"
+    },
+    {
+      "capability": "Images (logos, avatar)",
+      "source": "external image URLs",
+      "outcome": "copied into app assets",
+      "status": "migrated",
+      "next_action": "none"
+    },
+    {
+      "capability": "Database / records",
+      "source": "none detected",
+      "outcome": "not applicable",
+      "status": "accepted",
+      "next_action": "none"
+    },
+    {
+      "capability": "Auth / users",
+      "source": "none detected (footer mentions SSO, no implementation)",
+      "outcome": "not applicable",
+      "status": "accepted",
+      "next_action": "none"
+    },
+    {
+      "capability": "Storage, schedules, webhooks, payments, email, AI",
+      "source": "none detected",
+      "outcome": "not applicable",
+      "status": "accepted",
+      "next_action": "none"
+    },
+    {
+      "capability": "Secrets",
+      "source": "none detected",
+      "outcome": "not applicable",
+      "status": "accepted",
+      "next_action": "none"
+    },
+    {
+      "capability": "Page metadata",
+      "source": "title/description in file.html",
+      "outcome": "rebuild",
+      "status": "migrated",
+      "next_action": "none"
+    },
+    {
+      "capability": "Verification",
+      "source": "-",
+      "outcome": "Tests (7 pass) + browser check of search, sort, save, details, saved page",
+      "status": "verified",
+      "next_action": "Re-verify once remaining pages are provided"
+    }
+  ]
+}
