@@ -4,24 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Post an internship · Hunt Your Track</title>
-<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
 <style>
   :root {
-    --bg: #f4f6f8; --surface: #ffffff; --ink: #16212e; --muted: #5b6776;
-    --line: #d5dce3; --accent: #6a3fd1; --accent-soft: #ece6fb; --on-accent: #ffffff; --error: #b42318; --error-soft: #fdecea;
+    --bg: #f8fafc; --surface: #ffffff; --ink: #090d16; --muted: #64748b;
+    --line: rgba(0, 0, 0, 0.08); --accent: #090d16; --accent-soft: rgba(0, 0, 0, 0.06); --on-accent: #ffffff; --error: #dc2626; --error-soft: #fee2e2;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #10161d; --surface: #18212b; --ink: #e8edf2; --muted: #9aa7b5;
-      --line: #2f3b48; --accent: #b79cff; --accent-soft: #2a2146; --on-accent: #14102a; --error: #ff8a7a; --error-soft: #3a1f1c;
+      --bg: #0B0F19; --surface: #111318; --ink: #f8fafc; --muted: #94a3b8;
+      --line: rgba(255, 255, 255, 0.08); --accent: #ffffff; --accent-soft: rgba(255, 255, 255, 0.1); --on-accent: #090d16; --error: #f87171; --error-soft: rgba(248, 113, 113, 0.1);
     }
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 "Segoe UI", system-ui, sans-serif; padding: 32px 16px; }
-  .card { max-width: 640px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 32px; }
-  .brand { background: #000; margin: -32px -32px 28px; padding: 8px; text-align: center; border-radius: 11px 11px 0 0; }
-  .brand img { height: 150px; width: auto; display: inline-block; }
-  h1 { font-size: 1.6rem; margin: 0 0 4px; letter-spacing: -0.01em; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 'Geist', -apple-system, system-ui, sans-serif; padding: 32px 16px; }
+  img { filter: grayscale(1) contrast(1.05); }
+  .card { max-width: 640px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .brand { background: #000; margin: -32px -32px 28px; padding: 8px; text-align: center; border-radius: 15px 15px 0 0; }
+  .brand img { height: 150px; width: auto; display: inline-block; filter: grayscale(1) contrast(1.05); }
+  h1 { font-family: 'Sora', sans-serif; font-size: 1.6rem; margin: 0 0 4px; letter-spacing: -0.01em; }
   .sub { color: var(--muted); margin: 0 0 28px; }
   .field { margin-bottom: 22px; }
   label, .label { display: block; font-weight: 600; margin-bottom: 6px; }

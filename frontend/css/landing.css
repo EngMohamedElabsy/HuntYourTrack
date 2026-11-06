@@ -220,6 +220,8 @@
     max-width: 1280px;
     margin: 0 auto;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-pill {
@@ -296,9 +298,6 @@
     background: var(--color-card);
     border-color: var(--color-border);
     color: var(--color-foreground);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-}
-    color: #E2E8F0;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
@@ -1407,6 +1406,332 @@
 }
 
 .cmd-result-item:hover, .cmd-result-item.selected {
-    background: rgba(99, 102, 241, 0.12);
-    border-color: rgba(99, 102, 241, 0.25);
+    background: var(--color-muted);
+    border-color: var(--color-primary);
 }
+
+/* ==========================================================================
+   Lovable 2-Column Hero & Product Preview Card (Strict Monochrome)
+   ========================================================================== */
+
+.hero-split-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    text-align: right; /* RTL default */
+    margin: 0 auto;
+}
+
+[dir="ltr"] .hero-split-grid {
+    text-align: left;
+}
+
+@media (min-width: 1024px) {
+    .hero-split-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 3.5rem;
+    }
+}
+
+.hero-content-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+[dir="rtl"] .hero-content-col {
+    align-items: flex-start;
+}
+
+.hero-preview-col {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 1023px) {
+    .hero-preview-col {
+        display: none;
+    }
+}
+
+.hero-orbit-container {
+    position: absolute;
+    inset: -60px;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+}
+
+.orbit-ring-outer {
+    width: 480px;
+    height: 480px;
+}
+
+.orbit-ring-inner {
+    width: 360px;
+    height: 360px;
+    border-style: dashed;
+}
+
+.orbit-spin-reverse {
+    animation: orbit 45s linear infinite reverse;
+}
+
+.orbit-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--color-foreground);
+}
+
+.orbit-dot-1 {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 12px var(--color-foreground);
+}
+
+.orbit-dot-2 {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 6px;
+    height: 6px;
+    background: var(--color-muted-foreground);
+}
+
+.hero-preview-card {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    backdrop-filter: blur(16px);
+    z-index: 2;
+}
+
+.preview-badge-faculty {
+    position: absolute;
+    top: -12px;
+    inset-inline-end: 18px;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.preview-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.preview-logo-box {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--color-muted);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+
+.preview-company-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.preview-company-name {
+    font-size: 0.8rem;
+    color: var(--color-muted-foreground);
+    margin-bottom: 0.15rem;
+}
+
+.preview-role-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.preview-ring-wrap {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-ring-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    color: var(--color-foreground);
+}
+
+.preview-ring-score {
+    position: absolute;
+    font-size: 0.75rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    color: var(--color-foreground);
+}
+
+.preview-bars-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.preview-bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.preview-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.76rem;
+    color: var(--color-muted-foreground);
+}
+
+.preview-bar-val {
+    color: var(--color-foreground);
+    font-weight: 600;
+    font-family: var(--font-mono);
+}
+
+.preview-bar-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-muted);
+    overflow: hidden;
+}
+
+.preview-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-muted-foreground), var(--color-foreground));
+}
+
+.preview-status-pill {
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    background: var(--color-muted);
+    border: 1px solid var(--color-border);
+}
+
+.preview-steps-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.preview-step {
+    flex: 1;
+    font-size: 0.68rem;
+    color: var(--color-muted-foreground);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.preview-step-dot {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-border);
+}
+
+.preview-step.active .preview-step-dot {
+    background: var(--color-foreground);
+}
+
+.preview-step.active {
+    color: var(--color-foreground);
+    font-weight: 600;
+}
+
+/* Value Props Grid (US28) */
+.value-props-section {
+    padding: 3rem 1.5rem 4rem;
+}
+
+.value-props-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.value-prop-card {
+    padding: 1.75rem 1.5rem;
+    border-radius: 18px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    transition: all 0.25s ease;
+}
+
+.value-prop-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-foreground);
+    box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.4);
+}
+
+.value-prop-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--color-muted);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: var(--color-foreground);
+    margin-bottom: 1.2rem;
+}
+
+.value-prop-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin-bottom: 0.5rem;
+}
+
+.value-prop-desc {
+    font-size: 0.88rem;
+    color: var(--color-muted-foreground);
+    line-height: 1.6;
+}
+

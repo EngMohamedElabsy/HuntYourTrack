@@ -115,53 +115,167 @@
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
+        <!-- Hero Section (Lovable & Stage Design Fusion) -->
         <header class="hero-section" style="padding-bottom: 2rem;">
-            <div class="hero-pill">
-                <span>🎓</span> <span data-i18n="academicBadge">مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور</span>
-            </div>
-            <h1 class="hero-headline">
-                <span data-i18n="heroTitleLine1">اصطد مسارك المهني، واصنع</span> <br>
-                <span class="gradient-text" data-i18n="heroTitleLine2">شبكة مهاراتك وانطلق في سوق العمل 🚀</span>
-            </h1>
-            <p class="hero-description" data-i18n="heroDesc">
-                المنصة الذكية الأولى في جامعة دمنهور لرسم خريطة طريق مهنية مخصصة لكل طالب في مختلف الكليات (حاسبات، هندسة، تجارة، حقوق)، مع ربط مباشر بفرص التدريب الصيفي والكورسات المعتمدة وإشراف أكاديمي معتمد.
-            </p>
-            <div class="hero-typewriter-box">
-                <span class="typewriter-icon">✨</span>
-                <span id="hyt-typewriter"></span><span class="typewriter-cursor">|</span>
-            </div>
-            <div class="hero-actions">
-                <a href="#hunter-radar-section" class="btn btn-primary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnExplore">
-                    🎯 استكشف واصطد مسارك
-                </a>
-                <a href="#opportunities" class="btn btn-secondary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnBrowse">
-                    💼 تصفح التدريبات الصيفية
-                </a>
-                <button type="button" class="btn btn-accent" style="font-size: 1rem; padding: 0.85rem 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem;" onclick="openCommandSearch()">
-                    <span data-i18n="heroCmdBtn">🔍 بحث سريع (Ctrl+K)</span>
-                </button>
-            </div>
+            <div class="hero-split-grid">
+                <!-- Left Column: Copy & Actions & Stats -->
+                <div class="hero-content-col">
+                    <div class="hero-pill">
+                        <span>✨</span> <span data-i18n="academicBadge">دورة التدريب الصيفي 2026 مفتوحة الآن · جامعة دمنهور</span>
+                    </div>
+                    <h1 class="hero-headline">
+                        <span data-i18n="heroTitleLine1">اصطد مسارك المهني، واصنع</span> <br>
+                        <span class="gradient-text" data-i18n="heroTitleLine2">شبكة مهاراتك وانطلق في سوق العمل 🚀</span>
+                    </h1>
+                    <p class="hero-description" data-i18n="heroDesc">
+                        المنصة الذكية الأولى في جامعة دمنهور لرسم خريطة طريق مهنية مخصصة لكل طالب في مختلف الكليات (حاسبات، هندسة، تجارة، حقوق)، مع ربط مباشر بفرص التدريب الصيفي والكورسات المعتمدة وإشراف أكاديمي معتمد.
+                    </p>
+                    <div class="hero-typewriter-box">
+                        <span class="typewriter-icon">✨</span>
+                        <span id="hyt-typewriter"></span><span class="typewriter-cursor">|</span>
+                    </div>
+                    <div class="hero-actions">
+                        <a href="#opportunities" class="btn btn-primary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnExplore">
+                            استكشف الفرص المعتمدة ←
+                        </a>
+                        <a href="pages/auth.html" class="btn btn-secondary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnSignIn">
+                            🔐 دخول المنصة
+                        </a>
+                        <button type="button" class="btn btn-accent" style="font-size: 1rem; padding: 0.85rem 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem;" onclick="openCommandSearch()">
+                            <span data-i18n="heroCmdBtn">🔍 بحث سريع (Ctrl+K)</span>
+                        </button>
+                    </div>
 
-            <!-- Key Metrics Strip -->
-            <section class="metrics-strip" aria-label="Platform Statistics">
-                <div class="metric-item">
-                    <div class="metric-number">1,420+</div>
-                    <div class="metric-label" data-i18n="metricStudents">طالب مسجل بالجامعة</div>
+                    <!-- Key Metrics Strip -->
+                    <section class="metrics-strip" aria-label="Platform Statistics" style="width: 100%;">
+                        <div class="metric-item">
+                            <div class="metric-number">136+</div>
+                            <div class="metric-label" data-i18n="metricRoles">فرصة تدريب معتمدة</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">48</div>
+                            <div class="metric-label" data-i18n="metricPartners">شريك صناعي وتكنولوجي</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">91%</div>
+                            <div class="metric-label" data-i18n="metricMatchRate">متوسط التوافق الأكاديمي</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number">2.4k</div>
+                            <div class="metric-label" data-i18n="metricStudents">طالب ومرشد أكاديمي</div>
+                        </div>
+                    </section>
                 </div>
-                <div class="metric-item">
-                    <div class="metric-number">85+</div>
-                    <div class="metric-label" data-i18n="metricPartners">شريك وشركة تقنية</div>
+
+                <!-- Right Column: Lovable Product Preview Component (with Cosmic Orbit Rings) -->
+                <div class="hero-preview-col" aria-hidden="true">
+                    <div class="hero-orbit-container">
+                        <div class="orbit-ring orbit-ring-outer orbit-spin">
+                            <span class="orbit-dot orbit-dot-1"></span>
+                        </div>
+                        <div class="orbit-ring orbit-ring-inner orbit-spin-reverse">
+                            <span class="orbit-dot orbit-dot-2"></span>
+                        </div>
+                    </div>
+                    <div class="hero-preview-card panel shadow-glow">
+                        <div class="preview-badge-faculty">
+                            <span>✓</span> <span data-i18n="previewFacultyEndorsed">معتمد أكاديمياً</span>
+                        </div>
+                        <div class="preview-card-header">
+                            <div class="preview-logo-box">🏛️</div>
+                            <div class="preview-company-info">
+                                <div class="preview-company-name">Damanhour AI Lab × Zewail</div>
+                                <div class="preview-role-title">Machine Learning Research Intern</div>
+                            </div>
+                            <div class="preview-ring-wrap">
+                                <svg viewBox="0 0 48 48" class="preview-ring-svg">
+                                    <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="3.5"></circle>
+                                    <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3.5" stroke-dasharray="125.6" stroke-dashoffset="2.5"></circle>
+                                </svg>
+                                <span class="preview-ring-score">98%</span>
+                            </div>
+                        </div>
+                        <div class="preview-bars-stack">
+                            <div class="preview-bar-row">
+                                <div class="preview-bar-labels">
+                                    <span data-i18n="previewCourseAlign">Course alignment</span>
+                                    <span class="preview-bar-val">96%</span>
+                                </div>
+                                <div class="preview-bar-track">
+                                    <div class="preview-bar-fill" style="width: 96%;"></div>
+                                </div>
+                            </div>
+                            <div class="preview-bar-row">
+                                <div class="preview-bar-labels">
+                                    <span data-i18n="previewSkillOverlap">Skill overlap</span>
+                                    <span class="preview-bar-val">89%</span>
+                                </div>
+                                <div class="preview-bar-track">
+                                    <div class="preview-bar-fill" style="width: 89%;"></div>
+                                </div>
+                            </div>
+                            <div class="preview-bar-row">
+                                <div class="preview-bar-labels">
+                                    <span data-i18n="previewResumeKeywords">Résumé keywords</span>
+                                    <span class="preview-bar-val">84%</span>
+                                </div>
+                                <div class="preview-bar-track">
+                                    <div class="preview-bar-fill" style="width: 84%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="preview-status-pill panel">
+                            <div class="eyebrow" data-i18n="previewAppStatus">APPLICATION STATUS</div>
+                            <div class="preview-steps-row">
+                                <div class="preview-step active">
+                                    <span class="preview-step-dot"></span>
+                                    <span data-i18n="previewStepSubmitted">Submitted</span>
+                                </div>
+                                <div class="preview-step active">
+                                    <span class="preview-step-dot"></span>
+                                    <span data-i18n="previewStepReview">Review</span>
+                                </div>
+                                <div class="preview-step">
+                                    <span class="preview-step-dot"></span>
+                                    <span data-i18n="previewStepInterview">Interview</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="metric-item">
-                    <div class="metric-number">94.2%</div>
-                    <div class="metric-label" data-i18n="metricMatchRate">دقة المواءمة الوظيفية</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-number">100%</div>
-                    <div class="metric-label" data-i18n="metricMilestones">تتبع الخطوات الأكاديمية</div>
-                </div>
-            </section>
+            </div>
         </header>
+
+        <!-- Value Props Section: Built for students, trusted by faculty -->
+        <section class="section-wrapper value-props-section">
+            <div class="section-head" style="text-align: center; margin-bottom: 2rem;">
+                <p class="eyebrow" data-i18n="whyHytEyebrow">WHY HUNTYOURTRACK</p>
+                <h2 class="section-title" data-i18n="whyHytHeading" style="margin-top: 0.35rem;">Built for students, trusted by faculty.</h2>
+                <p class="section-subtitle" data-i18n="whyHytSub" style="margin-top: 0.5rem;">منظومة أكاديمية متكاملة لربط مخرجات التعليم الجامعي بمتطلبات سوق العمل الفعلي.</p>
+            </div>
+            <div class="value-props-grid">
+                <div class="value-prop-card panel">
+                    <div class="value-prop-icon">🎯</div>
+                    <h3 class="value-prop-title" data-i18n="vp1Title">Match scores that mean something</h3>
+                    <p class="value-prop-desc" data-i18n="vp1Desc">Every role is scored against your courses, skills and résumé — so you apply where you fit.</p>
+                </div>
+                <div class="value-prop-card panel">
+                    <div class="value-prop-icon">✓</div>
+                    <h3 class="value-prop-title" data-i18n="vp2Title">Faculty-endorsed listings</h3>
+                    <p class="value-prop-desc" data-i18n="vp2Desc">The placement office verifies each partner and role before it reaches students.</p>
+                </div>
+                <div class="value-prop-card panel">
+                    <div class="value-prop-icon">📊</div>
+                    <h3 class="value-prop-title" data-i18n="vp3Title">Track every application</h3>
+                    <p class="value-prop-desc" data-i18n="vp3Desc">See status from submission to offer, with deadlines and next steps in one dashboard.</p>
+                </div>
+                <div class="value-prop-card panel">
+                    <div class="value-prop-icon">📡</div>
+                    <h3 class="value-prop-title" data-i18n="vp4Title">Career Radar insights</h3>
+                    <p class="value-prop-desc" data-i18n="vp4Desc">Spot rising skills and in-demand tracks across every faculty before the cycle opens.</p>
+                </div>
+            </div>
+        </section>
 
         <!-- Bespoke "Track Hunter" Radar & Constellation Motion Section (Non-AI Visual Identity) -->
         <section class="section-wrapper" id="hunter-radar-section" style="padding-top: 1rem;">
