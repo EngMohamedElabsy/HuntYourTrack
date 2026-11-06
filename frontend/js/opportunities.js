@@ -410,7 +410,7 @@ class OpportunitiesManager {
         if (days === 0) {
             return {
                 status: "urgent",
-                text: isArabic ? `🔴 باقي ${hours} ساعة فقط!` : `🔴 ${hours}h left!`,
+                text: isArabic ? `باقي ${hours} ساعة فقط!` : `${hours}h left!`,
                 badgeClass: "badge-danger",
                 days,
                 hours
@@ -418,7 +418,7 @@ class OpportunitiesManager {
         } else if (days <= 7) {
             return {
                 status: "closing-soon",
-                text: isArabic ? `🟡 باقي ${days} أيام (${hours} س)` : `🟡 ${days}d ${hours}h left`,
+                text: isArabic ? `باقي ${days} أيام (${hours} س)` : `${days}d ${hours}h left`,
                 badgeClass: "badge-warning",
                 days,
                 hours
@@ -426,7 +426,7 @@ class OpportunitiesManager {
         } else {
             return {
                 status: "open",
-                text: isArabic ? `🟢 متبقي ${days} يوماً` : `🟢 ${days} days left`,
+                text: isArabic ? `متبقي ${days} يوماً` : `${days} days left`,
                 badgeClass: "badge-success",
                 days,
                 hours
@@ -456,17 +456,17 @@ class OpportunitiesManager {
 
         const facultyOptions = [
             { id: "all", labelEn: "All Tracks (6)", labelAr: "كافة المسارات (6)" },
-            { id: "computing", labelEn: "💻 Computing & AI", labelAr: "💻 حاسبات وذكاء اصطناعي" },
-            { id: "engineering", labelEn: "⚙️ Engineering", labelAr: "⚙️ هندسة وتصنيع" },
-            { id: "business", labelEn: "💳 Business & FinTech", labelAr: "💳 تجارة ونظم مالية" },
-            { id: "science", labelEn: "🧬 Science & Bio", labelAr: "🧬 علوم ومعلوماتية حيوية" },
-            { id: "law", labelEn: "⚖️ Law & IP Rights", labelAr: "⚖️ حقوق وملكية فكرية" }
+            { id: "computing", labelEn: "Computing & AI", labelAr: "حاسبات وذكاء اصطناعي" },
+            { id: "engineering", labelEn: "Engineering", labelAr: "هندسة وتصنيع" },
+            { id: "business", labelEn: "Business & FinTech", labelAr: "تجارة ونظم مالية" },
+            { id: "science", labelEn: "Science & Bio", labelAr: "علوم ومعلوماتية حيوية" },
+            { id: "law", labelEn: "Law & IP Rights", labelAr: "حقوق وملكية فكرية" }
         ];
 
         return `
             <div class="opp-filter-bar">
                 <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-muted-foreground); margin-inline-end: 0.4rem;">
-                    ${isArabic ? "🎯 تصفية حسب الكلية:" : "🎯 Filter by Discipline:"}
+                    ${isArabic ? "تصفية حسب الكلية:" : "Filter by Discipline:"}
                 </span>
                 ${facultyOptions.map(opt => `
                     <button type="button" class="opp-filter-chip ${this.facultyFilter === opt.id ? "active" : ""}"
@@ -507,7 +507,7 @@ class OpportunitiesManager {
         if (filtered.length === 0) {
             gridHtml = `
                 <div class="panel" style="grid-column: 1 / -1; text-align: center; padding: 3rem 1.5rem;">
-                    <div style="font-size: 2.5rem; margin-bottom: 0.8rem;">🔍</div>
+                    <div style="margin-bottom: 0.8rem;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="opacity: 0.5;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
                     <h3 style="margin: 0 0 0.5rem; font-size: 1.2rem;">${isArabic ? "لا توجد فرص مطابقة لهذا التصنيف حالياً" : "No opportunities matched this filter"}</h3>
                     <p style="color: var(--color-muted-foreground); font-size: 0.9rem; margin-bottom: 1.2rem;">
                         ${isArabic ? "يمكنك استعراض كافة المسارات للحصول على الفرص المتاحة." : "Try selecting another track or view all available opportunities."}
@@ -536,7 +536,7 @@ class OpportunitiesManager {
                             <div class="opp-header-row">
                                 <div class="opp-brand-info">
                                     <div class="opp-brand-logo">
-                                        ${opp.orgLogoText || "🏢"}
+                                        ${opp.orgLogoText || (opp.organization ? opp.organization.charAt(0) : "H")}
                                     </div>
                                     <div>
                                         <div class="opp-company-name">
@@ -556,7 +556,7 @@ class OpportunitiesManager {
                             <!-- Facts Grid -->
                             <div class="opp-facts-grid">
                                 <div class="opp-fact-pill">
-                                    <span class="fact-label">${isArabic ? "💰 المكافأة:" : "💰 Stipend:"}</span>
+                                    <span class="fact-label">${isArabic ? "المكافأة:" : "Stipend:"}</span>
                                     <span style="font-weight: 600;">${stipend}</span>
                                 </div>
                                 <div class="opp-fact-pill">
@@ -564,11 +564,11 @@ class OpportunitiesManager {
                                     <span style="font-weight: 600;">${term}</span>
                                 </div>
                                 <div class="opp-fact-pill">
-                                    <span class="fact-label">${isArabic ? "📍 المقر:" : "📍 Location:"}</span>
+                                    <span class="fact-label">${isArabic ? "المقر:" : "Location:"}</span>
                                     <span style="font-weight: 600;">${location}</span>
                                 </div>
                                 <div class="opp-fact-pill">
-                                    <span class="fact-label">${isArabic ? "👥 المتقدمون:" : "👥 Applied:"}</span>
+                                    <span class="fact-label">${isArabic ? "المتقدمون:" : "Applied:"}</span>
                                     <span style="font-weight: 600;">${opp.applicantsCount || 24} ${isArabic ? "طالب" : "students"}</span>
                                 </div>
                             </div>
@@ -582,7 +582,7 @@ class OpportunitiesManager {
                         <div>
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
                                 <span class="tag-pill" style="font-size: 0.75rem; background: var(--color-muted); color: var(--color-foreground);">
-                                    🎓 ${targetFaculty}
+                                    ${targetFaculty}
                                 </span>
                                 <span class="tag-pill opp-countdown-badge ${countdown.badgeClass}" style="font-size: 0.75rem;">
                                     ⏱️ ${countdown.text}
@@ -597,7 +597,7 @@ class OpportunitiesManager {
                                     ℹ️ ${isArabic ? "التفاصيل" : "Details"}
                                 </button>
                                 <button type="button" class="btn btn-secondary" onclick="window.toggleBookmarkOpportunity('${opp.id}', this)" style="padding: 0.45rem 0.75rem;" title="${isArabic ? "حفظ الفرصة" : "Bookmark"}">
-                                    🔖
+                                    
                                 </button>
                             </div>
                         </div>

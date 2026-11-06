@@ -328,10 +328,33 @@ button:focus-visible {
 
 .btn-primary {
     background: var(--color-primary);
-    color: white;
+    color: #ffffff;
 }
 
-.btn-primary:hover { background: #4F46E5; }
+.btn-primary:hover { 
+    background: #4F46E5; 
+    color: #ffffff;
+}
+
+[data-theme="dark"] .btn-primary,
+[data-theme="abyss"] .btn-primary,
+[data-theme="nebula"] .btn-primary,
+[data-theme="ember"] .btn-primary {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f8fafc;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .btn-primary:hover,
+[data-theme="abyss"] .btn-primary:hover,
+[data-theme="nebula"] .btn-primary:hover,
+[data-theme="ember"] .btn-primary:hover {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+    border-color: rgba(255, 255, 255, 0.32);
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 242, 254, 0.22);
+}
 
 .btn-accent {
     background: var(--color-accent);
@@ -340,6 +363,16 @@ button:focus-visible {
 
 .btn-accent:hover { background: #15803D; }
 
+[data-theme="dark"] .btn-accent,
+[data-theme="abyss"] .btn-accent,
+[data-theme="nebula"] .btn-accent,
+[data-theme="ember"] .btn-accent {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+}
+
 .btn-secondary {
     border: 1px solid var(--color-border);
     background: var(--color-card);
@@ -347,6 +380,21 @@ button:focus-visible {
 }
 
 .btn-secondary:hover { border-color: var(--color-primary); background: var(--color-muted); }
+
+[data-theme="dark"] .btn-secondary,
+[data-theme="abyss"] .btn-secondary,
+[data-theme="nebula"] .btn-secondary,
+[data-theme="ember"] .btn-secondary {
+    background: #161D2F;
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
 
 .btn-danger {
     background: #DC2626;

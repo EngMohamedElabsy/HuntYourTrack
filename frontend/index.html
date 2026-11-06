@@ -17,10 +17,19 @@
     <!-- Sticky Navigation Bar (Clean & Role-Sanitized) -->
     <nav class="landing-nav" id="main-nav">
         <div class="nav-container">
-            <a href="index.html" class="brand-wrapper">
-                <span class="brand-icon">🎯</span>
-                <span class="brand-title" data-i18n="brandName">HuntYourTrack</span>
-                <span class="brand-sub-badge" data-i18n="brandBadge">جامعة دمنهور</span>
+            <a href="index.html" class="brand-wrapper" aria-label="HuntYourTrack Home">
+                <span class="brand-mark">
+                    <svg class="brand-reticle-svg" width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 3" opacity="0.6"/>
+                        <circle cx="16" cy="16" r="7.5" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="16" cy="16" r="2.8" fill="currentColor"/>
+                        <path d="M16 2V6M16 26V30M2 16H6M26 16H30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M21 11L27 5M27 5H23M27 5V9" stroke="#00F2FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="brand-title">
+                    <span class="brand-word-hunt">Hunt</span><span class="brand-word-your">Your</span><span class="brand-word-track">Track</span>
+                </span>
             </a>
 
             <!-- Desktop Links -->
@@ -29,67 +38,66 @@
                 <li><a href="#opportunities" class="nav-link" data-i18n="navInternships">فرص التدريب والكورسات</a></li>
                 <li><a href="#hunter-radar-section" class="nav-link" data-i18n="navHunterRadar">رادار اصطياد المسار</a></li>
                 <li><a href="#how-it-works" class="nav-link" data-i18n="navHowItWorks">كيف تعمل المنصة</a></li>
-                <li><a href="#employers" class="nav-link" data-i18n="navEmployers">للشركات والمنظمين</a></li>
             </ul>
 
             <!-- Controls & Auth CTAs -->
             <div class="nav-cta-group">
                 <!-- Command Palette Trigger Button -->
                 <button type="button" class="nav-util-btn" onclick="openCommandSearch()" aria-label="Quick Search" title="Quick Search (Ctrl+K)">
-                    🔍 <span style="font-size: 0.72rem; opacity: 0.8; margin-inline-start: 2px;">Ctrl+K</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> <span style="font-size: 0.72rem; opacity: 0.8; margin-inline-start: 3px;">Ctrl+K</span>
                 </button>
 
                 <!-- Language & Theme Switchers -->
-                <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language">🌐 English</button>
+                <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-inline-end: 4px;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>English</button>
 
                 <!-- Unified Theme & Appearance Dropdown -->
                 <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
                     <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
-                        <span id="theme-btn-icon">🌓</span>
+                        <span id="theme-btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
                     </button>
                     <div class="theme-dropdown-menu" id="theme-dropdown-menu">
                         <div class="theme-menu-header" data-i18n="themeModesHeader">نمط الإضاءة</div>
                         <button type="button" class="theme-opt-btn" data-theme-val="dark" onclick="setAppThemeMode('dark')">
-                            <span style="font-size: 0.95rem;">🌙</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
                             <span data-i18n="themeDarkOption">الوضع الليلي (Dark Mode)</span>
                         </button>
                         <button type="button" class="theme-opt-btn" data-theme-val="light" onclick="setAppThemeMode('light')">
-                            <span style="font-size: 0.95rem;">☀️</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
                             <span data-i18n="themeLightOption">الوضع النهاري (Light Mode)</span>
                         </button>
                         <div class="theme-menu-divider"></div>
                         <div class="theme-menu-header" data-i18n="themePalettesHeader">لوحات الألوان المخصصة</div>
                         <button type="button" class="theme-opt-btn" data-theme-val="abyss" onclick="setAppTheme('abyss')">
                             <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
-                            <span data-i18n="themeAbyss">🌌 أعماق المحيط (Abyss)</span>
+                            <span data-i18n="themeAbyss">أعماق المحيط (Abyss)</span>
                         </button>
                         <button type="button" class="theme-opt-btn" data-theme-val="reef" onclick="setAppTheme('reef')">
                             <span class="theme-swatch-dot" style="background: #10B981;"></span>
-                            <span data-i18n="themeReef">🪸 الشعب المرجانية (Reef)</span>
+                            <span data-i18n="themeReef">الشعب المرجانية (Reef)</span>
                         </button>
                         <button type="button" class="theme-opt-btn" data-theme-val="nebula" onclick="setAppTheme('nebula')">
                             <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
-                            <span data-i18n="themeNebula">🔮 سديم الفضاء (Nebula)</span>
+                            <span data-i18n="themeNebula">سديم الفضاء (Nebula)</span>
                         </button>
                         <button type="button" class="theme-opt-btn" data-theme-val="ember" onclick="setAppTheme('ember')">
                             <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
-                            <span data-i18n="themeEmber">🔥 الوهج الشمسي (Ember)</span>
+                            <span data-i18n="themeEmber">الوهج الشمسي (Ember)</span>
                         </button>
                         <button type="button" class="theme-opt-btn" data-theme-val="daylight" onclick="setAppTheme('daylight')">
                             <span class="theme-swatch-dot" style="background: #0284C7;"></span>
-                            <span data-i18n="themeDaylight">☀️ وضح النهار (Daylight)</span>
+                            <span data-i18n="themeDaylight">وضح النهار (Daylight)</span>
                         </button>
                     </div>
                 </div>
 
                 <div id="nav-auth-actions" style="display: flex; gap: 0.5rem; align-items: center;">
-                    <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.5rem 1.15rem; font-size: 0.88rem;" data-i18n="navUnifiedAuth">🔐 دخول المنصة</a>
+                    <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.5rem 1.15rem; font-size: 0.88rem;" data-i18n="navUnifiedAuth"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-inline-end: 4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>دخول المنصة</a>
                 </div>
             </div>
 
             <!-- Mobile Hamburger Toggle -->
             <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Navigation Menu">
-                ☰
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             </button>
         </div>
 
@@ -102,12 +110,12 @@
             <a href="#employers" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navEmployers">للشركات والمنظمين</a>
             
             <div style="display: flex; gap: 0.5rem; margin: 1rem 0;">
-                <button onclick="window.hytI18n.toggleLanguage(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="langToggleLabel">🌐 اللغة</button>
-                <button onclick="window.hytI18n.toggleTheme(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="themeToggleLabel">🌓 المظهر</button>
+                <button onclick="window.hytI18n.toggleLanguage(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="langToggleLabel">اللغة</button>
+                <button onclick="window.hytI18n.toggleTheme(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="themeToggleLabel">المظهر</button>
             </div>
 
             <div class="nav-cta-group" id="mobile-auth-actions" style="display: flex; flex-direction: column; gap: 0.5rem;">
-                <a href="pages/auth.html" class="btn btn-primary" style="width: 100%;" data-i18n="navUnifiedAuth">🔐 دخول المنصة</a>
+                <a href="pages/auth.html" class="btn btn-primary" style="width: 100%;" data-i18n="navUnifiedAuth"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-inline-end: 4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>دخول المنصة</a>
             </div>
         </div>
     </nav>
@@ -121,17 +129,17 @@
                 <!-- Left Column: Copy & Actions & Stats -->
                 <div class="hero-content-col">
                     <div class="hero-pill">
-                        <span>✨</span> <span data-i18n="academicBadge">دورة التدريب الصيفي 2026 مفتوحة الآن · جامعة دمنهور</span>
+                        <span data-i18n="academicBadge">دورة التدريب الصيفي 2026 مفتوحة الآن · جامعة دمنهور</span>
                     </div>
                     <h1 class="hero-headline">
                         <span data-i18n="heroTitleLine1">اصطد مسارك المهني، واصنع</span> <br>
-                        <span class="gradient-text" data-i18n="heroTitleLine2">شبكة مهاراتك وانطلق في سوق العمل 🚀</span>
+                        <span class="gradient-text" data-i18n="heroTitleLine2">شبكة مهاراتك وانطلق في سوق العمل</span>
                     </h1>
                     <p class="hero-description" data-i18n="heroDesc">
                         المنصة الذكية الأولى في جامعة دمنهور لرسم خريطة طريق مهنية مخصصة لكل طالب في مختلف الكليات (حاسبات، هندسة، تجارة، حقوق)، مع ربط مباشر بفرص التدريب الصيفي والكورسات المعتمدة وإشراف أكاديمي معتمد.
                     </p>
                     <div class="hero-typewriter-box">
-                        <span class="typewriter-icon">✨</span>
+                        <span class="typewriter-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg></span>
                         <span id="hyt-typewriter"></span><span class="typewriter-cursor">|</span>
                     </div>
                     <div class="hero-actions">
@@ -139,10 +147,10 @@
                             استكشف الفرص المعتمدة ←
                         </a>
                         <a href="pages/auth.html" class="btn btn-secondary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnSignIn">
-                            🔐 دخول المنصة
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-inline-end: 4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>دخول المنصة
                         </a>
                         <button type="button" class="btn btn-accent" style="font-size: 1rem; padding: 0.85rem 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem;" onclick="openCommandSearch()">
-                            <span data-i18n="heroCmdBtn">🔍 بحث سريع (Ctrl+K)</span>
+                            <span data-i18n="heroCmdBtn">بحث سريع (Ctrl+K)</span>
                         </button>
                     </div>
 
@@ -182,7 +190,7 @@
                             <span>✓</span> <span data-i18n="previewFacultyEndorsed">معتمد أكاديمياً</span>
                         </div>
                         <div class="preview-card-header">
-                            <div class="preview-logo-box">🏛️</div>
+                            <div class="preview-logo-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg></div>
                             <div class="preview-company-info">
                                 <div class="preview-company-name">Damanhour AI Lab × Zewail</div>
                                 <div class="preview-role-title">Machine Learning Research Intern</div>
@@ -255,22 +263,22 @@
             </div>
             <div class="value-props-grid">
                 <div class="value-prop-card panel">
-                    <div class="value-prop-icon">🎯</div>
+                    <div class="value-prop-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
                     <h3 class="value-prop-title" data-i18n="vp1Title">Match scores that mean something</h3>
                     <p class="value-prop-desc" data-i18n="vp1Desc">Every role is scored against your courses, skills and résumé — so you apply where you fit.</p>
                 </div>
                 <div class="value-prop-card panel">
-                    <div class="value-prop-icon">✓</div>
+                    <div class="value-prop-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
                     <h3 class="value-prop-title" data-i18n="vp2Title">Faculty-endorsed listings</h3>
                     <p class="value-prop-desc" data-i18n="vp2Desc">The placement office verifies each partner and role before it reaches students.</p>
                 </div>
                 <div class="value-prop-card panel">
-                    <div class="value-prop-icon">📊</div>
+                    <div class="value-prop-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg></div>
                     <h3 class="value-prop-title" data-i18n="vp3Title">Track every application</h3>
                     <p class="value-prop-desc" data-i18n="vp3Desc">See status from submission to offer, with deadlines and next steps in one dashboard.</p>
                 </div>
                 <div class="value-prop-card panel">
-                    <div class="value-prop-icon">📡</div>
+                    <div class="value-prop-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg></div>
                     <h3 class="value-prop-title" data-i18n="vp4Title">Career Radar insights</h3>
                     <p class="value-prop-desc" data-i18n="vp4Desc">Spot rising skills and in-demand tracks across every faculty before the cycle opens.</p>
                 </div>
@@ -281,7 +289,7 @@
         <section class="section-wrapper" id="hunter-radar-section" style="padding-top: 1rem;">
             <div class="section-head">
                 <span class="section-badge" data-i18n="hunterBadge">الهوية البصرية والحركية</span>
-                <h2 class="section-title" data-i18n="hunterHeadline">🕸️ محاكي صائد المسارات (Track Hunter Radar)</h2>
+                <h2 class="section-title" data-i18n="hunterHeadline">محاكي رادار المجرة الكونية للمسارات (Track Hunter Radar)</h2>
                 <p class="section-subtitle" data-i18n="hunterSub">
                     حرّك مؤشر الماوس لاكتشاف العقد المهنية ونسج شبكة مهاراتك المتكاملة وتتبع مسارك حتى الاحتراف.
                 </p>
@@ -290,39 +298,39 @@
             <!-- Interactive Faculty Dock & Real-time Hunter Filter -->
             <div class="hunter-controls-bar">
                 <div class="hero-faculty-dock" role="toolbar" aria-label="Faculty filter dock">
-                    <button class="dock-pill active" onclick="setHunterFaculty('all', this)" data-faculty="all" data-i18n="dockAll">🌐 كافة الكليات</button>
-                    <button class="dock-pill" onclick="setHunterFaculty('computing', this)" data-faculty="computing" data-i18n="dockComputing">💻 الحاسبات والذكاء الاصطناعي</button>
-                    <button class="dock-pill" onclick="setHunterFaculty('engineering', this)" data-faculty="engineering" data-i18n="dockEngineering">⚙️ الهندسة والتكنولوجيا</button>
-                    <button class="dock-pill" onclick="setHunterFaculty('science', this)" data-faculty="science" data-i18n="dockScience">🔬 العلوم الأساسية</button>
-                    <button class="dock-pill" onclick="setHunterFaculty('business', this)" data-faculty="business" data-i18n="dockBusiness">📊 التجارة وإدارة الأعمال</button>
-                    <button class="dock-pill" onclick="setHunterFaculty('law', this)" data-faculty="law" data-i18n="dockLaw">⚖️ الحقوق والتشريعات الرقمية</button>
+                    <button class="dock-pill active" onclick="setHunterFaculty('all', this)" data-faculty="all" data-i18n="dockAll">كافة الكليات</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('computing', this)" data-faculty="computing" data-i18n="dockComputing">الحاسبات والذكاء الاصطناعي</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('engineering', this)" data-faculty="engineering" data-i18n="dockEngineering">الهندسة والتكنولوجيا</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('science', this)" data-faculty="science" data-i18n="dockScience">العلوم الأساسية</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('business', this)" data-faculty="business" data-i18n="dockBusiness">التجارة وإدارة الأعمال</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('law', this)" data-faculty="law" data-i18n="dockLaw">الحقوق والتشريعات الرقمية</button>
                 </div>
                 <!-- Enriched Hunter Search with Autocomplete & Non-Existent Input Guard -->
                 <div class="hunter-search-wrapper">
                     <div class="hunter-search-box aura" style="display: flex; gap: 0.5rem; align-items: center; padding: 0.35rem 0.65rem;">
-                        <span style="font-size: 1.1rem; opacity: 0.85; margin-inline-start: 4px;">✨</span>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-inline-start: 4px; opacity: 0.8;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                         <input type="text" id="hunter-quick-search" placeholder="ابحث عن مسار لاصطياده واستعراض خارطة طريقه (AI, Cloud, Mechatronics...)" oninput="handleHunterSearch(this.value)" onfocus="handleHunterSearch(this.value)" data-i18n="hunterSearchPh" style="flex: 1; border: none; background: transparent; color: var(--color-foreground); outline: none; font-size: 0.92rem;" autocomplete="off" />
-                        <button type="button" class="btn btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.82rem; border-radius: 9999px; white-space: nowrap;" onclick="if(window.hytHunter) window.hytHunter.shuffleTrack();" data-i18n="hunterShuffleBtn">🎲 اصطياد عشوائي</button>
+                        <button type="button" class="btn btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.82rem; border-radius: 9999px; white-space: nowrap;" onclick="if(window.hytHunter) window.hytHunter.shuffleTrack();" data-i18n="hunterShuffleBtn">اصطياد عشوائي</button>
                     </div>
                     <div id="hunter-autocomplete-dropdown" class="hunter-autocomplete-dropdown" style="display: none;"></div>
                 </div>
 
                 <!-- Quick-Hook Interactive Track Chips -->
                 <div class="hunter-quick-chips" style="display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center; margin-top: 0.75rem;">
-                    <button type="button" class="hunter-quick-chip active" onclick="hookQuickChip('all', this)">✨ كافة المسارات (12)</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-ai', this)">🧠 AI & Deep Learning</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-cloud', this)">🌐 Full-Stack Cloud</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-sec', this)">🛡️ Cybersecurity SOC</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('eng-mecha', this)">⚙️ Mechatronics & Robotics</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('bus-fintech', this)">💳 FinTech Trading</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('sci-bio', this)">🧬 Bioinformatics</button>
+                    <button type="button" class="hunter-quick-chip active" onclick="hookQuickChip('all', this)">كافة المسارات (12)</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-ai', this)">AI & Deep Learning</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-cloud', this)">Full-Stack Cloud</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-sec', this)">Cybersecurity SOC</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('eng-mecha', this)">Mechatronics & Robotics</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('bus-fintech', this)">FinTech Trading</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('sci-bio', this)">Bioinformatics</button>
                 </div>
             </div>
 
             <div class="hunter-canvas-wrapper">
                 <div class="hunter-canvas-header">
-                    <span class="hunter-status-chip" data-i18n="hunterRadarStatus">📡 مسح راداري نشط ومستمر</span>
-                    <span id="hunter-tracks-counter" class="hunter-live-stat" data-i18n="hunterLiveStat">🎯 12 مساراً مهنياً معتمداً · اضغط على أي مسار لاصطياده واستعراض خارطة طريقه</span>
+                    <span class="hunter-status-chip" data-i18n="hunterRadarStatus">مسح راداري نشط ومستمر</span>
+                    <span id="hunter-tracks-counter" class="hunter-live-stat" data-i18n="hunterLiveStat">12 مساراً مهنياً معتمداً · اضغط على أي مسار لاصطياده واستعراض خارطة طريقه</span>
                 </div>
                 <canvas id="hunter-radar-canvas"></canvas>
             </div>
@@ -343,7 +351,7 @@
                     </div>
                     <div>
                         <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="font-size: 0.9rem;" data-i18n="postOpportunityBtn">
-                            ➕ نشر فرصة جديدة (للشركات والمنظمات)
+                            نشر فرصة جديدة (للشركات والمنظمات)
                         </button>
                     </div>
                 </div>
@@ -371,9 +379,9 @@
                         <div class="track-card-face track-card-front">
                             <div>
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                    <div class="track-icon-box icon-web">💻</div>
+                                    <div class="track-icon-box icon-web"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
                                     <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
-                                        <span data-i18n="flipCardBtn">🔄 الخطة والمناهج</span>
+                                        <span data-i18n="flipCardBtn">الخطة والمناهج</span>
                                     </button>
                                 </div>
                                 <h3 class="track-title" data-i18n="track1Title">هندسة البرمجيات وتطبيقات الويب (Full-Stack)</h3>
@@ -388,7 +396,7 @@
                                 </div>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration" data-i18n="track1Duration">⏱️ مسار 16 أسبوعاً</span>
+                                <span class="track-duration" data-i18n="track1Duration">مسار 16 أسبوعاً</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -397,9 +405,9 @@
                         <div class="track-card-face track-card-back">
                             <div>
                                 <div class="card-back-header">
-                                    <span class="card-back-title">📚 المنهج والمخرجات المهنية</span>
+                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
                                     <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
-                                        <span data-i18n="flipBackBtn">↩️ العودة</span>
+                                        <span data-i18n="flipBackBtn">العودة</span>
                                     </button>
                                 </div>
                                 <ul class="card-syllabus-list">
@@ -410,7 +418,7 @@
                                 </ul>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration">🎯 Full-Stack Engineer</span>
+                                <span class="track-duration">Full-Stack Engineer</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -424,9 +432,9 @@
                         <div class="track-card-face track-card-front">
                             <div>
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                    <div class="track-icon-box icon-ai">🧠</div>
+                                    <div class="track-icon-box icon-ai"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v2M15 1v2M9 21v2M15 21v2M1 9h2M1 15h2M21 9h2M21 15h2"/></svg></div>
                                     <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
-                                        <span data-i18n="flipCardBtn">🔄 الخطة والمناهج</span>
+                                        <span data-i18n="flipCardBtn">الخطة والمناهج</span>
                                     </button>
                                 </div>
                                 <h3 class="track-title" data-i18n="track2Title">الذكاء الاصطناعي وعلم البيانات (AI & Data)</h3>
@@ -441,7 +449,7 @@
                                 </div>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration" data-i18n="track2Duration">⏱️ مسار 20 أسبوعاً</span>
+                                <span class="track-duration" data-i18n="track2Duration">مسار 20 أسبوعاً</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -450,9 +458,9 @@
                         <div class="track-card-face track-card-back">
                             <div>
                                 <div class="card-back-header">
-                                    <span class="card-back-title">📚 المنهج والمخرجات المهنية</span>
+                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
                                     <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
-                                        <span data-i18n="flipBackBtn">↩️ العودة</span>
+                                        <span data-i18n="flipBackBtn">العودة</span>
                                     </button>
                                 </div>
                                 <ul class="card-syllabus-list">
@@ -463,7 +471,7 @@
                                 </ul>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration">🎯 AI & ML Engineer</span>
+                                <span class="track-duration">AI & ML Engineer</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -477,9 +485,9 @@
                         <div class="track-card-face track-card-front">
                             <div>
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                    <div class="track-icon-box icon-embedded">⚡</div>
+                                    <div class="track-icon-box icon-embedded"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
                                     <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
-                                        <span data-i18n="flipCardBtn">🔄 الخطة والمناهج</span>
+                                        <span data-i18n="flipCardBtn">الخطة والمناهج</span>
                                     </button>
                                 </div>
                                 <h3 class="track-title" data-i18n="track3Title">الأنظمة المدمجة وبرمجيات السيارات (Embedded)</h3>
@@ -494,7 +502,7 @@
                                 </div>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration" data-i18n="track3Duration">⏱️ مسار 18 أسبوعاً</span>
+                                <span class="track-duration" data-i18n="track3Duration">مسار 18 أسبوعاً</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -503,9 +511,9 @@
                         <div class="track-card-face track-card-back">
                             <div>
                                 <div class="card-back-header">
-                                    <span class="card-back-title">📚 المنهج والمخرجات المهنية</span>
+                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
                                     <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
-                                        <span data-i18n="flipBackBtn">↩️ العودة</span>
+                                        <span data-i18n="flipBackBtn">العودة</span>
                                     </button>
                                 </div>
                                 <ul class="card-syllabus-list">
@@ -516,7 +524,7 @@
                                 </ul>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration">🎯 Embedded Software Engineer</span>
+                                <span class="track-duration">Embedded Software Engineer</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -530,9 +538,9 @@
                         <div class="track-card-face track-card-front">
                             <div>
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                    <div class="track-icon-box icon-fintech">💳</div>
+                                    <div class="track-icon-box icon-fintech"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></div>
                                     <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
-                                        <span data-i18n="flipCardBtn">🔄 الخطة والمناهج</span>
+                                        <span data-i18n="flipCardBtn">الخطة والمناهج</span>
                                     </button>
                                 </div>
                                 <h3 class="track-title" data-i18n="track4Title">تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)</h3>
@@ -547,7 +555,7 @@
                                 </div>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration" data-i18n="track4Duration">⏱️ مسار 14 أسبوعاً</span>
+                                <span class="track-duration" data-i18n="track4Duration">مسار 14 أسبوعاً</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -556,9 +564,9 @@
                         <div class="track-card-face track-card-back">
                             <div>
                                 <div class="card-back-header">
-                                    <span class="card-back-title">📚 المنهج والمخرجات المهنية</span>
+                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
                                     <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
-                                        <span data-i18n="flipBackBtn">↩️ العودة</span>
+                                        <span data-i18n="flipBackBtn">العودة</span>
                                     </button>
                                 </div>
                                 <ul class="card-syllabus-list">
@@ -569,7 +577,7 @@
                                 </ul>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration">🎯 FinTech Quantitative Analyst</span>
+                                <span class="track-duration">FinTech Quantitative Analyst</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -620,10 +628,10 @@
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <a href="pages/employer.html?demo=true" class="btn btn-primary" style="padding: 0.85rem 1.75rem;" data-i18n="empDashboardBtn">
-                        🏢 لوحة تحكم الشركة / المنظم
+                        لوحة تحكم الشركة / المنظم
                     </a>
                     <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="padding: 0.85rem 1.75rem;" data-i18n="empPostBtn">
-                        ➕ نشر فرصة تدريب الآن
+                        نشر فرصة تدريب الآن
                     </button>
                     <a href="pages/auth.html" class="btn btn-secondary" style="padding: 0.85rem 1.75rem;" data-i18n="empRegisterBtn">
                         تسجيل حساب شركة / منظم →
@@ -637,7 +645,7 @@
     <dialog class="modal" id="publish-opportunity-modal" style="max-width: 580px; border-radius: 24px; padding: 2rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
             <div>
-                <span class="hunter-status-chip" data-i18n="modalOppChip">🏢 نشر فرصة جديدة</span>
+                <span class="hunter-status-chip" data-i18n="modalOppChip">نشر فرصة جديدة</span>
                 <h3 style="margin-top: 0.5rem; font-size: 1.35rem;" data-i18n="modalOppTitle">إضافة تدريب صيفي أو كورس معتمد</h3>
             </div>
             <button type="button" onclick="closePublishOpportunityModal()" class="nav-util-btn" style="border: none; font-size: 1.25rem;">&times;</button>
@@ -658,8 +666,8 @@
                 <div class="form-group">
                     <label for="opp-form-type" data-i18n="modalOppTypeLabel">نوع الفرصة:</label>
                     <select id="opp-form-type" class="form-control" required>
-                        <option value="Internship" data-i18n="modalOppTypeOpt1" selected>💼 تدريب صيفي (Internship)</option>
-                        <option value="Training Course" data-i18n="modalOppTypeOpt2">📜 كورس معتمد (Course)</option>
+                        <option value="Internship" data-i18n="modalOppTypeOpt1" selected>تدريب صيفي (Internship)</option>
+                        <option value="Training Course" data-i18n="modalOppTypeOpt2">كورس معتمد (Course)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -698,7 +706,7 @@
 
             <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
                 <button type="button" onclick="closePublishOpportunityModal()" class="btn btn-secondary" data-i18n="modalCancelBtn">إلغاء</button>
-                <button type="submit" class="btn btn-accent" data-i18n="modalSubmitBtn">اعتماد ونشر الفرصة فوراً 🚀</button>
+                <button type="submit" class="btn btn-accent" data-i18n="modalSubmitBtn">اعتماد ونشر الفرصة فوراً</button>
             </div>
         </form>
     </dialog>
@@ -706,7 +714,7 @@
     <!-- Command Search Palette Modal (Ctrl+K) -->
     <dialog class="cmd-palette-dialog" id="command-search-modal">
         <div class="cmd-search-input-box">
-            <span>🔍</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <input type="text" id="cmd-search-input" placeholder="ابحث عن مسار مهني أو فرصة تدريب (Full-Stack, AI, Python)..." data-i18n="cmdSearchPh" oninput="handleCommandSearch(this.value)" autocomplete="off">
             <button type="button" onclick="closeCommandSearch()" class="nav-util-btn" style="border: none; padding: 0.25rem 0.5rem; font-size: 1.1rem;" aria-label="Close">&times;</button>
         </div>
@@ -718,7 +726,7 @@
         <div class="footer-container">
             <div class="footer-col">
                 <h4 style="display: flex; align-items: center; gap: 0.5rem;" data-i18n="footerAboutTitle">
-                    <span>🎯</span> HuntYourTrack
+                    HuntYourTrack
                 </h4>
                 <p style="margin-bottom: 1rem; line-height: 1.6;" data-i18n="footerAboutText">
                     مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور (قسم علوم الحاسب).
@@ -829,16 +837,16 @@
 
             if (userRole) {
                 let portalTarget = 'pages/student.html';
-                let portalLabel = isEn ? '🎓 Student Portal' : '🎓 لوحة الطالب';
+                let portalLabel = isEn ? 'Student Portal' : 'لوحة الطالب';
                 let roleBadge = isEn ? 'Student' : 'طالب';
 
                 if (userRole === 'admin') {
                     portalTarget = 'pages/admin.html';
-                    portalLabel = isEn ? '🛡️ Admin Console' : '🛡️ لوحة الإدارة الأكاديمية';
+                    portalLabel = isEn ? 'Admin Console' : 'لوحة الإدارة الأكاديمية';
                     roleBadge = isEn ? 'Admin' : 'مشرف';
                 } else if (userRole === 'employer') {
                     portalTarget = 'pages/employer.html';
-                    portalLabel = isEn ? '🏢 Employer Portal' : '🏢 لوحة المنظم والفرص';
+                    portalLabel = isEn ? 'Employer Portal' : 'لوحة المنظم والفرص';
                     roleBadge = isEn ? 'Partner' : 'شريك';
                 }
 
@@ -847,11 +855,11 @@
                     displayName = storedName.split(' ')[0];
                 }
 
-                const signOutLabel = isEn ? 'Sign Out 🚪' : 'خروج 🚪';
+                const signOutLabel = isEn ? 'Sign Out' : 'خروج';
                 const sessionHtml = `
                     <div class="user-profile-menu-wrapper" id="user-profile-menu-wrapper">
                         <button class="nav-user-pill" type="button" onclick="toggleUserDropdown(event)" aria-label="User Menu">
-                            <span class="user-avatar-circle">👤</span>
+                            <span class="user-avatar-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
                             <span class="user-name-text">${displayName}</span>
                             <span class="dropdown-caret">▾</span>
                         </button>
@@ -886,17 +894,17 @@
 
         // Command Palette Search Catalog & Logic
         const COMMAND_TRACKS = [
-            { id: 'fullstack', titleAr: 'هندسة البرمجيات وتطبيقات الويب (Full-Stack)', titleEn: 'Full-Stack Software Engineering', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '💻' },
-            { id: 'ai', titleAr: 'الذكاء الاصطناعي وعلم البيانات (AI & Data Science)', titleEn: 'AI & Data Science Engineering', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '🧠' },
-            { id: 'cyber', titleAr: 'الأمن السيبراني والتحقيق الجنائي الرقمي', titleEn: 'Cybersecurity & Digital Forensics', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '🛡️' },
-            { id: 'cloud', titleAr: 'الحوسبة السحابية وهندسة الـ DevOps', titleEn: 'Cloud Computing & DevOps', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '☁️' },
-            { id: 'embedded', titleAr: 'الأنظمة المدمجة وبرمجيات السيارات (AUTOSAR)', titleEn: 'Embedded Systems & Automotive', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '⚡' },
-            { id: 'robotics', titleAr: 'الميكاترونكس وهندسة الروبوتات الذكية', titleEn: 'Robotics & Intelligent Mechatronics', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '🤖' },
-            { id: 'energy', titleAr: 'الطاقة المتجددة والشبكات الذكية', titleEn: 'Renewable Energy & Smart Grids', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '☀️' },
-            { id: 'bioinfo', titleAr: 'المعلوماتية الحيوية والبيولوجيا الحاسوبية', titleEn: 'Bioinformatics & Computational Biology', facultyAr: 'العلوم الأساسية', facultyEn: 'Sciences', icon: '🧬' },
-            { id: 'nano', titleAr: 'النانوتكنولوجي وعلوم المواد المتقدمة', titleEn: 'Nanotechnology & Advanced Materials', facultyAr: 'العلوم الأساسية', facultyEn: 'Sciences', icon: '🔬' },
-            { id: 'fintech', titleAr: 'تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)', titleEn: 'FinTech & Business Intelligence', facultyAr: 'التجارة وإدارة الأعمال', facultyEn: 'Business & Finance', icon: '💳' },
-            { id: 'cyberlaw', titleAr: 'التشريعات الرقمية وحوكمة البيانات والعقود الذكية', titleEn: 'Digital Law & Smart Contracts', facultyAr: 'الحقوق والتشريعات الرقمية', facultyEn: 'Law & Governance', icon: '⚖️' }
+            { id: 'fullstack', titleAr: 'هندسة البرمجيات وتطبيقات الويب (Full-Stack)', titleEn: 'Full-Stack Software Engineering', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '' },
+            { id: 'ai', titleAr: 'الذكاء الاصطناعي وعلم البيانات (AI & Data Science)', titleEn: 'AI & Data Science Engineering', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '' },
+            { id: 'cyber', titleAr: 'الأمن السيبراني والتحقيق الجنائي الرقمي', titleEn: 'Cybersecurity & Digital Forensics', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '' },
+            { id: 'cloud', titleAr: 'الحوسبة السحابية وهندسة الـ DevOps', titleEn: 'Cloud Computing & DevOps', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '' },
+            { id: 'embedded', titleAr: 'الأنظمة المدمجة وبرمجيات السيارات (AUTOSAR)', titleEn: 'Embedded Systems & Automotive', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '' },
+            { id: 'robotics', titleAr: 'الميكاترونكس وهندسة الروبوتات الذكية', titleEn: 'Robotics & Intelligent Mechatronics', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '' },
+            { id: 'energy', titleAr: 'الطاقة المتجددة والشبكات الذكية', titleEn: 'Renewable Energy & Smart Grids', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '' },
+            { id: 'bioinfo', titleAr: 'المعلوماتية الحيوية والبيولوجيا الحاسوبية', titleEn: 'Bioinformatics & Computational Biology', facultyAr: 'العلوم الأساسية', facultyEn: 'Sciences', icon: '' },
+            { id: 'nano', titleAr: 'النانوتكنولوجي وعلوم المواد المتقدمة', titleEn: 'Nanotechnology & Advanced Materials', facultyAr: 'العلوم الأساسية', facultyEn: 'Sciences', icon: '' },
+            { id: 'fintech', titleAr: 'تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)', titleEn: 'FinTech & Business Intelligence', facultyAr: 'التجارة وإدارة الأعمال', facultyEn: 'Business & Finance', icon: '' },
+            { id: 'cyberlaw', titleAr: 'التشريعات الرقمية وحوكمة البيانات والعقود الذكية', titleEn: 'Digital Law & Smart Contracts', facultyAr: 'الحقوق والتشريعات الرقمية', facultyEn: 'Law & Governance', icon: '' }
         ];
 
         function openCommandSearch() {
@@ -936,7 +944,7 @@
 
             let html = '';
             if (matchedTracks.length > 0) {
-                html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.25rem 0.75rem; text-transform: uppercase;">${isEn ? '🎯 Career Tracks' : '🎯 المسارات المهنية'}</div>`;
+                html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.25rem 0.75rem; text-transform: uppercase;">${isEn ? 'Career Tracks' : 'المسارات المهنية'}</div>`;
                 matchedTracks.forEach(t => {
                     const title = isEn ? t.titleEn : t.titleAr;
                     const faculty = isEn ? t.facultyEn : t.facultyAr;
@@ -949,7 +957,7 @@
                                     <small style="color: var(--color-muted-foreground); font-size: 0.78rem;">${faculty}</small>
                                 </div>
                             </div>
-                            <span style="font-size: 0.78rem; color: #6366F1; font-weight: 600;">${isEn ? 'Hook Track 🎯' : 'اصطياد المسار 🎯'}</span>
+                            <span style="font-size: 0.78rem; color: #6366F1; font-weight: 600;">${isEn ? 'Hook Track' : 'اصطياد المسار'}</span>
                         </div>
                     `;
                 });
@@ -965,12 +973,12 @@
                 }).slice(0, 5);
 
                 if (opps.length > 0) {
-                    html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.5rem 0.75rem 0.25rem; text-transform: uppercase;">${isEn ? '💼 Internship Opportunities' : '💼 فرص التدريب المتاحة'}</div>`;
+                    html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.5rem 0.75rem 0.25rem; text-transform: uppercase;">${isEn ? 'Internship Opportunities' : 'فرص التدريب المتاحة'}</div>`;
                     opps.forEach(o => {
                         html += `
                             <div class="cmd-result-item" onclick="selectCommandOpportunity('${o.id}')">
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                    <span style="font-size: 1.25rem;">💼</span>
+                                    
                                     <div>
                                         <div style="font-weight: 600; font-size: 0.95rem;">${o.title}</div>
                                         <small style="color: var(--color-muted-foreground); font-size: 0.78rem;">${o.orgName} · ${o.type}</small>
@@ -1093,7 +1101,7 @@
 
             closePublishOpportunityModal();
             const isEn = (document.documentElement.lang === 'en');
-            showToast(isEn ? 'Opportunity successfully accredited and published to unified catalog! 🚀' : 'تم اعتماد ونشر الفرصة بنجاح في المنصة الموحدة! 🚀', 'success');
+            showToast(isEn ? 'Opportunity successfully accredited and published to unified catalog!' : 'تم اعتماد ونشر الفرصة بنجاح في المنصة الموحدة!', 'success');
         }
         function setHunterFaculty(faculty, btn) {
             document.querySelectorAll('.dock-pill').forEach(b => b.classList.remove('active'));
@@ -1135,7 +1143,7 @@
                 dropdown.style.display = 'block';
                 dropdown.innerHTML = `
                     <div class="no-track-match-banner">
-                        ⚠️ <span data-i18n="noTrackFoundMsg">${isAr ? 'المسار غير موجود — يرجى الاختيار من المسارات الـ 12 المعتمدة أدناه' : 'Track not found — please select from the 12 accredited tracks below'}</span>
+                        <span data-i18n="noTrackFoundMsg">${isAr ? 'المسار غير موجود — يرجى الاختيار من المسارات الـ 12 المعتمدة أدناه' : 'Track not found — please select from the 12 accredited tracks below'}</span>
                     </div>
                 `;
                 return;

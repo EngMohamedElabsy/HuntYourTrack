@@ -78,7 +78,7 @@ function openOpportunityDetails(oppId) {
             <div class="opp-header-row" style="margin-bottom: 1.25rem;">
                 <div class="opp-brand-info">
                     <div class="opp-brand-logo" style="width: 52px; height: 52px; font-size: 1.3rem;">
-                        ${opp.orgLogoText || '🏢'}
+                        ${opp.orgLogoText || (opp.organization ? opp.organization.charAt(0) : 'H')}
                     </div>
                     <div>
                         <div class="opp-company-name" style="font-size: 0.95rem;">
@@ -100,7 +100,7 @@ function openOpportunityDetails(oppId) {
             <!-- Facts Grid -->
             <div class="opp-facts-grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.65rem; margin-bottom: 1.5rem;">
                 <div class="opp-fact-pill" style="padding: 0.6rem 0.8rem;">
-                    <span class="fact-label">${isArabic ? '💰 المكافأة:' : '💰 Stipend:'}</span>
+                    <span class="fact-label">${isArabic ? 'المكافأة:' : 'Stipend:'}</span>
                     <span style="font-weight: 700;">${stipend}</span>
                 </div>
                 <div class="opp-fact-pill" style="padding: 0.6rem 0.8rem;">
@@ -108,11 +108,11 @@ function openOpportunityDetails(oppId) {
                     <span style="font-weight: 700;">${term}</span>
                 </div>
                 <div class="opp-fact-pill" style="padding: 0.6rem 0.8rem;">
-                    <span class="fact-label">${isArabic ? '📍 المقر:' : '📍 Location:'}</span>
+                    <span class="fact-label">${isArabic ? 'المقر:' : 'Location:'}</span>
                     <span style="font-weight: 700;">${location}</span>
                 </div>
                 <div class="opp-fact-pill" style="padding: 0.6rem 0.8rem;">
-                    <span class="fact-label">${isArabic ? '👥 التنافس:' : '👥 Applicants:'}</span>
+                    <span class="fact-label">${isArabic ? 'المتقدمون:' : 'Applicants:'}</span>
                     <span style="font-weight: 700;">${opp.applicantsCount || 24} ${isArabic ? 'مرشح' : 'candidates'}</span>
                 </div>
             </div>
@@ -226,7 +226,7 @@ function openOpportunityApply(oppId) {
             
             <div id="apply-step-form" class="apply-step active">
                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
-                    <div class="opp-brand-logo" style="width: 44px; height: 44px;">${opp.orgLogoText || '🏢'}</div>
+                    <div class="opp-brand-logo" style="width: 44px; height: 44px;">${opp.orgLogoText || (opp.organization ? opp.organization.charAt(0) : 'H')}</div>
                     <div>
                         <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-muted-foreground);">${orgName}</span>
                         <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; font-family: var(--font-heading); color: var(--color-foreground);">
@@ -237,22 +237,22 @@ function openOpportunityApply(oppId) {
 
                 <div class="panel" style="padding: 1rem; margin-bottom: 1.25rem; font-size: 0.86rem;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
-                        <span style="color: var(--color-muted-foreground);">${isArabic ? '👤 اسم المرشح:' : '👤 Candidate:'}</span>
+                        <span style="color: var(--color-muted-foreground);">${isArabic ? 'اسم المرشح:' : 'Candidate:'}</span>
                         <span style="font-weight: 600;">${studentName}</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
-                        <span style="color: var(--color-muted-foreground);">${isArabic ? '🎓 الكلية المقيد بها:' : '🎓 Faculty:'}</span>
+                        <span style="color: var(--color-muted-foreground);">${isArabic ? 'الكلية المقيد بها:' : 'Faculty:'}</span>
                         <span style="font-weight: 600;">${studentFaculty}</span>
                     </div>
                     <div style="display: flex; justify-content: space-between;">
-                        <span style="color: var(--color-muted-foreground);">${isArabic ? '🎯 التوافق مع المتطلبات:' : '🎯 ATS Match:'}</span>
+                        <span style="color: var(--color-muted-foreground);">${isArabic ? 'التوافق مع المتطلبات:' : 'ATS Match:'}</span>
                         <span style="font-weight: 800; color: var(--color-accent);">${opp.matchScore || 94}% Compatibility</span>
                     </div>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 1rem;">
                     <label style="display: block; font-size: 0.84rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--color-foreground);">
-                        ${isArabic ? '📝 رسالة تعريفية موجزة للجهة (Cover Note):' : '📝 Brief Cover Note to Employer:'}
+                        ${isArabic ? 'رسالة تعريفية موجزة للجهة (Cover Note):' : 'Brief Cover Note to Employer:'}
                     </label>
                     <textarea id="apply-cover-note" rows="3" class="form-control" style="width: 100%; border-radius: 10px; border: 1px solid var(--color-border); background: var(--color-muted); color: var(--color-foreground); padding: 0.65rem; font-family: inherit; font-size: 0.88rem;" placeholder="${isArabic ? 'وضح باختصار شغفك بالمسار وأهم المشاريع التي أنجزتها...' : 'Briefly describe your passion and relevant project experiences...'}"></textarea>
                 </div>
@@ -260,7 +260,7 @@ function openOpportunityApply(oppId) {
                 <div style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem;">
                     <input type="checkbox" id="apply-cv-attached" checked style="width: 16px; height: 16px; accent-color: var(--color-primary);" />
                     <label for="apply-cv-attached" style="font-size: 0.82rem; color: var(--color-muted-foreground); cursor: pointer;">
-                        ${isArabic ? '📄 إرفاق ملف السيرة الذاتية المحفوظ ومصفوفة المهارات المعتمدة' : '📄 Attach validated CV file and skill radar breakdown'}
+                        ${isArabic ? 'إرفاق ملف السيرة الذاتية المحفوظ ومصفوفة المهارات المعتمدة' : 'Attach validated CV file and skill radar breakdown'}
                     </label>
                 </div>
 
@@ -269,7 +269,7 @@ function openOpportunityApply(oppId) {
                         ${isArabic ? 'إلغاء' : 'Cancel'}
                     </button>
                     <button type="button" id="confirm-apply-btn" class="btn btn-primary" onclick="submitApplication('${opp.id}')" style="font-weight: 700; padding: 0.65rem 1.4rem;">
-                        ${isArabic ? 'تأكيد وإرسال الملف 🚀' : 'Confirm & Submit 🚀'}
+                        ${isArabic ? 'تأكيد وإرسال الملف' : 'Confirm & Submit'}
                     </button>
                 </div>
             </div>
@@ -322,7 +322,7 @@ function submitApplication(oppId) {
     setTimeout(() => {
         document.getElementById('apply-step-form').style.display = 'none';
         document.getElementById('apply-step-success').style.display = 'block';
-        showToast(document.documentElement.lang === 'ar' ? 'تم تقديم الطلب وإخطار المؤسسة بنجاح! 🎯' : 'Application delivered to employer desk! 🎯', 'success');
+        showToast(document.documentElement.lang === 'ar' ? 'تم تقديم الطلب وإخطار المؤسسة بنجاح!' : 'Application delivered to employer desk!', 'success');
     }, 700);
 }
 window.submitApplication = submitApplication;
@@ -344,7 +344,7 @@ function toggleBookmarkOpportunity(oppId, btn) {
         bookmarks.push(oppId);
         localStorage.setItem('hyt_saved_bookmarks', JSON.stringify(bookmarks));
         if (btn) btn.style.color = 'var(--color-primary)';
-        showToast(isArabic ? 'تم حفظ الفرصة في قائمة مفضلاتك 🔖' : 'Opportunity saved to bookmarks 🔖', 'success');
+        showToast(isArabic ? 'تم حفظ الفرصة في قائمة مفضلاتك' : 'Opportunity saved to bookmarks', 'success');
     }
 }
 window.toggleBookmarkOpportunity = toggleBookmarkOpportunity;
