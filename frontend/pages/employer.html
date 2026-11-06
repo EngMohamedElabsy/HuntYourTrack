@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <!-- Strict Route Guard (US17) -->
+    <script>
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('demo') === 'true') {
+                localStorage.setItem('user', 'employer');
+                localStorage.setItem('role', 'employer');
+                localStorage.setItem('user_name', 'TechCorp Organizer');
+                localStorage.setItem('user_email', 'hr@techcorp.com');
+            }
+            var user = localStorage.getItem('user');
+            if (!user) {
+                window.location.replace('auth.html?redirect=employer&error=login_required');
+            }
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#EEF2FF">
+    <title data-i18n="empPageTitle">HuntYourTrack · بوابة الشركات ومنظمي التدريب | Employer Hub</title>
+    <link rel="icon" href="../assets/logo.png">
+    <!-- Fonts & Base Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .employer-layout {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color-background);
+            color: var(--color-foreground);
+        }
+
+        .employer-nav {
+            background: var(--color-card);
+            border-bottom: 1px solid var(--color-border);
+            padding: 0.85rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-foreground);
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+
+        .nav-brand img {
+            height: 38px;
+            width: auto;
+            border-radius: 8px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--color-muted-foreground);
+            padding: 0.55rem 1.1rem;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--color-primary);
+            background: var(--color-muted);
+        }
+
+        .tab-btn.active {
+            background: var(--color-primary);
+            color: #FFFFFF;
+        }
+
+        .tab-badge {
+            background: rgba(255,255,255,0.25);
+            color: inherit;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            padding: 0.1rem 0.5rem;
+            font-weight: 700;
+        }
+
+        .tab-btn:not(.active) .tab-badge {
+            background: var(--color-border);
+            color: var(--color-foreground);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .portal-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 18px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .stat-val {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            line-height: 1.1;
+        }
+
+        .stat-title {
+            color: var(--color-muted-foreground);
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        /* Two columns */
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .split-grid { grid-template-columns: 1fr; }
+            .employer-nav { flex-wrap: wrap; gap: 1rem; }
+        }
+
+        .panel-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .panel-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .panel-head h2, .panel-head h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* Post Item */
+        .post-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--color-border);
+            gap: 1rem;
+        }
+
+        .post-row:last-child { border-bottom: none; }
+
+        .tag-pill {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 999px;
+            padding: 0.2rem 0.65rem;
+            background: var(--color-muted);
+            color: var(--color-foreground);
+            margin-inline-end: 0.5rem;
+        }
+
+        .tag-pill.paid {
+            background: rgba(22, 163, 74, 0.15);
+            color: #16A34A;
+        }
+
+        .tag-pill.free {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--color-primary);
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.45rem;
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            background: var(--color-card);
+            color: var(--color-foreground);
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        /* Skill chips */
+        .skills-picker {
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 0.75rem;
+            background: var(--color-card);
+        }
+
+        .selected-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-bottom: 0.5rem;
+            min-height: 28px;
+        }
+
+        .skill-tag {
+            background: var(--color-primary);
+            color: #FFFFFF;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .skill-tag button {
+            background: transparent;
+            border: none;
+            color: #FFFFFF;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .skill-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            max-height: 120px;
+            overflow-y: auto;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .skill-opt-btn {
+            background: var(--color-muted);
+            border: 1px solid var(--color-border);
+            color: var(--color-foreground);
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 0.82rem;
+            font-family: inherit;
+        }
+
+        .skill-opt-btn:hover {
+            border-color: var(--color-primary);
+        }
+
+        .skill-opt-btn.active {
+            background: var(--color-primary);
+            color: #FFFFFF;
+            border-color: var(--color-primary);
+        }
+
+        /* Applicant Review Split View */
+        .applicant-split {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 800px) {
+            .applicant-split { grid-template-columns: 1fr; }
+        }
+
+        .applicant-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.9rem;
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            background: var(--color-card);
+            transition: all 0.2s ease;
+        }
+
+        .applicant-item:hover, .applicant-item.selected {
+            border-color: var(--color-primary);
+            background: rgba(99, 102, 241, 0.04);
+        }
+
+        .match-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 0.88rem;
+            flex-shrink: 0;
+            border: 2px solid;
+        }
+
+        .match-high { border-color: #16A34A; color: #16A34A; background: rgba(22, 163, 74, 0.1); }
+        .match-mid { border-color: #EAB308; color: #CA8A04; background: rgba(234, 179, 8, 0.1); }
+        .match-low { border-color: #EF4444; color: #DC2626; background: rgba(239, 68, 68, 0.1); }
+    </style>
+</head>
+<body class="employer-layout">
+
+    <!-- Employer Navigation Header -->
+    <header class="employer-nav">
+        <a href="../index.html" class="nav-brand">
+            <img src="../assets/logo.png" alt="HuntYourTrack Logo">
+            <div>
+                <span>HuntYourTrack</span>
+                <span style="display: block; font-size: 0.75rem; color: var(--color-primary); font-weight: 600;">🏢 Employer & Partner Workspace</span>
+            </div>
+        </a>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs" aria-label="Employer Sections">
+            <button type="button" class="tab-btn active" data-tab="overview" onclick="switchSection('overview')">
+                <span data-i18n="empTabOverview">📊 لوحة المتابعة</span>
+            </button>
+            <button type="button" class="tab-btn" data-tab="post" onclick="switchSection('post')">
+                <span data-i18n="empTabPost">➕ نشر تدريب جديد</span>
+            </button>
+            <button type="button" class="tab-btn" data-tab="applicants" onclick="switchSection('applicants')">
+                <span data-i18n="empTabApplicants">👥 مراجعة المتقدمين</span>
+                <span class="tab-badge" id="applicants-badge">5</span>
+            </button>
+        </nav>
+
+        <!-- Actions & Theme Toggle -->
+        <div class="nav-actions">
+            <a href="../index.html" class="btn btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;" data-i18n="empHomeBtn">
+                🏠 البوابة الرئيسية
+            </a>
+            <button type="button" id="hyt-lang-toggle" onclick="window.hytI18n.toggleLanguage()" class="nav-util-btn" title="Language Switcher">
+                🌐 English
+            </button>
+            <!-- Unified Theme & Appearance Dropdown -->
+            <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
+                <button id="hyt-theme-toggle" type="button" aria-label="Toggle Theme" style="display: none;">🌙</button>
+                <button id="hyt-theme-btn" class="nav-util-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
+                    <span id="theme-btn-icon">🌓</span> <span style="font-size: 0.8rem; margin-inline-start: 4px;" data-i18n="themeDropdownLabel">المظهر</span>
+                </button>
+                <div class="theme-dropdown-menu" id="theme-dropdown-menu">
+                    <div class="theme-menu-header" data-i18n="themeModesHeader">نمط الإضاءة</div>
+                    <button type="button" class="theme-opt-btn" data-theme-val="dark" onclick="setAppThemeMode('dark')">
+                        <span style="font-size: 0.95rem;">🌙</span>
+                        <span data-i18n="themeDarkOption">الوضع الليلي (Dark Mode)</span>
+                    </button>
+                    <button type="button" class="theme-opt-btn" data-theme-val="light" onclick="setAppThemeMode('light')">
+                        <span style="font-size: 0.95rem;">☀️</span>
+                        <span data-i18n="themeLightOption">الوضع النهاري (Light Mode)</span>
+                    </button>
+                    <div class="theme-menu-divider"></div>
+                    <div class="theme-menu-header" data-i18n="themePalettesHeader">لوحات الألوان المخصصة</div>
+                    <button type="button" class="theme-opt-btn" data-theme-val="abyss" onclick="setAppTheme('abyss')">
+                        <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
+                        <span data-i18n="themeAbyss">🌌 أعماق المحيط (Abyss)</span>
+                    </button>
+                    <button type="button" class="theme-opt-btn" data-theme-val="reef" onclick="setAppTheme('reef')">
+                        <span class="theme-swatch-dot" style="background: #10B981;"></span>
+                        <span data-i18n="themeReef">🪸 الشعب المرجانية (Reef)</span>
+                    </button>
+                    <button type="button" class="theme-opt-btn" data-theme-val="nebula" onclick="setAppTheme('nebula')">
+                        <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
+                        <span data-i18n="themeNebula">🔮 سديم الفضاء (Nebula)</span>
+                    </button>
+                    <button type="button" class="theme-opt-btn" data-theme-val="ember" onclick="setAppTheme('ember')">
+                        <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
+                        <span data-i18n="themeEmber">🔥 الوهج الشمسي (Ember)</span>
+                    </button>
+                    <button type="button" class="theme-opt-btn" data-theme-val="daylight" onclick="setAppTheme('daylight')">
+                        <span class="theme-swatch-dot" style="background: #0284C7;"></span>
+                        <span data-i18n="themeDaylight">☀️ وضح النهار (Daylight)</span>
+                    </button>
+                </div>
+            </div>
+            <button type="button" onclick="window.hytSignOut(event);" class="btn btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;" data-i18n="empSignOut">
+                خروج 🚪
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="portal-container">
+
+        <!-- ================= SECTION 1: OVERVIEW (US10) ================= -->
+        <section id="section-overview" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-val" id="kpi-posts">4</span>
+                    <span class="stat-title" data-i18n="empKpiPosts">فرص التدريب النشطة (Active Postings)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-val" id="kpi-apps">91</span>
+                    <span class="stat-title" data-i18n="empKpiApps">إجمالي طلبات التقديم (Applications)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-val" id="kpi-matched">3</span>
+                    <span class="stat-title" data-i18n="empKpiMatched">مرشحون بتوافق عالٍ جداً (High Match > 85%)</span>
+                </div>
+            </div>
+
+            <div class="split-grid">
+                <!-- Active Postings Panel -->
+                <div class="panel-card">
+                    <div class="panel-head">
+                        <h2 data-i18n="empYourPostings">فرص التدريب الخاصة بك (Your Postings)</h2>
+                        <button type="button" onclick="switchSection('post')" class="btn btn-primary" style="padding: 0.45rem 0.95rem; font-size: 0.85rem;" data-i18n="empAddPostBtn">
+                            + إضافة تدريب
+                        </button>
+                    </div>
+                    <div id="postings-list">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- High-Match Alerts Panel -->
+                <div class="panel-card">
+                    <div class="panel-head">
+                        <h3 data-i18n="empAlertsHeading">تنبيهات المرشحين المتميزين 🎯</h3>
+                    </div>
+                    <div id="alerts-list">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2: POST INTERNSHIP (US11) ================= -->
+        <section id="section-post" class="tab-content">
+            <div class="panel-card" style="max-width: 760px; margin: 0 auto;">
+                <div class="panel-head">
+                    <div>
+                        <h2 data-i18n="empPostTitle">نشر فرصة تدريب صيفي أو كورس معتمد</h2>
+                        <p style="color: var(--color-muted-foreground); font-size: 0.88rem; margin-top: 0.25rem;" data-i18n="empPostDescSub">
+                            حدد متطلبات الفرصة والمهارات الأساسية ليتم مواءمتها آلياً مع طلاب الكليات المتخصصة.
+                        </p>
+                    </div>
+                </div>
+
+                <form id="post-internship-form" onsubmit="handlePostSubmit(event)">
+                    <div class="form-group">
+                        <label for="post-title" data-i18n="empFormTitleLabel">عنوان التدريب / الوظيفة (Title) *</label>
+                        <input type="text" id="post-title" class="form-control" placeholder="مثال: Cloud Security Intern" data-i18n="empFormTitlePh" required minlength="5">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-track" data-i18n="empFormTrackLabel">المسار التقني أو الأكاديمي (Track) *</label>
+                        <select id="post-track" class="form-control" required>
+                            <option value="" data-i18n="empTrackSelectPh">اختر المسار المعني...</option>
+                            <option value="Cloud and DevOps" data-i18n="empTrackCloud">السحابية والعمليات (Cloud & DevOps)</option>
+                            <option value="Cybersecurity" data-i18n="empTrackCyber">الأمن السيبراني (Cybersecurity)</option>
+                            <option value="Frontend" data-i18n="empTrackFrontend">واجهات الويب (Frontend Development)</option>
+                            <option value="Backend" data-i18n="empTrackBackend">الخوادم والأنظمة (Backend Development)</option>
+                            <option value="Data and AI" data-i18n="empTrackDataAI">البيانات والذكاء الاصطناعي (Data Science & AI)</option>
+                            <option value="Mobile" data-i18n="empTrackMobile">تطبيقات الهواتف (Mobile Development)</option>
+                            <option value="UI/UX design" data-i18n="empTrackUIUX">التصميم وتجربة المستخدم (UI/UX Design)</option>
+                            <option value="QA" data-i18n="empTrackQA">ضمان الجودة والاختبار (Quality Assurance)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-desc" data-i18n="empFormDescLabel">تفاصيل التدريب والمسؤوليات (Description) *</label>
+                        <textarea id="post-desc" class="form-control" rows="4" placeholder="اكتب وصفاً مفصلاً لمهام المتدرب والمهارات التي سيكتسبها..." data-i18n="empFormDescPh" required minlength="30" oninput="updateCharCount(this)"></textarea>
+                        <div style="text-align: end; font-size: 0.8rem; color: var(--color-muted-foreground); margin-top: 0.25rem;">
+                            <span id="char-counter">0</span> <span data-i18n="empCharSuffix">/ 1000 حرف</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="empSkillsLabel">المهارات المطلوبة (Required Skills) *</label>
+                        <div class="skills-picker">
+                            <div class="selected-skills" id="selected-skills-box"></div>
+                            <input type="text" id="skill-input-search" class="form-control" placeholder="ابحث عن مهارة أو اكتب واضغط Enter لإضافتها..." data-i18n="empSkillInputPh" onkeydown="handleSkillKey(event)">
+                            <div class="skill-options" id="predefined-skills-box"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="empCompLabel">طبيعة المكافأة المالية (Compensation)</label>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-weight: normal; cursor: pointer;">
+                                <input type="radio" name="pay-type" value="paid" checked> <span data-i18n="empPaidLabel">مدفوع الأجر (Paid)</span>
+                            </label>
+                            <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-weight: normal; cursor: pointer;">
+                                <input type="radio" name="pay-type" value="free"> <span data-i18n="empFreeLabel">تدريب تطوعي / أكاديمي (Free)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+                        <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem;" data-i18n="empSubmitPostBtn">
+                            🚀 نشر التدريب الآن
+                        </button>
+                        <button type="reset" class="btn btn-secondary" onclick="resetSkillForm()" data-i18n="empResetFormBtn">
+                            إفراغ النموذج
+                        </button>
+                    </div>
+
+                    <div id="post-success-banner" style="display: none; background: rgba(22, 163, 74, 0.15); border: 1px solid #16A34A; color: #16A34A; padding: 1rem; border-radius: 12px; margin-top: 1.25rem; font-weight: 600;" data-i18n="empSuccessBanner">
+                        ✅ تم نشر فرصة التدريب بنجاح! أصبحت متاحة الآن لطلاب جامعة دمنهور وظهرت في لوحة المتابعة.
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3: APPLICANT REVIEW (US12) ================= -->
+        <section id="section-applicants" class="tab-content">
+            <div class="panel-card">
+                <div class="panel-head">
+                    <div>
+                        <h2 data-i18n="empMatrixHeading">مصفوفة مراجعة وتقييم المتقدمين (Applicant Review Matrix)</h2>
+                        <p style="color: var(--color-muted-foreground); font-size: 0.88rem; margin-top: 0.25rem;" data-i18n="empMatrixSub">
+                            فرز وتقييم دقيق للمرشحين بالذكاء الاصطناعي وفق نسبة تطابق الـ ATS.
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <label for="filter-status-select" style="font-size: 0.85rem; font-weight: 600;" data-i18n="empFilterStatusLabel">Filter by Status:</label>
+                        <select id="filter-status-select" class="form-control" style="width: auto; padding: 0.4rem 0.75rem;" onchange="renderApplicants()">
+                            <option value="all" data-i18n="empStatusAll">All Statuses</option>
+                            <option value="New" data-i18n="empStatusNew">New</option>
+                            <option value="Shortlisted" data-i18n="empStatusShortlisted">Shortlisted</option>
+                            <option value="Accepted" data-i18n="empStatusAccepted">Accepted</option>
+                            <option value="Rejected" data-i18n="empStatusRejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="applicant-split">
+                    <!-- Candidates List -->
+                    <div id="candidates-container" style="max-height: 520px; overflow-y: auto;">
+                        <!-- Populated by JavaScript -->
+                    </div>
+
+                    <!-- Candidate Details -->
+                    <div id="candidate-detail-pane" class="panel-card" style="border-color: var(--color-border); background: var(--color-muted);">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // Initial Mock Data (Synchronized with US10, US11, US12)
+        const DEFAULT_POSTS = [
+            { id: 1, title: "Cloud Security Intern", track: "Cloud and DevOps", paid: true, open: true, apps: 24, fresh: 5 },
+            { id: 2, title: "Frontend Developer Intern", track: "Frontend", paid: false, open: true, apps: 41, fresh: 8 },
+            { id: 3, title: "Data Analyst Intern", track: "Data and AI", paid: true, open: true, apps: 17, fresh: 0 },
+            { id: 4, title: "QA Engineer Intern", track: "QA", paid: false, open: false, apps: 9, fresh: 0 }
+        ];
+
+        let applicants = [
+            { id: 101, name: "Mariam Hassan", post: 1, match: 94, status: "New", faculty: "Computing & AI", major: "Cybersecurity", skills: ["Linux", "AWS", "Docker", "Python"], missing: ["Terraform"], experience: "Graduation project in cloud security architecture and trainee security analyst" },
+            { id: 102, name: "Omar Khaled", post: 2, match: 91, status: "New", faculty: "Computing & AI", major: "Computer Science", skills: ["React", "JavaScript", "HTML5", "CSS3"], missing: ["TypeScript"], experience: "Built modular interactive frontend interfaces across multiple university projects" },
+            { id: 103, name: "Nour Ibrahim", post: 1, match: 88, status: "New", faculty: "Engineering", major: "Communications & Electronics", skills: ["Networking", "Linux", "Git"], missing: ["AWS"], experience: "CCNA certified with hands-on lab networking configuration experience" },
+            { id: 104, name: "Youssef Adel", post: 3, match: 76, status: "Shortlisted", faculty: "Business & Commerce", major: "Information Systems", skills: ["SQL", "Excel", "PowerBI"], missing: ["Python"], experience: "Financial statement modeling and executive dashboard reporting" },
+            { id: 105, name: "Salma Tarek", post: 2, match: 69, status: "Reviewing", faculty: "Computing & AI", major: "Information Technology", skills: ["HTML5", "CSS3"], missing: ["React", "Git"], experience: "Junior web developer with responsive design portfolio" }
+        ];
+
+        let selectedCandidateId = 101;
+
+        const AVAILABLE_SKILLS = [
+            "JavaScript", "TypeScript", "React", "Node.js", "Python", "Java", "SQL",
+            "MongoDB", "Git", "Docker", "AWS", "Linux", "Figma", "REST APIs",
+            "Machine Learning", "Networking", "Flutter", "Testing"
+        ];
+        const selectedSkills = new Set(["AWS", "Linux"]);
+
+        function getPosts() {
+            let posts = [...DEFAULT_POSTS];
+            try {
+                const stored = JSON.parse(localStorage.getItem('posted_internships') || '[]');
+                if (Array.isArray(stored)) {
+                    posts = [...stored, ...posts];
+                }
+            } catch(e) {}
+            return posts;
+        }
+
+        // Section Tabs Switching
+        function switchSection(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tab === tabName);
+            });
+            document.querySelectorAll('.tab-content').forEach(sec => {
+                sec.classList.toggle('active', sec.id === 'section-' + tabName);
+            });
+            window.location.hash = tabName;
+            if (tabName === 'overview') renderOverview();
+            if (tabName === 'applicants') renderApplicants();
+        }
+
+        // Render Overview Tab
+        function renderOverview() {
+            const posts = getPosts();
+            const openPosts = posts.filter(p => p.open);
+            const totalApps = posts.reduce((sum, p) => sum + (p.apps || 0), 0);
+            const highMatches = applicants.filter(a => a.match >= 85);
+
+            document.getElementById('kpi-posts').textContent = openPosts.length;
+            document.getElementById('kpi-apps').textContent = totalApps;
+            document.getElementById('kpi-matched').textContent = highMatches.length;
+            document.getElementById('applicants-badge').textContent = applicants.length;
+
+            const postingsList = document.getElementById('postings-list');
+            postingsList.innerHTML = posts.map(p => `
+                <div class="post-row">
+                    <div>
+                        <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">${p.title}</h4>
+                        <div>
+                            <span class="tag-pill ${p.paid ? 'paid' : 'free'}">${p.paid ? 'Paid' : 'Free'}</span>
+                            <span class="tag-pill">${p.track}</span>
+                            ${!p.open ? '<span class="tag-pill" style="background: rgba(239,68,68,0.15); color: #EF4444;">Closed</span>' : ''}
+                        </div>
+                    </div>
+                    <div style="text-align: end;">
+                        <b style="font-size: 1.35rem; color: var(--color-primary);">${p.apps}</b>
+                        <div style="font-size: 0.78rem; color: var(--color-muted-foreground);">Applicants</div>
+                    </div>
+                </div>
+            `).join('');
+
+            const alertsList = document.getElementById('alerts-list');
+            alertsList.innerHTML = highMatches.map(a => `
+                <div style="display: flex; gap: 0.75rem; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                    <div class="match-circle match-high">${a.match}%</div>
+                    <div style="flex: 1;">
+                        <b>${a.name}</b>
+                        <div style="font-size: 0.8rem; color: var(--color-muted-foreground);">Applied for #${a.post}</div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.78rem;" onclick="openApplicantDetail(${a.id})">
+                        Review
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Render Applicants Tab
+        function renderApplicants() {
+            const filter = document.getElementById('filter-status-select').value;
+            const container = document.getElementById('candidates-container');
+            const posts = getPosts();
+
+            const filtered = applicants.filter(a => filter === 'all' || a.status === filter);
+
+            if (!filtered.length) {
+                container.innerHTML = '<p style="padding: 1.5rem; text-align: center; color: var(--color-muted-foreground);">No applications matching filter criteria.</p>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(a => {
+                const matchClass = a.match >= 85 ? 'match-high' : (a.match >= 70 ? 'match-mid' : 'match-low');
+                const isSelected = a.id === selectedCandidateId;
+                const post = posts.find(p => p.id === a.post) || { title: 'Posting #' + a.post };
+                return `
+                    <div class="applicant-item ${isSelected ? 'selected' : ''}" onclick="selectCandidate(${a.id})">
+                        <div class="match-circle ${matchClass}">${a.match}%</div>
+                        <div style="flex: 1;">
+                            <b style="display: block; font-size: 0.95rem;">${a.name}</b>
+                            <span style="font-size: 0.78rem; color: var(--color-muted-foreground);">${post.title}</span>
+                            <div style="margin-top: 0.2rem;">
+                                <span class="tag-pill" style="font-size: 0.72rem;">${a.status}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            renderCandidateDetail();
+        }
+
+        function selectCandidate(id) {
+            selectedCandidateId = id;
+            renderApplicants();
+        }
+
+        function openApplicantDetail(id) {
+            selectedCandidateId = id;
+            switchSection('applicants');
+        }
+
+        function setApplicantStatus(id, newStatus) {
+            const cand = applicants.find(a => a.id === id);
+            if (cand) {
+                cand.status = newStatus;
+                renderApplicants();
+                renderOverview();
+            }
+        }
+
+        function renderCandidateDetail() {
+            const pane = document.getElementById('candidate-detail-pane');
+            const cand = applicants.find(a => a.id === selectedCandidateId);
+            const posts = getPosts();
+
+            if (!cand) {
+                pane.innerHTML = '<p style="color: var(--color-muted-foreground);">Select a candidate to review full profile details.</p>';
+                return;
+            }
+
+            const post = posts.find(p => p.id === cand.post) || { title: 'Specialized Internship' };
+            const matchClass = cand.match >= 85 ? 'match-high' : (cand.match >= 70 ? 'match-mid' : 'match-low');
+
+            pane.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;">
+                    <div>
+                        <h3 style="font-size: 1.35rem; margin-bottom: 0.25rem;">${cand.name}</h3>
+                        <p style="color: var(--color-muted-foreground); font-size: 0.88rem;">${cand.faculty} · ${cand.major}</p>
+                        <div style="margin-top: 0.35rem; font-size: 0.85rem;">Applied for: <b>${post.title}</b></div>
+                    </div>
+                    <div style="text-align: end;">
+                        <div class="match-circle ${matchClass}" style="width: 56px; height: 56px; font-size: 1.15rem; margin-inline-start: auto;">${cand.match}%</div>
+                        <span style="font-size: 0.75rem; color: var(--color-muted-foreground);">ATS Match</span>
+                    </div>
+                </div>
+
+                <div style="background: var(--color-card); border-radius: 12px; padding: 1rem; border: 1px solid var(--color-border); margin-bottom: 1rem;">
+                    <h4 style="font-size: 0.92rem; margin-bottom: 0.5rem;">Matching Skills:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem;">
+                        ${cand.skills.map(s => `<span class="tag-pill" style="background: rgba(22, 163, 74, 0.15); color: #16A34A;">✓ ${s}</span>`).join('')}
+                    </div>
+                    <h4 style="font-size: 0.92rem; margin-bottom: 0.5rem;">Skill Gaps:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                        ${cand.missing.map(m => `<span class="tag-pill" style="background: rgba(239, 68, 68, 0.12); color: #DC2626;">✕ ${m}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div style="background: var(--color-card); border-radius: 12px; padding: 1rem; border: 1px solid var(--color-border); margin-bottom: 1.25rem;">
+                    <h4 style="font-size: 0.92rem; margin-bottom: 0.35rem;">Academic Summary & Background:</h4>
+                    <p style="font-size: 0.88rem; color: var(--color-foreground); line-height: 1.5;">${cand.experience}</p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+                    <button type="button" class="btn" style="background: #16A34A; color: #FFF; border: none; padding: 0.6rem 1.25rem; font-weight: 700;" onclick="setApplicantStatus(${cand.id}, 'Accepted')">
+                        ✓ Accept Candidate
+                    </button>
+                    <button type="button" class="btn btn-primary" style="padding: 0.6rem 1.25rem;" onclick="setApplicantStatus(${cand.id}, 'Shortlisted')">
+                        ★ Shortlist
+                    </button>
+                    <button type="button" class="btn" style="background: #EF4444; color: #FFF; border: none; padding: 0.6rem 1.25rem;" onclick="setApplicantStatus(${cand.id}, 'Rejected')">
+                        ✕ Reject
+                    </button>
+                </div>
+            `;
+        }
+
+        // Skills Picker Logic
+        function renderSkillChips() {
+            const selectedBox = document.getElementById('selected-skills-box');
+            selectedBox.innerHTML = Array.from(selectedSkills).map(s => `
+                <span class="skill-tag">
+                    ${s}
+                    <button type="button" onclick="removeSkill('${s}')">&times;</button>
+                </span>
+            `).join('');
+
+            const optsBox = document.getElementById('predefined-skills-box');
+            optsBox.innerHTML = AVAILABLE_SKILLS.map(s => {
+                const isSelected = selectedSkills.has(s);
+                return `
+                    <button type="button" class="skill-opt-btn ${isSelected ? 'active' : ''}" onclick="toggleSkill('${s}')">
+                        ${isSelected ? '✓ ' : '+ '}${s}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function toggleSkill(skill) {
+            if (selectedSkills.has(skill)) selectedSkills.delete(skill);
+            else selectedSkills.add(skill);
+            renderSkillChips();
+        }
+
+        function removeSkill(skill) {
+            selectedSkills.delete(skill);
+            renderSkillChips();
+        }
+
+        function handleSkillKey(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const val = e.target.value.trim();
+                if (val) {
+                    selectedSkills.add(val);
+                    e.target.value = '';
+                    renderSkillChips();
+                }
+            }
+        }
+
+        function updateCharCount(textarea) {
+            document.getElementById('char-counter').textContent = textarea.value.length;
+        }
+
+        function resetSkillForm() {
+            selectedSkills.clear();
+            renderSkillChips();
+            document.getElementById('char-counter').textContent = '0';
+            document.getElementById('post-success-banner').style.display = 'none';
+        }
+
+        function handlePostSubmit(e) {
+            e.preventDefault();
+            const title = document.getElementById('post-title').value.trim();
+            const track = document.getElementById('post-track').value;
+            const desc = document.getElementById('post-desc').value.trim();
+            const isPaid = document.querySelector('input[name="pay-type"]:checked').value === 'paid';
+
+            const payload = {
+                id: Date.now(),
+                title: title,
+                track: track,
+                description: desc,
+                requiredSkills: Array.from(selectedSkills),
+                paid: isPaid,
+                open: true,
+                apps: 0,
+                fresh: 0
+            };
+
+            try {
+                const stored = JSON.parse(localStorage.getItem('posted_internships') || '[]');
+                stored.unshift(payload);
+                localStorage.setItem('posted_internships', JSON.stringify(stored));
+            } catch(err) {}
+
+            document.getElementById('post-success-banner').style.display = 'block';
+            setTimeout(() => {
+                switchSection('overview');
+            }, 1400);
+        }
+    </script>
+
+    <!-- Unified Framework Scripts -->
+    <script src="../js/i18n.js"></script>
+    <script src="../js/ocean-background.js"></script>
+    <script>
+        // Initial Routing on Load
+        window.addEventListener('load', () => {
+            const hash = (window.location.hash || '').replace('#', '');
+            if (hash === 'post' || hash === 'applicants') {
+                switchSection(hash);
+            } else {
+                switchSection('overview');
+            }
+            renderSkillChips();
+        });
+
+        window.addEventListener('hyt:langChanged', () => {
+            renderOverview();
+            renderApplicants();
+        });
+    </script>
+</body>
+</html>
