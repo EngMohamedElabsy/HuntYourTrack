@@ -233,7 +233,7 @@ function renderVerificationQueue() {
     if (pendingEmployers.length === 0) {
         grid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: #F8FAFC; border: 2px dashed #CBD5E1; border-radius: 16px;">
-                <h3 style="font-size: 1.1rem; color: #15803D; margin-bottom: 0.5rem;">🎉 All Caught Up!</h3>
+                <h3 style="font-size: 1.1rem; color: #15803D; margin-bottom: 0.5rem;">All Caught Up!</h3>
                 <p style="color: #64748B; font-size: 0.9rem;">There are no pending employer registrations awaiting review.</p>
             </div>
         `;
@@ -258,7 +258,7 @@ function renderVerificationQueue() {
                     <div><strong>Submitted:</strong> ${emp.submittedDate}</div>
                 </div>
                 <button class="doc-link-btn" onclick="viewEmployerDocs('${emp.id}')">
-                    📄 View Submitted Credentials
+                    View Submitted Credentials
                 </button>
             </div>
             <div class="queue-actions">

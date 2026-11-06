@@ -82,7 +82,7 @@ function togglePasswordVisibility(inputId, btn) {
 
     const isPassword = input.type === 'password';
     input.type = isPassword ? 'text' : 'password';
-    btn.innerHTML = isPassword ? '🙈' : '👁️';
+    btn.innerHTML = isPassword ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>' : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
     btn.setAttribute('aria-pressed', isPassword ? 'true' : 'false');
 }
 window.togglePasswordVisibility = togglePasswordVisibility;
@@ -109,7 +109,7 @@ function selectJuryPersona(persona) {
         localStorage.setItem('user_email', 'admin@damanhour.edu.eg');
         localStorage.setItem('user_name', isArabic ? 'المشرف الأكاديمي' : 'Academic Admin');
         localStorage.setItem('faculty', 'Computers & Artificial Intelligence');
-        showToast(isArabic ? 'تم تفعيل حساب المشرف الأكاديمي (Admin) بنجاح 🛡️' : 'Admin Academic session activated 🛡️', 'success');
+        showToast(isArabic ? 'تم تفعيل حساب المشرف الأكاديمي (Admin) بنجاح' : 'Admin Academic session activated', 'success');
         setTimeout(() => { window.location.href = 'admin.html'; }, 800);
     } else if (persona === 'employer') {
         localStorage.setItem('user', 'employer');
@@ -117,7 +117,7 @@ function selectJuryPersona(persona) {
         localStorage.setItem('user_email', 'partner@techcorp.eg');
         localStorage.setItem('user_name', 'TechCorp Organizer');
         localStorage.setItem('faculty', 'Corporate Partner Hub');
-        showToast(isArabic ? 'تم تفعيل حساب جهة العمل (Employer Partner) 🏢' : 'Employer Organizer session activated 🏢', 'success');
+        showToast(isArabic ? 'تم تفعيل حساب جهة العمل (Employer Partner)' : 'Employer Organizer session activated', 'success');
         setTimeout(() => { window.location.href = 'index.html#opportunities'; }, 800);
     } else {
         localStorage.setItem('user', 'student');
@@ -126,7 +126,7 @@ function selectJuryPersona(persona) {
         localStorage.setItem('user_name', isArabic ? 'طالب أكاديمي' : 'Academic Student');
         localStorage.setItem('faculty', 'Faculty of Computers & Artificial Intelligence');
         localStorage.setItem('department', 'Computer Science (CS)');
-        showToast(isArabic ? 'تم تفعيل حساب الطالب الأكاديمي (Student) 🎓' : 'Student session activated 🎓', 'success');
+        showToast(isArabic ? 'تم تفعيل حساب الطالب الأكاديمي (Student)' : 'Student session activated', 'success');
         setTimeout(() => { window.location.href = 'student.html'; }, 800);
     }
 }
@@ -143,14 +143,14 @@ function handleLoginSubmit(e) {
         localStorage.setItem('role', 'admin');
         localStorage.setItem('user_email', email);
         localStorage.setItem('user_name', isArabic ? 'المشرف الأكاديمي' : 'Academic Admin');
-        showToast(isArabic ? 'مرحباً بك في لوحة الإدارة الأكاديمية! 🛡️' : 'Welcome to Admin Console! 🛡️', 'success');
+        showToast(isArabic ? 'مرحباً بك في لوحة الإدارة الأكاديمية!' : 'Welcome to Admin Console!', 'success');
         setTimeout(() => { window.location.href = 'admin.html'; }, 800);
     } else if (email.includes('employer') || email.includes('partner') || email.includes('hr')) {
         localStorage.setItem('user', 'employer');
         localStorage.setItem('role', 'employer');
         localStorage.setItem('user_email', email);
         localStorage.setItem('user_name', 'Partner Organizer');
-        showToast(isArabic ? 'مرحباً بك في منصة تنظيم ونشر الفرص! 🏢' : 'Welcome to Employer Portal! 🏢', 'success');
+        showToast(isArabic ? 'مرحباً بك في منصة تنظيم ونشر الفرص!' : 'Welcome to Employer Portal!', 'success');
         setTimeout(() => { window.location.href = 'employer.html'; }, 800);
     } else {
         localStorage.setItem('user', 'student');
@@ -159,7 +159,7 @@ function handleLoginSubmit(e) {
         localStorage.setItem('user_name', email.split('@')[0]);
         localStorage.setItem('faculty', 'Faculty of Computers & Artificial Intelligence');
         localStorage.setItem('department', 'Computer Science (CS)');
-        showToast(isArabic ? 'تم تسجيل الدخول بنجاح! جاري توجيهك لخارطة طريقك 🎓' : 'Signed in! Redirecting to Student Hub 🎓', 'success');
+        showToast(isArabic ? 'تم تسجيل الدخول بنجاح! جاري توجيهك لخارطة طريقك' : 'Signed in! Redirecting to Student Hub', 'success');
         setTimeout(() => { window.location.href = 'student.html'; }, 800);
     }
 }
@@ -181,7 +181,7 @@ function handleSignupSubmit(e) {
     localStorage.setItem('faculty', faculty);
     localStorage.setItem('department', dept);
 
-    showToast(isArabic ? `أهلاً بك يا ${name}! تم إنشاء حسابك بنجاح 🚀` : `Welcome ${name}! Account created 🚀`, 'success');
+    showToast(isArabic ? `أهلاً بك يا ${name}! تم إنشاء حسابك بنجاح` : `Welcome ${name}! Account created`, 'success');
     
     setTimeout(() => {
         if (role === 'admin') window.location.href = 'admin.html';

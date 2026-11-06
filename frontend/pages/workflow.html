@@ -1,560 +1,560 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HuntYourTrack · System Architecture & Connected Workflow Graph</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/admin.css">
-    <link rel="stylesheet" href="../css/workflow.css">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>HuntYourTrack · System Architecture & Connected Workflow Graph</title>
+ <!-- Fonts -->
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+ <!-- Stylesheets -->
+ <link rel="stylesheet" href="../css/style.css">
+ <link rel="stylesheet" href="../css/admin.css">
+ <link rel="stylesheet" href="../css/workflow.css">
 </head>
 <body class="workflow-layout">
 
-    <!-- Top Navigation Bar -->
-    <header class="admin-navbar" style="background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid rgba(51, 65, 85, 0.5);">
-        <div class="brand-section">
-            <a href="../index.html" class="brand-logo" style="color: #FFFFFF;">
-                <span>🎯</span> HuntYourTrack
-            </a>
-            <span class="admin-badge" style="background: rgba(99, 102, 241, 0.2); color: #A5B4FC; border-color: rgba(99, 102, 241, 0.4);">System Graph</span>
-        </div>
+ <!-- Top Navigation Bar -->
+ <header class="admin-navbar" style="background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid rgba(51, 65, 85, 0.5);">
+ <div class="brand-section">
+ <a href="../index.html" class="brand-logo" style="color: #FFFFFF;">
+ <span></span> HuntYourTrack
+ </a>
+ <span class="admin-badge" style="background: rgba(99, 102, 241, 0.2); color: #A5B4FC; border-color: rgba(99, 102, 241, 0.4);">System Graph</span>
+ </div>
 
-        <nav class="nav-links">
-            <a href="../index.html" class="nav-link">🎓 Student Portal</a>
-            <a href="admin.html" class="nav-link">🛡️ Admin Console</a>
-            <a href="components.html" class="nav-link">🧩 UI Library</a>
-            <a href="workflow.html" class="nav-link active" style="color: #6366F1;">🗺️ System Graph</a>
-            <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-link" style="color: #38BDF8;">📋 Sprint Board ↗</a>
-        </nav>
+ <nav class="nav-links">
+ <a href="../index.html" class="nav-link"> Student Portal</a>
+ <a href="admin.html" class="nav-link">️ Admin Console</a>
+ <a href="components.html" class="nav-link"> UI Library</a>
+ <a href="workflow.html" class="nav-link active" style="color: #6366F1;">️ System Graph</a>
+ <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-link" style="color: #38BDF8;"> Sprint Board ↗</a>
+ </nav>
 
-        <div class="admin-profile">
-            <div class="avatar" style="background: #6366F1; color: white;">🛡️</div>
-            <span style="color: #E2E8F0;">المشرف الأكاديمي (Lead Admin)</span>
-            <a href="auth.html" title="Sign Out" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem;">🚪</a>
-        </div>
+ <div class="admin-profile">
+ <div class="avatar" style="background: #6366F1; color: white;">️</div>
+ <span style="color: #E2E8F0;">المشرف الأكاديمي (Lead Admin)</span>
+ <a href="auth.html" title="Sign Out" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem;"></a>
+ </div>
 
-        <!-- Mobile Hamburger Toggle -->
-        <button class="mobile-menu-btn" id="workflow-mobile-toggle" aria-label="Toggle Navigation Menu" onclick="toggleWorkflowDrawer()" style="color: white;">
-            ☰
-        </button>
-    </header>
+ <!-- Mobile Hamburger Toggle -->
+ <button class="mobile-menu-btn" id="workflow-mobile-toggle" aria-label="Toggle Navigation Menu" onclick="toggleWorkflowDrawer()" style="color: white;">
+ 
+ </button>
+ </header>
 
-    <!-- Workflow Mobile Navigation Drawer -->
-    <div class="mobile-drawer" id="workflow-mobile-drawer" style="background: #0F172A; border-color: rgba(99, 102, 241, 0.4);">
-        <a href="../index.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()">🏠 Product Landing</a>
-        <a href="student.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()">🎓 Student Career Hub</a>
-        <a href="admin.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()">🛡️ Admin Console</a>
-        <a href="workflow.html" class="nav-drawer-link active" style="color: #6366F1;" onclick="closeWorkflowDrawer()">🗺️ System Architecture Map</a>
-        <a href="components.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()">🧩 UI Component Kit</a>
-        <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-drawer-link" style="color: #38BDF8;">📋 Sprint Board ↗</a>
-    </div>
+ <!-- Workflow Mobile Navigation Drawer -->
+ <div class="mobile-drawer" id="workflow-mobile-drawer" style="background: #0F172A; border-color: rgba(99, 102, 241, 0.4);">
+ <a href="../index.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()"> Product Landing</a>
+ <a href="student.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()"> Student Career Hub</a>
+ <a href="admin.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()">️ Admin Console</a>
+ <a href="workflow.html" class="nav-drawer-link active" style="color: #6366F1;" onclick="closeWorkflowDrawer()">️ System Architecture Map</a>
+ <a href="components.html" class="nav-drawer-link" style="color: #E2E8F0;" onclick="closeWorkflowDrawer()"> UI Component Kit</a>
+ <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-drawer-link" style="color: #38BDF8;"> Sprint Board ↗</a>
+ </div>
 
-    <!-- Main Container -->
-    <main class="workflow-container">
-        <!-- Header -->
-        <section class="workflow-header">
-            <div class="workflow-pill">
-                <span>⚡</span> Interactive Connected Architecture
-            </div>
-            <h1 class="workflow-title">End-to-End Platform Workflow Map 🗺️</h1>
-            <p class="workflow-subtitle">
-                Faculty of Computers and Information · Damanhour University (CS Department). Visual mapping of authentication gateways, role-based workspaces, accreditation workflows, and autonomous CI/CD pipelines.
-            </p>
-        </section>
+ <!-- Main Container -->
+ <main class="workflow-container">
+ <!-- Header -->
+ <section class="workflow-header">
+ <div class="workflow-pill">
+ <span></span> Interactive Connected Architecture
+ </div>
+ <h1 class="workflow-title">End-to-End Platform Workflow Map ️</h1>
+ <p class="workflow-subtitle">
+ Faculty of Computers and Information · Damanhour University (CS Department). Visual mapping of authentication gateways, role-based workspaces, accreditation workflows, and autonomous CI/CD pipelines.
+ </p>
+ </section>
 
-        <!-- Graph Grid -->
-        <div class="graph-grid">
+ <!-- Graph Grid -->
+ <div class="graph-grid">
 
-            <!-- TIER 1: Identity & Authentication Gateway -->
-            <section class="tier-section">
-                <div class="tier-title">
-                    <span>🔐 Tier 1: Identity Gateway & Role Router</span>
-                    <span class="tier-tag">Entry Point</span>
-                </div>
-                <div class="nodes-row">
-                    <!-- Node: Auth Gateway -->
-                    <div class="node-card" style="--node-accent: #6366F1;">
-                        <div>
-                            <div class="node-top">
-                                <div class="node-icon">🔐</div>
-                                <div class="node-heading">
-                                    <span class="node-name">Authentication Hub</span>
-                                    <span class="node-story">frontend/auth.html (US08)</span>
-                                </div>
-                            </div>
-                            <p class="node-desc">
-                                Dual-panel GSAP sliding interface with university email validation, 1-Click Demo quick access chips, and client-side session management.
-                            </p>
-                            <div class="node-tags">
-                                <span class="tag-badge">GSAP Motion</span>
-                                <span class="tag-badge">1-Click Demo</span>
-                                <span class="tag-badge">Validation</span>
-                            </div>
-                        </div>
-                        <div class="node-footer">
-                            <span class="node-status"><span class="status-dot"></span> Live & Verified</span>
-                            <a href="auth.html" class="node-link">Launch Screen →</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+ <!-- TIER 1: Identity & Authentication Gateway -->
+ <section class="tier-section">
+ <div class="tier-title">
+ <span> Tier 1: Identity Gateway & Role Router</span>
+ <span class="tier-tag">Entry Point</span>
+ </div>
+ <div class="nodes-row">
+ <!-- Node: Auth Gateway -->
+ <div class="node-card" style="--node-accent: #6366F1;">
+ <div>
+ <div class="node-top">
+ <div class="node-icon"></div>
+ <div class="node-heading">
+ <span class="node-name">Authentication Hub</span>
+ <span class="node-story">frontend/auth.html (US08)</span>
+ </div>
+ </div>
+ <p class="node-desc">
+ Dual-panel GSAP sliding interface with university email validation, 1-Click Demo quick access chips, and client-side session management.
+ </p>
+ <div class="node-tags">
+ <span class="tag-badge">GSAP Motion</span>
+ <span class="tag-badge">1-Click Demo</span>
+ <span class="tag-badge">Validation</span>
+ </div>
+ </div>
+ <div class="node-footer">
+ <span class="node-status"><span class="status-dot"></span> Live & Verified</span>
+ <a href="auth.html" class="node-link">Launch Screen →</a>
+ </div>
+ </div>
+ </div>
+ </section>
 
-            <!-- Flow Connector 1 -->
-            <div class="flow-arrow-row">
-                <div class="flow-label">Role Routing & Session Token Injection ↓</div>
-            </div>
+ <!-- Flow Connector 1 -->
+ <div class="flow-arrow-row">
+ <div class="flow-label">Role Routing & Session Token Injection ↓</div>
+ </div>
 
-            <!-- TIER 2: Role-Based Application Workspaces -->
-            <section class="tier-section">
-                <div class="tier-title">
-                    <span>🏛️ Tier 2: Role Workspaces & Experience Portals</span>
-                    <span class="tier-tag">Client Application Layer</span>
-                </div>
-                <div class="nodes-row">
-                    <!-- Node: Student Dashboard -->
-                    <div class="node-card" style="--node-accent: #0EA5E9;">
-                        <div>
-                            <div class="node-top">
-                                <div class="node-icon">🎓</div>
-                                <div class="node-heading">
-                                    <span class="node-name">Student Career Portal</span>
-                                    <span class="node-story">frontend/index.html (US09)</span>
-                                </div>
-                            </div>
-                            <p class="node-desc">
-                                AI track matching indicator (94%), personalized career roadmap milestones, and active internship opportunity discovery with simulated applications.
-                            </p>
-                            <div class="node-tags">
-                                <span class="tag-badge">AI Match 94%</span>
-                                <span class="tag-badge">Roadmaps</span>
-                                <span class="tag-badge">Internships</span>
-                            </div>
-                        </div>
-                        <div class="node-footer">
-                            <span class="node-status"><span class="status-dot"></span> Live Prototype</span>
-                            <a href="../index.html" class="node-link">Open Portal →</a>
-                        </div>
-                    </div>
+ <!-- TIER 2: Role-Based Application Workspaces -->
+ <section class="tier-section">
+ <div class="tier-title">
+ <span>️ Tier 2: Role Workspaces & Experience Portals</span>
+ <span class="tier-tag">Client Application Layer</span>
+ </div>
+ <div class="nodes-row">
+ <!-- Node: Student Dashboard -->
+ <div class="node-card" style="--node-accent: #0EA5E9;">
+ <div>
+ <div class="node-top">
+ <div class="node-icon"></div>
+ <div class="node-heading">
+ <span class="node-name">Student Career Portal</span>
+ <span class="node-story">frontend/index.html (US09)</span>
+ </div>
+ </div>
+ <p class="node-desc">
+ AI track matching indicator (94%), personalized career roadmap milestones, and active internship opportunity discovery with simulated applications.
+ </p>
+ <div class="node-tags">
+ <span class="tag-badge">AI Match 94%</span>
+ <span class="tag-badge">Roadmaps</span>
+ <span class="tag-badge">Internships</span>
+ </div>
+ </div>
+ <div class="node-footer">
+ <span class="node-status"><span class="status-dot"></span> Live Prototype</span>
+ <a href="../index.html" class="node-link">Open Portal →</a>
+ </div>
+ </div>
 
-                    <!-- Node: Admin Executive Console -->
-                    <div class="node-card" style="--node-accent: #6366F1;">
-                        <div>
-                            <div class="node-top">
-                                <div class="node-icon">🛡️</div>
-                                <div class="node-heading">
-                                    <span class="node-name">Admin Executive Console</span>
-                                    <span class="node-story">frontend/admin.html (US04)</span>
-                                </div>
-                            </div>
-                            <p class="node-desc">
-                                4 real-time KPI metrics, searchable user data-table, role-based filter pills (Student, Employer, Admin), and status toggling (Active/Suspended).
-                            </p>
-                            <div class="node-tags">
-                                <span class="tag-badge">KPI Grid</span>
-                                <span class="tag-badge">Data-Table</span>
-                                <span class="tag-badge">Role Filter</span>
-                            </div>
-                        </div>
-                        <div class="node-footer">
-                            <span class="node-status"><span class="status-dot"></span> 100% Completed</span>
-                            <a href="admin.html" class="node-link">Open Console →</a>
-                        </div>
-                    </div>
+ <!-- Node: Admin Executive Console -->
+ <div class="node-card" style="--node-accent: #6366F1;">
+ <div>
+ <div class="node-top">
+ <div class="node-icon">️</div>
+ <div class="node-heading">
+ <span class="node-name">Admin Executive Console</span>
+ <span class="node-story">frontend/admin.html (US04)</span>
+ </div>
+ </div>
+ <p class="node-desc">
+ 4 real-time KPI metrics, searchable user data-table, role-based filter pills (Student, Employer, Admin), and status toggling (Active/Suspended).
+ </p>
+ <div class="node-tags">
+ <span class="tag-badge">KPI Grid</span>
+ <span class="tag-badge">Data-Table</span>
+ <span class="tag-badge">Role Filter</span>
+ </div>
+ </div>
+ <div class="node-footer">
+ <span class="node-status"><span class="status-dot"></span> 100% Completed</span>
+ <a href="admin.html" class="node-link">Open Console →</a>
+ </div>
+ </div>
 
-                    <!-- Node: Employer Accreditation Queue -->
-                    <div class="node-card" style="--node-accent: #F59E0B;">
-                        <div>
-                            <div class="node-top">
-                                <div class="node-icon">🏢</div>
-                                <div class="node-heading">
-                                    <span class="node-name">Corporate Accreditation</span>
-                                    <span class="node-story">frontend/admin.html (US05)</span>
-                                </div>
-                            </div>
-                            <p class="node-desc">
-                                Corporate verification queue with Document Viewer modal for inspecting commercial licenses and tax IDs, with instant approval and rejection flows.
-                            </p>
-                            <div class="node-tags">
-                                <span class="tag-badge">Doc Viewer</span>
-                                <span class="tag-badge">Accreditation</span>
-                                <span class="tag-badge">Audit Log</span>
-                            </div>
-                        </div>
-                        <div class="node-footer">
-                            <span class="node-status"><span class="status-dot"></span> 100% Completed</span>
-                            <a href="admin.html#tab-verification" class="node-link">View Queue →</a>
-                        </div>
-                    </div>
+ <!-- Node: Employer Accreditation Queue -->
+ <div class="node-card" style="--node-accent: #F59E0B;">
+ <div>
+ <div class="node-top">
+ <div class="node-icon"></div>
+ <div class="node-heading">
+ <span class="node-name">Corporate Accreditation</span>
+ <span class="node-story">frontend/admin.html (US05)</span>
+ </div>
+ </div>
+ <p class="node-desc">
+ Corporate verification queue with Document Viewer modal for inspecting commercial licenses and tax IDs, with instant approval and rejection flows.
+ </p>
+ <div class="node-tags">
+ <span class="tag-badge">Doc Viewer</span>
+ <span class="tag-badge">Accreditation</span>
+ <span class="tag-badge">Audit Log</span>
+ </div>
+ </div>
+ <div class="node-footer">
+ <span class="node-status"><span class="status-dot"></span> 100% Completed</span>
+ <a href="admin.html#tab-verification" class="node-link">View Queue →</a>
+ </div>
+ </div>
 
-                    <!-- Node: UI Component Kit -->
-                    <div class="node-card" style="--node-accent: #10B981;">
-                        <div>
-                            <div class="node-top">
-                                <div class="node-icon">🧩</div>
-                                <div class="node-heading">
-                                    <span class="node-name">Core Design System</span>
-                                    <span class="node-story">frontend/components.html (US03)</span>
-                                </div>
-                            </div>
-                            <p class="node-desc">
-                                Modular UI component library featuring accessible buttons, form controls, modals, and design tokens aligned with WCAG AA contrast standards.
-                            </p>
-                            <div class="node-tags">
-                                <span class="tag-badge">Tokens</span>
-                                <span class="tag-badge">WCAG AA</span>
-                                <span class="tag-badge">Components</span>
-                            </div>
-                        </div>
-                        <div class="node-footer">
-                            <span class="node-status"><span class="status-dot"></span> 100% Completed</span>
-                            <a href="components.html" class="node-link">Inspect Kit →</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+ <!-- Node: UI Component Kit -->
+ <div class="node-card" style="--node-accent: #10B981;">
+ <div>
+ <div class="node-top">
+ <div class="node-icon"></div>
+ <div class="node-heading">
+ <span class="node-name">Core Design System</span>
+ <span class="node-story">frontend/components.html (US03)</span>
+ </div>
+ </div>
+ <p class="node-desc">
+ Modular UI component library featuring accessible buttons, form controls, modals, and design tokens aligned with WCAG AA contrast standards.
+ </p>
+ <div class="node-tags">
+ <span class="tag-badge">Tokens</span>
+ <span class="tag-badge">WCAG AA</span>
+ <span class="tag-badge">Components</span>
+ </div>
+ </div>
+ <div class="node-footer">
+ <span class="node-status"><span class="status-dot"></span> 100% Completed</span>
+ <a href="components.html" class="node-link">Inspect Kit →</a>
+ </div>
+ </div>
+ </div>
+ </section>
 
-            <!-- Flow Connector 2 -->
-            <div class="flow-arrow-row">
-                <div class="flow-label">Automated Quality Gateways & Deployment Automation ↓</div>
-            </div>
+ <!-- Flow Connector 2 -->
+ <div class="flow-arrow-row">
+ <div class="flow-label">Automated Quality Gateways & Deployment Automation ↓</div>
+ </div>
 
-            <!-- TIER 3: Autonomous CI/CD & DevOps Pipeline -->
-            <section class="tier-section">
-                <div class="tier-title">
-                    <span>⚡ Tier 3: Autonomous CI/CD Pipeline & Team Accountability</span>
-                    <span class="tier-tag">GitHub Actions & DevOps</span>
-                </div>
+ <!-- TIER 3: Autonomous CI/CD & DevOps Pipeline -->
+ <section class="tier-section">
+ <div class="tier-title">
+ <span> Tier 3: Autonomous CI/CD Pipeline & Team Accountability</span>
+ <span class="tier-tag">GitHub Actions & DevOps</span>
+ </div>
 
-                <!-- Interactive Simulator & YAML Code Studio -->
-                <div class="pipeline-simulator-card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(16, 185, 129, 0.12) 100%); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 14px; padding: 1.25rem; margin-bottom: 2rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
-                        <div>
-                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
-                                <h3 style="font-family: var(--font-heading); font-size: 1.15rem; color: #FFFFFF; margin: 0;">🎬 Enterprise Multi-Stage DevOps CI/CD Pipeline</h3>
-                                <span class="tag-badge" style="background: rgba(16, 185, 129, 0.2); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.4); font-size: 0.72rem;">5 Connected DAG Jobs</span>
-                            </div>
-                            <p style="color: #94A3B8; font-size: 0.88rem; margin: 0;">Live visualization of production GitHub Actions YAML execution with parallel audits and automated quality gates.</p>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem; align-items: center;">
-                            <div class="view-toggle" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 3px; display: flex; gap: 3px;">
-                                <button id="tab-visual-btn" onclick="switchPipelineView('visual')" style="background: #6366F1; color: white; border: none; border-radius: 6px; padding: 0.35rem 0.8rem; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 200ms ease;">📊 Visual Flow</button>
-                                <button id="tab-yaml-btn" onclick="switchPipelineView('yaml')" style="background: transparent; color: #94A3B8; border: none; border-radius: 6px; padding: 0.35rem 0.8rem; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 200ms ease;">📄 Production ci.yml</button>
-                            </div>
-                            <button id="btn-run-simulation" class="btn btn-primary" onclick="simulatePipelineRun()" style="background: #6366F1; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4); padding: 0.45rem 1.1rem; font-size: 0.85rem;">
-                                ▶ Run Live Simulation
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Visual Stepper View -->
-                    <div id="pipeline-visual-view">
-                        <div class="pipeline-stepper" id="pipeline-stepper" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem;">
-                            <div class="pipe-step" id="step-arch" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
-                                <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">📐</div>
-                                <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">1. Standards & Assets</div>
-                                <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Ready (Parallel)</div>
-                            </div>
-                            <div class="pipe-step" id="step-sec" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
-                                <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">🛡️</div>
-                                <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">2. Security Audit</div>
-                                <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Ready (Parallel)</div>
-                            </div>
-                            <div class="pipe-step" id="step-smoke" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
-                                <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">🧪</div>
-                                <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">3. Playwright Smoke</div>
-                                <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Needs [1, 2]</div>
-                            </div>
-                            <div class="pipe-step" id="step-metrics" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
-                                <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">📊</div>
-                                <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">4. Velocity & Deadlines</div>
-                                <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Needs [3]</div>
-                            </div>
-                            <div class="pipe-step" id="step-gate" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
-                                <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">🚀</div>
-                                <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">5. Quality Gate Signoff</div>
-                                <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Needs [4]</div>
-                            </div>
-                        </div>
-                    </div>
+ <!-- Interactive Simulator & YAML Code Studio -->
+ <div class="pipeline-simulator-card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(16, 185, 129, 0.12) 100%); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 14px; padding: 1.25rem; margin-bottom: 2rem;">
+ <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+ <div>
+ <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+ <h3 style="font-family: var(--font-heading); font-size: 1.15rem; color: #FFFFFF; margin: 0;"> Enterprise Multi-Stage DevOps CI/CD Pipeline</h3>
+ <span class="tag-badge" style="background: rgba(16, 185, 129, 0.2); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.4); font-size: 0.72rem;">5 Connected DAG Jobs</span>
+ </div>
+ <p style="color: #94A3B8; font-size: 0.88rem; margin: 0;">Live visualization of production GitHub Actions YAML execution with parallel audits and automated quality gates.</p>
+ </div>
+ <div style="display: flex; gap: 0.5rem; align-items: center;">
+ <div class="view-toggle" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 3px; display: flex; gap: 3px;">
+ <button id="tab-visual-btn" onclick="switchPipelineView('visual')" style="background: #6366F1; color: white; border: none; border-radius: 6px; padding: 0.35rem 0.8rem; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 200ms ease;"> Visual Flow</button>
+ <button id="tab-yaml-btn" onclick="switchPipelineView('yaml')" style="background: transparent; color: #94A3B8; border: none; border-radius: 6px; padding: 0.35rem 0.8rem; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 200ms ease;"> Production ci.yml</button>
+ </div>
+ <button id="btn-run-simulation" class="btn btn-primary" onclick="simulatePipelineRun()" style="background: #6366F1; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4); padding: 0.45rem 1.1rem; font-size: 0.85rem;">
+ ▶ Run Live Simulation
+ </button>
+ </div>
+ </div>
+ 
+ <!-- Visual Stepper View -->
+ <div id="pipeline-visual-view">
+ <div class="pipeline-stepper" id="pipeline-stepper" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem;">
+ <div class="pipe-step" id="step-arch" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
+ <div style="font-size: 1.2rem; margin-bottom: 0.25rem;"></div>
+ <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">1. Standards & Assets</div>
+ <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Ready (Parallel)</div>
+ </div>
+ <div class="pipe-step" id="step-sec" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
+ <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">️</div>
+ <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">2. Security Audit</div>
+ <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Ready (Parallel)</div>
+ </div>
+ <div class="pipe-step" id="step-smoke" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
+ <div style="font-size: 1.2rem; margin-bottom: 0.25rem;"></div>
+ <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">3. Playwright Smoke</div>
+ <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Needs [1, 2]</div>
+ </div>
+ <div class="pipe-step" id="step-metrics" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
+ <div style="font-size: 1.2rem; margin-bottom: 0.25rem;"></div>
+ <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">4. Velocity & Deadlines</div>
+ <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Needs [3]</div>
+ </div>
+ <div class="pipe-step" id="step-gate" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; text-align: center; transition: all 300ms ease;">
+ <div style="font-size: 1.2rem; margin-bottom: 0.25rem;"></div>
+ <div style="font-weight: 600; font-size: 0.82rem; color: #E2E8F0;">5. Quality Gate Signoff</div>
+ <div class="step-status" style="font-size: 0.72rem; color: #94A3B8; margin-top: 0.2rem;">Needs [4]</div>
+ </div>
+ </div>
+ </div>
 
-                    <!-- YAML Code View -->
-                    <div id="pipeline-yaml-view" style="display: none;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                            <span style="font-family: monospace; font-size: 0.82rem; color: #38BDF8;">.github/workflows/ci.yml (Multi-Stage DAG Specification)</span>
-                            <button id="btn-copy-yaml" onclick="copyYamlSnippet(this)" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #E2E8F0; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 150ms ease;" aria-label="Copy CI/CD YAML configuration">📋 Copy YAML</button>
-                        </div>
-                        <pre id="yaml-code-content" style="background: #0B1120; border: 1px solid rgba(51, 65, 85, 0.6); border-radius: 8px; padding: 1rem; color: #E2E8F0; font-family: 'Fira Code', monospace; font-size: 0.78rem; line-height: 1.5; overflow-x: auto; max-height: 320px;"><span style="color: #6366F1;">name:</span> HuntYourTrack CI/CD DevOps Pipeline
+ <!-- YAML Code View -->
+ <div id="pipeline-yaml-view" style="display: none;">
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+ <span style="font-family: monospace; font-size: 0.82rem; color: #38BDF8;">.github/workflows/ci.yml (Multi-Stage DAG Specification)</span>
+ <button id="btn-copy-yaml" onclick="copyYamlSnippet(this)" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #E2E8F0; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 150ms ease;" aria-label="Copy CI/CD YAML configuration"> Copy YAML</button>
+ </div>
+ <pre id="yaml-code-content" style="background: #0B1120; border: 1px solid rgba(51, 65, 85, 0.6); border-radius: 8px; padding: 1rem; color: #E2E8F0; font-family: 'Fira Code', monospace; font-size: 0.78rem; line-height: 1.5; overflow-x: auto; max-height: 320px;"><span style="color: #6366F1;">name:</span> HuntYourTrack CI/CD DevOps Pipeline
 
 <span style="color: #6366F1;">on:</span>
-  <span style="color: #EC4899;">push:</span>
-    <span style="color: #F59E0B;">branches:</span> [main]
-  <span style="color: #EC4899;">pull_request:</span>
-    <span style="color: #F59E0B;">branches:</span> [main]
+ <span style="color: #EC4899;">push:</span>
+ <span style="color: #F59E0B;">branches:</span> [main]
+ <span style="color: #EC4899;">pull_request:</span>
+ <span style="color: #F59E0B;">branches:</span> [main]
 
 <span style="color: #6366F1;">jobs:</span>
-  <span style="color: #10B981;"># Stage 1: Parallel Standards Check</span>
-  <span style="color: #EC4899;">code-standards:</span>
-    <span style="color: #6366F1;">name:</span> 📐 1. Architecture & Asset Standards
-    <span style="color: #6366F1;">runs-on:</span> ubuntu-latest
+ <span style="color: #10B981;"># Stage 1: Parallel Standards Check</span>
+ <span style="color: #EC4899;">code-standards:</span>
+ <span style="color: #6366F1;">name:</span> 1. Architecture & Asset Standards
+ <span style="color: #6366F1;">runs-on:</span> ubuntu-latest
 
-  <span style="color: #10B981;"># Stage 2: Parallel Security Check</span>
-  <span style="color: #EC4899;">security-audit:</span>
-    <span style="color: #6366F1;">name:</span> 🛡️ 2. Security & Zero-Contamination Audit
-    <span style="color: #6366F1;">runs-on:</span> ubuntu-latest
+ <span style="color: #10B981;"># Stage 2: Parallel Security Check</span>
+ <span style="color: #EC4899;">security-audit:</span>
+ <span style="color: #6366F1;">name:</span> ️ 2. Security & Zero-Contamination Audit
+ <span style="color: #6366F1;">runs-on:</span> ubuntu-latest
 
-  <span style="color: #10B981;"># Stage 3: Playwright Smoke (DAG Junction)</span>
-  <span style="color: #EC4899;">browser-smoke-tests:</span>
-    <span style="color: #6366F1;">name:</span> 🧪 3. Playwright Browser Smoke Suite
-    <span style="color: #F59E0B;">needs:</span> [code-standards, security-audit]
-    <span style="color: #6366F1;">runs-on:</span> ubuntu-latest
+ <span style="color: #10B981;"># Stage 3: Playwright Smoke (DAG Junction)</span>
+ <span style="color: #EC4899;">browser-smoke-tests:</span>
+ <span style="color: #6366F1;">name:</span> 3. Playwright Browser Smoke Suite
+ <span style="color: #F59E0B;">needs:</span> [code-standards, security-audit]
+ <span style="color: #6366F1;">runs-on:</span> ubuntu-latest
 
-  <span style="color: #10B981;"># Stage 4: Team Velocity & Deadlines</span>
-  <span style="color: #EC4899;">team-metrics:</span>
-    <span style="color: #6366F1;">name:</span> 📊 4. Team Velocity & Deadline Monitor
-    <span style="color: #F59E0B;">needs:</span> [browser-smoke-tests]
-    <span style="color: #6366F1;">runs-on:</span> ubuntu-latest
+ <span style="color: #10B981;"># Stage 4: Team Velocity & Deadlines</span>
+ <span style="color: #EC4899;">team-metrics:</span>
+ <span style="color: #6366F1;">name:</span> 4. Team Velocity & Deadline Monitor
+ <span style="color: #F59E0B;">needs:</span> [browser-smoke-tests]
+ <span style="color: #6366F1;">runs-on:</span> ubuntu-latest
 
-  <span style="color: #10B981;"># Stage 5: Executive Signoff</span>
-  <span style="color: #EC4899;">quality-gate-signoff:</span>
-    <span style="color: #6366F1;">name:</span> 🚀 5. Executive Quality Gate & Visual Dashboard
-    <span style="color: #F59E0B;">needs:</span> [team-metrics]
-    <span style="color: #6366F1;">runs-on:</span> ubuntu-latest</pre>
-                    </div>
-                </div>
-                <div class="nodes-row">
-                    <!-- Node: CI Smoke Test -->
-                    <div class="node-card" style="--node-accent: #10B981;">
-                        <div>
-                            <div class="node-top">
-                                <div class="node-icon">🧪</div>
-                                <div class="node-heading">
-                                    <span class="node-name">Automated CI Smoke Test</span>
-                                    <span class="node-story">.github/workflows/ci.yml</span>
-                                </div>
-                            </div>
-                            <p class="node-desc">
-                                Headless browser integration testing executed automatically on every push and pull request. Asserts auth flows, table filters, and admin actions.
-                            </p>
-                            <div class="node-tags">
-                                <span class="tag-badge">Playwright</span>
-                                <span class="tag-badge">Automated CI</span>
-                                <span class="tag-badge">Status: Passing</span>
-                            </div>
-                        </div>
-                        <div class="node-footer">
-                            <span class="node-status"><span class="status-dot"></span> Passing (Green)</span>
-                            <a href="https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/ci.yml" target="_blank" class="node-link">View Runs ↗</a>
-                        </div>
-                    </div>
+ <span style="color: #10B981;"># Stage 5: Executive Signoff</span>
+ <span style="color: #EC4899;">quality-gate-signoff:</span>
+ <span style="color: #6366F1;">name:</span> 5. Executive Quality Gate & Visual Dashboard
+ <span style="color: #F59E0B;">needs:</span> [team-metrics]
+ <span style="color: #6366F1;">runs-on:</span> ubuntu-latest</pre>
+ </div>
+ </div>
+ <div class="nodes-row">
+ <!-- Node: CI Smoke Test -->
+ <div class="node-card" style="--node-accent: #10B981;">
+ <div>
+ <div class="node-top">
+ <div class="node-icon"></div>
+ <div class="node-heading">
+ <span class="node-name">Automated CI Smoke Test</span>
+ <span class="node-story">.github/workflows/ci.yml</span>
+ </div>
+ </div>
+ <p class="node-desc">
+ Headless browser integration testing executed automatically on every push and pull request. Asserts auth flows, table filters, and admin actions.
+ </p>
+ <div class="node-tags">
+ <span class="tag-badge">Playwright</span>
+ <span class="tag-badge">Automated CI</span>
+ <span class="tag-badge">Status: Passing</span>
+ </div>
+ </div>
+ <div class="node-footer">
+ <span class="node-status"><span class="status-dot"></span> Passing (Green)</span>
+ <a href="https://github.com/EngMohamedElabsy/HuntYourTrack/actions/workflows/ci.yml" target="_blank" class="node-link">View Runs ↗</a>
+ </div>
+ </div>
 
-                    <!-- Node: GitHub Pages Deployment -->
-                    <div class="node-card" style="--node-accent: #38BDF8;">
-                        <div>
-                            <div class="node-top">
-                                <div class="node-icon">🚀</div>
-                                <div class="node-heading">
-                                    <span class="node-name">Continuous Deployment</span>
-                                    <span class="node-story">.github/workflows/deploy.yml</span>
-                                </div>
-                            </div>
-                            <p class="node-desc">
-                                Automated GitHub Pages static build publisher. Automatically syncs `frontend/` updates to the public domain within seconds of merging.
-                            </p>
-                            <div class="node-tags">
-                                <span class="tag-badge">GitHub Pages</span>
-                                <span class="tag-badge">Zero-Config</span>
-                                <span class="tag-badge">Live CDN</span>
-                            </div>
-                        </div>
-                        <div class="node-footer">
-                            <span class="node-status"><span class="status-dot"></span> Production Live</span>
-                            <a href="https://engmohamedelabsy.github.io/HuntYourTrack/admin.html" target="_blank" class="node-link">Visit Live ↗</a>
-                        </div>
-                    </div>
+ <!-- Node: GitHub Pages Deployment -->
+ <div class="node-card" style="--node-accent: #38BDF8;">
+ <div>
+ <div class="node-top">
+ <div class="node-icon"></div>
+ <div class="node-heading">
+ <span class="node-name">Continuous Deployment</span>
+ <span class="node-story">.github/workflows/deploy.yml</span>
+ </div>
+ </div>
+ <p class="node-desc">
+ Automated GitHub Pages static build publisher. Automatically syncs `frontend/` updates to the public domain within seconds of merging.
+ </p>
+ <div class="node-tags">
+ <span class="tag-badge">GitHub Pages</span>
+ <span class="tag-badge">Zero-Config</span>
+ <span class="tag-badge">Live CDN</span>
+ </div>
+ </div>
+ <div class="node-footer">
+ <span class="node-status"><span class="status-dot"></span> Production Live</span>
+ <a href="https://engmohamedelabsy.github.io/HuntYourTrack/admin.html" target="_blank" class="node-link">Visit Live ↗</a>
+ </div>
+ </div>
 
-                    <!-- Node: Sprint Deadline Monitor -->
-                    <div class="node-card" style="--node-accent: #EC4899;">
-                        <div>
-                            <div class="node-top">
-                                <div class="node-icon">⏰</div>
-                                <div class="node-heading">
-                                    <span class="node-name">Sprint Monitor Bot</span>
-                                    <span class="node-story">.github/workflows/sprint-monitor.yml</span>
-                                </div>
-                            </div>
-                            <p class="node-desc">
-                                Daily scheduled cron agent checking upcoming milestone deadlines (Nov 1, 2026) and posting reminder notices to assignees when due dates approach.
-                            </p>
-                            <div class="node-tags">
-                                <span class="tag-badge">Cron Alert</span>
-                                <span class="tag-badge">Anti-Delay</span>
-                                <span class="tag-badge">Accountability</span>
-                            </div>
-                        </div>
-                        <div class="node-footer">
-                            <span class="node-status"><span class="status-dot"></span> Active Daily</span>
-                            <a href="https://github.com/EngMohamedElabsy/HuntYourTrack/milestones" target="_blank" class="node-link">Milestone ↗</a>
-                        </div>
-                    </div>
+ <!-- Node: Sprint Deadline Monitor -->
+ <div class="node-card" style="--node-accent: #EC4899;">
+ <div>
+ <div class="node-top">
+ <div class="node-icon">⏰</div>
+ <div class="node-heading">
+ <span class="node-name">Sprint Monitor Bot</span>
+ <span class="node-story">.github/workflows/sprint-monitor.yml</span>
+ </div>
+ </div>
+ <p class="node-desc">
+ Daily scheduled cron agent checking upcoming milestone deadlines (Nov 1, 2026) and posting reminder notices to assignees when due dates approach.
+ </p>
+ <div class="node-tags">
+ <span class="tag-badge">Cron Alert</span>
+ <span class="tag-badge">Anti-Delay</span>
+ <span class="tag-badge">Accountability</span>
+ </div>
+ </div>
+ <div class="node-footer">
+ <span class="node-status"><span class="status-dot"></span> Active Daily</span>
+ <a href="https://github.com/EngMohamedElabsy/HuntYourTrack/milestones" target="_blank" class="node-link">Milestone ↗</a>
+ </div>
+ </div>
 
-                    <!-- Node: Team Performance Leaderboard -->
-                    <div class="node-card" style="--node-accent: #F59E0B;">
-                        <div>
-                            <div class="node-top">
-                                <div class="node-icon">📊</div>
-                                <div class="node-heading">
-                                    <span class="node-name">Team Performance Leaderboard</span>
-                                    <span class="node-story">docs/TEAM_METRICS.md</span>
-                                </div>
-                            </div>
-                            <p class="node-desc">
-                                Automated velocity calculator evaluating individual completion percentages, issue breakdown, and assigning engineering achievement badges.
-                            </p>
-                            <div class="node-tags">
-                                <span class="tag-badge">Lead 100%</span>
-                                <span class="tag-badge">Badges</span>
-                                <span class="tag-badge">Scorecard</span>
-                            </div>
-                        </div>
-                        <div class="node-footer">
-                            <span class="node-status"><span class="status-dot"></span> Updated Real-time</span>
-                            <a href="https://github.com/EngMohamedElabsy/HuntYourTrack/blob/main/docs/TEAM_METRICS.md" target="_blank" class="node-link">Scorecard ↗</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+ <!-- Node: Team Performance Leaderboard -->
+ <div class="node-card" style="--node-accent: #F59E0B;">
+ <div>
+ <div class="node-top">
+ <div class="node-icon"></div>
+ <div class="node-heading">
+ <span class="node-name">Team Performance Leaderboard</span>
+ <span class="node-story">docs/TEAM_METRICS.md</span>
+ </div>
+ </div>
+ <p class="node-desc">
+ Automated velocity calculator evaluating individual completion percentages, issue breakdown, and assigning engineering achievement badges.
+ </p>
+ <div class="node-tags">
+ <span class="tag-badge">Lead 100%</span>
+ <span class="tag-badge">Badges</span>
+ <span class="tag-badge">Scorecard</span>
+ </div>
+ </div>
+ <div class="node-footer">
+ <span class="node-status"><span class="status-dot"></span> Updated Real-time</span>
+ <a href="https://github.com/EngMohamedElabsy/HuntYourTrack/blob/main/docs/TEAM_METRICS.md" target="_blank" class="node-link">Scorecard ↗</a>
+ </div>
+ </div>
+ </div>
+ </section>
 
-        </div>
-    <script>
-        function switchPipelineView(view) {
-            const visualDiv = document.getElementById('pipeline-visual-view');
-            const yamlDiv = document.getElementById('pipeline-yaml-view');
-            const visualBtn = document.getElementById('tab-visual-btn');
-            const yamlBtn = document.getElementById('tab-yaml-btn');
-            const runBtn = document.getElementById('btn-run-simulation');
+ </div>
+ <script>
+ function switchPipelineView(view) {
+ const visualDiv = document.getElementById('pipeline-visual-view');
+ const yamlDiv = document.getElementById('pipeline-yaml-view');
+ const visualBtn = document.getElementById('tab-visual-btn');
+ const yamlBtn = document.getElementById('tab-yaml-btn');
+ const runBtn = document.getElementById('btn-run-simulation');
 
-            if (view === 'yaml') {
-                visualDiv.style.display = 'none';
-                yamlDiv.style.display = 'block';
-                yamlBtn.style.background = '#6366F1';
-                yamlBtn.style.color = 'white';
-                visualBtn.style.background = 'transparent';
-                visualBtn.style.color = '#94A3B8';
-                runBtn.style.display = 'none';
-            } else {
-                visualDiv.style.display = 'block';
-                yamlDiv.style.display = 'none';
-                visualBtn.style.background = '#6366F1';
-                visualBtn.style.color = 'white';
-                yamlBtn.style.background = 'transparent';
-                yamlBtn.style.color = '#94A3B8';
-                runBtn.style.display = 'inline-block';
-            }
-        }
+ if (view === 'yaml') {
+ visualDiv.style.display = 'none';
+ yamlDiv.style.display = 'block';
+ yamlBtn.style.background = '#6366F1';
+ yamlBtn.style.color = 'white';
+ visualBtn.style.background = 'transparent';
+ visualBtn.style.color = '#94A3B8';
+ runBtn.style.display = 'none';
+ } else {
+ visualDiv.style.display = 'block';
+ yamlDiv.style.display = 'none';
+ visualBtn.style.background = '#6366F1';
+ visualBtn.style.color = 'white';
+ yamlBtn.style.background = 'transparent';
+ yamlBtn.style.color = '#94A3B8';
+ runBtn.style.display = 'inline-block';
+ }
+ }
 
-        function simulatePipelineRun() {
-            const btn = document.getElementById('btn-run-simulation');
-            btn.disabled = true;
-            btn.textContent = '⏳ Simulating 5-Stage Pipeline...';
+ function simulatePipelineRun() {
+ const btn = document.getElementById('btn-run-simulation');
+ btn.disabled = true;
+ btn.textContent = '⏳ Simulating 5-Stage Pipeline...';
 
-            const steps = [
-                { id: 'step-arch', title: '1. Standards & Assets', delay: 500 },
-                { id: 'step-sec', title: '2. Security Audit', delay: 400 },
-                { id: 'step-smoke', title: '3. Playwright Smoke', delay: 1100 },
-                { id: 'step-metrics', title: '4. Velocity & Deadlines', delay: 600 },
-                { id: 'step-gate', title: '5. Quality Gate Signoff', delay: 700 }
-            ];
+ const steps = [
+ { id: 'step-arch', title: '1. Standards & Assets', delay: 500 },
+ { id: 'step-sec', title: '2. Security Audit', delay: 400 },
+ { id: 'step-smoke', title: '3. Playwright Smoke', delay: 1100 },
+ { id: 'step-metrics', title: '4. Velocity & Deadlines', delay: 600 },
+ { id: 'step-gate', title: '5. Quality Gate Signoff', delay: 700 }
+ ];
 
-            // Reset all
-            steps.forEach(s => {
-                const el = document.getElementById(s.id);
-                el.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                el.style.background = 'rgba(255, 255, 255, 0.03)';
-                el.querySelector('.step-status').textContent = 'Queued';
-                el.querySelector('.step-status').style.color = '#94A3B8';
-            });
+ // Reset all
+ steps.forEach(s => {
+ const el = document.getElementById(s.id);
+ el.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+ el.style.background = 'rgba(255, 255, 255, 0.03)';
+ el.querySelector('.step-status').textContent = 'Queued';
+ el.querySelector('.step-status').style.color = '#94A3B8';
+ });
 
-            let currentDelay = 100;
-            steps.forEach((s, idx) => {
-                currentDelay += s.delay;
-                setTimeout(() => {
-                    const el = document.getElementById(s.id);
-                    el.style.borderColor = '#10B981';
-                    el.style.background = 'rgba(16, 185, 129, 0.15)';
-                    el.style.transform = 'translateY(-3px)';
-                    el.querySelector('.step-status').textContent = '✓ Passed (Green)';
-                    el.querySelector('.step-status').style.color = '#10B981';
+ let currentDelay = 100;
+ steps.forEach((s, idx) => {
+ currentDelay += s.delay;
+ setTimeout(() => {
+ const el = document.getElementById(s.id);
+ el.style.borderColor = '#10B981';
+ el.style.background = 'rgba(16, 185, 129, 0.15)';
+ el.style.transform = 'translateY(-3px)';
+ el.querySelector('.step-status').textContent = '✓ Passed (Green)';
+ el.querySelector('.step-status').style.color = '#10B981';
 
-                    if (idx === steps.length - 1) {
-                        btn.disabled = false;
-                        btn.textContent = '✓ All 5 DAG Jobs Passed · Re-run';
-                        btn.style.background = '#10B981';
-                    }
-                }, currentDelay);
-            });
-        }
+ if (idx === steps.length - 1) {
+ btn.disabled = false;
+ btn.textContent = '✓ All 5 DAG Jobs Passed · Re-run';
+ btn.style.background = '#10B981';
+ }
+ }, currentDelay);
+ });
+ }
 
-        // Mobile drawer handlers (US15)
-        function toggleWorkflowDrawer() {
-            const drawer = document.getElementById('workflow-mobile-drawer');
-            if (drawer) drawer.classList.toggle('open');
-        }
+ // Mobile drawer handlers (US15)
+ function toggleWorkflowDrawer() {
+ const drawer = document.getElementById('workflow-mobile-drawer');
+ if (drawer) drawer.classList.toggle('open');
+ }
 
-        function closeWorkflowDrawer() {
-            const drawer = document.getElementById('workflow-mobile-drawer');
-            if (drawer) drawer.classList.remove('open');
-        }
+ function closeWorkflowDrawer() {
+ const drawer = document.getElementById('workflow-mobile-drawer');
+ if (drawer) drawer.classList.remove('open');
+ }
 
-        // Modern Copy Feedback & Toast (US16)
-        function copyYamlSnippet(btn) {
-            const content = document.getElementById('yaml-code-content').innerText;
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(content).then(() => {
-                    const originalText = btn.innerHTML;
-                    btn.innerHTML = '✓ Copied!';
-                    btn.style.background = '#10B981';
-                    btn.style.color = '#FFFFFF';
-                    showWorkflowToast('CI/CD Pipeline YAML copied to clipboard! 📋');
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.style.background = 'rgba(255, 255, 255, 0.1)';
-                        btn.style.color = '#E2E8F0';
-                    }, 2000);
-                });
-            } else {
-                showWorkflowToast('Copied to clipboard! 📋');
-            }
-        }
-        window.copyYamlSnippet = copyYamlSnippet;
+ // Modern Copy Feedback & Toast (US16)
+ function copyYamlSnippet(btn) {
+ const content = document.getElementById('yaml-code-content').innerText;
+ if (navigator.clipboard && navigator.clipboard.writeText) {
+ navigator.clipboard.writeText(content).then(() => {
+ const originalText = btn.innerHTML;
+ btn.innerHTML = '✓ Copied!';
+ btn.style.background = '#10B981';
+ btn.style.color = '#FFFFFF';
+ showWorkflowToast('CI/CD Pipeline YAML copied to clipboard! ');
+ setTimeout(() => {
+ btn.innerHTML = originalText;
+ btn.style.background = 'rgba(255, 255, 255, 0.1)';
+ btn.style.color = '#E2E8F0';
+ }, 2000);
+ });
+ } else {
+ showWorkflowToast('Copied to clipboard! ');
+ }
+ }
+ window.copyYamlSnippet = copyYamlSnippet;
 
-        function showWorkflowToast(message) {
-            let container = document.getElementById('workflow-toast-container');
-            if (!container) {
-                container = document.createElement('div');
-                container.id = 'workflow-toast-container';
-                container.className = 'toast-container';
-                document.body.appendChild(container);
-            }
-            const toast = document.createElement('div');
-            toast.className = 'toast success';
-            toast.innerHTML = `
-                <span>${message}</span>
-                <button type="button" class="toast-close-btn" onclick="this.parentElement.remove()" aria-label="Dismiss">&times;</button>
-            `;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(10px)';
-                toast.style.transition = 'all 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 3500);
-        }
-        window.showWorkflowToast = showWorkflowToast;
-    </script>
+ function showWorkflowToast(message) {
+ let container = document.getElementById('workflow-toast-container');
+ if (!container) {
+ container = document.createElement('div');
+ container.id = 'workflow-toast-container';
+ container.className = 'toast-container';
+ document.body.appendChild(container);
+ }
+ const toast = document.createElement('div');
+ toast.className = 'toast success';
+ toast.innerHTML = `
+ <span>${message}</span>
+ <button type="button" class="toast-close-btn" onclick="this.parentElement.remove()" aria-label="Dismiss">&times;</button>
+ `;
+ container.appendChild(toast);
+ setTimeout(() => {
+ toast.style.opacity = '0';
+ toast.style.transform = 'translateY(10px)';
+ toast.style.transition = 'all 0.3s ease';
+ setTimeout(() => toast.remove(), 300);
+ }, 3500);
+ }
+ window.showWorkflowToast = showWorkflowToast;
+ </script>
 </body>
 </html>
