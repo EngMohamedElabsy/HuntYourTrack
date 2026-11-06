@@ -531,7 +531,7 @@ class OpportunitiesManager {
                 const skillsList = opp.skills || ["Core Competencies"];
 
                 return `
-                    <article class="opp-card-modern" data-faculty="${opp.facultyTrack || "general"}" data-id="${opp.id}">
+                    <article class="opp-card opp-card-modern" data-faculty="${opp.facultyTrack || "general"}" data-id="${opp.id}">
                         <div>
                             <div class="opp-header-row">
                                 <div class="opp-brand-info">
@@ -584,7 +584,7 @@ class OpportunitiesManager {
                                 <span class="tag-pill" style="font-size: 0.75rem; background: var(--color-muted); color: var(--color-foreground);">
                                     🎓 ${targetFaculty}
                                 </span>
-                                <span class="tag-pill ${countdown.badgeClass}" style="font-size: 0.75rem;">
+                                <span class="tag-pill opp-countdown-badge ${countdown.badgeClass}" style="font-size: 0.75rem;">
                                     ⏱️ ${countdown.text}
                                 </span>
                             </div>
