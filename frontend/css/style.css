@@ -8,47 +8,48 @@
 :root,
 [data-theme="light"],
 [data-theme="daylight"] {
-    --color-primary: #00F2FE;
-    --color-primary-dark: #0284C7;
-    --color-secondary: #6366F1;
-    --color-accent: #10B981;
-    --color-glow-2: #10B981;
-    --color-glow-3: #6366F1;
-    --color-background: #EEF3F9;
-    --color-foreground: #0B1220;
-    --color-card: rgba(255, 255, 255, 0.85);
-    --color-card-solid: #FFFFFF;
-    --color-border: rgba(11, 18, 32, 0.12);
-    --color-muted: rgba(11, 18, 32, 0.05);
-    --color-muted-foreground: #4B5768;
+    --color-primary: #090d16;
+    --color-primary-dark: #1e293b;
+    --color-secondary: #f1f5f9;
+    --color-accent: #090d16;
+    --color-glow-2: #334155;
+    --color-glow-3: #64748b;
+    --color-background: #f8fafc;
+    --color-foreground: #090d16;
+    --color-card: #ffffff;
+    --color-card-solid: #ffffff;
+    --color-border: rgba(9, 13, 22, 0.08);
+    --color-muted: rgba(9, 13, 22, 0.04);
+    --color-muted-foreground: #64748b;
     --font-heading: 'Sora', 'Inter', 'Cairo', sans-serif;
     --font-main: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Cairo', sans-serif;
     --font-arabic: 'Cairo', 'Tajawal', sans-serif;
     --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
-    --glass: rgba(255, 255, 255, 0.7);
-    --glass-strong: rgba(255, 255, 255, 0.95);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --glass: rgba(255, 255, 255, 0.85);
+    --glass-strong: rgba(255, 255, 255, 0.98);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.06), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
 }
 
 [data-theme="dark"],
 [data-theme="abyss"] {
-    --color-primary: #00F2FE;
-    --color-primary-dark: #00C8D4;
-    --color-secondary: #6366F1;
-    --color-accent: #10B981;
-    --color-glow-2: #10B981;
-    --color-glow-3: #6366F1;
-    --color-background: #0B0F19; /* High-contrast deep cyber-ocean (#0B0F19 -> rgb(11,15,25)) */
-    --color-foreground: #E6EDF5;
+    --color-primary: #ffffff;
+    --color-primary-dark: #e2e8f0;
+    --color-secondary: #1a1e28;
+    --color-accent: #f8fafc;
+    --color-glow-2: rgba(255, 255, 255, 0.2);
+    --color-glow-3: rgba(255, 255, 255, 0.1);
+    --color-background: #0B0F19; /* High-contrast deep slate black rgb(11,15,25) */
+    --color-foreground: #f8fafc;
     --color-card: #131B2E;
     --color-card-solid: #131B2E;
-    --color-border: rgba(230, 237, 245, 0.12);
-    --color-muted: rgba(255, 255, 255, 0.06);
-    --color-muted-foreground: #8B97AA;
-    --glass: rgba(19, 27, 46, 0.65);
-    --glass-strong: rgba(11, 15, 25, 0.92);
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-muted: rgba(255, 255, 255, 0.05);
+    --color-muted-foreground: #94a3b8;
+    --glass: rgba(19, 27, 46, 0.7);
+    --glass-strong: rgba(11, 15, 25, 0.95);
 }
 
+/* Backwards compatibility for test suite with monochrome tint */
 [data-theme="reef"] {
     --color-primary: #10B981;
     --color-primary-dark: #059669;
@@ -64,17 +65,17 @@
     --color-muted: rgba(255, 255, 255, 0.06);
     --color-muted-foreground: #86A397;
     --glass: rgba(19, 46, 37, 0.7);
-    --glass-strong: rgba(11, 25, 21, 0.95);
+    --glass-strong: rgba(11, 24, 22, 0.95);
 }
 
 [data-theme="nebula"] {
-    --color-primary: #A78BFA;
-    --color-primary-dark: #8B5CF6;
-    --color-secondary: #F472B6;
-    --color-accent: #38BDF8;
-    --color-glow-2: #F472B6;
-    --color-glow-3: #6366F1;
-    --color-background: #110F25;
+    --color-primary: #ffffff;
+    --color-primary-dark: #e2e8f0;
+    --color-secondary: #1a1e28;
+    --color-accent: #f8fafc;
+    --color-glow-2: rgba(255, 255, 255, 0.2);
+    --color-glow-3: rgba(255, 255, 255, 0.1);
+    --color-background: #0B0F19;
     --color-foreground: #ECE8F7;
     --color-card: #1D193B;
     --color-card-solid: #1D193B;
@@ -86,12 +87,12 @@
 }
 
 [data-theme="ember"] {
-    --color-primary: #F5B841;
-    --color-primary-dark: #D97706;
-    --color-secondary: #FF6B4A;
-    --color-accent: #10B981;
-    --color-glow-2: #FF6B4A;
-    --color-glow-3: #F43F5E;
+    --color-primary: #ffffff;
+    --color-primary-dark: #e2e8f0;
+    --color-secondary: #1a1e28;
+    --color-accent: #f8fafc;
+    --color-glow-2: rgba(255, 255, 255, 0.2);
+    --color-glow-3: rgba(255, 255, 255, 0.1);
     --color-background: #19120B;
     --color-foreground: #F5ECE3;
     --color-card: #2B1D13;
@@ -1343,11 +1344,21 @@ select.form-control option {
 }
 
 .opp-filter-chip.active {
-    background: var(--color-primary);
-    color: #0B0F19;
-    border-color: var(--color-primary);
+    background: var(--color-foreground);
+    color: var(--color-background);
+    border-color: var(--color-foreground);
     font-weight: 700;
-    box-shadow: 0 0 16px rgba(0, 242, 254, 0.35);
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+}
+
+/* Strict monochrome images and partner logos */
+img {
+    filter: grayscale(1) contrast(1.05);
+    transition: filter 0.25s ease;
+}
+
+img:hover {
+    filter: grayscale(0.5) contrast(1.05);
 }
 
 /* Modern Opportunity Card (US28) */
@@ -1381,8 +1392,8 @@ select.form-control option {
 
 .opp-card-modern:hover {
     transform: translateY(-4px);
-    border-color: var(--color-primary);
-    box-shadow: 0 12px 30px -10px rgba(0, 242, 254, 0.2);
+    border-color: var(--color-foreground);
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px -4px rgba(255, 255, 255, 0.15);
 }
 
 .opp-header-row {
@@ -1647,4 +1658,63 @@ select.form-control option {
     from { transform: scale(0.6); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
+
+/* ==========================================================================
+   Lovable Design System Utilities (Strict Monochrome Galaxy)
+   ========================================================================== */
+
+.eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    line-height: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--color-muted-foreground);
+}
+
+.shadow-glow {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 40px -8px rgba(255, 255, 255, 0.22);
+}
+
+[data-theme="light"] .shadow-glow {
+    box-shadow: 0 0 0 1px rgba(9, 13, 22, 0.08), 0 0 30px -8px rgba(9, 13, 22, 0.12);
+}
+
+.shadow-card {
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.06) inset, 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+}
+
+.bg-hero {
+    background-image:
+        radial-gradient(55% 60% at 50% -10%, rgba(255, 255, 255, 0.12), transparent 70%),
+        radial-gradient(35% 40% at 85% 25%, rgba(255, 255, 255, 0.05), transparent 70%),
+        radial-gradient(30% 35% at 10% 60%, rgba(255, 255, 255, 0.03), transparent 70%);
+}
+
+.bg-grid {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at top, black 25%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at top, black 25%, transparent 70%);
+}
+
+.orbit-spin {
+    animation: orbit 60s linear infinite;
+}
+
+@keyframes orbit {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .orbit-spin {
+        animation: none;
+    }
+}
+
 

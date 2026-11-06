@@ -42,16 +42,39 @@ const HYT_TRANSLATIONS = {
         heroPill: "🚀 إطلاق الإصدار الأكاديمي الموحد 2026",
         heroTitleLine1: "اصطد مسارك المهني، واصنع",
         heroTitleLine2: "شبكة مهاراتك وانطلق في سوق العمل 🚀",
-        heroDesc: "المنصة الذكية الأولى في جامعة دمنهور لرسم خريطة طريق مهنية مخصصة لكل طالب في مختلف الكليات (حاسبات، هندسة، تجارة، حقوق)، مع ربط مباشر بفرص التدريب الصيفي والكورسات المعتمدة وإشراف أكاديمي معتمد.",
-        heroBtnExplore: "🎯 استكشف المسارات",
-        heroBtnBrowse: "💼 تصفح التدريبات الصيفية",
+        heroDesc: "تربط HuntYourTrack طلاب جامعة دمنهور بفرص التدريب المعتمدة من الكليات في مجالات الهندسة، علوم الحاسب، والتجارة — مرتبة ومصنفة بدقة حسب ملاءمتها لك.",
+        heroBtnExplore: "استكشف الفرص المعتمدة ←",
+        heroBtnBrowse: "مسارات الكليات",
         heroBtnAuth: "🔐 الدخول للمنصة",
+        heroBtnSignIn: "🔐 دخول المنصة",
 
         // Metrics Strip
-        metricStudents: "طالب مسجل بالجامعة",
-        metricPartners: "شريك وشركة تقنية",
-        metricMatchRate: "دقة المواءمة الوظيفية",
+        metricStudents: "طالب ومرشد أكاديمي",
+        metricPartners: "شريك صناعي وتكنولوجي",
+        metricMatchRate: "متوسط التوافق الأكاديمي",
         metricMilestones: "تتبع الخطوات الأكاديمية",
+        metricRoles: "فرصة تدريب معتمدة",
+
+        // Lovable Product Preview & Value Props
+        previewFacultyEndorsed: "معتمد أكاديمياً",
+        previewCourseAlign: "التوافق الأكاديمي",
+        previewSkillOverlap: "تطابق المهارات",
+        previewResumeKeywords: "كلمات السيرة الذاتية",
+        previewAppStatus: "حالة التقديم",
+        previewStepSubmitted: "تم الإرسال",
+        previewStepReview: "قيد المراجعة",
+        previewStepInterview: "المقابلة",
+        whyHytEyebrow: "لماذا منصة اصطياد المسار",
+        whyHytHeading: "صُممت للطلاب، واعتمدت من الكليات.",
+        whyHytSub: "منظومة أكاديمية متكاملة لربط مخرجات التعليم الجامعي بمتطلبات سوق العمل الفعلي.",
+        vp1Title: "درجات توافق حقيقية تعني الكثير",
+        vp1Desc: "تُحسب كل فرصة بناءً على مقرراتك الدراسية ومهاراتك وسيرتك الذاتية — لتتقدم حيث يناسبك.",
+        vp2Title: "فرص معتمدة أكاديمياً",
+        vp2Desc: "يتحقق مكتب التدريب والتوظيف بكل كلية من كل شريك وفرصة قبل إتاحتها للطلاب.",
+        vp3Title: "تتبع كل طلب بدقة",
+        vp3Desc: "تابع حالة طلبك من لحظة التقديم حتى المقابلة والعرض الوظيفي، مع مواعيد نهائية واضحة.",
+        vp4Title: "رؤى رادار المسار المهني",
+        vp4Desc: "اكتشف المهارات الصاعدة والتخصصات الأكثر طلباً في سوق العمل قبل فتح دورات التوظيف.",
 
         // Hunter Canvas Visual Section
         hunterBadge: "الهوية البصرية والحركية",
@@ -403,20 +426,42 @@ const HYT_TRANSLATIONS = {
         navUserEmployer: "🏢 Employer & Partner Account",
         navUserAdmin: "🛡️ Academic Admin Console",
 
-        // Hero Section
-        heroPill: "🚀 2026 Unified Academic Release",
+        heroPill: "✨ Summer 2026 placement cycle is open",
         heroTitleLine1: "Hunt Your Tech Track,",
-        heroTitleLine2: "Build Your Skill Network & Excel 🚀",
-        heroDesc: "Damanhour University's premier platform for personalized career roadmaps across faculties (Computers, Engineering, Commerce, Law), matching students with accredited internships and verified courses.",
-        heroBtnExplore: "🎯 Explore Tracks",
-        heroBtnBrowse: "💼 Browse Internships",
+        heroTitleLine2: "Land the Role That Matters 🚀",
+        heroDesc: "HuntYourTrack connects Damanhour University students with faculty-endorsed internships across Engineering, Computer Science and Business — ranked by how well each one fits you.",
+        heroBtnExplore: "Explore opportunities →",
+        heroBtnBrowse: "Faculty Tracks",
         heroBtnAuth: "🔐 Enter Portal",
+        heroBtnSignIn: "Sign in",
 
         // Metrics Strip
-        metricStudents: "Enrolled Students",
-        metricPartners: "Corporate Partners",
-        metricMatchRate: "AI Match Precision",
+        metricStudents: "Students & mentors",
+        metricPartners: "Industry partners",
+        metricMatchRate: "Average student fit",
         metricMilestones: "Milestone Tracking",
+        metricRoles: "Endorsed roles this cycle",
+
+        // Lovable Product Preview & Value Props
+        previewFacultyEndorsed: "Faculty-endorsed",
+        previewCourseAlign: "Course alignment",
+        previewSkillOverlap: "Skill overlap",
+        previewResumeKeywords: "Résumé keywords",
+        previewAppStatus: "APPLICATION STATUS",
+        previewStepSubmitted: "Submitted",
+        previewStepReview: "Review",
+        previewStepInterview: "Interview",
+        whyHytEyebrow: "WHY HUNTYOURTRACK",
+        whyHytHeading: "Built for students, trusted by faculty.",
+        whyHytSub: "Curated with academic departments to bridge the gap between classroom theory and industry practice.",
+        vp1Title: "Match scores that mean something",
+        vp1Desc: "Every role is scored against your courses, skills and résumé — so you apply where you fit.",
+        vp2Title: "Faculty-endorsed listings",
+        vp2Desc: "The placement office verifies each partner and role before it reaches students.",
+        vp3Title: "Track every application",
+        vp3Desc: "See status from submission to offer, with deadlines and next steps in one dashboard.",
+        vp4Title: "Career Radar insights",
+        vp4Desc: "Spot rising skills and in-demand tracks across every faculty before the cycle opens.",
 
         // Hunter Canvas Visual Section
         hunterBadge: "Visual Motion Identity",
@@ -890,7 +935,7 @@ window.setAppThemeMode = function(mode) {
 window.hytSignOut = function(e) {
     if (e && e.preventDefault) e.preventDefault();
     const savedLang = localStorage.getItem('hyt_lang') || 'en';
-    const savedTheme = localStorage.getItem('hyt_theme') || 'abyss';
+    const savedTheme = localStorage.getItem('hyt_theme') || 'dark';
 
     // Clear user credentials and session variables
     localStorage.removeItem('user_role');
