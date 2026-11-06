@@ -1,0 +1,102 @@
+name: Sprint Deadline & Team Accountability Monitor
+
+on:
+  schedule:
+    # Run daily at 08:00 UTC (11:00 AM Cairo time)
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: read
+  contents: read
+
+jobs:
+  monitor-deadlines:
+    name: Check Deadlines & Remind Assignees
+    runs-on: ubuntu-latest
+    steps:
+      - name: Monitor Sprint Deadlines
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            // 1. Fetch all open issues
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner,
+              repo,
+              state: 'open'
+            });
+
+            console.log(`Scanning ${issues.length} open issues in ${owner}/${repo}...`);
+            const now = new Date();
+
+            for (const issue of issues) {
+              if (issue.pull_request) continue; // Skip PRs
+
+              const milestone = issue.milestone;
+              if (!milestone || !milestone.due_on) continue;
+
+              const dueDate = new Date(milestone.due_on);
+              const diffMs = dueDate - now;
+              const diffHours = diffMs / (1000 * 60 * 60);
+
+              const assignees = issue.assignees.map(a => `@${a.login}`).join(', ') || 'unassigned';
+
+              console.log(`Issue #${issue.number} (${issue.title}) assigned to ${assignees}. Due in ${diffHours.toFixed(1)} hours.`);
+
+              // Check if we already commented in the last 24 hours to prevent spam
+              const comments = await github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number: issue.number,
+                per_page: 5
+              });
+              const recentBotComment = comments.data.some(c => 
+                c.user.login.includes('github-actions') &&
+                (now - new Date(c.created_at)) < (24 * 60 * 60 * 1000)
+              );
+
+              if (recentBotComment) {
+                console.log(`Skipping notification for #${issue.number} (already notified in last 24h).`);
+                continue;
+              }
+
+              // OVERDUE CASE
+              if (diffHours < 0) {
+                const overdueHours = Math.abs(diffHours).toFixed(1);
+                const commentBody = `🚨 **Sprint Deadline Alert: Overdue Task**\n\n` +
+                  `Attention ${assignees}:\n` +
+                  `This deliverable is past the milestone deadline by **${overdueHours} hours** (Deadline was: \`${milestone.due_on}\`).\n\n` +
+                  `• Please push your current commits and open your Pull Request immediately.\n` +
+                  `• CC: Project Lead @EngMohamedElabsy for resolution and workload rebalancing.`;
+
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  body: commentBody
+                });
+                console.log(`Posted OVERDUE alert on #${issue.number}`);
+              }
+              // WARNING CASE (< 48 hours remaining)
+              else if (diffHours <= 48) {
+                const remainingHours = Math.round(diffHours);
+                const commentBody = `⏰ **Sprint Deadline Notice (< 48 Hours Remaining)**\n\n` +
+                  `Hi ${assignees} 👋,\n\n` +
+                  `A friendly checkpoint: this user story is scheduled for delivery in **~${remainingHours} hours** (Milestone: \`${milestone.title}\`).\n\n` +
+                  `• Make sure you are working on your isolated feature branch (\`feature/usXX-...\`).\n` +
+                  `• Open a draft Pull Request against \`main\` so your progress is tracked.\n` +
+                  `• If you encounter blockers, post a comment here so the team can collaborate!`;
+
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  body: commentBody
+                });
+                console.log(`Posted REMINDER on #${issue.number}`);
+              }
+            }

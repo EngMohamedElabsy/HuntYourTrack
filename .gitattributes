@@ -1,0 +1,9 @@
+# Auto-detect text files and normalize line endings
+* text=auto
+
+# Exclude AI Skills tooling, tests, scripts, and documentation from GitHub Language Bar (Linguist)
+# This guarantees that GitHub accurately reflects the pure client-side stack: JavaScript, HTML, CSS
+.global_skills/** linguist-vendored
+tests/** linguist-documentation
+scripts/** linguist-documentation
+docs/** linguist-documentation

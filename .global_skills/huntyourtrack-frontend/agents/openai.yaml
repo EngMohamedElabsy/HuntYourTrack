@@ -1,0 +1,4 @@
+interface:
+  display_name: "HuntYourTrack Frontend"
+  short_description: "Work on this repository’s frontend and auth flows"
+  default_prompt: "Review the current project docs, then make the requested frontend changes and run the project auth check."
