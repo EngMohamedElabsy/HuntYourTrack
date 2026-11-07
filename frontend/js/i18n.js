@@ -43,7 +43,9 @@ const HYT_TRANSLATIONS = {
  heroTitleLine1:"اصطد مسارك المهني، واصنع",
  heroTitleLine2:"شبكة مهاراتك وانطلق في سوق العمل",
  heroDesc:"تربط HuntYourTrack طلاب جامعة دمنهور بفرص التدريب المعتمدة من الكليات في مجالات الهندسة، علوم الحاسب، والتجارة — مرتبة ومصنفة بدقة حسب ملاءمتها لك.",
- heroBtnExplore:"استكشف الفرص المعتمدة ←",
+ heroBtnExplore:"استكشف المسارات التخصصية ←",
+ heroBtnRadar:"رادار اصطياد المسار",
+ searchTrackPlaceholder:"ابحث عن مسار أو مهارة...",
  heroBtnBrowse:"مسارات الكليات",
  heroBtnAuth:"الدخول للمنصة",
  heroBtnSignIn:"دخول المنصة",
@@ -430,7 +432,9 @@ const HYT_TRANSLATIONS = {
  heroTitleLine1:"Hunt Your Tech Track,",
  heroTitleLine2:"Land the Role That Matters",
  heroDesc:"HuntYourTrack connects Damanhour University students with faculty-endorsed internships across Engineering, Computer Science and Business — ranked by how well each one fits you.",
- heroBtnExplore:"Explore opportunities →",
+ heroBtnExplore:"Explore Career Tracks →",
+ heroBtnRadar:"Track Hunter Radar",
+ searchTrackPlaceholder:"Search tracks or skills...",
  heroBtnBrowse:"Faculty Tracks",
  heroBtnAuth:"Enter Portal",
  heroBtnSignIn:"Sign in",
@@ -865,7 +869,7 @@ class I18nManager {
  if (unifiedThemeIcon) {
  const sunSvg = '<svg width="15"height="15"viewBox="0 0 24 24"fill="none"stroke="currentColor"stroke-width="2"stroke-linecap="round"stroke-linejoin="round"><circle cx="12"cy="12"r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
  const moonSvg = '<svg width="15"height="15"viewBox="0 0 24 24"fill="none"stroke="currentColor"stroke-width="2"stroke-linecap="round"stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
- unifiedThemeIcon.innerHTML = isDark ? moonSvg : sunSvg;
+ unifiedThemeIcon.innerHTML = isDark ? sunSvg : moonSvg;
  }
 
  // Highlight active theme option in unified dropdown
@@ -922,6 +926,7 @@ window.setHytTheme = function(theme) {
 };
 window.toggleThemeDropdown = function(e) {
  if (e) e.stopPropagation();
+ if (window.hytI18n) window.hytI18n.toggleTheme();
  const menu = document.getElementById('theme-dropdown-menu');
  if (menu) menu.classList.toggle('show');
 };

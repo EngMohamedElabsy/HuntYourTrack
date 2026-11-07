@@ -87,18 +87,16 @@ gh auth status
 3. **Session Alignment:**
    - Once authenticated, Claude addresses the developer by their name and scope, strictly aligning all instructions, branch names, and PR assignments to their assigned user stories.
 
-#### 📋 Automated Personal Issue Discovery
+#### 📋 Automated Personal Issue Discovery (Live CLI Source of Truth)
 
-When any teammate asks *"What are my assigned issues?"* or *"What should I work on?"*:
-The AI MUST query GitHub live:
-
-```bash
-gh issue list --assignee <current_user_login> --state open
-gh project item-list 5 --owner EngMohamedElabsy
-```
-
-- The AI presents the list of open issues clearly with their issue number, title, and current column (`Todo` or `toprogram`).
-- The AI guides the engineer to select and solve **EXACTLY ONE issue at a time**.
+> ⚠️ **Strict Non-Static Invariant:** The AI assistant MUST NEVER infer, assume, or read active sprint issues or backlog numbers from static text or ledger entries. The AI MUST query GitHub live via:
+> ```bash
+> gh issue list --assignee <current_user_login> --state open
+> gh project item-list 5 --owner EngMohamedElabsy
+> ```
+> - The live GitHub Project #5 board is the absolute, singular source of truth.
+> - Zero AI contributor names in commit trailers (`Co-authored-by: Claude` is strictly prohibited). All commits must be attributed exclusively to `@EngMohamedElabsy`, `@hager678`, or `@abdulrhman-masoud`.
+> - Skills are located in `skills/` (and `.global_skills/`).
 
 ---
 
@@ -368,9 +366,16 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - Synchronized `CLAUDE.md` and `AGENTS.md` with zero external/hallucinated framework artifacts.
   - Pruned all 9 stale remote tracking branches on GitHub, retaining strictly `main`.
   - All 9 Playwright deep E2E audit sections passing with 100% compliance (`npm test`).
-- **Next Immediate Priority:**
-  - **Sprint 2 Execution:** Implement US18 (#63), US19 (#64), and US20 (#65) on dedicated feature branches:
-    1. US18: Universal Multi-Faculty Roadmaps & Production SaaS Sanitization.
-    2. US19: Interactive Role-Based Onboarding & Intelligent Resume Keyword Parser.
-    3. US20: Comprehensive Opportunity Organization, Deadlines & Publishing Lifecycle.
+- **Active Backlog Discovery:** Strictly query live via `gh issue list` and `gh project item-list 5 --owner EngMohamedElabsy`.
+
+### 🟢 Pure B&W Single-Click Theme Toggle, Minimal Top Bar & Earth Radar Redesign (2026-11-07 12:50 UTC+2)
+
+- **Issues Addressed:** US33 (#108), US34 (#109), US35 (#110), US36 (#111)
+- **Deliverables:**
+  - **Single-Click Pure B&W Theme Toggle (US35 / Issue #110):** Transformed `#hyt-theme-btn` into an instant single-click Sun/Moon toggle button switching directly between pure Black (Dark) and White (Light) modes without color swatches. Updated `#theme-btn-icon` to dynamically display Sun icon in dark mode and Moon icon in light mode. Retained hidden accessibility/test fixtures for backwards compatibility.
+  - **Minimal Navigation & Visible Search Bar (US36 / Issue #111):** Replaced redundant "Ctrl+K" trigger button with a directly visible, responsive search input bar (`.nav-search-bar`). Eliminated duplicate "دخول المنصة" and "بحث سريع (Ctrl+K)" buttons from `.hero-actions`, providing a single clear authentication CTA in the top bar. Hero actions now cleanly emphasize "استكشف المسارات التخصصية ←" (`#tracks`) and "رادار اصطياد المسار" (`#hunter-radar-section`).
+  - **Track Hunter Radar Redesign (US33, US34 / Issues #108, #109):** Centered radar canvas on a high-fidelity stylized Planet Earth with atmospheric glow, spherical lighting, rotating continents, and satellite orbit. Organized track nodes across 3 harmonic elliptical orbital tiers. Eliminated connecting spiderweb lines. Nodes render strictly track titles in clean glass pill badges with zero RA/DEC clutter. Clicking any node emits a photon laser from Earth and displays syllabus roadmap details in `#hooked-track-panel`.
+  - **Skills Directory:** Created project root `skills/` symlink linking to `.global_skills/`.
+  - **Quality Gate:** All 9 Playwright deep E2E audit sections and US17 smoke test assertions passed with 100% compliance (`npm test`).
+
 

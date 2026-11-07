@@ -446,13 +446,38 @@ class TrackHunterCanvas {
     }
 
     updateNodeCoordinates() {
-        this.nodes.forEach(n => {
-            n.x = n.xRel * this.width;
-            n.y = n.yRel * this.height;
+        const cx = this.width * 0.5;
+        const cy = this.height * 0.46;
+        const minDim = Math.min(this.width, this.height);
+
+        // 3 Elliptical Orbital Tiers around central Earth
+        const tier1R = Math.max(90, minDim * 0.22);
+        const tier2R = Math.max(160, minDim * 0.33);
+        const tier3R = Math.max(220, minDim * 0.43);
+
+        this.nodes.forEach((n, idx) => {
+            let radius, angle;
+            if (idx < 4) {
+                // Inner tier (4 nodes)
+                radius = tier1R;
+                angle = (idx * (Math.PI * 2 / 4)) + 0.35;
+            } else if (idx < 8) {
+                // Mid tier (4 nodes)
+                radius = tier2R;
+                angle = ((idx - 4) * (Math.PI * 2 / 4)) + 0.75;
+            } else {
+                // Outer tier (4 nodes)
+                radius = tier3R;
+                angle = ((idx - 8) * (Math.PI * 2 / 4)) + 1.15;
+            }
+
+            // Elliptical perspective
+            n.x = cx + Math.cos(angle) * radius * 1.18;
+            n.y = cy + Math.sin(angle) * radius * 0.68;
             n.baseX = n.x;
             n.baseY = n.y;
-            n.vx = (Math.random() - 0.5) * 0.2;
-            n.vy = (Math.random() - 0.5) * 0.2;
+            n.vx = 0;
+            n.vy = 0;
         });
     }
 
@@ -1101,82 +1126,120 @@ class TrackHunterCanvas {
 
         this.ctx.save();
 
-        // 1. Central Multi-layered Nebula Radiance
-        const coreRad = Math.min(this.width, this.height) * 0.28;
-        const radGrad = this.ctx.createRadialGradient(cx, cy, 0, cx, cy, coreRad);
-        radGrad.addColorStop(0, pal.coreGlow);
-        radGrad.addColorStop(0.35, pal.spiral1);
-        radGrad.addColorStop(0.7, pal.spiral2);
-        radGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        // 1. Earth Outer Atmospheric Ozone Corona Glow
+        const earthRadius = Math.max(30, Math.min(this.width, this.height) * 0.058);
+        const coronaGrad = this.ctx.createRadialGradient(cx, cy, earthRadius * 0.8, cx, cy, earthRadius * 2.6);
+        coronaGrad.addColorStop(0, 'rgba(56, 189, 248, 0.42)');
+        coronaGrad.addColorStop(0.35, 'rgba(14, 165, 233, 0.20)');
+        coronaGrad.addColorStop(0.75, 'rgba(99, 102, 241, 0.08)');
+        coronaGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
-        this.ctx.fillStyle = radGrad;
+        this.ctx.fillStyle = coronaGrad;
         this.ctx.beginPath();
-        this.ctx.ellipse(cx, cy, coreRad, coreRad * 0.65, -0.15, 0, Math.PI * 2);
+        this.ctx.arc(cx, cy, earthRadius * 2.6, 0, Math.PI * 2);
         this.ctx.fill();
 
-        // 2. Logarithmic Spiral Accretion Arms
-        for (let arm = 0; arm < 2; arm++) {
-            const armOffset = arm * Math.PI;
+        // 2. Earth Oceanic Globe Spherical Gradient
+        const oceanGrad = this.ctx.createRadialGradient(
+            cx - earthRadius * 0.35,
+            cy - earthRadius * 0.35,
+            earthRadius * 0.08,
+            cx,
+            cy,
+            earthRadius
+        );
+        oceanGrad.addColorStop(0, '#38BDF8');   // Sunlit reflection
+        oceanGrad.addColorStop(0.35, '#0284C7'); // Rich azure ocean
+        oceanGrad.addColorStop(0.75, '#1E40AF'); // Deep sapphire
+        oceanGrad.addColorStop(1, '#090D16');   // Night terminator
+
+        this.ctx.beginPath();
+        this.ctx.arc(cx, cy, earthRadius, 0, Math.PI * 2);
+        this.ctx.fillStyle = oceanGrad;
+        this.ctx.fill();
+
+        // 3. Rotating Continents & Atmospheric Swirls
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(cx, cy, earthRadius, 0, Math.PI * 2);
+        this.ctx.clip();
+
+        const rot = (this.time * 0.08) % (Math.PI * 2);
+        const landColor = 'rgba(16, 185, 129, 0.65)'; // Emerald landmasses
+        const cloudColor = 'rgba(255, 255, 255, 0.30)'; // Soft white clouds
+
+        for (let patch = -1; patch <= 2; patch++) {
+            const shiftX = Math.cos(rot + patch * 1.55) * earthRadius * 0.85;
+            const px = cx + shiftX;
+            const py1 = cy - earthRadius * 0.22 + Math.sin(patch * 2.2) * 5;
+            const py2 = cy + earthRadius * 0.22;
+
+            // Continent 1
+            this.ctx.fillStyle = landColor;
             this.ctx.beginPath();
-            const armPoints = 65;
-            for (let i = 0; i < armPoints; i++) {
-                const t = i / armPoints;
-                const theta = t * Math.PI * 3.5 + this.time * 0.35 + armOffset;
-                const r = Math.pow(t, 0.85) * (coreRad * 1.35);
-                const x = cx + Math.cos(theta) * r;
-                const y = cy + Math.sin(theta) * r * 0.65;
-                if (i === 0) this.ctx.moveTo(x, y);
-                else this.ctx.lineTo(x, y);
-            }
-            this.ctx.strokeStyle = arm === 0 ? pal.spiral1 : pal.spiral2;
-            this.ctx.lineWidth = 1.4;
-            this.ctx.stroke();
+            this.ctx.ellipse(px, py1, earthRadius * 0.38, earthRadius * 0.22, 0.2, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            // Continent 2
+            this.ctx.beginPath();
+            this.ctx.ellipse(px + earthRadius * 0.2, py2, earthRadius * 0.32, earthRadius * 0.18, -0.3, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            // Cloud swirl
+            this.ctx.fillStyle = cloudColor;
+            this.ctx.beginPath();
+            this.ctx.ellipse(px - earthRadius * 0.1, py1 + 8, earthRadius * 0.44, earthRadius * 0.08, 0.1, 0, Math.PI * 2);
+            this.ctx.fill();
         }
 
-        // 3. Central Photon Sphere Ring
-        const ringR = 26 + Math.sin(this.time * 2) * 2;
+        // Atmospheric rim lighting
+        const rimGrad = this.ctx.createRadialGradient(cx - earthRadius * 0.3, cy - earthRadius * 0.3, earthRadius * 0.7, cx, cy, earthRadius);
+        rimGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+        rimGrad.addColorStop(0.85, 'rgba(56, 189, 248, 0.35)');
+        rimGrad.addColorStop(1, 'rgba(255, 255, 255, 0.75)');
+        this.ctx.fillStyle = rimGrad;
         this.ctx.beginPath();
-        this.ctx.arc(cx, cy, ringR, 0, Math.PI * 2);
-        this.ctx.strokeStyle = pal.coreCenter;
-        this.ctx.lineWidth = 1.8;
-        this.ctx.shadowColor = pal.coreCenter;
-        this.ctx.shadowBlur = 15;
-        this.ctx.stroke();
-
-        // 4. Center Singularity Core Disc
-        this.ctx.beginPath();
-        this.ctx.arc(cx, cy, 8, 0, Math.PI * 2);
-        this.ctx.fillStyle = this.isDark ? '#FFFFFF' : '#090D16';
-        this.ctx.shadowBlur = 20;
+        this.ctx.arc(cx, cy, earthRadius, 0, Math.PI * 2);
         this.ctx.fill();
+
+        this.ctx.restore();
+
+        // 4. Subtle Communication Satellite Orbit Ring
+        const orbitR = earthRadius * 1.62;
+        this.ctx.beginPath();
+        this.ctx.arc(cx, cy, orbitR, 0, Math.PI * 2);
+        this.ctx.strokeStyle = this.isDark ? 'rgba(255, 255, 255, 0.18)' : 'rgba(0, 0, 0, 0.12)';
+        this.ctx.setLineDash([3, 5]);
+        this.ctx.lineWidth = 1;
+        this.ctx.stroke();
+        this.ctx.setLineDash([]);
+
+        // Satellite beacon dot
+        const satAng = this.time * 0.42;
+        const satX = cx + Math.cos(satAng) * orbitR;
+        const satY = cy + Math.sin(satAng) * orbitR * 0.7;
+        this.ctx.beginPath();
+        this.ctx.arc(satX, satY, 2.4, 0, Math.PI * 2);
+        this.ctx.fillStyle = '#00F2FE';
+        this.ctx.shadowColor = '#00F2FE';
+        this.ctx.shadowBlur = 8;
+        this.ctx.fill();
+        this.ctx.shadowBlur = 0;
+
+        // 5. Earth Identifier Pill underneath
+        const isAr = document.documentElement.lang === 'ar';
+        const labelText = isAr ? 'كوكب المسارات المهنية' : 'Career Navigation Hub';
+        this.ctx.font = '600 11px Inter, Cairo, sans-serif';
+        this.ctx.textAlign = 'center';
+        this.ctx.fillStyle = this.isDark ? 'rgba(255, 255, 255, 0.75)' : 'rgba(0, 0, 0, 0.65)';
+        this.ctx.fillText(labelText, cx, cy + earthRadius + 18);
 
         this.ctx.restore();
     }
 
     drawConstellations() {
-        const pal = this.getThemePalette();
-        const faculties = ['computing', 'engineering', 'science', 'business', 'law'];
-
-        this.ctx.save();
-        this.ctx.setLineDash([3, 4]);
-
-        faculties.forEach(fac => {
-            const facNodes = this.nodes.filter(n => n.faculty === fac);
-            if (facNodes.length > 1) {
-                this.ctx.beginPath();
-                this.ctx.moveTo(facNodes[0].x, facNodes[0].y);
-                for (let i = 1; i < facNodes.length; i++) {
-                    this.ctx.lineTo(facNodes[i].x, facNodes[i].y);
-                }
-                this.ctx.strokeStyle = facNodes[0].color;
-                this.ctx.globalAlpha = this.isDark ? 0.35 : 0.25;
-                this.ctx.lineWidth = 1.2;
-                this.ctx.stroke();
-            }
-        });
-
-        this.ctx.setLineDash([]);
-        this.ctx.restore();
+        // Zero connecting lines between nodes as mandated by user UX directive!
+        // Free-floating celestial track nodes orbiting Earth cleanly without web clutter.
     }
 
     drawCosmicBeams() {
@@ -1189,13 +1252,12 @@ class TrackHunterCanvas {
             const destX = node.x;
             const destY = node.y;
 
-            // Animated laser pulse offset
             const pulse = (this.time * 2.5 + i * 0.4) % 1;
 
             this.ctx.beginPath();
             this.ctx.moveTo(cx, cy);
-            const ctrlX = (cx + destX) / 2 + Math.sin(this.time * 2 + i) * 15;
-            const ctrlY = (cy + destY) / 2 - 12;
+            const ctrlX = (cx + destX) / 2 + Math.sin(this.time * 2 + i) * 12;
+            const ctrlY = (cy + destY) / 2 - 10;
             this.ctx.quadraticCurveTo(ctrlX, ctrlY, destX, destY);
 
             this.ctx.strokeStyle = node.color;
@@ -1204,21 +1266,21 @@ class TrackHunterCanvas {
             this.ctx.shadowBlur = 12;
             this.ctx.stroke();
 
-            // Traveling photon packet
+            // Photon packet
             const t = pulse;
             const bx = (1 - t) * (1 - t) * cx + 2 * (1 - t) * t * ctrlX + t * t * destX;
             const by = (1 - t) * (1 - t) * cy + 2 * (1 - t) * t * ctrlY + t * t * destY;
 
             this.ctx.beginPath();
-            this.ctx.arc(bx, by, 3.2, 0, Math.PI * 2);
+            this.ctx.arc(bx, by, 3, 0, Math.PI * 2);
             this.ctx.fillStyle = '#FFFFFF';
             this.ctx.shadowColor = node.color;
-            this.ctx.shadowBlur = 14;
+            this.ctx.shadowBlur = 12;
             this.ctx.fill();
 
             // Lock-on ring waves at destination star
             this.ctx.beginPath();
-            this.ctx.arc(destX, destY, node.radius + 8 + Math.sin(this.time * 4 + i) * 3, 0, Math.PI * 2);
+            this.ctx.arc(destX, destY, node.radius + 6 + Math.sin(this.time * 4 + i) * 3, 0, Math.PI * 2);
             this.ctx.strokeStyle = node.color;
             this.ctx.lineWidth = 1.2;
             this.ctx.stroke();
@@ -1229,70 +1291,71 @@ class TrackHunterCanvas {
 
     drawStellarTracks() {
         const pal = this.getThemePalette();
+        const isAr = document.documentElement.lang === 'ar';
 
         this.nodes.forEach(n => {
             // Gentle Keplerian orbital bobbing
-            n.x = n.baseX + Math.sin(this.time * 1.1 + n.id.charCodeAt(0)) * 5;
-            n.y = n.baseY + Math.cos(this.time * 1.3 + n.id.charCodeAt(1)) * 4;
+            n.x = n.baseX + Math.sin(this.time * 0.9 + n.id.charCodeAt(0)) * 4;
+            n.y = n.baseY + Math.cos(this.time * 1.0 + n.id.charCodeAt(1)) * 3;
 
             const isHooked = this.hookedNodes.some(hn => hn.id === n.id);
-            const isHovered = this.mouse.isHovering && Math.hypot(n.x - this.mouse.x, n.y - this.mouse.y) < 32;
+            const isHovered = this.mouse.isHovering && Math.hypot(n.x - this.mouse.x, n.y - this.mouse.y) < 36;
 
             this.ctx.save();
 
-            // 1. Stellar Corona Halo
+            // 1. Star Beacon
+            const beaconRadius = isHooked ? n.radius + 3 : n.radius;
             this.ctx.beginPath();
-            this.ctx.arc(n.x, n.y, n.radius * 2.4, 0, Math.PI * 2);
-            this.ctx.fillStyle = isHooked 
-                ? (this.isDark ? 'rgba(0, 242, 254, 0.28)' : 'rgba(99, 102, 241, 0.22)')
-                : (this.isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(100, 116, 139, 0.08)');
-            this.ctx.fill();
-
-            // 2. Star Core Disc
-            this.ctx.beginPath();
-            this.ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+            this.ctx.arc(n.x, n.y, beaconRadius, 0, Math.PI * 2);
             this.ctx.fillStyle = isHooked ? '#FFFFFF' : n.color;
             this.ctx.shadowColor = n.color;
-            this.ctx.shadowBlur = isHooked ? 22 : 10;
+            this.ctx.shadowBlur = isHooked ? 20 : 8;
             this.ctx.fill();
             this.ctx.shadowBlur = 0;
 
-            // 3. Rotating Holographic Reticle Brackets on Active/Hovered
-            if (isHooked || isHovered) {
-                const rot = this.time * 1.5;
-                const r = n.radius + 12;
-                this.ctx.strokeStyle = n.color;
-                this.ctx.lineWidth = 1.5;
+            // 2. Beacon Corona Halo
+            this.ctx.beginPath();
+            this.ctx.arc(n.x, n.y, beaconRadius * 2.2, 0, Math.PI * 2);
+            this.ctx.fillStyle = isHooked 
+                ? (this.isDark ? 'rgba(0, 242, 254, 0.25)' : 'rgba(2, 132, 199, 0.20)')
+                : (this.isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)');
+            this.ctx.fill();
 
-                // 4 Reticle Brackets
-                for (let b = 0; b < 4; b++) {
-                    const ang = rot + (b * Math.PI / 2);
-                    this.ctx.beginPath();
-                    this.ctx.arc(n.x, n.y, r, ang - 0.25, ang + 0.25);
-                    this.ctx.stroke();
-                }
+            // 3. Clean Floating Track Name Badge (Glass Pill) - ONLY TRACK NAME
+            const trackTitle = isAr ? (n.labelAr || n.label) : (n.label || n.labelAr);
+            this.ctx.font = isHooked ? 'bold 12px Inter, Cairo, sans-serif' : '500 11px Inter, Cairo, sans-serif';
+            const textWidth = this.ctx.measureText(trackTitle).width;
+            const badgeW = textWidth + 18;
+            const badgeH = 22;
+            const badgeX = n.x - badgeW / 2;
+            const badgeY = n.y + beaconRadius + 7;
 
-                // Telemetry Coordinates Readout
-                if (n.telemetry) {
-                    this.ctx.font = '9px monospace';
-                    this.ctx.fillStyle = n.color;
-                    this.ctx.textAlign = 'center';
-                    this.ctx.fillText(`RA ${n.telemetry.ra} / DEC ${n.telemetry.dec}`, n.x, n.y - n.radius - 12);
-                }
+            // Pill Background
+            this.ctx.fillStyle = isHooked 
+                ? (this.isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.98)')
+                : (this.isDark ? 'rgba(15, 23, 42, 0.72)' : 'rgba(255, 255, 255, 0.88)');
+            this.ctx.strokeStyle = isHooked 
+                ? n.color 
+                : (this.isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)');
+            this.ctx.lineWidth = isHooked ? 1.5 : 1;
+
+            this.ctx.beginPath();
+            const r = 11;
+            if (this.ctx.roundRect) {
+                this.ctx.roundRect(badgeX, badgeY, badgeW, badgeH, r);
+            } else {
+                this.ctx.rect(badgeX, badgeY, badgeW, badgeH);
             }
+            this.ctx.fill();
+            this.ctx.stroke();
 
-            // 4. Label Typography
-            this.ctx.font = isHooked ? 'bold 12px Inter, sans-serif' : '11px Inter, sans-serif';
+            // Track Name text (only the name, zero clutter!)
             this.ctx.textAlign = 'center';
-            this.ctx.fillStyle = isHooked ? pal.textColor : pal.mutedText;
-            this.ctx.fillText(n.label, n.x, n.y + n.radius + 15);
-
-            // 5. Faculty Sector Pill
-            if (isHooked) {
-                this.ctx.font = '9px monospace';
-                this.ctx.fillStyle = n.color;
-                this.ctx.fillText(`[${n.sector || n.faculty.toUpperCase()}]`, n.x, n.y + n.radius + 28);
-            }
+            this.ctx.textBaseline = 'middle';
+            this.ctx.fillStyle = isHooked 
+                ? (this.isDark ? '#FFFFFF' : '#000000')
+                : (this.isDark ? '#E2E8F0' : '#1E293B');
+            this.ctx.fillText(trackTitle, n.x, badgeY + badgeH / 2);
 
             this.ctx.restore();
         });
