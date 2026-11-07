@@ -338,12 +338,28 @@ function toggleBookmarkOpportunity(oppId, btn) {
     if (index > -1) {
         bookmarks.splice(index, 1);
         localStorage.setItem('hyt_saved_bookmarks', JSON.stringify(bookmarks));
-        if (btn) btn.style.color = '';
+        if (btn) {
+            btn.classList.remove('active');
+            btn.style.color = '';
+            const svg = btn.querySelector('svg');
+            if (svg) svg.setAttribute('fill', 'none');
+            const lbl = btn.querySelector('.bookmark-label');
+            if (lbl) lbl.textContent = isArabic ? 'حفظ' : 'Save';
+            btn.title = isArabic ? 'حفظ الفرصة' : 'Save / Bookmark';
+        }
         showToast(isArabic ? 'تمت إزالة الفرصة من المحفوظات' : 'Removed from saved bookmarks', 'info');
     } else {
         bookmarks.push(oppId);
         localStorage.setItem('hyt_saved_bookmarks', JSON.stringify(bookmarks));
-        if (btn) btn.style.color = 'var(--color-primary)';
+        if (btn) {
+            btn.classList.add('active');
+            btn.style.color = '#F59E0B';
+            const svg = btn.querySelector('svg');
+            if (svg) svg.setAttribute('fill', '#F59E0B');
+            const lbl = btn.querySelector('.bookmark-label');
+            if (lbl) lbl.textContent = isArabic ? 'محفوظة' : 'Saved';
+            btn.title = isArabic ? 'تم حفظ الفرصة' : 'Saved to Bookmarks';
+        }
         showToast(isArabic ? 'تم حفظ الفرصة في قائمة مفضلاتك' : 'Opportunity saved to bookmarks', 'success');
     }
 }

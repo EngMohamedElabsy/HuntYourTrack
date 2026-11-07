@@ -27,7 +27,7 @@
                         <path d="M21 11L27 5M27 5H23M27 5V9" stroke="#00F2FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
-                <span class="brand-title">
+                <span class="brand-title" dir="ltr" style="display: inline-flex; direction: ltr; unicode-bidi: isolate;">
                     <span class="brand-word-hunt">Hunt</span><span class="brand-word-your">Your</span><span class="brand-word-track">Track</span>
                 </span>
             </a>
@@ -1029,8 +1029,28 @@
             if (mobileDrawer) mobileDrawer.classList.remove('open');
         }
 
-        // Modal Publish Opportunity Handlers
+        // Modal Publish Opportunity Handlers with Employer Role Guard
         function openPublishOpportunityModal() {
+            const role = localStorage.getItem('role') || localStorage.getItem('user_role');
+            const user = localStorage.getItem('user');
+            const isEmployer = (role === 'employer' || user === 'employer');
+            const isAr = (document.documentElement.lang === 'ar');
+
+            if (!isEmployer) {
+                if (window.showToast) {
+                    window.showToast(
+                        isAr 
+                            ? 'نشر الفرص مخصص لجهات العمل والمنظمين المعتمدين. جاري توجيهك لتسجيل الدخول كشريك عمل...' 
+                            : 'Publishing opportunities is reserved for verified partner organizers. Redirecting to employer sign in...',
+                        'info'
+                    );
+                }
+                setTimeout(() => {
+                    window.location.href = 'pages/auth.html?role=employer';
+                }, 1200);
+                return;
+            }
+
             const modal = document.getElementById('publish-opportunity-modal');
             if (modal) {
                 const today = new Date().toISOString().split('T')[0];

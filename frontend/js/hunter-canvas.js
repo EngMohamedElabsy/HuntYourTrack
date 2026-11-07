@@ -821,6 +821,19 @@ class TrackHunterCanvas {
         this.updateLiveStatus();
     }
 
+    removeTrackFromHook(id) {
+        this.hookedNodes = this.hookedNodes.filter(n => n.id !== id);
+        const nextNode = this.hookedNodes[this.hookedNodes.length - 1] || null;
+        this.renderHookedPanel(nextNode);
+        this.updateLiveStatus();
+    }
+
+    clearAllHookedTracks() {
+        this.hookedNodes = [];
+        this.renderHookedPanel(null);
+        this.updateLiveStatus();
+    }
+
     renderHookedPanel(node) {
         const panel = document.getElementById('hooked-track-panel');
         if (!panel) return;
@@ -845,7 +858,36 @@ class TrackHunterCanvas {
         const reticleSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:middle;margin-inline-end:4px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>`;
         const clockSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-inline-end:4px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
 
+        const trayHtml = this.hookedNodes.length > 0 ? `
+            <div class="selected-tracks-tray" style="margin-bottom: 1.25rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.85rem 1.25rem; background: var(--color-card); border: 1px solid var(--color-border); border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+                <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+                    <span style="font-size: 0.82rem; font-weight: 700; color: var(--color-foreground); text-transform: uppercase; letter-spacing: 0.5px;">
+                        ${isAr ? "المسارات المحددة (" + this.hookedNodes.length + "):" : "Selected Tracks (" + this.hookedNodes.length + "):"}
+                    </span>
+                    <div style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
+                        ${this.hookedNodes.map(hn => {
+                            const hnTitle = isAr ? (hn.labelAr || hn.label) : hn.label;
+                            const isActive = (hn.id === node.id);
+                            return `
+                                <div class="selected-track-pill" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; background: ${isActive ? "rgba(99, 102, 241, 0.2)" : "var(--color-muted)"}; border: 1px solid ${isActive ? hn.color : "var(--color-border)"}; color: ${isActive ? "var(--color-foreground)" : "var(--color-muted-foreground)"};" onclick="window.hytHunter.focusTrack('${hn.id}')">
+                                    <span style="width: 8px; height: 8px; border-radius: 50%; background: ${hn.color};"></span>
+                                    <span>${hnTitle}</span>
+                                    <button type="button" aria-label="Remove Track" onclick="event.stopPropagation(); window.hytHunter.removeTrackFromHook('${hn.id}');" style="background: none; border: none; cursor: pointer; color: inherit; padding: 0 2px; font-size: 0.88rem; line-height: 1; display: inline-flex; align-items: center; opacity: 0.75;" title="${isAr ? "إلغاء هذا المسار" : "Dismiss this track"}">✕</button>
+                                </div>
+                            `;
+                        }).join("")}
+                    </div>
+                </div>
+                ${this.hookedNodes.length > 1 ? `
+                    <button type="button" class="btn btn-secondary" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;" onclick="window.hytHunter.clearAllHookedTracks()">
+                        ${isAr ? "إلغاء تحديد الكل" : "Clear All"}
+                    </button>
+                ` : ""}
+            </div>
+        ` : "";
+
         panel.innerHTML = `
+            ${trayHtml}
             <div class="hooked-track-header">
                 <div>
                     <span class="badge-tag badge-remote" style="margin-bottom: 0.5rem; display: inline-flex; align-items: center;">
@@ -1115,121 +1157,7 @@ class TrackHunterCanvas {
     }
 
     drawAccretionCore() {
-        const cx = this.width * 0.5;
-        const cy = this.height * 0.46;
-        const pal = this.getThemePalette();
-
-        this.ctx.save();
-
-        // 1. Earth Outer Atmospheric Ozone Corona Glow
-        const earthRadius = Math.max(30, Math.min(this.width, this.height) * 0.058);
-        const coronaGrad = this.ctx.createRadialGradient(cx, cy, earthRadius * 0.8, cx, cy, earthRadius * 2.6);
-        coronaGrad.addColorStop(0, 'rgba(56, 189, 248, 0.42)');
-        coronaGrad.addColorStop(0.35, 'rgba(14, 165, 233, 0.20)');
-        coronaGrad.addColorStop(0.75, 'rgba(99, 102, 241, 0.08)');
-        coronaGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-        this.ctx.fillStyle = coronaGrad;
-        this.ctx.beginPath();
-        this.ctx.arc(cx, cy, earthRadius * 2.6, 0, Math.PI * 2);
-        this.ctx.fill();
-
-        // 2. Earth Oceanic Globe Spherical Gradient
-        const oceanGrad = this.ctx.createRadialGradient(
-            cx - earthRadius * 0.35,
-            cy - earthRadius * 0.35,
-            earthRadius * 0.08,
-            cx,
-            cy,
-            earthRadius
-        );
-        oceanGrad.addColorStop(0, '#38BDF8');   // Sunlit reflection
-        oceanGrad.addColorStop(0.35, '#0284C7'); // Rich azure ocean
-        oceanGrad.addColorStop(0.75, '#1E40AF'); // Deep sapphire
-        oceanGrad.addColorStop(1, '#090D16');   // Night terminator
-
-        this.ctx.beginPath();
-        this.ctx.arc(cx, cy, earthRadius, 0, Math.PI * 2);
-        this.ctx.fillStyle = oceanGrad;
-        this.ctx.fill();
-
-        // 3. Rotating Continents & Atmospheric Swirls
-        this.ctx.save();
-        this.ctx.beginPath();
-        this.ctx.arc(cx, cy, earthRadius, 0, Math.PI * 2);
-        this.ctx.clip();
-
-        const rot = (this.time * 0.08) % (Math.PI * 2);
-        const landColor = 'rgba(16, 185, 129, 0.65)'; // Emerald landmasses
-        const cloudColor = 'rgba(255, 255, 255, 0.30)'; // Soft white clouds
-
-        for (let patch = -1; patch <= 2; patch++) {
-            const shiftX = Math.cos(rot + patch * 1.55) * earthRadius * 0.85;
-            const px = cx + shiftX;
-            const py1 = cy - earthRadius * 0.22 + Math.sin(patch * 2.2) * 5;
-            const py2 = cy + earthRadius * 0.22;
-
-            // Continent 1
-            this.ctx.fillStyle = landColor;
-            this.ctx.beginPath();
-            this.ctx.ellipse(px, py1, earthRadius * 0.38, earthRadius * 0.22, 0.2, 0, Math.PI * 2);
-            this.ctx.fill();
-
-            // Continent 2
-            this.ctx.beginPath();
-            this.ctx.ellipse(px + earthRadius * 0.2, py2, earthRadius * 0.32, earthRadius * 0.18, -0.3, 0, Math.PI * 2);
-            this.ctx.fill();
-
-            // Cloud swirl
-            this.ctx.fillStyle = cloudColor;
-            this.ctx.beginPath();
-            this.ctx.ellipse(px - earthRadius * 0.1, py1 + 8, earthRadius * 0.44, earthRadius * 0.08, 0.1, 0, Math.PI * 2);
-            this.ctx.fill();
-        }
-
-        // Atmospheric rim lighting
-        const rimGrad = this.ctx.createRadialGradient(cx - earthRadius * 0.3, cy - earthRadius * 0.3, earthRadius * 0.7, cx, cy, earthRadius);
-        rimGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-        rimGrad.addColorStop(0.85, 'rgba(56, 189, 248, 0.35)');
-        rimGrad.addColorStop(1, 'rgba(255, 255, 255, 0.75)');
-        this.ctx.fillStyle = rimGrad;
-        this.ctx.beginPath();
-        this.ctx.arc(cx, cy, earthRadius, 0, Math.PI * 2);
-        this.ctx.fill();
-
-        this.ctx.restore();
-
-        // 4. Subtle Communication Satellite Orbit Ring
-        const orbitR = earthRadius * 1.62;
-        this.ctx.beginPath();
-        this.ctx.arc(cx, cy, orbitR, 0, Math.PI * 2);
-        this.ctx.strokeStyle = this.isDark ? 'rgba(255, 255, 255, 0.18)' : 'rgba(0, 0, 0, 0.12)';
-        this.ctx.setLineDash([3, 5]);
-        this.ctx.lineWidth = 1;
-        this.ctx.stroke();
-        this.ctx.setLineDash([]);
-
-        // Satellite beacon dot
-        const satAng = this.time * 0.42;
-        const satX = cx + Math.cos(satAng) * orbitR;
-        const satY = cy + Math.sin(satAng) * orbitR * 0.7;
-        this.ctx.beginPath();
-        this.ctx.arc(satX, satY, 2.4, 0, Math.PI * 2);
-        this.ctx.fillStyle = '#00F2FE';
-        this.ctx.shadowColor = '#00F2FE';
-        this.ctx.shadowBlur = 8;
-        this.ctx.fill();
-        this.ctx.shadowBlur = 0;
-
-        // 5. Earth Identifier Pill underneath
-        const isAr = document.documentElement.lang === 'ar';
-        const labelText = isAr ? 'كوكب المسارات المهنية' : 'Career Navigation Hub';
-        this.ctx.font = '600 11px Inter, Cairo, sans-serif';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillStyle = this.isDark ? 'rgba(255, 255, 255, 0.75)' : 'rgba(0, 0, 0, 0.65)';
-        this.ctx.fillText(labelText, cx, cy + earthRadius + 18);
-
-        this.ctx.restore();
+        // Free-floating celestial galaxy - zero central core
     }
 
     drawConstellations() {
@@ -1238,50 +1166,7 @@ class TrackHunterCanvas {
     }
 
     drawCosmicBeams() {
-        const cx = this.width * 0.5;
-        const cy = this.height * 0.46;
-
-        this.ctx.save();
-
-        this.hookedNodes.forEach((node, i) => {
-            const destX = node.x;
-            const destY = node.y;
-
-            const pulse = (this.time * 2.5 + i * 0.4) % 1;
-
-            this.ctx.beginPath();
-            this.ctx.moveTo(cx, cy);
-            const ctrlX = (cx + destX) / 2 + Math.sin(this.time * 2 + i) * 12;
-            const ctrlY = (cy + destY) / 2 - 10;
-            this.ctx.quadraticCurveTo(ctrlX, ctrlY, destX, destY);
-
-            this.ctx.strokeStyle = node.color;
-            this.ctx.lineWidth = 1.6;
-            this.ctx.shadowColor = node.color;
-            this.ctx.shadowBlur = 12;
-            this.ctx.stroke();
-
-            // Photon packet
-            const t = pulse;
-            const bx = (1 - t) * (1 - t) * cx + 2 * (1 - t) * t * ctrlX + t * t * destX;
-            const by = (1 - t) * (1 - t) * cy + 2 * (1 - t) * t * ctrlY + t * t * destY;
-
-            this.ctx.beginPath();
-            this.ctx.arc(bx, by, 3, 0, Math.PI * 2);
-            this.ctx.fillStyle = '#FFFFFF';
-            this.ctx.shadowColor = node.color;
-            this.ctx.shadowBlur = 12;
-            this.ctx.fill();
-
-            // Lock-on ring waves at destination star
-            this.ctx.beginPath();
-            this.ctx.arc(destX, destY, node.radius + 6 + Math.sin(this.time * 4 + i) * 3, 0, Math.PI * 2);
-            this.ctx.strokeStyle = node.color;
-            this.ctx.lineWidth = 1.2;
-            this.ctx.stroke();
-        });
-
-        this.ctx.restore();
+        // Free-floating celestial stars - zero connecting beam lines
     }
 
     drawStellarTracks() {

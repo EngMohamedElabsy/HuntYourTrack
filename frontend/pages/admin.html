@@ -37,7 +37,7 @@
              <path d="M21 11L27 5M27 5H23M27 5V9" stroke="#00F2FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
          </svg>
      </span>
-     <span class="brand-title" style="font-size: 1.15rem;">
+     <span class="brand-title" dir="ltr" style="font-size: 1.15rem; display: inline-flex; direction: ltr; unicode-bidi: isolate;">
          <span class="brand-word-hunt">Hunt</span><span class="brand-word-your">Your</span><span class="brand-word-track">Track</span>
      </span>
  </a>
@@ -47,7 +47,6 @@
  <nav class="nav-links">
  <a href="../index.html" class="nav-link" data-i18n="adminNavHome"> Platform Home</a>
  <a href="admin.html" class="nav-link active" data-i18n="adminNavConsole">️ Admin Console</a>
- <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-link" style="color: #6366F1;" data-i18n="adminNavSprint"> Sprint Board ↗</a>
  </nav>
 
  <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -94,9 +93,12 @@
  </div>
  
  <div class="admin-profile">
- <div class="avatar">️</div>
- <span id="admin-user-display">المشرف الأكاديمي (Admin)</span>
- <a href="auth.html" id="admin-logout-btn" title="Sign Out" onclick="handleAdminLogout(event)" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem; font-size: 0.9rem;"></a>
+ <div class="avatar" style="background: rgba(99, 102, 241, 0.2); color: var(--color-foreground); border: 1px solid rgba(99, 102, 241, 0.4);">🛡️</div>
+ <span id="admin-user-display" style="font-weight: 600; font-size: 0.85rem;">المشرف الأكاديمي</span>
+ <button type="button" id="admin-logout-btn" title="Sign Out" onclick="handleAdminLogout(event)" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.35rem;">
+     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+     <span data-i18n="navSignOut">خروج</span>
+ </button>
  </div>
  </div>
 
@@ -117,7 +119,6 @@
  <a href="admin.html" class="nav-drawer-link active" onclick="closeAdminDrawer()">️ Admin Console</a>
  <a href="workflow.html" class="nav-drawer-link" onclick="closeAdminDrawer()">️ System Architecture Map</a>
  <a href="components.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> UI Component Kit</a>
- <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-drawer-link" style="color: #6366F1;"> Sprint Board ↗</a>
  <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #E2E8F0;">
  <button onclick="handleAdminLogout(event)" class="btn btn-secondary" style="width: 100%;">Sign Out</button>
  </div>
