@@ -305,7 +305,7 @@
              <path d="M21 11L27 5M27 5H23M27 5V9" stroke="#00F2FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
          </svg>
      </span>
-     <span class="brand-title" style="font-size: 1.15rem;">
+     <span class="brand-title" dir="ltr" style="font-size: 1.15rem; display: inline-flex; direction: ltr; unicode-bidi: isolate;">
          <span class="brand-word-hunt">Hunt</span><span class="brand-word-your">Your</span><span class="brand-word-track">Track</span>
      </span>
  </a>
@@ -361,7 +361,10 @@
  <span class="user-badge" id="student-badge">
  <span>‍</span> <span id="user-display" data-i18n="userDisplayStudent">طالب أكاديمي</span>
  </span>
- <button id="logout-btn" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;" data-i18n="navSignOut">خروج</button>
+ <button id="logout-btn" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; display: inline-flex; align-items: center; gap: 0.35rem;" data-i18n="navSignOut" onclick="handleStudentLogout(event)">
+     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+     <span>خروج</span>
+ </button>
  </div>
 
  <!-- Mobile Hamburger Button -->
