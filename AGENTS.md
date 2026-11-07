@@ -378,4 +378,16 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Skills Directory:** Created project root `skills/` symlink linking to `.global_skills/`.
   - **Quality Gate:** All 9 Playwright deep E2E audit sections and US17 smoke test assertions passed with 100% compliance (`npm test`).
 
+### 🟢 Zero-Popup Theme Toggle, Deadline Badge Positioning, Streamlined Search & Full i18n Hygiene (2026-11-07 13:15 UTC+2)
+
+- **Deliverables:**
+  - **Zero-Popup Theme Toggle:** Completely eradicated dropdown menus on `#hyt-theme-btn`. Clicking the button now directly switches between pure Dark and Light themes with dynamic Sun/Moon icons.
+  - **Opportunity Deadline Badge Overlap Fixed:** Repositioned `.opp-countdown-badge` from absolute coordinates to static inline-flex inside the card meta row, fully resolving overlap on the "Details" action button.
+  - **Streamlined Top Nav Search & Exit:** Replaced wrapped/broken search input with `.nav-search-pill` button (magnifying glass, localized placeholder, `ESC` pill). Enhanced command search modal with a prominent `✕` close button, footer close action, backdrop-click dismissal, and keyboard `ESC` dismissal.
+  - **100% Bilingual i18n Dictionary & Zero Text Leakage:**
+    - Resolved Arabic leaks in English mode (search placeholders, radar quick chips, 3D card back syllabus items).
+    - Resolved English leaks in Arabic mode (radar chips, preview card company name and role title, card back career role badges).
+    - Added `data-i18n-placeholder` support in `i18n.js` for dynamic input translation.
+  - **Track Hunter Radar Telemetry Removal:** Eliminated rotating focus brackets, reticle HUD, and telemetry coordinates overlay on hover. Tracks remain clean, floating nodes with glass pill labels.
+  - **Quality Assurance:** Both `tests/frontend-smoke-test.js` and `tests/rigorous-e2e-audit.js` updated to verify direct theme toggles; all 9 E2E audit sections pass with 100% compliance (`npm test`).
 

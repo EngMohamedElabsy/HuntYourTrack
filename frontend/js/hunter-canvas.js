@@ -1017,11 +1017,6 @@ class TrackHunterCanvas {
         // 5. Draw 12 Stellar Career Track Nodes
         this.drawStellarTracks();
 
-        // 6. Draw Precision Holographic HUD Reticle & Telemetry
-        if (this.mouse.isHovering) {
-            this.drawTargetingHUD();
-        }
-
         this.animationId = requestAnimationFrame(() => this.animate());
     }
 
@@ -1362,39 +1357,7 @@ class TrackHunterCanvas {
     }
 
     drawTargetingHUD() {
-        const mx = this.mouse.x;
-        const my = this.mouse.y;
-        const pal = this.getThemePalette();
-
-        this.ctx.save();
-        this.ctx.strokeStyle = pal.hudColor;
-        this.ctx.lineWidth = 1.2;
-
-        // Outer Reticle Circle
-        this.ctx.beginPath();
-        this.ctx.arc(mx, my, 18, 0, Math.PI * 2);
-        this.ctx.stroke();
-
-        // Center Crosshairs
-        this.ctx.beginPath();
-        this.ctx.moveTo(mx - 24, my);
-        this.ctx.lineTo(mx - 8, my);
-        this.ctx.moveTo(mx + 8, my);
-        this.ctx.lineTo(mx + 24, my);
-        this.ctx.moveTo(mx, my - 24);
-        this.ctx.lineTo(mx, my - 8);
-        this.ctx.moveTo(mx, my + 8);
-        this.ctx.lineTo(mx, my + 24);
-        this.ctx.stroke();
-
-        // Real-time HUD Telemetry Badge
-        this.ctx.font = '9px monospace';
-        this.ctx.fillStyle = pal.hudColor;
-        this.ctx.textAlign = 'left';
-        this.ctx.fillText(`[COORD: ${Math.round(mx)}, ${Math.round(my)}]`, mx + 24, my - 8);
-        this.ctx.fillText(`RADAR // LOCK ACTIVE`, mx + 24, my + 6);
-
-        this.ctx.restore();
+        // Clean experience - zero telemetry clutter or focus brackets
     }
 
     initTypewriter() {

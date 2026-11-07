@@ -141,6 +141,43 @@ const HYT_TRANSLATIONS = {
  skillPillT4_3:"قواعد بيانات SQL و BI",
  skillPillT4_4:"أنظمة ERP المؤسسية",
 
+ // 3D Card Back Syllabus & Career Outcomes
+ cardBackTitle:"المنهج والمخرجات المهنية",
+ t1Syl1:"معمارية React 19 والأنماط المؤسسية في TypeScript",
+ t1Syl2:"واجهات Node.js وقواعد بيانات PostgreSQL الموزعة",
+ t1Syl3:"حاويات Docker وخطوط أتمتة CI/CD والنشر السحابي",
+ t1Syl4:"مشروع تخرج تطبيقي متوافق مع معايير الشركات الشريكة",
+ t1Role:"مهندس برمجيات وتطبيقات ويب",
+ t2Syl1:"الجبر الخطي وتحليل البيانات بـ NumPy و Pandas",
+ t2Syl2:"تدريب وتقييم خوارزميات التعلم الآلي الكلاسيكي",
+ t2Syl3:"الشبكات العصبية العميقة ونماذج الرؤية ومعالجة اللغات",
+ t2Syl4:"أنظمة الـ RAG والوكلاء ونشر النماذج بـ FastAPI",
+ t2Role:"مهندس ذكاء اصطناعي وعلم بيانات",
+ t3Syl1:"أساسيات Embedded C/C++ وبرمجة العتاد المباشر",
+ t3Syl2:"معمارية الـ AUTOSAR Classic وبروتوكولات CAN/LIN",
+ t3Syl3:"أنظمة التشغيل في الوقت الحقيقي FreeRTOS & Scheduling",
+ t3Syl4:"تطبيق معايير MISRA-C والأمان الوظيفي ISO 26262",
+ t3Role:"مهندس أنظمة مدمجة وبرمجيات سيارات",
+ t4Syl1:"الأسواق المالية والمشتقات وتحليل السلاسل الزمنية",
+ t4Syl2:"بناء بوابات الدفع الإلكتروني وتكامل الـ APIs المصرفية",
+ t4Syl3:"مستودعات البيانات ونمذجة لوحات التحكم في Power BI",
+ t4Syl4:"أنظمة الـ ERP والامتثال التشريعي المالي PCI-DSS",
+ t4Role:"محلل تكنولوجيا مالية ومعاملات ذكية",
+
+ // Quick Hunter Chips & Previews
+ hunterChipAll:"كافة المسارات (12)",
+ hunterChipAI:"الذكاء الاصطناعي",
+ hunterChipCloud:"هندسة السحابة",
+ hunterChipSec:"الأمن السيبراني",
+ hunterChipMecha:"الميكاترونكس",
+ hunterChipFintech:"التكنولوجيا المالية",
+ hunterChipBio:"المعلوماتية الحيوية",
+ previewCompanyName:"مختبر الذكاء الاصطناعي بجامعة دمنهور",
+ previewRoleTitle:"باحث متدرب في تعلم الآلة",
+ cmdSearchPh:"ابحث عن مسار مهني أو فرصة تدريب...",
+ cmdPaletteHint:"اضغط ESC أو انقر بالخارج للإغلاق",
+ cmdCloseBtn:"إغلاق ✕",
+
  // How It Works
  hiwBadge:"رحلة الطالب",
  hiwHeading:"كيف تعمل منصة HuntYourTrack؟",
@@ -530,6 +567,43 @@ const HYT_TRANSLATIONS = {
  skillPillT4_3:"SQL Analytics & BI",
  skillPillT4_4:"Enterprise ERP Systems",
 
+ // 3D Card Back Syllabus & Career Outcomes
+ cardBackTitle:"Syllabus & Career Outcomes",
+ t1Syl1:"React 19 & Enterprise TypeScript Patterns",
+ t1Syl2:"Node.js REST APIs & Distributed PostgreSQL",
+ t1Syl3:"Docker Containers, CI/CD Pipelines & Cloud Deploy",
+ t1Syl4:"Capstone Project Aligned with Industry Standards",
+ t1Role:"Full-Stack Software Engineer",
+ t2Syl1:"Linear Algebra & Data Analysis with NumPy & Pandas",
+ t2Syl2:"Classical ML Algorithms & Model Evaluation",
+ t2Syl3:"Deep Neural Networks, Computer Vision & NLP",
+ t2Syl4:"RAG Systems, Autonomous Agents & FastAPI Serving",
+ t2Role:"AI & Machine Learning Engineer",
+ t3Syl1:"Embedded C/C++ & Bare-Metal Programming",
+ t3Syl2:"AUTOSAR Classic Architecture & CAN/LIN Protocols",
+ t3Syl3:"Real-Time Operating Systems (FreeRTOS) & Scheduling",
+ t3Syl4:"MISRA-C Compliance & ISO 26262 Functional Safety",
+ t3Role:"Embedded Software Engineer",
+ t4Syl1:"Financial Markets, Derivatives & Time Series Analysis",
+ t4Syl2:"Digital Payment Gateways & Banking API Integration",
+ t4Syl3:"Data Warehousing & Executive Power BI Dashboards",
+ t4Syl4:"ERP Enterprise Systems & PCI-DSS Compliance",
+ t4Role:"FinTech Quantitative Analyst",
+
+ // Quick Hunter Chips & Previews
+ hunterChipAll:"All Tracks (12)",
+ hunterChipAI:"AI & Deep Learning",
+ hunterChipCloud:"Full-Stack Cloud",
+ hunterChipSec:"Cybersecurity SOC",
+ hunterChipMecha:"Mechatronics & Robotics",
+ hunterChipFintech:"FinTech Trading",
+ hunterChipBio:"Bioinformatics",
+ previewCompanyName:"Damanhour AI Research Lab",
+ previewRoleTitle:"Machine Learning Research Intern",
+ cmdSearchPh:"Search tracks or internships...",
+ cmdPaletteHint:"Press ESC or click outside to close",
+ cmdCloseBtn:"Close ✕",
+
  // How It Works
  hiwBadge:"Student Journey",
  hiwHeading:"How HuntYourTrack Works",
@@ -834,6 +908,14 @@ class I18nManager {
  }
  });
 
+ // Translate all data-i18n-placeholder elements
+ document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+  const key = el.getAttribute('data-i18n-placeholder');
+  if (HYT_TRANSLATIONS[lang] && HYT_TRANSLATIONS[lang][key]) {
+   el.placeholder = HYT_TRANSLATIONS[lang][key];
+  }
+ });
+
  // Update language toggle button label
  const langToggleBtn = document.getElementById('hyt-lang-toggle');
  if (langToggleBtn) {
@@ -924,11 +1006,13 @@ window.hytI18n = new I18nManager();
 window.setHytTheme = function(theme) {
  if (window.hytI18n) window.hytI18n.applyTheme(theme);
 };
-window.toggleThemeDropdown = function(e) {
- if (e) e.stopPropagation();
+window.toggleAppTheme = function(e) {
+ if (e && e.stopPropagation) e.stopPropagation();
  if (window.hytI18n) window.hytI18n.toggleTheme();
- const menu = document.getElementById('theme-dropdown-menu');
- if (menu) menu.classList.toggle('show');
+};
+window.toggleThemeDropdown = function(e) {
+ if (e && e.stopPropagation) e.stopPropagation();
+ if (window.hytI18n) window.hytI18n.toggleTheme();
 };
 window.setAppTheme = function(theme) {
  if (window.setHytTheme) window.setHytTheme(theme);

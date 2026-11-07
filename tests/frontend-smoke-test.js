@@ -82,15 +82,18 @@ async function run() {
         await langToggle.click();
         assert.equal(await page.evaluate(() => document.documentElement.dir), 'rtl', 'Clicking language toggle again should return to Arabic RTL');
 
-        // Unified Theme System verification (Dark / Light via Unified Theme Menu)
+        // Unified Theme System verification (Direct Dark / Light toggle)
         const themeBtn = page.locator('#hyt-theme-btn');
         assert.equal(await themeBtn.count(), 1, 'Unified theme button #hyt-theme-btn must be present in header');
+        await page.evaluate(() => { if (window.hytI18n) window.hytI18n.applyTheme('dark'); });
+        await page.waitForTimeout(100);
+        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'dark');
         await themeBtn.click();
-        await page.locator('[onclick="setAppThemeMode(\'dark\')"]').click();
-        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'dark', 'Selecting Dark Mode should activate dark mode');
+        await page.waitForTimeout(200);
+        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'light', 'Clicking theme button should toggle to Light Mode');
         await themeBtn.click();
-        await page.locator('[onclick="setAppThemeMode(\'light\')"]').click();
-        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'light', 'Selecting Light Mode should revert to light mode');
+        await page.waitForTimeout(200);
+        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'dark', 'Clicking theme button again should toggle back to Dark Mode');
 
         // Pre-seeded Corporate Opportunities verification (US17)
         const oppCards = page.locator('#opportunities-catalog-container .opp-card');

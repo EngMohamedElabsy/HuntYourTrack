@@ -42,40 +42,20 @@
 
             <!-- Controls & Auth CTAs -->
             <div class="nav-cta-group">
-                <!-- Direct Visible Search Bar -->
-                <div class="nav-search-bar" id="nav-search-bar">
+                <!-- Search Trigger Pill -->
+                <button type="button" class="nav-search-pill" id="nav-search-bar" onclick="openCommandSearch()" aria-label="Search Tracks & Opportunities" title="Search">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-search-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                    <input type="search" id="top-nav-search-input" class="nav-search-input" placeholder="ابحث عن مسار..." data-i18n-placeholder="searchTrackPlaceholder" onclick="openCommandSearch()" onfocus="openCommandSearch()" aria-label="Search Tracks">
-                </div>
+                    <span class="nav-search-label" data-i18n="searchTrackPlaceholder">ابحث عن مسار أو فرصة...</span>
+                    <kbd class="nav-search-kbd">ESC</kbd>
+                </button>
 
                 <!-- Language Toggle -->
                 <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-inline-end: 4px;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>English</button>
 
-                <!-- Single-Click Theme & Appearance Toggle (Sun/Moon Pure B&W) -->
-                <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
-                    <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance (Dark / Light)">
-                        <span id="theme-btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
-                    </button>
-                    <div class="theme-dropdown-menu" id="theme-dropdown-menu">
-                        <div class="theme-menu-header" data-i18n="themeModesHeader">نمط الإضاءة</div>
-                        <button type="button" class="theme-opt-btn" data-theme-val="dark" onclick="setAppThemeMode('dark')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-                            <span data-i18n="themeDarkOption">الوضع الليلي (Dark Mode)</span>
-                        </button>
-                        <button type="button" class="theme-opt-btn" data-theme-val="light" onclick="setAppThemeMode('light')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-                            <span data-i18n="themeLightOption">الوضع النهاري (Light Mode)</span>
-                        </button>
-                        <!-- Compatibility options for automated testing assertions -->
-                        <div style="position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0.001; pointer-events: auto;">
-                            <button type="button" class="theme-opt-btn" data-theme-val="nebula" onclick="setAppTheme('nebula')">Nebula</button>
-                            <button type="button" class="theme-opt-btn" data-theme-val="abyss" onclick="setAppTheme('abyss')">Abyss</button>
-                            <button type="button" class="theme-opt-btn" data-theme-val="reef" onclick="setAppTheme('reef')">Reef</button>
-                            <button type="button" class="theme-opt-btn" data-theme-val="ember" onclick="setAppTheme('ember')">Ember</button>
-                            <button type="button" class="theme-opt-btn" data-theme-val="daylight" onclick="setAppTheme('daylight')">Daylight</button>
-                        </div>
-                    </div>
-                </div>
+                <!-- Single-Click Theme & Appearance Toggle (Sun/Moon Pure B&W - Zero Popup) -->
+                <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Theme & Appearance" onclick="toggleAppTheme(event)" title="Theme & Appearance (Dark / Light)">
+                    <span id="theme-btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
+                </button>
 
                 <div id="nav-auth-actions" style="display: flex; gap: 0.5rem; align-items: center;">
                     <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.5rem 1.15rem; font-size: 0.88rem;" data-i18n="navUnifiedAuth"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-inline-end: 4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>دخول المنصة</a>
@@ -176,8 +156,8 @@
                         <div class="preview-card-header">
                             <div class="preview-logo-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg></div>
                             <div class="preview-company-info">
-                                <div class="preview-company-name">Damanhour AI Lab × Zewail</div>
-                                <div class="preview-role-title">Machine Learning Research Intern</div>
+                                <div class="preview-company-name" data-i18n="previewCompanyName">Damanhour AI Lab × Zewail</div>
+                                <div class="preview-role-title" data-i18n="previewRoleTitle">Machine Learning Research Intern</div>
                             </div>
                             <div class="preview-ring-wrap">
                                 <svg viewBox="0 0 48 48" class="preview-ring-svg">
@@ -301,13 +281,13 @@
 
                 <!-- Quick-Hook Interactive Track Chips -->
                 <div class="hunter-quick-chips" style="display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center; margin-top: 0.75rem;">
-                    <button type="button" class="hunter-quick-chip active" onclick="hookQuickChip('all', this)">كافة المسارات (12)</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-ai', this)">AI & Deep Learning</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-cloud', this)">Full-Stack Cloud</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-sec', this)">Cybersecurity SOC</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('eng-mecha', this)">Mechatronics & Robotics</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('bus-fintech', this)">FinTech Trading</button>
-                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('sci-bio', this)">Bioinformatics</button>
+                    <button type="button" class="hunter-quick-chip active" onclick="hookQuickChip('all', this)" data-i18n="hunterChipAll">كافة المسارات (12)</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-ai', this)" data-i18n="hunterChipAI">AI & Deep Learning</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-cloud', this)" data-i18n="hunterChipCloud">Full-Stack Cloud</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-sec', this)" data-i18n="hunterChipSec">Cybersecurity SOC</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('eng-mecha', this)" data-i18n="hunterChipMecha">Mechatronics & Robotics</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('bus-fintech', this)" data-i18n="hunterChipFintech">FinTech Trading</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('sci-bio', this)" data-i18n="hunterChipBio">Bioinformatics</button>
                 </div>
             </div>
 
@@ -389,20 +369,20 @@
                         <div class="track-card-face track-card-back">
                             <div>
                                 <div class="card-back-header">
-                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
+                                    <span class="card-back-title" data-i18n="cardBackTitle">المنهج والمخرجات المهنية</span>
                                     <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
                                         <span data-i18n="flipBackBtn">العودة</span>
                                     </button>
                                 </div>
                                 <ul class="card-syllabus-list">
-                                    <li class="card-syllabus-item">معمارية React 19 والأنماط المؤسسية في TypeScript</li>
-                                    <li class="card-syllabus-item">واجهات Node.js وقواعد بيانات PostgreSQL الموزعة</li>
-                                    <li class="card-syllabus-item">حاويات Docker وخطوط أتمتة CI/CD والنشر السحابي</li>
-                                    <li class="card-syllabus-item">مشروع تخرج تطبيقي متوافق مع معايير الشركات الشريكة</li>
+                                    <li class="card-syllabus-item" data-i18n="t1Syl1">معمارية React 19 والأنماط المؤسسية في TypeScript</li>
+                                    <li class="card-syllabus-item" data-i18n="t1Syl2">واجهات Node.js وقواعد بيانات PostgreSQL الموزعة</li>
+                                    <li class="card-syllabus-item" data-i18n="t1Syl3">حاويات Docker وخطوط أتمتة CI/CD والنشر السحابي</li>
+                                    <li class="card-syllabus-item" data-i18n="t1Syl4">مشروع تخرج تطبيقي متوافق مع معايير الشركات الشريكة</li>
                                 </ul>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration">Full-Stack Engineer</span>
+                                <span class="track-duration" data-i18n="t1Role">مهندس برمجيات وتطبيقات متكاملة (Full-Stack Engineer)</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -442,20 +422,20 @@
                         <div class="track-card-face track-card-back">
                             <div>
                                 <div class="card-back-header">
-                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
+                                    <span class="card-back-title" data-i18n="cardBackTitle">المنهج والمخرجات المهنية</span>
                                     <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
                                         <span data-i18n="flipBackBtn">العودة</span>
                                     </button>
                                 </div>
                                 <ul class="card-syllabus-list">
-                                    <li class="card-syllabus-item">الجبر الخطي وتحليل البيانات بـ NumPy و Pandas</li>
-                                    <li class="card-syllabus-item">تدريب وتقييم خوارزميات التعلم الآلي الكلاسيكي</li>
-                                    <li class="card-syllabus-item">الشبكات العصبية العميقة ونماذج الرؤية ومعالجة اللغات</li>
-                                    <li class="card-syllabus-item">أنظمة الـ RAG والوكلاء ونشر النماذج بـ FastAPI</li>
+                                    <li class="card-syllabus-item" data-i18n="t2Syl1">الجبر الخطي وتحليل البيانات بـ NumPy و Pandas</li>
+                                    <li class="card-syllabus-item" data-i18n="t2Syl2">تدريب وتقييم خوارزميات التعلم الآلي الكلاسيكي</li>
+                                    <li class="card-syllabus-item" data-i18n="t2Syl3">الشبكات العصبية العميقة ونماذج الرؤية ومعالجة اللغات</li>
+                                    <li class="card-syllabus-item" data-i18n="t2Syl4">أنظمة الـ RAG والوكلاء ونشر النماذج بـ FastAPI</li>
                                 </ul>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration">AI & ML Engineer</span>
+                                <span class="track-duration" data-i18n="t2Role">مهندس ذكاء اصطناعي وتعلم آلي (AI & ML Engineer)</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -495,20 +475,20 @@
                         <div class="track-card-face track-card-back">
                             <div>
                                 <div class="card-back-header">
-                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
+                                    <span class="card-back-title" data-i18n="cardBackTitle">المنهج والمخرجات المهنية</span>
                                     <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
                                         <span data-i18n="flipBackBtn">العودة</span>
                                     </button>
                                 </div>
                                 <ul class="card-syllabus-list">
-                                    <li class="card-syllabus-item">أساسيات Embedded C/C++ وبرمجة العتاد المباشر</li>
-                                    <li class="card-syllabus-item">معمارية الـ AUTOSAR Classic وبروتوكولات CAN/LIN</li>
-                                    <li class="card-syllabus-item">أنظمة التشغيل في الوقت الحقيقي FreeRTOS & Scheduling</li>
-                                    <li class="card-syllabus-item">تطبيق معايير MISRA-C والأمان الوظيفي ISO 26262</li>
+                                    <li class="card-syllabus-item" data-i18n="t3Syl1">أساسيات Embedded C/C++ وبرمجة العتاد المباشر</li>
+                                    <li class="card-syllabus-item" data-i18n="t3Syl2">معمارية الـ AUTOSAR Classic وبروتوكولات CAN/LIN</li>
+                                    <li class="card-syllabus-item" data-i18n="t3Syl3">أنظمة التشغيل في الوقت الحقيقي FreeRTOS & Scheduling</li>
+                                    <li class="card-syllabus-item" data-i18n="t3Syl4">تطبيق معايير MISRA-C والأمان الوظيفي ISO 26262</li>
                                 </ul>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration">Embedded Software Engineer</span>
+                                <span class="track-duration" data-i18n="t3Role">مهندس أنظمة مدمجة وبرمجيات سيارات (Embedded Engineer)</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -548,20 +528,20 @@
                         <div class="track-card-face track-card-back">
                             <div>
                                 <div class="card-back-header">
-                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
+                                    <span class="card-back-title" data-i18n="cardBackTitle">المنهج والمخرجات المهنية</span>
                                     <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
                                         <span data-i18n="flipBackBtn">العودة</span>
                                     </button>
                                 </div>
                                 <ul class="card-syllabus-list">
-                                    <li class="card-syllabus-item">الأسواق المالية والمشتقات وتحليل السلاسل الزمنية</li>
-                                    <li class="card-syllabus-item">بناء بوابات الدفع الإلكتروني وتكامل الـ APIs المصرفية</li>
-                                    <li class="card-syllabus-item">مستودعات البيانات ونمذجة لوحات التحكم في Power BI</li>
-                                    <li class="card-syllabus-item">أنظمة الـ ERP والامتثال التشريعي المالي PCI-DSS</li>
+                                    <li class="card-syllabus-item" data-i18n="t4Syl1">الأسواق المالية والمشتقات وتحليل السلاسل الزمنية</li>
+                                    <li class="card-syllabus-item" data-i18n="t4Syl2">بناء بوابات الدفع الإلكتروني وتكامل الـ APIs المصرفية</li>
+                                    <li class="card-syllabus-item" data-i18n="t4Syl3">مستودعات البيانات ونمذجة لوحات التحكم في Power BI</li>
+                                    <li class="card-syllabus-item" data-i18n="t4Syl4">أنظمة الـ ERP والامتثال التشريعي المالي PCI-DSS</li>
                                 </ul>
                             </div>
                             <div class="track-footer">
-                                <span class="track-duration">FinTech Quantitative Analyst</span>
+                                <span class="track-duration" data-i18n="t4Role">محلل كمي وتقنيات مالية (FinTech Quantitative Analyst)</span>
                                 <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
                             </div>
                         </div>
@@ -695,14 +675,20 @@
         </form>
     </dialog>
 
-    <!-- Command Search Palette Modal (Ctrl+K) -->
+    <!-- Command Search Palette Modal -->
     <dialog class="cmd-palette-dialog" id="command-search-modal">
         <div class="cmd-search-input-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="cmd-search-input" placeholder="ابحث عن مسار مهني أو فرصة تدريب (Full-Stack, AI, Python)..." data-i18n="cmdSearchPh" oninput="handleCommandSearch(this.value)" autocomplete="off">
-            <button type="button" onclick="closeCommandSearch()" class="nav-util-btn" style="border: none; padding: 0.25rem 0.5rem; font-size: 1.1rem;" aria-label="Close">&times;</button>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6; flex-shrink: 0;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="cmd-search-input" placeholder="ابحث عن مسار مهني أو فرصة تدريب..." data-i18n="cmdSearchPh" oninput="handleCommandSearch(this.value)" autocomplete="off">
+            <button type="button" onclick="closeCommandSearch()" class="cmd-modal-close-btn" aria-label="Close Search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
         </div>
         <div class="cmd-results-list" id="cmd-results-list"></div>
+        <div style="padding: 0.6rem 1rem; border-top: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--color-muted-foreground); background: var(--color-muted);">
+            <span data-i18n="cmdPaletteHint">اضغط ESC أو انقر بالخارج للإغلاق</span>
+            <button type="button" onclick="closeCommandSearch()" class="btn btn-secondary" style="padding: 0.25rem 0.65rem; font-size: 0.75rem;" data-i18n="cmdCloseBtn">إغلاق ✕</button>
+        </div>
     </dialog>
 
         <!-- Footer (Canonical Link) -->
@@ -1016,11 +1002,15 @@
         const cmdModal = document.getElementById('command-search-modal');
         if (cmdModal) {
             cmdModal.addEventListener('click', (e) => {
-                const rect = cmdModal.getBoundingClientRect();
-                const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-                                    rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-                if (!isInDialog) {
-                    cmdModal.close();
+                if (e.target === cmdModal) {
+                    closeCommandSearch();
+                } else {
+                    const rect = cmdModal.getBoundingClientRect();
+                    const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+                                        rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+                    if (!isInDialog) {
+                        closeCommandSearch();
+                    }
                 }
             });
         }

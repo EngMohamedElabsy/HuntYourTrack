@@ -179,9 +179,8 @@ async function runAudit() {
 
         // Check Theme Tokens (High Contrast)
         const themeBtn = page.locator('#hyt-theme-btn');
-        await themeBtn.click();
-        await page.locator('[onclick="setAppThemeMode(\'dark\')"]').click();
-        await page.waitForTimeout(600);
+        await page.evaluate(() => { if (window.hytI18n) window.hytI18n.applyTheme('dark'); });
+        await page.waitForTimeout(300);
         const darkTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
         assert.equal(darkTheme, 'dark', 'Dark theme token must activate');
 
@@ -203,9 +202,9 @@ async function runAudit() {
         assert.ok(!navBg.includes('255, 255, 255'), `Dark mode nav must not be white. Got: ${navBg}`);
         console.log('  Computed dark nav background:', navBg);
 
+        // Click to toggle directly to light mode
         await themeBtn.click();
-        await page.locator('[onclick="setAppThemeMode(\'light\')"]').click();
-        await page.waitForTimeout(600);
+        await page.waitForTimeout(300);
         const lightTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
         assert.equal(lightTheme, 'light', 'Light theme token must restore');
         console.log('  ✓ Bespoke Track Hunter Canvas renders with 0 overflow and dynamic Dark/Light tokens.');
@@ -288,30 +287,30 @@ async function runAudit() {
         console.log('  ✓ auth.html is centered, constrained, and has 0 overflow on 375px mobile and 1440px desktop.');
 
         // -------------------------------------------------------------------------------------------------
-        // AUDIT 6: Unified Theme Dropdown & Multi-Palette Switching
+        // AUDIT 6: Direct Theme Toggle & Zero-Dropdown Verification
         // -------------------------------------------------------------------------------------------------
-        console.log('\n--- [6/8] Testing Unified Theme Dropdown & Multi-Palette Switching ---');
+        console.log('\n--- [6/8] Testing Direct Theme Toggle & Zero-Dropdown Verification ---');
         await page.goto(`${baseUrl}/index.html`);
         const unifiedThemeBtn = page.locator('#hyt-theme-btn');
         assert.equal(await unifiedThemeBtn.count(), 1, '#hyt-theme-btn must exist in header');
-        await unifiedThemeBtn.click();
-        await page.waitForTimeout(150);
-        const menuVisible = await page.locator('#theme-dropdown-menu').evaluate(el => el.classList.contains('show'));
-        assert.equal(menuVisible, true, 'Unified theme dropdown menu must open on click');
 
-        // Switch to Nebula palette
-        await page.locator('.theme-opt-btn[data-theme-val="nebula"]').click();
-        await page.waitForTimeout(200);
-        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'nebula', 'Theme must switch to nebula palette');
-
-        // Switch to Light Mode
-        await unifiedThemeBtn.click();
+        // Set to dark
+        await page.evaluate(() => { if (window.hytI18n) window.hytI18n.applyTheme('dark'); });
         await page.waitForTimeout(150);
-        await page.locator('.theme-opt-btn[data-theme-val="light"]').click();
+        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'dark');
+
+        // Single click toggles directly to light mode without popup/menu
+        await unifiedThemeBtn.click();
         await page.waitForTimeout(200);
-        const lightThemeVal = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
-        assert.ok(['light', 'daylight'].includes(lightThemeVal), `Light mode option must apply light or daylight theme (got ${lightThemeVal})`);
-        console.log('  ✓ Unified theme dropdown switches lighting modes and curated palettes cleanly.');
+        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'light', 'Clicking #hyt-theme-btn must toggle directly to light mode');
+        const menuCount = await page.locator('#theme-dropdown-menu.show').count();
+        assert.equal(menuCount, 0, 'No dropdown menu should appear when clicking theme toggle button');
+
+        // Single click again toggles directly back to dark mode
+        await unifiedThemeBtn.click();
+        await page.waitForTimeout(200);
+        assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-theme')), 'dark', 'Clicking #hyt-theme-btn again must toggle back to dark mode');
+        console.log('  ✓ Direct theme button toggles Dark/Light modes cleanly with zero dropdown popup.');
 
         // -------------------------------------------------------------------------------------------------
         // AUDIT 7: Sign-Out Language & Theme Preference Persistence
