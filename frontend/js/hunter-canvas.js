@@ -785,8 +785,12 @@ class TrackHunterCanvas {
     }
 
     focusTrack(id) {
+        console.log('focusTrack called with:', id);
         const node = this.nodes.find(n => n.id === id);
-        if (!node) return;
+        if (!node) {
+            console.warn('Node not found for id:', id);
+            return;
+        }
         if (!this.hookedNodes.some(hn => hn.id === id)) {
             this.hookedNodes.push(node);
         }
@@ -813,11 +817,19 @@ class TrackHunterCanvas {
 
     renderHookedPanel(node) {
         const panel = document.getElementById('hooked-track-panel');
-        if (!panel) return;
+        if (!panel) {
+            console.warn('hooked-track-panel element not found');
+            return;
+        }
         if (!node) {
             panel.classList.remove('active');
             return;
         }
+        console.log('renderHookedPanel called for:', node.id, 'panel exists:', !!panel, 'current classes:', panel.className);
+
+        // Ensure panel is visible - add active class
+        panel.classList.add('active');
+        console.log('Added active class. Panel classes now:', panel.className);
 
         const isAr = document.documentElement.lang === 'ar';
         const title = isAr ? (node.labelAr || node.label) : node.label;
@@ -978,6 +990,7 @@ class TrackHunterCanvas {
         `;
 
         panel.classList.add('active');
+        console.log('Panel classes after adding active:', panel.className);
         setTimeout(() => {
             panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 50);
@@ -1278,12 +1291,11 @@ class TrackHunterCanvas {
             }
 
             setTimeout(type, delay);
-        };
+        }
 
         type();
     }
 }
-
 // Global initialization
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('hunter-radar-canvas')) {
