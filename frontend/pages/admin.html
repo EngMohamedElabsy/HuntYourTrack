@@ -1,312 +1,824 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
- <!-- Immediate Strict Route Guard (US17) -->
+ <!-- Immediate Strict Route Guard -->
  <script>
  (function() {
- var user = localStorage.getItem('user');
- var role = localStorage.getItem('role');
- if (user !== 'admin' && role !== 'admin') {
- window.location.replace('auth.html?redirect=admin&error=unauthorized');
- }
+     var user = localStorage.getItem('user');
+     var role = localStorage.getItem('role');
+     if (user !== 'admin' && role !== 'admin') {
+         window.location.replace('auth.html?redirect=admin&error=unauthorized');
+     }
  })();
  </script>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>HuntYourTrack · Admin Control Panel & Verification Hub</title>
- <!-- Fonts -->
+ <meta name="theme-color" content="#000000">
+ <title>HuntYourTrack · لوحة التحكم الإدارية | Admin Control Panel</title>
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
- <!-- Shared Design Tokens & Admin Styling -->
  <link rel="stylesheet" href="../css/style.css">
  <link rel="stylesheet" href="../css/admin.css">
+ <style>
+ .admin-layout {
+     min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+     background: var(--color-bg);
+ }
+
+ /* Galaxy Canvas */
+ .galaxy-canvas { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+
+ /* Top Bar - Consistent with Landing */
+ .top-bar {
+     position: fixed;
+     top: 0; left: 0; right: 0;
+     z-index: 1000;
+     height: 64px;
+     background: var(--glass);
+     backdrop-filter: blur(20px);
+     -webkit-backdrop-filter: blur(20px);
+     border-bottom: 1px solid var(--color-border);
+     transition: background var(--transition-base), border-color var(--transition-base);
+ }
+
+ .top-bar.scrolled { background: var(--glass-strong); box-shadow: var(--shadow-sm); }
+
+ .top-bar-inner {
+     max-width: 1400px; margin: 0 auto;
+     padding: 0 1.5rem; height: 100%;
+     display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+ }
+
+ .brand { display: flex; align-items: center; text-decoration: none; color: var(--color-fg); }
+ .brand:hover { opacity: 0.7; }
+ .brand-logo { width: 40px; height: 40px; flex-shrink: 0; }
+
+ .top-bar-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+ .icon-btn {
+     display: inline-flex; align-items: center; justify-content: center;
+     width: 40px; height: 40px; border-radius: var(--radius-full);
+     color: var(--color-fg); transition: all var(--transition-fast);
+ }
+ .icon-btn:hover { background: var(--color-bg-elevated); transform: scale(1.05); }
+
+ .icon-btn svg { width: 18px; height: 18px; }
+
+ #theme-toggle .icon-sun { display: block; }
+ #theme-toggle .icon-moon { display: none; }
+ [data-theme="dark"] #theme-toggle .icon-sun { display: none; }
+ [data-theme="dark"] #theme-toggle .icon-moon { display: block; }
+
+ .nav-tabs {
+     display: flex; gap: 0.25rem;
+     background: var(--color-bg-elevated);
+     padding: 4px; border-radius: var(--radius-md);
+ }
+
+ .tab-btn {
+     flex: 1; padding: 0.5rem 1rem;
+     font-size: 0.85rem; font-weight: 600;
+     border-radius: var(--radius-sm);
+     color: var(--color-fg-muted); background: transparent;
+     transition: all var(--transition-fast);
+ }
+ .tab-btn:hover { color: var(--color-fg); }
+ .tab-btn.active {
+     background: var(--color-fg); color: var(--color-bg);
+ }
+ .tab-badge {
+     margin-inline-start: 0.5rem;
+     padding: 0.125rem 0.5rem;
+     font-size: 0.65rem; font-weight: 700;
+     border-radius: var(--radius-full);
+     background: var(--color-fg); color: var(--color-bg);
+ }
+
+ .user-menu-wrapper { position: relative; display: flex; align-items: center; }
+
+ .user-pill {
+     display: flex; align-items: center; gap: 0.5rem;
+     padding: 0.375rem 0.75rem 0.375rem 0.5rem;
+     border-radius: var(--radius-full);
+     border: 1px solid var(--color-border);
+     background: var(--color-bg); color: var(--color-fg);
+     font-size: 0.85rem; font-weight: 500;
+     transition: all var(--transition-fast);
+ }
+ .user-pill:hover { border-color: var(--color-border-strong); background: var(--color-bg-elevated); }
+
+ .user-avatar { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--color-fg); color: var(--color-bg); }
+ .user-avatar svg { width: 14px; height: 14px; }
+ .user-name { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .user-caret { font-size: 0.6rem; transition: transform var(--transition-fast); }
+
+ .user-dropdown {
+     position: absolute; top: calc(100% + 8px); right: 0;
+     min-width: 220px; padding: 0.5rem;
+     background: var(--glass-strong); backdrop-filter: blur(20px);
+     border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+     box-shadow: var(--shadow-xl); z-index: 100;
+     display: none; animation: fadeSlideDown 150ms var(--transition-base);
+ }
+ @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+ .user-dropdown.show { display: block; }
+
+ .user-dropdown-header { padding: 0.75rem 1rem; border-bottom: 1px solid var(--color-border); margin-bottom: 0.5rem; }
+ .user-dropdown-header strong { display: block; color: var(--color-fg); font-size: 0.9rem; }
+ .user-role-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 0.125rem 0.5rem; border-radius: var(--radius-full); background: var(--color-fg); color: var(--color-bg); margin-top: 0.25rem; }
+ .user-dropdown-header small { display: block; color: var(--color-fg-muted); font-size: 0.75rem; margin-top: 0.25rem; }
+
+ .user-dropdown-item {
+     display: flex; align-items: center; gap: 0.5rem;
+     padding: 0.625rem 1rem; border-radius: var(--radius-md);
+     color: var(--color-fg); font-size: 0.85rem; font-weight: 500;
+     transition: background var(--transition-fast);
+ }
+ .user-dropdown-item:hover { background: var(--color-bg-elevated); }
+ .user-dropdown-item.signout { color: var(--color-fg); }
+
+ /* Admin Container */
+ .admin-container {
+     max-width: 1200px; margin: 80px auto 0;
+     padding: 2rem 1.5rem 4rem; width: 100%; flex: 1;
+ }
+
+ /* Page Header */
+ .page-header { margin-bottom: 2rem; }
+ .page-title {
+     font-family: var(--font-heading);
+     font-size: clamp(1.5rem, 3vw, 2rem);
+     font-weight: 800; color: var(--color-fg);
+     margin-bottom: 0.5rem;
+ }
+ .page-subtitle { color: var(--color-fg-muted); font-size: 1rem; }
+
+ /* KPI Grid */
+ .kpi-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+     gap: 1.5rem; margin-bottom: 2rem;
+ }
+
+ .kpi-card {
+     padding: 1.5rem; border: 1px solid var(--color-border);
+     border-radius: var(--radius-xl); background: var(--color-bg);
+     position: relative; overflow: hidden;
+     transition: all var(--transition-base);
+ }
+ .kpi-card:hover { border-color: var(--color-border-strong); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+ .kpi-card::before {
+     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+     background: var(--card-accent);
+ }
+
+ .kpi-label { font-size: 0.8rem; font-weight: 600; color: var(--color-fg-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+ .kpi-val { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; color: var(--color-fg); line-height: 1; }
+ .kpi-meta { font-size: 0.8rem; color: var(--color-fg-muted); margin-top: 0.5rem; }
+
+ /* Admin Tabs */
+ .admin-tabs {
+     display: flex; gap: 0.25rem;
+     background: var(--color-bg-elevated);
+     padding: 4px; border-radius: var(--radius-md);
+     margin-bottom: 1.5rem;
+ }
+
+ .admin-tab-btn {
+     flex: 1; padding: 0.625rem 1rem;
+     font-size: 0.85rem; font-weight: 600;
+     border-radius: var(--radius-sm);
+     color: var(--color-fg-muted); background: transparent;
+     transition: all var(--transition-fast);
+ }
+ .admin-tab-btn:hover { color: var(--color-fg); }
+ .admin-tab-btn.active {
+     background: var(--color-fg); color: var(--color-bg);
+ }
+
+ /* Panel Card */
+ .panel-card {
+     background: var(--color-bg);
+     border: 1px solid var(--color-border);
+     border-radius: var(--radius-xl);
+     padding: 1.5rem;
+     transition: all var(--transition-base);
+ }
+
+ .panel-head {
+     display: flex; justify-content: space-between; align-items: center;
+     margin-bottom: 1.5rem; padding-bottom: 1rem;
+     border-bottom: 1px solid var(--color-border);
+ }
+
+ .panel-head h2 {
+     font-family: var(--font-heading);
+     font-size: 1.25rem; font-weight: 800; color: var(--color-fg);
+ }
+
+ /* Toolbar */
+ .toolbar {
+     display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+     justify-content: space-between; margin-bottom: 1.5rem;
+ }
+
+ .search-box { position: relative; flex: 1; min-width: 280px; }
+ .search-icon {
+     position: absolute; inset-inline-start: 1rem; top: 50%; transform: translateY(-50%);
+     width: 18px; height: 18px; color: var(--color-fg-muted); pointer-events: none;
+ }
+ .search-input {
+     width: 100%; padding: 0.625rem 1rem 0.625rem 2.75rem;
+     border: 1px solid var(--color-border); border-radius: var(--radius-md);
+     background: var(--color-bg); color: var(--color-fg);
+     font-size: 0.9rem; transition: all var(--transition-fast);
+ }
+ .search-input:focus {
+     outline: none; border-color: var(--color-fg);
+     box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-fg) 15%, transparent);
+ }
+
+ .filter-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+ .filter-pill {
+     padding: 0.375rem 0.875rem; font-size: 0.75rem; font-weight: 600;
+     border-radius: var(--radius-full); border: 1px solid var(--color-border);
+     background: var(--color-bg); color: var(--color-fg-muted);
+     transition: all var(--transition-fast);
+ }
+ .filter-pill:hover { border-color: var(--color-border-strong); color: var(--color-fg); }
+ .filter-pill.active {
+     background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg);
+ }
+
+ /* Data Table */
+ .table-responsive { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+ .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+ .data-table thead {
+     background: var(--color-bg-elevated);
+     border-bottom: 1px solid var(--color-border);
+ }
+ .data-table th {
+     padding: 0.875rem 1rem; text-align: start;
+     font-size: 0.7rem; font-weight: 700;
+     letter-spacing: 0.05em; text-transform: uppercase;
+     color: var(--color-fg-muted); border-bottom: 1px solid var(--color-border);
+ }
+ .data-table td { padding: 0.875rem 1rem; border-bottom: 1px solid var(--color-border); color: var(--color-fg); }
+ .data-table tbody tr { transition: background var(--transition-fast); }
+ .data-table tbody tr:hover { background: var(--color-bg-elevated); }
+ .data-table tbody tr:last-child td { border-bottom: none; }
+
+ /* Role Badge */
+ .role-badge {
+     display: inline-flex; align-items: center; gap: 0.375rem;
+     padding: 0.25rem 0.625rem; border-radius: var(--radius-full);
+     font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+ }
+ .role-badge.student { background: color-mix(in srgb, var(--color-fg) 10%, transparent); color: var(--color-fg); }
+ .role-badge.employer { background: color-mix(in srgb, var(--color-fg) 10%, transparent); color: var(--color-fg); }
+ .role-badge.admin { background: var(--color-fg); color: var(--color-bg); }
+ .role-badge.organizer { background: color-mix(in srgb, var(--color-fg) 10%, transparent); color: var(--color-fg); }
+
+ /* Status Badge */
+ .status-badge {
+     display: inline-flex; align-items: center; gap: 0.375rem;
+     padding: 0.1875rem 0.5rem; border-radius: var(--radius-full);
+     font-size: 0.65rem; font-weight: 600; white-space: nowrap;
+ }
+ .status-badge.active { background: color-mix(in srgb, var(--color-fg) 10%, transparent); color: var(--color-fg); }
+ .status-badge.pending { background: var(--color-bg-elevated); color: var(--color-fg-muted); border: 1px solid var(--color-border); }
+ .status-badge.rejected { background: color-mix(in srgb, var(--color-fg-muted) 10%, transparent); color: var(--color-fg-muted); }
+
+ /* Action Buttons */
+ .action-btn {
+     padding: 0.375rem 0.75rem; font-size: 0.7rem; font-weight: 600;
+     border-radius: var(--radius-full); border: 1px solid var(--color-border);
+     background: var(--color-bg); color: var(--color-fg-muted);
+     transition: all var(--transition-fast);
+ }
+ .action-btn:hover { border-color: var(--color-fg); color: var(--color-fg); }
+ .action-btn.primary { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
+ .action-btn.danger { border-color: var(--color-fg-muted); color: var(--color-fg-muted); }
+ .action-btn.danger:hover { background: var(--color-fg-muted); color: var(--color-bg); }
+
+ /* Queue Grid */
+ .queue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+ .queue-card {
+     padding: 1.5rem; border: 1px solid var(--color-border);
+     border-radius: var(--radius-xl); background: var(--color-bg);
+     transition: all var(--transition-base);
+ }
+ .queue-card:hover { border-color: var(--color-border-strong); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+
+ .queue-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; gap: 1rem; }
+ .queue-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--color-fg); }
+ .queue-meta { font-size: 0.8rem; color: var(--color-fg-muted); }
+
+ .queue-details { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+ .queue-detail { display: flex; justify-content: space-between; font-size: 0.85rem; }
+ .queue-detail-label { color: var(--color-fg-muted); }
+ .queue-detail-value { color: var(--color-fg); font-weight: 500; }
+
+ .queue-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+ /* Settings Form */
+ .settings-group { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border); }
+ .settings-group:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+ .settings-label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--color-fg); margin-bottom: 0.25rem; }
+ .settings-desc { font-size: 0.8rem; color: var(--color-fg-muted); margin-bottom: 0.75rem; }
+
+ .form-control { width: 100%; max-width: 100%; }
+
+ /* Modal */
+ .modal-overlay {
+     position: fixed; inset: 0; z-index: 2000;
+     background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px);
+     display: none; align-items: center; justify-content: center;
+     padding: 1.5rem;
+ }
+ .modal-overlay.show { display: flex; }
+ .modal-content {
+     background: var(--color-bg); border: 1px solid var(--color-border);
+     border-radius: var(--radius-xl); padding: 1.5rem; max-width: 520px; width: 100%;
+     max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-xl);
+     animation: fadeSlideUp 200ms var(--transition-base);
+ }
+
+ .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+ .modal-title { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--color-fg); }
+ .close-btn {
+     width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+     border-radius: var(--radius-full); color: var(--color-fg-muted); font-size: 1.5rem;
+     transition: all var(--transition-fast);
+ }
+ .close-btn:hover { background: var(--color-bg-elevated); color: var(--color-fg); }
+
+ .form-group { margin-bottom: 1rem; }
+ .form-group label { display: block; margin-bottom: 0.375rem; font-weight: 600; font-size: 0.85rem; color: var(--color-fg); }
+ .form-group textarea { min-height: 100px; resize: vertical; }
+
+ /* Responsive */
+ @media (max-width: 900px) {
+     .top-bar-inner { padding: 0 1rem; }
+     .brand-logo { width: 36px; height: 36px; }
+     .admin-tabs { flex-wrap: wrap; }
+     .admin-tab-btn { flex: 1 1 140px; }
+     .toolbar { flex-direction: column; align-items: stretch; }
+     .search-box { min-width: 100%; }
+ }
+ </style>
 </head>
-<body class="admin-layout">
+<body>
 
- <!-- Top Admin Bar -->
- <header class="admin-navbar">
- <div class="brand-section">
- <a href="../index.html" class="brand-logo">
- <span></span> HuntYourTrack
- </a>
- <span class="admin-badge" data-i18n="adminBrandBadge">Admin Workspace</span>
- </div>
+ <!-- Galaxy Canvas -->
+ <canvas id="galaxy-canvas" class="galaxy-canvas" aria-hidden="true"></canvas>
 
- <nav class="nav-links">
- <a href="../index.html" class="nav-link" data-i18n="adminNavHome"> Platform Home</a>
- <a href="admin.html" class="nav-link active" data-i18n="adminNavConsole">️ Admin Console</a>
- <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-link" style="color: #6366F1;" data-i18n="adminNavSprint"> Sprint Board ↗</a>
+ <!-- Top Bar -->
+ <nav class="top-bar" id="top-bar" role="navigation" aria-label="Main navigation">
+     <div class="top-bar-inner">
+         <a href="../index.html" class="brand" aria-label="HuntYourTrack Home">
+             <svg class="brand-logo" width="40" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hunt Your Track">
+                 <g class="logo-hunt" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                     <path d="M4 36 V6 M4 6 h10 M4 21 h10 M14 6 v30"/>
+                     <circle cx="9" cy="3" r="3" fill="currentColor"/>
+                     <path d="M14 15 Q25 5, 40 15 Q55 25, 60 15" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.5"/>
+                     <g transform="translate(60, 15)">
+                         <ellipse cx="0" cy="0" rx="5" ry="2.5" stroke-width="1.5"/>
+                         <path d="M-5 0 Q-8 -3, -10 0 Q-8 3, -5 0" stroke-width="1.5"/>
+                         <circle cx="-1.5" cy="-0.5" r="0.8" fill="currentColor"/>
+                     </g>
+                 </g>
+                 <g class="logo-your" font-family="'Sora', 'Inter', sans-serif" font-weight="600" font-size="14" fill="currentColor" text-anchor="middle" opacity="0.6">
+                     <text x="80" y="27" letter-spacing="0.3">YOUR</text>
+                     <path d="M80 30 L90 24 M80 30 L90 36" stroke-width="1.5" opacity="0.4"/>
+                 </g>
+                 <g class="logo-track" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none">
+                     <path d="M108 34 L152 34 M108 12 L152 12" opacity="0.25" stroke-width="1.5"/>
+                     <g stroke-width="1.5" opacity="0.4">
+                         <line x1="112" y1="12" x2="112" y2="34"/>
+                         <line x1="124" y1="12" x2="124" y2="34"/>
+                         <line x1="136" y1="12" x2="136" y2="34"/>
+                         <line x1="148" y1="12" x2="148" y2="34"/>
+                     </g>
+                     <circle id="track-target" cx="148" cy="23" r="4" stroke-width="1.5"/>
+                     <circle cx="148" cy="23" r="1.5" fill="currentColor"/>
+                 </g>
+                 <animate href="#track-target" attributeName="r" values="4;5.5;4" dur="1.8s" repeatCount="indefinite"/>
+             </svg>
+         </a>
+
+         <nav class="nav-tabs" aria-label="Admin Sections">
+             <button role="tab" class="admin-tab-btn active" data-tab="users" onclick="switchAdminTab('users')" aria-selected="true" data-i18n="adminTabUsers">إدارة المستخدمين</button>
+             <button role="tab" class="admin-tab-btn" data-tab="verification" onclick="switchAdminTab('verification')" aria-selected="false" data-i18n="adminTabQueue">طابور اعتماد الشركات <span class="tab-badge" id="badge-queue-count">0</span></button>
+             <button role="tab" class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')" aria-selected="false" data-i18n="adminTabSettings">إعدادات المنصة</button>
+         </nav>
+
+         <div class="top-bar-actions" id="top-bar-actions">
+             <a href="../index.html" class="btn btn-secondary btn-sm" data-i18n="empHomeBtn">الرئيسية</a>
+             <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme">
+                 <span class="icon-sun"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span>
+                 <span class="icon-moon" style="display:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
+             </button>
+
+             <div class="user-menu-wrapper" id="user-menu-wrapper">
+                 <button class="user-pill" type="button" onclick="toggleUserMenu(event)" aria-label="User menu" aria-expanded="false">
+                     <span class="user-avatar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+                     <span class="user-name" id="user-display"></span>
+                     <span class="user-caret">▾</span>
+                 </button>
+                 <div class="user-dropdown" id="user-dropdown">
+                     <div class="user-dropdown-header">
+                         <strong id="dropdown-user-name"></strong>
+                         <span class="user-role-badge" data-i18n="roleAdmin">مشرف</span>
+                         <small id="dropdown-user-email"></small>
+                     </div>
+                     <a href="admin.html" class="user-dropdown-item" data-i18n="adminNavConsole">لوحة التحكم</a>
+                     <a href="../index.html" class="user-dropdown-item" data-i18n="navExploreHome">منصة الاستكشاف</a>
+                     <button type="button" class="user-dropdown-item signout" onclick="signOut()" data-i18n="navSignOut">تسجيل الخروج</button>
+                 </div>
+             </div>
+         </div>
+     </div>
  </nav>
 
- <div style="display: flex; align-items: center; gap: 0.5rem;">
- <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language">English</button>
- <!-- Unified Theme & Appearance Dropdown -->
- <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
- <button id="hyt-theme-toggle" type="button" aria-label="Toggle Theme" style="display: none;"></button>
- <button id="hyt-theme-btn" class="nav-util-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
- <span id="theme-btn-icon"></span> <span style="font-size: 0.8rem; margin-inline-start: 4px;" data-i18n="themeDropdownLabel">المظهر</span>
- </button>
- <div class="theme-dropdown-menu" id="theme-dropdown-menu">
- <div class="theme-menu-header" data-i18n="themeModesHeader">نمط الإضاءة</div>
- <button type="button" class="theme-opt-btn" data-theme-val="dark" onclick="setAppThemeMode('dark')">
- <span style="font-size: 0.95rem;"></span>
- <span data-i18n="themeDarkOption">الوضع الليلي (Dark Mode)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="light" onclick="setAppThemeMode('light')">
- <span style="font-size: 0.95rem;"></span>
- <span data-i18n="themeLightOption">الوضع النهاري (Light Mode)</span>
- </button>
- <div class="theme-menu-divider"></div>
- <div class="theme-menu-header" data-i18n="themePalettesHeader">لوحات الألوان المخصصة</div>
- <button type="button" class="theme-opt-btn" data-theme-val="abyss" onclick="setAppTheme('abyss')">
- <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
- <span data-i18n="themeAbyss"> أعماق المحيط (Abyss)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="reef" onclick="setAppTheme('reef')">
- <span class="theme-swatch-dot" style="background: #10B981;"></span>
- <span data-i18n="themeReef"> الشعب المرجانية (Reef)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="nebula" onclick="setAppTheme('nebula')">
- <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
- <span data-i18n="themeNebula"> سديم الفضاء (Nebula)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="ember" onclick="setAppTheme('ember')">
- <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
- <span data-i18n="themeEmber"> الوهج الشمسي (Ember)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="daylight" onclick="setAppTheme('daylight')">
- <span class="theme-swatch-dot" style="background: #0284C7;"></span>
- <span data-i18n="themeDaylight"> وضح النهار (Daylight)</span>
- </button>
- </div>
- </div>
- 
- <div class="admin-profile">
- <div class="avatar">️</div>
- <span id="admin-user-display">المشرف الأكاديمي (Admin)</span>
- <a href="auth.html" id="admin-logout-btn" title="Sign Out" onclick="handleAdminLogout(event)" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem; font-size: 0.9rem;"></a>
- </div>
- </div>
+ <!-- Admin Container -->
+ <main class="admin-container" id="main-content">
 
- <!-- Mobile Hamburger Toggle -->
- <button class="mobile-menu-btn" id="admin-mobile-toggle" aria-label="Toggle Navigation Menu" onclick="toggleAdminDrawer()">
- 
- </button>
- </header>
+     <!-- Page Header -->
+     <section class="page-header">
+         <h1 class="page-title" data-i18n="adminPageTitle">لوحة التحكم الإدارية</h1>
+         <p class="page-subtitle" data-i18n="adminPageSub">كلية الحاسبات والمعلومات · جامعة دمنهور. حوكمة المنصة واعتماد الكيانات.</p>
+     </section>
 
- <!-- Admin Mobile Navigation Drawer -->
- <div class="mobile-drawer" id="admin-mobile-drawer">
- <div style="padding-bottom: 0.75rem; border-bottom: 1px solid #E2E8F0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
- <div class="avatar">️</div>
- <span style="font-weight: 600; font-size: 0.9rem;">المشرف الأكاديمي (Lead Admin)</span>
- </div>
- <a href="../index.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> Product Landing</a>
- <a href="student.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> Student Career Hub</a>
- <a href="admin.html" class="nav-drawer-link active" onclick="closeAdminDrawer()">️ Admin Console</a>
- <a href="workflow.html" class="nav-drawer-link" onclick="closeAdminDrawer()">️ System Architecture Map</a>
- <a href="components.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> UI Component Kit</a>
- <a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" class="nav-drawer-link" style="color: #6366F1;"> Sprint Board ↗</a>
- <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #E2E8F0;">
- <button onclick="handleAdminLogout(event)" class="btn btn-secondary" style="width: 100%;">Sign Out</button>
- </div>
- </div>
+     <!-- KPI Metrics Grid -->
+     <section class="kpi-grid" aria-labelledby="kpi-heading">
+         <h2 id="kpi-heading" class="visually-hidden">مؤشرات الأداء الرئيسية</h2>
+         <article class="kpi-card" style="--card-accent: var(--color-fg);">
+             <span class="kpi-label" data-i18n="adminKpi1Label">الطلاب المسجلون</span>
+             <div class="kpi-val" id="kpi-students">0</div>
+             <span class="kpi-meta" data-i18n="adminKpi1Meta">نمو التسجيل هذا الفصل</span>
+         </article>
+         <article class="kpi-card" style="--card-accent: var(--color-fg);">
+             <span class="kpi-label" data-i18n="adminKpi2Label">الشركات المعتمدة</span>
+             <div class="kpi-val" id="kpi-employers">0</div>
+             <span class="kpi-meta" data-i18n="adminKpi2Meta">شركاء تدريب نشطون</span>
+         </article>
+         <article class="kpi-card" style="--card-accent: var(--color-fg);">
+             <span class="kpi-label" data-i18n="adminKpi3Label">في انتظار الاعتماد</span>
+             <div class="kpi-val" id="kpi-queue-count">0</div>
+             <span class="kpi-meta" data-i18n="adminKpi3Meta">كيانات بانتظار المراجعة</span>
+         </article>
+         <article class="kpi-card" style="--card-accent: var(--color-fg);">
+             <span class="kpi-label" data-i18n="adminKpi4Label">محرك المطابقة</span>
+             <div class="kpi-val">99.8%</div>
+             <span class="kpi-meta" data-i18n="adminKpi4Meta">تشغيلي · مطابقة نشطة</span>
+         </article>
+     </section>
 
- <!-- Role Authorization Guard Barrier (US14) -->
- <div id="admin-guard-barrier" class="admin-guard-overlay" style="display: none;" role="alertdialog" aria-modal="true" aria-labelledby="guard-title">
- <div class="guard-card">
- <div class="guard-icon">️</div>
- <span class="guard-badge">Security Access Guard</span>
- <h2 id="guard-title">Administrative Authorization Required</h2>
- <p class="guard-desc">
- Access to the Executive Control Center is restricted to authenticated Faculty Administrators of Damanhour University.
- Your current session does not possess administrative clearance.
- </p>
- <div class="guard-actions">
- <a href="auth.html" class="btn btn-primary"> Authenticate as Administrator</a>
- <a href="../index.html" class="btn btn-secondary">← Back to Product Home</a>
- </div>
- <div class="guard-footer">
- <span>HuntYourTrack Security Engine · Role-Based Access Control (RBAC)</span>
- </div>
- </div>
- </div>
+     <!-- Admin Workspace Tabs -->
+     <div class="admin-tabs" role="tablist">
+         <button role="tab" class="admin-tab-btn active" data-tab="users" onclick="switchAdminTab('users')" aria-selected="true" data-i18n="adminTabUsers">إدارة المستخدمين</button>
+         <button role="tab" class="admin-tab-btn" data-tab="verification" onclick="switchAdminTab('verification')" aria-selected="false" data-i18n="adminTabQueue">طابور اعتماد الشركات <span class="tab-badge" id="badge-queue-count">0</span></button>
+         <button role="tab" class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')" aria-selected="false" data-i18n="adminTabSettings">إعدادات المنصة</button>
+     </div>
 
- <!-- Main Admin Dashboard View -->
- <main class="admin-container">
- <!-- Page Title & University Metadata -->
- <section class="page-header">
- <h1 class="page-title" data-i18n="adminPageTitle">Executive Control Center ️</h1>
- <p class="page-subtitle" data-i18n="adminPageSub">Faculty of Computers and Information · Damanhour University (CS Department). Platform Governance & Corporate Accreditation Engine.</p>
- </section>
+     <!-- TAB 1: User Management -->
+     <div id="tab-users" class="tab-panel active" role="tabpanel">
+         <div class="panel-card">
+             <div class="toolbar">
+                 <div class="search-box">
+                     <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                     <input type="text" id="search-users" class="search-input" placeholder="ابحث بالاسم، البريد، أو الكلية..." data-i18n="adminSearchPlaceholder">
+                 </div>
+                 <div class="filter-pills">
+                     <button class="filter-pill active" data-role="All" onclick="filterByRole('All')" data-i18n="adminFilterAll">الكل</button>
+                     <button class="filter-pill" data-role="Student" onclick="filterByRole('Student')" data-i18n="adminFilterStudents">طلاب</button>
+                     <button class="filter-pill" data-role="Employer" onclick="filterByRole('Employer')" data-i18n="adminFilterEmployers">شركات</button>
+                     <button class="filter-pill" data-role="Admin" onclick="filterByRole('Admin')" data-i18n="adminFilterAdmins">مشرفون</button>
+                     <button class="filter-pill" data-role="Organizer" onclick="filterByRole('Organizer')" data-i18n="adminFilterOrganizers">منظمون</button>
+                 </div>
+             </div>
 
- <!-- KPI Metrics Grid (US04) -->
- <section class="kpi-grid">
- <div class="kpi-card" style="--card-accent: #6366F1;">
- <span class="kpi-label" data-i18n="adminKpi1Label">Registered Students</span>
- <div class="kpi-val" id="kpi-students">1,424</div>
- <span class="kpi-meta" data-i18n="adminKpi1Meta">↑ 12% enrollment growth this semester</span>
- </div>
+             <div class="table-responsive">
+                 <table class="data-table" role="grid">
+                     <thead>
+                         <tr>
+                             <th style="width: 60px;" data-i18n="adminThId">#</th>
+                             <th data-i18n="adminThProfile">الملف الشخصي</th>
+                             <th data-i18n="adminThRole">الدور</th>
+                             <th data-i18n="adminThAffiliation">الجهة / التخصص</th>
+                             <th data-i18n="adminThStatus">الحالة</th>
+                             <th style="width: 160px;" data-i18n="adminThAction">إجراءات</th>
+                         </tr>
+                     </thead>
+                     <tbody id="users-table-body">
+                         <!-- Populated by admin.js -->
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+     </div>
 
- <div class="kpi-card" style="--card-accent: #16A34A;">
- <span class="kpi-label" data-i18n="adminKpi2Label">Accredited Employers</span>
- <div class="kpi-val" id="kpi-employers">84</div>
- <span class="kpi-meta" data-i18n="adminKpi2Meta">Active corporate training partners</span>
- </div>
+     <!-- TAB 2: Corporate Verification -->
+     <div id="tab-verification" class="tab-panel" role="tabpanel" style="display: none;">
+         <div class="panel-card">
+             <div style="margin-bottom: 1.5rem;">
+                 <h2 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--color-fg); margin-bottom: 0.25rem;" data-i18n="adminQueueTitle">طابور اعتماد الشركات</h2>
+                 <p style="color: var(--color-fg-muted); font-size: 0.9rem;" data-i18n="adminQueueSub">مراجعة السجلات التجارية، البطاقات الضريبية، ونزاهة النطاق قبل منح صلاحيات النشر.</p>
+             </div>
+             <div class="queue-grid" id="queue-grid">
+                 <p style="color: var(--color-fg-muted); text-align: center; padding: 3rem; grid-column: 1 / -1;" data-i18n="adminNoQueue">لا توجد طلبات اعتماد معلقة حالياً.</p>
+             </div>
+         </div>
+     </div>
 
- <div class="kpi-card" style="--card-accent: #F59E0B;">
- <span class="kpi-label" data-i18n="adminKpi3Label">Pending Verifications</span>
- <div class="kpi-val" id="kpi-queue-count" style="color: #D97706;">3</div>
- <span class="kpi-meta" data-i18n="adminKpi3Meta">Entities awaiting accreditation review</span>
- </div>
+     <!-- TAB 3: Platform Settings -->
+     <div id="tab-settings" class="tab-panel" role="tabpanel" style="display: none;">
+         <div class="panel-card" style="max-width: 720px;">
+             <h2 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--color-fg); margin-bottom: 1.5rem;">قواعد النظام ومعاملات المطابقة</h2>
 
- <div class="kpi-card" style="--card-accent: #0284C7;">
- <span class="kpi-label" data-i18n="adminKpi4Label">AI Engine & Matching</span>
- <div class="kpi-val" style="color: #0284C7;">99.8%</div>
- <span class="kpi-meta" data-i18n="adminKpi4Meta">Operational · 312 Active Matched Internships</span>
- </div>
- </section>
+             <form id="platform-settings-form">
+                 <div class="settings-group">
+                     <label class="settings-label" for="setting-min-gpa" data-i18n="adminSettingGpaLabel">حد GPA الأكاديمي للتوصيات المباشرة</label>
+                     <p class="settings-desc" data-i18n="adminSettingGpaDesc">الحد الأدنى لمعدل الطالب لتفعيل مطابقة الذكاء الاصطناعي التلقائية.</p>
+                     <input type="number" id="setting-min-gpa" class="form-control" value="2.5" step="0.1" min="1.0" max="4.0" style="max-width: 200px;" required>
+                 </div>
 
- <!-- Admin Workspace Tabs -->
- <div class="admin-tabs">
- <button class="admin-tab-btn active" data-tab="users" onclick="switchAdminTab('users')" data-i18n="adminTabUsers">
- User Management (Data-Table)
- </button>
- <button class="admin-tab-btn" data-tab="verification" onclick="switchAdminTab('verification')">
- <span data-i18n="adminTabQueue"> Corporate Accreditation Queue</span> <span class="tab-badge" id="badge-queue-count">3</span>
- </button>
- <button class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')" data-i18n="adminTabSettings">
- ️ Platform Configuration
- </button>
- </div>
+                 <div class="settings-group">
+                     <label class="settings-label" for="setting-ai-threshold" data-i18n="adminSettingAiLabel">عتبة ثقة مطابقة الذكاء الاصطناعي</label>
+                     <p class="settings-desc" data-i18n="adminSettingAiDesc">أقل نسبة مطابقة مطلوبة قبل تنبيه الطلاب.</p>
+                     <select id="setting-ai-threshold" class="form-control" style="max-width: 280px;">
+                         <option value="80" data-i18n="adminAi80">80% - توصيات متوازنة</option>
+                         <option value="85" selected data-i18n="adminAi85">85% - مطابقة عالية الثقة (موصى به)</option>
+                         <option value="90" data-i18n="adminAi90">90% - ملاءمة نطاق صارمة فقط</option>
+                     </select>
+                 </div>
 
- <!-- TAB 1: User Management Data-Table (US04) -->
- <div id="tab-users" class="tab-panel active">
- <div class="panel-card">
- <div class="toolbar">
- <div class="search-box">
- <span class="search-icon"></span>
- <input type="text" id="search-users" class="search-input" data-i18n="adminSearchPlaceholder" placeholder="Search by name, email, or faculty...">
- </div>
+                 <div class="settings-group">
+                     <label class="settings-label" data-i18n="adminSettingEmailLabel">تنبيهات البريد الإلكتروني التلقائية</label>
+                     <p class="settings-desc" data-i18n="adminSettingEmailDesc">إخطار الطلاب والشركات تلقائياً عند تغيير الحالات.</p>
+                     <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; cursor: pointer;">
+                         <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: var(--color-fg);">
+                         تمكين تنبيهات الإنجازات والحالة التلقائية
+                     </label>
+                 </div>
 
- <div class="filter-pills">
- <button class="filter-pill active" data-role="All" onclick="filterByRole('All')" data-i18n="adminFilterAll">All Users</button>
- <button class="filter-pill" data-role="Student" onclick="filterByRole('Student')" data-i18n="adminFilterStudents">Students</button>
- <button class="filter-pill" data-role="Employer" onclick="filterByRole('Employer')" data-i18n="adminFilterEmployers">Employers</button>
- <button class="filter-pill" data-role="Admin" onclick="filterByRole('Admin')" data-i18n="adminFilterAdmins">Admins</button>
- </div>
- </div>
+                 <div style="margin-top: 2rem;">
+                     <button type="submit" class="btn btn-primary" data-i18n="adminSaveSettings">حفظ إعدادات المنصة</button>
+                 </div>
+             </form>
+         </div>
+     </div>
 
- <div class="table-responsive">
- <table class="data-table">
- <thead>
- <tr>
- <th style="width: 80px;" data-i18n="adminThId">ID</th>
- <th data-i18n="adminThProfile">User Profile & Email</th>
- <th data-i18n="adminThRole">Role</th>
- <th data-i18n="adminThAffiliation">Affiliation / Organization</th>
- <th data-i18n="adminThStatus">Account Status</th>
- <th style="width: 140px;" data-i18n="adminThAction">Action</th>
- </tr>
- </thead>
- <tbody id="users-table-body">
- <!-- Populated dynamically by admin.js -->
- </tbody>
- </table>
- </div>
- </div>
- </div>
-
- <!-- TAB 2: Corporate Verification Workflow (US05) -->
- <div id="tab-verification" class="tab-panel">
- <div class="panel-card">
- <div style="margin-bottom: 1.25rem;">
- <h2 style="font-size: 1.2rem; font-family: var(--font-heading); color: #0F172A; margin-bottom: 0.25rem;" data-i18n="adminQueueTitle">Employer Accreditation Queue</h2>
- <p style="color: #64748B; font-size: 0.88rem;" data-i18n="adminQueueSub">Review commercial credentials, tax card IDs, and domain integrity before granting university internship posting privileges.</p>
- </div>
-
- <div class="queue-grid" id="queue-grid">
- <!-- Populated dynamically by admin.js -->
- </div>
- </div>
- </div>
-
- <!-- TAB 3: Platform Settings (US04) -->
- <div id="tab-settings" class="tab-panel">
- <div class="panel-card" style="max-width: 720px;">
- <h2 style="font-size: 1.2rem; font-family: var(--font-heading); color: #0F172A; margin-bottom: 1rem;">System Rules & Matching Parameters</h2>
- 
- <form id="platform-settings-form">
- <div class="settings-group">
- <label class="settings-label" for="setting-min-gpa">Academic GPA Cut-off for Direct Internship Recommendations</label>
- <p class="settings-desc">Minimum student GPA required to trigger automated AI matching highlights.</p>
- <input type="number" id="setting-min-gpa" class="form-control" value="2.5" step="0.1" min="1.0" max="4.0" style="max-width: 200px;" required>
- </div>
-
- <div class="settings-group">
- <label class="settings-label" for="setting-ai-threshold">AI Match Confidence Threshold</label>
- <p class="settings-desc">Minimum matching score percentage required before alerting students.</p>
- <select id="setting-ai-threshold" class="form-control" style="max-width: 280px;">
- <option value="80">80% - Balanced Recommendations</option>
- <option value="85" selected>85% - High Confidence Match (Recommended)</option>
- <option value="90">90% - Strict Domain Fit Only</option>
- </select>
- </div>
-
- <div class="settings-group">
- <label class="settings-label">Automated System Email Alerts</label>
- <p class="settings-desc">Notify students and employers automatically upon status transitions.</p>
- <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; cursor: pointer;">
- <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: var(--color-primary);">
- Enable automated sprint milestone and internship status notifications
- </label>
- </div>
-
- <div style="margin-top: 2rem;">
- <button type="submit" class="btn btn-primary">Save Platform Settings</button>
- </div>
- </form>
- </div>
- </div>
  </main>
 
- <!-- Document Viewer Modal (US05) -->
- <div class="modal-overlay" id="doc-modal">
- <div class="modal-content">
- <div class="modal-header">
- <h3 class="modal-title" id="doc-modal-title">Company Credentials</h3>
- <button class="close-btn" onclick="closeModal('doc-modal')">&times;</button>
- </div>
- <div id="doc-modal-body"></div>
- <div style="margin-top: 1.5rem; text-align: right;">
- <button class="btn btn-secondary" onclick="closeModal('doc-modal')">Close Window</button>
- </div>
- </div>
- </div>
-
- <!-- Rejection Modal (US05) -->
- <div class="modal-overlay" id="reject-modal">
- <div class="modal-content">
- <div class="modal-header">
- <h3 class="modal-title" style="color: #B91C1C;">Reject Employer Registration</h3>
- <button class="close-btn" onclick="closeModal('reject-modal')">&times;</button>
- </div>
- <p style="font-size: 0.88rem; color: #475569; margin-bottom: 1rem;">
- Specify the reason for rejecting <strong id="reject-company-name"></strong>. This feedback will be sent to the applicant's official contact email:
- </p>
- <div class="form-group">
- <label for="reject-reason-input">Rejection Reason (Required)</label>
- <textarea id="reject-reason-input" class="form-control" rows="4" placeholder="e.g. Commercial registration document expired, or corporate domain could not be verified." required></textarea>
- </div>
- <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
- <button class="btn btn-secondary" onclick="closeModal('reject-modal')">Cancel</button>
- <button class="btn-sm btn-reject" style="padding: 0.6rem 1.2rem; font-size: 0.88rem;" onclick="confirmRejectEmployer()">Confirm Rejection</button>
- </div>
- </div>
+ <!-- Document Viewer Modal -->
+ <div class="modal-overlay" id="doc-modal" role="dialog" aria-modal="true" aria-labelledby="doc-modal-title">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h3 class="modal-title" id="doc-modal-title">مستندات الشركة</h3>
+             <button class="close-btn" onclick="closeModal('doc-modal')" aria-label="Close">&times;</button>
+         </div>
+         <div id="doc-modal-body"></div>
+         <div style="margin-top: 1.5rem; text-align: end;">
+             <button class="btn btn-secondary" onclick="closeModal('doc-modal')" data-i18n="closeModalBtn">إغلاق</button>
+         </div>
+     </div>
  </div>
 
+ <!-- Rejection Modal -->
+ <div class="modal-overlay" id="reject-modal" role="dialog" aria-modal="true" aria-labelledby="reject-modal-title">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h3 class="modal-title" id="reject-modal-title" style="color: var(--color-fg);">رفض تسجيل الشركة</h3>
+             <button class="close-btn" onclick="closeModal('reject-modal')" aria-label="Close">&times;</button>
+         </div>
+         <p style="font-size: 0.9rem; color: var(--color-fg-muted); margin-bottom: 1rem;">
+             حدد سبب رفض <strong id="reject-company-name"></strong>. سيتم إرسال الملاحظات للبريد الرسمي للمتقدم:
+         </p>
+         <div class="form-group">
+             <label for="reject-reason-input" data-i18n="adminRejectReasonLabel">سبب الرفض (مطلوب)</label>
+             <textarea id="reject-reason-input" class="form-control" rows="4" placeholder="مثال: السجل التجاري منتهي، أو تعذر التحقق من النطاق." required></textarea>
+         </div>
+         <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+             <button class="btn btn-secondary" onclick="closeModal('reject-modal')" data-i18n="cancelBtn">إلغاء</button>
+             <button class="btn action-btn danger" onclick="confirmRejectEmployer()" data-i18n="adminConfirmReject">تأكيد الرفض</button>
+         </div>
+     </div>
+ </div>
+
+ <!-- Scripts -->
  <script src="../js/i18n.js"></script>
- <script src="../js/ocean-background.js"></script>
+ <script src="../js/galaxy.js"></script>
+ <script src="../js/opportunities.js"></script>
  <script src="../js/admin.js"></script>
+ <script src="../js/app.js"></script>
+ <script>
+ // Admin-specific initialization
+ function initAdminDashboard() {
+     const userName = localStorage.getItem('user_name') || 'المشرف';
+     const userEmail = localStorage.getItem('user_email') || '';
+
+     document.getElementById('user-display')?.textContent = userName;
+     document.getElementById('dropdown-user-name')?.textContent = userName;
+     document.getElementById('dropdown-user-email')?.textContent = userEmail;
+
+     // Initialize tabs
+     switchAdminTab('users');
+     renderUsersTable();
+     renderQueue();
+ }
+
+ function switchAdminTab(tabName) {
+     document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+         btn.classList.toggle('active', btn.dataset.tab === tabName);
+         btn.setAttribute('aria-selected', btn.dataset.tab === tabName);
+     });
+     document.querySelectorAll('.tab-panel').forEach(panel => {
+         panel.style.display = panel.id === 'tab-' + tabName ? 'block' : 'none';
+     });
+ }
+
+ function filterByRole(role) {
+     document.querySelectorAll('.filter-pill').forEach(btn => {
+         btn.classList.toggle('active', btn.dataset.role === role);
+     });
+     renderUsersTable(role);
+ }
+
+ // Users Table Rendering
+ const MOCK_USERS = [
+     { id: 1, name: "مريم حسن", email: "mariam@student.damanhour.edu.eg", role: "Student", faculty: "الحاسبات والذكاء الاصطناعي", dept: "الأمن السيبراني", status: "Active" },
+     { id: 2, name: "عمر خالد", email: "omar@student.damanhour.edu.eg", role: "Student", faculty: "الحاسبات والذكاء الاصطناعي", dept: "علوم الحاسب", status: "Active" },
+     { id: 3, name: "شركة تك كورب", email: "hr@techcorp.com", role: "Employer", org: "TechCorp Egypt", dept: "Cloud & DevOps", status: "Active" },
+     { id: 4, name: "أحمد علي", email: "ahmed@admin.damanhour.edu.eg", role: "Admin", org: "كلية الحاسبات", dept: "إدارة النظام", status: "Active" },
+     { id: 5, name: "منظمة مهارات", email: "contact@skills.org", role: "Organizer", org: "Skills Foundation", dept: "تدريب صيفي", status: "Pending" },
+ ];
+
+ function renderUsersTable(filterRole = 'All') {
+     const tbody = document.getElementById('users-table-body');
+     if (!tbody) return;
+
+     const filtered = filterRole === 'All'
+         ? MOCK_USERS
+         : MOCK_USERS.filter(u => u.role === filterRole);
+
+     const searchTerm = document.getElementById('search-users')?.value?.toLowerCase() || '';
+     const searched = filtered.filter(u =>
+         u.name.toLowerCase().includes(searchTerm) ||
+         u.email.toLowerCase().includes(searchTerm) ||
+         (u.faculty || u.org || '').toLowerCase().includes(searchTerm)
+     );
+
+     tbody.innerHTML = searched.map((u, idx) => `
+         <tr>
+             <td>${u.id}</td>
+             <td>
+                 <div style="font-weight: 600; color: var(--color-fg);">${u.name}</div>
+                 <div style="font-size: 0.8rem; color: var(--color-fg-muted);">${u.email}</div>
+             </td>
+             <td><span class="role-badge ${u.role.toLowerCase()}">${u.role}</span></td>
+             <td>
+                 <div style="font-weight: 500; color: var(--color-fg);">${u.faculty || u.org}</div>
+                 <div style="font-size: 0.8rem; color: var(--color-fg-muted);">${u.dept}</div>
+             </td>
+             <td><span class="status-badge ${u.status.toLowerCase()}">${u.status}</span></td>
+             <td>
+                 <div style="display: flex; gap: 0.375rem;">
+                     <button class="action-btn primary" onclick="viewUser(${u.id})" data-i18n="adminViewBtn">عرض</button>
+                     <button class="action-btn" onclick="editUser(${u.id})" data-i18n="adminEditBtn">تعديل</button>
+                     <button class="action-btn danger" onclick="deleteUser(${u.id})" data-i18n="adminDeleteBtn">حذف</button>
+                 </div>
+             </td>
+         </tr>
+     `).join('');
+ }
+
+ function viewUser(id) { window.showToast?.('عرض المستخدم #' + id, 'info'); }
+ function editUser(id) { window.showToast?.('تعديل المستخدم #' + id, 'info'); }
+ function deleteUser(id) {
+     if (confirm(document.documentElement.lang === 'ar' ? 'حذف هذا المستخدم؟' : 'Delete this user?')) {
+         window.showToast?.('تم الحذف', 'success');
+     }
+ }
+
+ // Queue Rendering
+ const MOCK_QUEUE = [
+     { id: 101, company: "ستارت أب للحلول", email: "founder@startup.io", regNumber: "123456789", domain: "startup.io", submitted: "2026-01-15", status: "Pending", type: "Company" },
+     { id: 102, company: "أكاديمية الكود", email: "admin@codeacademy.edu", regNumber: "EDU-98765", domain: "codeacademy.edu", submitted: "2026-01-10", status: "Pending", type: "Academic" },
+     { id: 103, company: "مصنع الإلكترونيات", email: "hr@electronics.com", regNumber: "IND-555444", domain: "electronics.com", submitted: "2026-01-05", status: "Pending", type: "Industrial" },
+ ];
+
+ function renderQueue() {
+     const grid = document.getElementById('queue-grid');
+     if (!grid) return;
+
+     grid.innerHTML = MOCK_QUEUE.map(q => `
+         <article class="queue-card">
+             <div class="queue-header">
+                 <h3 class="queue-title">${q.company}</h3>
+                 <span class="status-badge ${q.status.toLowerCase()}">${q.status}</span>
+             </div>
+             <div class="queue-meta">${q.email} · ${q.type}</div>
+             <div class="queue-details">
+                 <div class="queue-detail"><span class="queue-detail-label" data-i18n="adminQueueReg">السجل التجاري:</span><span class="queue-detail-value">${q.regNumber}</span></div>
+                 <div class="queue-detail"><span class="queue-detail-label" data-i18n="adminQueueDomain">النطاق:</span><span class="queue-detail-value">${q.domain}</span></div>
+                 <div class="queue-detail"><span class="queue-detail-label" data-i18n="adminQueueDate">تاريخ التقديم:</span><span class="queue-detail-value">${q.submitted}</span></div>
+             </div>
+             <div class="queue-actions">
+                 <button class="action-btn primary" onclick="viewDocuments(${q.id})" data-i18n="adminViewDocs">عرض المستندات</button>
+                 <button class="action-btn" onclick="approveEmployer(${q.id})" data-i18n="adminApproveBtn">اعتماد</button>
+                 <button class="action-btn danger" onclick="rejectEmployer(${q.id})" data-i18n="adminRejectBtn">رفض</button>
+             </div>
+         </article>
+     `).join('');
+
+     document.getElementById('badge-queue-count').textContent = MOCK_QUEUE.length;
+     document.getElementById('kpi-queue-count').textContent = MOCK_QUEUE.length;
+ }
+
+ function viewDocuments(id) {
+     const q = MOCK_QUEUE.find(x => x.id === id);
+     if (!q) return;
+     document.getElementById('doc-modal-body').innerHTML = `
+         <div style="display: grid; gap: 1rem;">
+             <div><strong data-i18n="adminDocCompany">الشركة:</strong> ${q.company}</div>
+             <div><strong data-i18n="adminDocEmail">البريد:</strong> ${q.email}</div>
+             <div><strong data-i18n="adminDocReg">السجل التجاري:</strong> ${q.regNumber}</div>
+             <div><strong data-i18n="adminDocDomain">النطاق:</strong> ${q.domain}</div>
+             <div><strong data-i18n="adminDocType">النوع:</strong> ${q.type}</div>
+             <div><strong data-i18n="adminDocDate">تاريخ التقديم:</strong> ${q.submitted}</div>
+         </div>
+     `;
+     document.getElementById('doc-modal').classList.add('show');
+ }
+
+ function closeModal(id) {
+     document.getElementById(id)?.classList.remove('show');
+ }
+
+ function approveEmployer(id) {
+     if (confirm('اعتماد هذه الشركة؟')) {
+         const idx = MOCK_QUEUE.findIndex(q => q.id === id);
+         if (idx !== -1) MOCK_QUEUE.splice(idx, 1);
+         renderQueue();
+         window.showToast?.('تم اعتماد الشركة', 'success');
+     }
+ }
+
+ function rejectEmployer(id) {
+     const q = MOCK_QUEUE.find(x => x.id === id);
+     if (!q) return;
+     document.getElementById('reject-company-name').textContent = q.company;
+     document.getElementById('reject-reason-input').value = '';
+     document.getElementById('reject-modal').dataset.targetId = id;
+     document.getElementById('reject-modal').classList.add('show');
+ }
+
+ function confirmRejectEmployer() {
+     const id = parseInt(document.getElementById('reject-modal').dataset.targetId);
+     const reason = document.getElementById('reject-reason-input').value.trim();
+     if (!reason) return;
+     const idx = MOCK_QUEUE.findIndex(q => q.id === id);
+     if (idx !== -1) MOCK_QUEUE.splice(idx, 1);
+     renderQueue();
+     closeModal('reject-modal');
+     window.showToast?.('تم رفض الطلب وإرسال الملاحظات', 'success');
+ }
+
+ // Initialize
+ if (document.readyState === 'loading') {
+     document.addEventListener('DOMContentLoaded', initAdminDashboard);
+ } else {
+     initAdminDashboard();
+ }
+
+ // Search handler
+ document.getElementById('search-users')?.addEventListener('input', () => {
+     const activeFilter = document.querySelector('.filter-pill.active')?.dataset.role || 'All';
+     renderUsersTable(activeFilter);
+ });
+
+ // Settings form
+ document.getElementById('platform-settings-form')?.addEventListener('submit', (e) => {
+     e.preventDefault();
+     window.showToast?.('تم حفظ الإعدادات', 'success');
+ });
+
+ // Close modals on backdrop click
+ document.querySelectorAll('.modal-overlay').forEach(overlay => {
+     overlay.addEventListener('click', (e) => {
+         if (e.target === overlay) overlay.classList.remove('show');
+     });
+ });
+
+ // ESC key
+ document.addEventListener('keydown', (e) => {
+     if (e.key === 'Escape') document.queryesterAll('.modal-overlay').forEach(m => m.classList.remove('show'));
+ });
+ </script>
 </body>
 </html>
