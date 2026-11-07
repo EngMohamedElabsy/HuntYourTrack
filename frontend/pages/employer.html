@@ -1,941 +1,902 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" data-theme="light">
 <head>
- <!-- Strict Route Guard (US17) -->
+ <!-- Strict Route Guard -->
  <script>
  (function() {
- var params = new URLSearchParams(window.location.search);
- if (params.get('demo') === 'true') {
- localStorage.setItem('user', 'employer');
- localStorage.setItem('role', 'employer');
- localStorage.setItem('user_name', 'TechCorp Organizer');
- localStorage.setItem('user_email', 'hr@techcorp.com');
- }
- var user = localStorage.getItem('user');
- if (!user) {
- window.location.replace('auth.html?redirect=employer&error=login_required');
- }
+     var params = new URLSearchParams(window.location.search);
+     if (params.get('demo') === 'true') {
+         localStorage.setItem('user', 'employer');
+         localStorage.setItem('role', 'employer');
+         localStorage.setItem('user_name', 'TechCorp Organizer');
+         localStorage.setItem('user_email', 'hr@techcorp.com');
+     }
+     var user = localStorage.getItem('user');
+     if (!user || (user !== 'employer' && user !== 'organizer')) {
+         window.location.replace('auth.html?redirect=employer&error=login_required');
+     }
  })();
  </script>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="theme-color" content="#EEF2FF">
- <title data-i18n="empPageTitle">HuntYourTrack · بوابة الشركات ومنظمي التدريب | Employer Hub</title>
- <link rel="icon" href="../assets/logo.png">
- <!-- Fonts & Base Styles -->
+ <meta name="theme-color" content="#000000">
+ <title data-i18n="empPageTitle">HuntYourTrack · بوابة الشركات والمنظمين | Employer Hub</title>
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link rel="stylesheet" href="../css/style.css">
  <style>
  .employer-layout {
- min-height: 100vh;
- display: flex;
- flex-direction: column;
- background-color: var(--color-background);
- color: var(--color-foreground);
+     min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+     background: var(--color-bg);
  }
 
- .employer-nav {
- background: var(--color-card);
- border-bottom: 1px solid var(--color-border);
- padding: 0.85rem 2rem;
- display: flex;
- align-items: center;
- justify-content: space-between;
- position: sticky;
- top: 0;
- z-index: 100;
- box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+ /* Galaxy Canvas */
+ .galaxy-canvas { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+
+ /* Top Bar - Consistent with Landing */
+ .top-bar {
+     position: fixed;
+     top: 0; left: 0; right: 0;
+     z-index: 1000;
+     height: 64px;
+     background: var(--glass);
+     backdrop-filter: blur(20px);
+     -webkit-backdrop-filter: blur(20px);
+     border-bottom: 1px solid var(--color-border);
+     transition: background var(--transition-base), border-color var(--transition-base);
  }
 
- .nav-brand {
- display: flex;
- align-items: center;
- gap: 0.75rem;
- text-decoration: none;
- color: var(--color-foreground);
- font-weight: 700;
- font-size: 1.15rem;
+ .top-bar.scrolled { background: var(--glass-strong); box-shadow: var(--shadow-sm); }
+
+ .top-bar-inner {
+     max-width: 1400px; margin: 0 auto;
+     padding: 0 1.5rem; height: 100%;
+     display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
  }
 
- .nav-brand img {
- height: 38px;
- width: auto;
- border-radius: 8px;
+ .brand { display: flex; align-items: center; text-decoration: none; color: var(--color-fg); }
+ .brand:hover { opacity: 0.7; }
+ .brand-logo { width: 40px; height: 40px; flex-shrink: 0; }
+
+ .top-bar-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+ .icon-btn {
+     display: inline-flex; align-items: center; justify-content: center;
+     width: 40px; height: 40px; border-radius: var(--radius-full);
+     color: var(--color-fg); transition: all var(--transition-fast);
  }
+ .icon-btn:hover { background: var(--color-bg-elevated); transform: scale(1.05); }
+
+ .icon-btn svg { width: 18px; height: 18px; }
+
+ #theme-toggle .icon-sun { display: block; }
+ #theme-toggle .icon-moon { display: none; }
+ [data-theme="dark"] #theme-toggle .icon-sun { display: none; }
+ [data-theme="dark"] #theme-toggle .icon-moon { display: block; }
 
  .nav-tabs {
- display: flex;
- gap: 0.5rem;
- align-items: center;
+     display: flex; gap: 0.25rem;
+     background: var(--color-bg-elevated);
+     padding: 4px; border-radius: var(--radius-md);
  }
 
  .tab-btn {
- background: transparent;
- border: 1px solid transparent;
- color: var(--color-muted-foreground);
- padding: 0.55rem 1.1rem;
- border-radius: 10px;
- font-family: inherit;
- font-weight: 600;
- font-size: 0.92rem;
- cursor: pointer;
- transition: all 0.2s ease;
- text-decoration: none;
- display: inline-flex;
- align-items: center;
- gap: 0.5rem;
+     flex: 1; padding: 0.5rem 1rem;
+     font-size: 0.85rem; font-weight: 600;
+     border-radius: var(--radius-sm);
+     color: var(--color-fg-muted); background: transparent;
+     transition: all var(--transition-fast);
  }
-
- .tab-btn:hover {
- color: var(--color-primary);
- background: var(--color-muted);
- }
-
+ .tab-btn:hover { color: var(--color-fg); }
  .tab-btn.active {
- background: var(--color-primary);
- color: #FFFFFF;
+     background: var(--color-fg); color: var(--color-bg);
  }
-
  .tab-badge {
- background: rgba(255,255,255,0.25);
- color: inherit;
- border-radius: 999px;
- font-size: 0.75rem;
- padding: 0.1rem 0.5rem;
- font-weight: 700;
+     margin-inline-start: 0.5rem;
+     padding: 0.125rem 0.5rem;
+     font-size: 0.65rem; font-weight: 700;
+     border-radius: var(--radius-full);
+     background: var(--color-fg); color: var(--color-bg);
  }
 
- .tab-btn:not(.active) .tab-badge {
- background: var(--color-border);
- color: var(--color-foreground);
- }
+ .user-menu-wrapper { position: relative; display: flex; align-items: center; }
 
- .nav-actions {
- display: flex;
- align-items: center;
- gap: 0.75rem;
+ .user-pill {
+     display: flex; align-items: center; gap: 0.5rem;
+     padding: 0.375rem 0.75rem 0.375rem 0.5rem;
+     border-radius: var(--radius-full);
+     border: 1px solid var(--color-border);
+     background: var(--color-bg); color: var(--color-fg);
+     font-size: 0.85rem; font-weight: 500;
+     transition: all var(--transition-fast);
  }
+ .user-pill:hover { border-color: var(--color-border-strong); background: var(--color-bg-elevated); }
 
+ .user-avatar { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--color-fg); color: var(--color-bg); }
+ .user-avatar svg { width: 14px; height: 14px; }
+ .user-name { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .user-caret { font-size: 0.6rem; transition: transform var(--transition-fast); }
+
+ .user-dropdown {
+     position: absolute; top: calc(100% + 8px); right: 0;
+     min-width: 220px; padding: 0.5rem;
+     background: var(--glass-strong); backdrop-filter: blur(20px);
+     border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+     box-shadow: var(--shadow-xl); z-index: 100;
+     display: none; animation: fadeSlideDown 150ms var(--transition-base);
+ }
+ @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+ .user-dropdown.show { display: block; }
+
+ .user-dropdown-header { padding: 0.75rem 1rem; border-bottom: 1px solid var(--color-border); margin-bottom: 0.5rem; }
+ .user-dropdown-header strong { display: block; color: var(--color-fg); font-size: 0.9rem; }
+ .user-role-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 0.125rem 0.5rem; border-radius: var(--radius-full); background: var(--color-fg); color: var(--color-bg); margin-top: 0.25rem; }
+ .user-dropdown-header small { display: block; color: var(--color-fg-muted); font-size: 0.75rem; margin-top: 0.25rem; }
+
+ .user-dropdown-item {
+     display: flex; align-items: center; gap: 0.5rem;
+     padding: 0.625rem 1rem; border-radius: var(--radius-md);
+     color: var(--color-fg); font-size: 0.85rem; font-weight: 500;
+     transition: background var(--transition-fast);
+ }
+ .user-dropdown-item:hover { background: var(--color-bg-elevated); }
+ .user-dropdown-item.signout { color: var(--color-fg); }
+
+ /* Main Container */
  .portal-container {
- max-width: 1200px;
- margin: 2rem auto;
- padding: 0 1.5rem;
- width: 100%;
- flex: 1;
+     max-width: 1200px; margin: 80px auto 0;
+     padding: 2rem 1.5rem 4rem; width: 100%; flex: 1;
  }
 
- .tab-content {
- display: none;
- }
-
- .tab-content.active {
- display: block;
- animation: fadeIn 0.25s ease-out;
- }
-
- @keyframes fadeIn {
- from { opacity: 0; transform: translateY(6px); }
- to { opacity: 1; transform: translateY(0); }
- }
-
- /* Stats Cards */
+ /* Stats Grid */
  .stats-grid {
- display: grid;
- grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
- gap: 1.25rem;
- margin-bottom: 2rem;
+     display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+     gap: 1.5rem; margin-bottom: 2rem;
  }
 
  .stat-card {
- background: var(--color-card);
- border: 1px solid var(--color-border);
- border-radius: 18px;
- padding: 1.5rem;
- box-shadow: 0 4px 15px rgba(0,0,0,0.02);
- display: flex;
- flex-direction: column;
- gap: 0.35rem;
+     padding: 1.5rem; border: 1px solid var(--color-border);
+     border-radius: var(--radius-xl); background: var(--color-bg);
+     transition: all var(--transition-base);
  }
+ .stat-card:hover { border-color: var(--color-border-strong); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
 
- .stat-val {
- font-size: 2.2rem;
- font-weight: 800;
- color: var(--color-primary);
- line-height: 1.1;
- }
+ .stat-val { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; color: var(--color-fg); line-height: 1; }
+ .stat-title { color: var(--color-fg-muted); font-size: 0.9rem; font-weight: 600; }
 
- .stat-title {
- color: var(--color-muted-foreground);
- font-size: 0.92rem;
- font-weight: 600;
- }
-
- /* Two columns */
- .split-grid {
- display: grid;
- grid-template-columns: 1.6fr 1fr;
- gap: 1.5rem;
- }
-
- @media (max-width: 900px) {
- .split-grid { grid-template-columns: 1fr; }
- .employer-nav { flex-wrap: wrap; gap: 1rem; }
- }
+ /* Split Grid */
+ .split-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 1.5rem; }
+ @media (max-width: 900px) { .split-grid { grid-template-columns: 1fr; } }
 
  .panel-card {
- background: var(--color-card);
- border: 1px solid var(--color-border);
- border-radius: 20px;
- padding: 1.75rem;
- box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+     background: var(--color-bg);
+     border: 1px solid var(--color-border);
+     border-radius: var(--radius-xl);
+     padding: 1.75rem;
+     transition: all var(--transition-base);
  }
 
  .panel-head {
- display: flex;
- justify-content: space-between;
- align-items: center;
- margin-bottom: 1.25rem;
- padding-bottom: 0.75rem;
- border-bottom: 1px solid var(--color-border);
+     display: flex; justify-content: space-between; align-items: center;
+     margin-bottom: 1.25rem; padding-bottom: 0.75rem;
+     border-bottom: 1px solid var(--color-border);
  }
 
  .panel-head h2, .panel-head h3 {
- font-size: 1.2rem;
- font-weight: 700;
- margin: 0;
+     font-size: 1.2rem; font-weight: 700; margin: 0;
  }
 
- /* Post Item */
+ /* Post Row */
  .post-row {
- display: flex;
- justify-content: space-between;
- align-items: center;
- padding: 1rem 0;
- border-bottom: 1px solid var(--color-border);
- gap: 1rem;
+     display: flex; justify-content: space-between; align-items: center;
+     padding: 1rem 0; border-bottom: 1px solid var(--color-border); gap: 1rem;
  }
-
  .post-row:last-child { border-bottom: none; }
 
  .tag-pill {
- display: inline-block;
- font-size: 0.75rem;
- font-weight: 600;
- border-radius: 999px;
- padding: 0.2rem 0.65rem;
- background: var(--color-muted);
- color: var(--color-foreground);
- margin-inline-end: 0.5rem;
+     display: inline-block; font-size: 0.7rem; font-weight: 700;
+     padding: 0.25rem 0.625rem; border-radius: var(--radius-full);
+     text-transform: uppercase; white-space: nowrap;
  }
+ .tag-pill.internship { background: var(--color-fg); color: var(--color-bg); }
+ .tag-pill.course { background: var(--color-bg-elevated); color: var(--color-fg); border: 1px solid var(--color-border); }
+ .tag-pill.closed { background: var(--color-bg-elevated); color: var(--color-fg-muted); border: 1px solid var(--color-border); }
 
- .tag-pill.paid {
- background: rgba(22, 163, 74, 0.15);
- color: #16A34A;
- }
-
- .tag-pill.free {
- background: rgba(99, 102, 241, 0.15);
- color: var(--color-primary);
- }
-
- /* Form elements */
- .form-group {
- margin-bottom: 1.25rem;
- }
-
- .form-group label {
- display: block;
- margin-bottom: 0.45rem;
- font-weight: 600;
- font-size: 0.92rem;
- }
-
+ /* Form Elements */
+ .form-group { margin-bottom: 1.25rem; }
+ .form-group label { display: block; margin-bottom: 0.375rem; font-weight: 600; font-size: 0.85rem; color: var(--color-fg); }
  .form-control {
- width: 100%;
- padding: 0.75rem 1rem;
- border: 1px solid var(--color-border);
- border-radius: 12px;
- background: var(--color-card);
- color: var(--color-foreground);
- font-family: inherit;
- font-size: 0.95rem;
+     width: 100%; padding: 0.75rem 1rem;
+     border: 1px solid var(--color-border); border-radius: var(--radius-md);
+     background: var(--color-bg); color: var(--color-fg);
+     font-family: inherit; font-size: 0.95rem;
+     transition: all var(--transition-fast);
  }
-
  .form-control:focus {
- outline: none;
- border-color: var(--color-primary);
- box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+     outline: none; border-color: var(--color-fg);
+     box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-fg) 15%, transparent);
  }
 
- /* Skill chips */
- .skills-picker {
- border: 1px solid var(--color-border);
- border-radius: 12px;
- padding: 0.75rem;
- background: var(--color-card);
- }
+ .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+ @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
 
- .selected-skills {
- display: flex;
- flex-wrap: wrap;
- gap: 0.45rem;
- margin-bottom: 0.5rem;
- min-height: 28px;
- }
-
+ /* Skills Picker */
+ .skills-picker { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.75rem; background: var(--color-bg); }
+ .selected-skills { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-bottom: 0.5rem; min-height: 28px; }
  .skill-tag {
- background: var(--color-primary);
- color: #FFFFFF;
- padding: 0.25rem 0.65rem;
- border-radius: 999px;
- font-size: 0.85rem;
- font-weight: 600;
- display: inline-flex;
- align-items: center;
- gap: 0.35rem;
+     display: inline-flex; align-items: center; gap: 0.375rem;
+     background: var(--color-fg); color: var(--color-bg);
+     padding: 0.25rem 0.625rem; border-radius: var(--radius-full);
+     font-size: 0.75rem; font-weight: 600;
  }
-
- .skill-tag button {
- background: transparent;
- border: none;
- color: #FFFFFF;
- cursor: pointer;
- font-size: 1rem;
- line-height: 1;
- }
-
- .skill-options {
- display: flex;
- flex-wrap: wrap;
- gap: 0.35rem;
- max-height: 120px;
- overflow-y: auto;
- margin-top: 0.5rem;
- padding-top: 0.5rem;
- border-top: 1px solid var(--color-border);
- }
-
+ .skill-tag button { background: transparent; border: none; color: inherit; cursor: pointer; font-size: 1rem; line-height: 1; padding: 0; }
+ .skill-options { display: flex; flex-wrap: wrap; gap: 0.35rem; max-height: 120px; overflow-y: auto; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--color-border); }
  .skill-opt-btn {
- background: var(--color-muted);
- border: 1px solid var(--color-border);
- color: var(--color-foreground);
- padding: 0.25rem 0.65rem;
- border-radius: 999px;
- cursor: pointer;
- font-size: 0.82rem;
- font-family: inherit;
+     background: var(--color-bg); border: 1px solid var(--color-border);
+     color: var(--color-fg); padding: 0.25rem 0.625rem;
+     border-radius: var(--radius-full); cursor: pointer;
+     font-size: 0.8rem; font-family: inherit;
+     transition: all var(--transition-fast);
  }
+ .skill-opt-btn:hover { border-color: var(--color-fg); color: var(--color-fg); }
+ .skill-opt-btn.active { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
 
- .skill-opt-btn:hover {
- border-color: var(--color-primary);
- }
-
- .skill-opt-btn.active {
- background: var(--color-primary);
- color: #FFFFFF;
- border-color: var(--color-primary);
- }
-
- /* Applicant Review Split View */
- .applicant-split {
- display: grid;
- grid-template-columns: 340px 1fr;
- gap: 1.5rem;
- }
-
- @media (max-width: 800px) {
- .applicant-split { grid-template-columns: 1fr; }
- }
+ /* Applicant Split */
+ .applicant-split { display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem; }
+ @media (max-width: 800px) { .applicant-split { grid-template-columns: 1fr; } }
 
  .applicant-item {
- display: flex;
- align-items: center;
- gap: 0.85rem;
- padding: 0.9rem;
- border-radius: 12px;
- border: 1px solid var(--color-border);
- margin-bottom: 0.5rem;
- cursor: pointer;
- background: var(--color-card);
- transition: all 0.2s ease;
+     display: flex; align-items: center; gap: 0.85rem;
+     padding: 0.9rem; border-radius: var(--radius-md);
+     border: 1px solid var(--color-border); margin-bottom: 0.5rem;
+     cursor: pointer; background: var(--color-bg);
+     transition: all var(--transition-fast);
  }
-
  .applicant-item:hover, .applicant-item.selected {
- border-color: var(--color-primary);
- background: rgba(99, 102, 241, 0.04);
+     border-color: var(--color-fg); background: var(--color-bg-elevated);
  }
 
  .match-circle {
- width: 44px;
- height: 44px;
- border-radius: 50%;
- display: grid;
- place-items: center;
- font-weight: 800;
- font-size: 0.88rem;
- flex-shrink: 0;
- border: 2px solid;
+     width: 44px; height: 44px; border-radius: 50%;
+     display: grid; place-items: center;
+     font-weight: 800; font-size: 0.85rem; flex-shrink: 0;
+     border: 2px solid;
  }
+ .match-high { border-color: var(--color-fg); color: var(--color-fg); background: color-mix(in srgb, var(--color-fg) 10%, transparent); }
+ .match-mid { border-color: var(--color-fg-muted); color: var(--color-fg-muted); background: color-mix(in srgb, var(--color-fg-muted) 10%, transparent); }
+ .match-low { border-color: var(--color-fg-muted); color: var(--color-fg-muted); background: color-mix(in srgb, var(--color-fg-muted) 10%, transparent); }
 
- .match-high { border-color: #16A34A; color: #16A34A; background: rgba(22, 163, 74, 0.1); }
- .match-mid { border-color: #EAB308; color: #CA8A04; background: rgba(234, 179, 8, 0.1); }
- .match-low { border-color: #EF4444; color: #DC2626; background: rgba(239, 68, 68, 0.1); }
+ /* Tab Content */
+ .tab-content { display: none; animation: fadeIn 200ms var(--transition-base); }
+ .tab-content.active { display: block; }
+
+ @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+ /* Progress Bar */
+ .progress-bar-container { width: 100%; height: 8px; background: var(--color-border); border-radius: var(--radius-full); overflow: hidden; }
+ .progress-bar-fill { height: 100%; background: var(--color-fg); border-radius: var(--radius-full); transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
+
+ /* Modal */
+ .modal { border: none; border-radius: var(--radius-xl); background: var(--color-bg); box-shadow: var(--shadow-xl); padding: 0; max-width: 580px; width: 90vw; max-height: 90vh; overflow-y: auto; }
+ .modal::backdrop { background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); }
+
+ /* Responsive */
+ @media (max-width: 900px) {
+     .split-grid { grid-template-columns: 1fr; }
+     .applicant-split { grid-template-columns: 1fr; }
+     .top-bar-inner { padding: 0 1rem; }
+     .brand-logo { width: 36px; height: 36px; }
+     .nav-tabs { gap: 0; }
+     .tab-btn { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
+ }
  </style>
 </head>
-<body class="employer-layout">
+<body>
 
- <!-- Employer Navigation Header -->
- <header class="employer-nav">
- <a href="../index.html" class="nav-brand">
- <img src="../assets/logo.png" alt="HuntYourTrack Logo">
- <div>
- <span>HuntYourTrack</span>
- <span style="display: block; font-size: 0.75rem; color: var(--color-primary); font-weight: 600;"> Employer & Partner Workspace</span>
- </div>
- </a>
+ <!-- Galaxy Canvas -->
+ <canvas id="galaxy-canvas" class="galaxy-canvas" aria-hidden="true"></canvas>
 
- <!-- Navigation Tabs -->
- <nav class="nav-tabs" aria-label="Employer Sections">
- <button type="button" class="tab-btn active" data-tab="overview" onclick="switchSection('overview')">
- <span data-i18n="empTabOverview"> لوحة المتابعة</span>
- </button>
- <button type="button" class="tab-btn" data-tab="post" onclick="switchSection('post')">
- <span data-i18n="empTabPost"> نشر تدريب جديد</span>
- </button>
- <button type="button" class="tab-btn" data-tab="applicants" onclick="switchSection('applicants')">
- <span data-i18n="empTabApplicants"> مراجعة المتقدمين</span>
- <span class="tab-badge" id="applicants-badge">5</span>
- </button>
+ <!-- Top Bar -->
+ <nav class="top-bar" id="top-bar" role="navigation" aria-label="Main navigation">
+     <div class="top-bar-inner">
+         <a href="../index.html" class="brand" aria-label="HuntYourTrack Home">
+             <svg class="brand-logo" width="40" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hunt Your Track">
+                 <g class="logo-hunt" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                     <path d="M4 36 V6 M4 6 h10 M4 21 h10 M14 6 v30"/>
+                     <circle cx="9" cy="3" r="3" fill="currentColor"/>
+                     <path d="M14 15 Q25 5, 40 15 Q55 25, 60 15" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.5"/>
+                     <g transform="translate(60, 15)">
+                         <ellipse cx="0" cy="0" rx="5" ry="2.5" stroke-width="1.5"/>
+                         <path d="M-5 0 Q-8 -3, -10 0 Q-8 3, -5 0" stroke-width="1.5"/>
+                         <circle cx="-1.5" cy="-0.5" r="0.8" fill="currentColor"/>
+                     </g>
+                 </g>
+                 <g class="logo-your" font-family="'Sora', 'Inter', sans-serif" font-weight="600" font-size="14" fill="currentColor" text-anchor="middle" opacity="0.6">
+                     <text x="80" y="27" letter-spacing="0.3">YOUR</text>
+                     <path d="M80 30 L90 24 M80 30 L90 36" stroke-width="1.5" opacity="0.4"/>
+                 </g>
+                 <g class="logo-track" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none">
+                     <path d="M108 34 L152 34 M108 12 L152 12" opacity="0.25" stroke-width="1.5"/>
+                     <g stroke-width="1.5" opacity="0.4">
+                         <line x1="112" y1="12" x2="112" y2="34"/>
+                         <line x1="124" y1="12" x2="124" y2="34"/>
+                         <line x1="136" y1="12" x2="136" y2="34"/>
+                         <line x1="148" y1="12" x2="148" y2="34"/>
+                     </g>
+                     <circle id="track-target" cx="148" cy="23" r="4" stroke-width="1.5"/>
+                     <circle cx="148" cy="23" r="1.5" fill="currentColor"/>
+                 </g>
+                 <animate href="#track-target" attributeName="r" values="4;5.5;4" dur="1.8s" repeatCount="indefinite"/>
+             </svg>
+         </a>
+
+         <nav class="nav-tabs" aria-label="Employer Sections">
+             <button class="tab-btn active" data-tab="overview" onclick="switchSection('overview')" data-i18n="empTabOverview">لوحة المتابعة</button>
+             <button class="tab-btn" data-tab="post" onclick="switchSection('post')" data-i18n="empTabPost">نشر تدريب جديد</button>
+             <button class="tab-btn" data-tab="applicants" onclick="switchSection('applicants')" data-i18n="empTabApplicants">مراجعة المتقدمين <span class="tab-badge" id="applicants-badge">0</span></button>
+         </nav>
+
+         <div class="top-bar-actions" id="top-bar-actions">
+             <a href="../index.html" class="btn btn-secondary btn-sm" data-i18n="empHomeBtn">الرئيسية</a>
+             <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme">
+                 <span class="icon-sun"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span>
+                 <span class="icon-moon" style="display:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
+             </button>
+
+             <div class="user-menu-wrapper" id="user-menu-wrapper">
+                 <button class="user-pill" type="button" onclick="toggleUserMenu(event)" aria-label="User menu" aria-expanded="false">
+                     <span class="user-avatar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></span>
+                     <span class="user-name" id="user-display"></span>
+                     <span class="user-caret">▾</span>
+                 </button>
+                 <div class="user-dropdown" id="user-dropdown">
+                     <div class="user-dropdown-header">
+                         <strong id="dropdown-user-name"></strong>
+                         <span class="user-role-badge" data-i18n="roleEmployer">منظم</span>
+                         <small id="dropdown-user-email"></small>
+                     </div>
+                     <a href="employer.html" class="user-dropdown-item" data-i18n="navEmployerPortal">لوحة الشركة</a>
+                     <a href="../index.html" class="user-dropdown-item" data-i18n="navExploreHome">منصة الاستكشاف</a>
+                     <button type="button" class="user-dropdown-item signout" onclick="signOut()" data-i18n="navSignOut">تسجيل الخروج</button>
+                 </div>
+             </div>
+         </div>
+     </div>
  </nav>
 
- <!-- Actions & Theme Toggle -->
- <div class="nav-actions">
- <a href="../index.html" class="btn btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;" data-i18n="empHomeBtn">
- البوابة الرئيسية
- </a>
- <button type="button" id="hyt-lang-toggle" onclick="window.hytI18n.toggleLanguage()" class="nav-util-btn" title="Language Switcher">
- English
- </button>
- <!-- Unified Theme & Appearance Dropdown -->
- <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
- <button id="hyt-theme-toggle" type="button" aria-label="Toggle Theme" style="display: none;"></button>
- <button id="hyt-theme-btn" class="nav-util-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
- <span id="theme-btn-icon"></span> <span style="font-size: 0.8rem; margin-inline-start: 4px;" data-i18n="themeDropdownLabel">المظهر</span>
- </button>
- <div class="theme-dropdown-menu" id="theme-dropdown-menu">
- <div class="theme-menu-header" data-i18n="themeModesHeader">نمط الإضاءة</div>
- <button type="button" class="theme-opt-btn" data-theme-val="dark" onclick="setAppThemeMode('dark')">
- <span style="font-size: 0.95rem;"></span>
- <span data-i18n="themeDarkOption">الوضع الليلي (Dark Mode)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="light" onclick="setAppThemeMode('light')">
- <span style="font-size: 0.95rem;"></span>
- <span data-i18n="themeLightOption">الوضع النهاري (Light Mode)</span>
- </button>
- <div class="theme-menu-divider"></div>
- <div class="theme-menu-header" data-i18n="themePalettesHeader">لوحات الألوان المخصصة</div>
- <button type="button" class="theme-opt-btn" data-theme-val="abyss" onclick="setAppTheme('abyss')">
- <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
- <span data-i18n="themeAbyss"> أعماق المحيط (Abyss)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="reef" onclick="setAppTheme('reef')">
- <span class="theme-swatch-dot" style="background: #10B981;"></span>
- <span data-i18n="themeReef"> الشعب المرجانية (Reef)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="nebula" onclick="setAppTheme('nebula')">
- <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
- <span data-i18n="themeNebula"> سديم الفضاء (Nebula)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="ember" onclick="setAppTheme('ember')">
- <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
- <span data-i18n="themeEmber"> الوهج الشمسي (Ember)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="daylight" onclick="setAppTheme('daylight')">
- <span class="theme-swatch-dot" style="background: #0284C7;"></span>
- <span data-i18n="themeDaylight"> وضح النهار (Daylight)</span>
- </button>
- </div>
- </div>
- <button type="button" onclick="window.hytSignOut(event);" class="btn btn-secondary" style="padding: 0.45rem 0.85rem; font-size: 0.82rem;" data-i18n="empSignOut">
- خروج
- </button>
- </div>
- </header>
-
  <!-- Main Container -->
- <main class="portal-container">
+ <main class="portal-container" id="main-content">
 
- <!-- ================= SECTION 1: OVERVIEW (US10) ================= -->
- <section id="section-overview" class="tab-content active">
- <div class="stats-grid">
- <div class="stat-card">
- <span class="stat-val" id="kpi-posts">4</span>
- <span class="stat-title" data-i18n="empKpiPosts">فرص التدريب النشطة (Active Postings)</span>
- </div>
- <div class="stat-card">
- <span class="stat-val" id="kpi-apps">91</span>
- <span class="stat-title" data-i18n="empKpiApps">إجمالي طلبات التقديم (Applications)</span>
- </div>
- <div class="stat-card">
- <span class="stat-val" id="kpi-matched">3</span>
- <span class="stat-title" data-i18n="empKpiMatched">مرشحون بتوافق عالٍ جداً (High Match > 85%)</span>
- </div>
- </div>
+     <!-- ================= SECTION 1: OVERVIEW ================= -->
+     <section id="section-overview" class="tab-content active" aria-labelledby="overview-heading">
+         <h2 id="overview-heading" class="visually-hidden">لوحة المتابعة</h2>
+         <div class="stats-grid">
+             <article class="stat-card">
+                 <div class="stat-val" id="kpi-posts">0</div>
+                 <div class="stat-title" data-i18n="empKpiPosts">فرص نشطة</div>
+             </article>
+             <article class="stat-card">
+                 <div class="stat-val" id="kpi-apps">0</div>
+                 <div class="stat-title" data-i18n="empKpiApps">إجمالي طلبات</div>
+             </article>
+             <article class="stat-card">
+                 <div class="stat-val" id="kpi-matched">0</div>
+                 <div class="stat-title" data-i18n="empKpiMatched">مرشحون متميزون (>85%)</div>
+             </article>
+         </div>
 
- <div class="split-grid">
- <!-- Active Postings Panel -->
- <div class="panel-card">
- <div class="panel-head">
- <h2 data-i18n="empYourPostings">فرص التدريب الخاصة بك (Your Postings)</h2>
- <button type="button" onclick="switchSection('post')" class="btn btn-primary" style="padding: 0.45rem 0.95rem; font-size: 0.85rem;" data-i18n="empAddPostBtn">
- + إضافة تدريب
- </button>
- </div>
- <div id="postings-list">
- <!-- Populated by JavaScript -->
- </div>
- </div>
+         <div class="split-grid">
+             <!-- Active Postings Panel -->
+             <div class="panel-card">
+                 <div class="panel-head">
+                     <h2 data-i18n="empYourPostings">فرصك المنشورة</h2>
+                     <button type="button" onclick="switchSection('post')" class="btn btn-primary btn-sm" data-i18n="empAddPostBtn">+ إضافة</button>
+                 </div>
+                 <div id="postings-list" style="min-height: 200px;">
+                     <p style="color: var(--color-fg-muted); text-align: center; padding: 2rem;" data-i18n="empNoPosts">لا توجد فرص منشورة بعد. ابدأ بنشر أول فرصة تدريبية.</p>
+                 </div>
+             </div>
 
- <!-- High-Match Alerts Panel -->
- <div class="panel-card">
- <div class="panel-head">
- <h3 data-i18n="empAlertsHeading">تنبيهات المرشحين المتميزين </h3>
- </div>
- <div id="alerts-list">
- <!-- Populated by JavaScript -->
- </div>
- </div>
- </div>
- </section>
+             <!-- High-Match Alerts Panel -->
+             <div class="panel-card">
+                 <div class="panel-head">
+                     <h3 data-i18n="empAlertsHeading">تنبيهات المرشحين المتميزين</h3>
+                 </div>
+                 <div id="alerts-list" style="min-height: 200px;">
+                     <p style="color: var(--color-fg-muted); text-align: center; padding: 2rem;" data-i18n="empNoAlerts">لا توجد تنبيهات حالياً. سيتم عرض المرشحين ذوي التوافق العالي هنا تلقائياً.</p>
+                 </div>
+             </div>
+         </div>
+     </section>
 
- <!-- ================= SECTION 2: POST INTERNSHIP (US11) ================= -->
- <section id="section-post" class="tab-content">
- <div class="panel-card" style="max-width: 760px; margin: 0 auto;">
- <div class="panel-head">
- <div>
- <h2 data-i18n="empPostTitle">نشر فرصة تدريب صيفي أو كورس معتمد</h2>
- <p style="color: var(--color-muted-foreground); font-size: 0.88rem; margin-top: 0.25rem;" data-i18n="empPostDescSub">
- حدد متطلبات الفرصة والمهارات الأساسية ليتم مواءمتها آلياً مع طلاب الكليات المتخصصة.
- </p>
- </div>
- </div>
+     <!-- ================= SECTION 2: POST INTERNSHIP ================= -->
+     <section id="section-post" class="tab-content" aria-labelledby="post-heading">
+         <h2 id="post-heading" class="visually-hidden">نشر فرصة جديدة</h2>
+         <div class="panel-card" style="max-width: 760px; margin: 0 auto;">
+             <div class="panel-head">
+                 <div>
+                     <h2 data-i18n="empPostTitle">نشر فرصة تدريب أو كورس</h2>
+                     <p style="color: var(--color-fg-muted); font-size: 0.9rem; margin-top: 0.25rem;" data-i18n="empPostDescSub">حدِّد المتطلبات والمهارات ليتم مواءمتها مع الطلاب المتخصصين.</p>
+                 </div>
+             </div>
 
- <form id="post-internship-form" onsubmit="handlePostSubmit(event)">
- <div class="form-group">
- <label for="post-title" data-i18n="empFormTitleLabel">عنوان التدريب / الوظيفة (Title) *</label>
- <input type="text" id="post-title" class="form-control" placeholder="مثال: Cloud Security Intern" data-i18n="empFormTitlePh" required minlength="5">
- </div>
+             <form id="post-internship-form" onsubmit="handlePostSubmit(event)">
+                 <div class="form-group">
+                     <label for="post-title" data-i18n="empFormTitleLabel">عنوان الفرصة *</label>
+                     <input type="text" id="post-title" class="form-control" placeholder="مثال: تدريب مهندس ذكاء اصطناعي" required minlength="5">
+                 </div>
 
- <div class="form-group">
- <label for="post-track" data-i18n="empFormTrackLabel">المسار التقني أو الأكاديمي (Track) *</label>
- <select id="post-track" class="form-control" required>
- <option value="" data-i18n="empTrackSelectPh">اختر المسار المعني...</option>
- <option value="Cloud and DevOps" data-i18n="empTrackCloud">السحابية والعمليات (Cloud & DevOps)</option>
- <option value="Cybersecurity" data-i18n="empTrackCyber">الأمن السيبراني (Cybersecurity)</option>
- <option value="Frontend" data-i18n="empTrackFrontend">واجهات الويب (Frontend Development)</option>
- <option value="Backend" data-i18n="empTrackBackend">الخوادم والأنظمة (Backend Development)</option>
- <option value="Data and AI" data-i18n="empTrackDataAI">البيانات والذكاء الاصطناعي (Data Science & AI)</option>
- <option value="Mobile" data-i18n="empTrackMobile">تطبيقات الهواتف (Mobile Development)</option>
- <option value="UI/UX design" data-i18n="empTrackUIUX">التصميم وتجربة المستخدم (UI/UX Design)</option>
- <option value="QA" data-i18n="empTrackQA">ضمان الجودة والاختبار (Quality Assurance)</option>
- </select>
- </div>
+                 <div class="form-row">
+                     <div class="form-group">
+                         <label for="post-type" data-i18n="empFormTypeLabel">النوع *</label>
+                         <select id="post-type" class="form-control" required>
+                             <option value="Internship" data-i18n="empTypeInternship">تدريب صيفي</option>
+                             <option value="Training Course" data-i18n="empTypeCourse">كورس معتمد</option>
+                         </select>
+                     </div>
+                     <div class="form-group">
+                         <label for="post-track" data-i18n="empFormTrackLabel">المسار التقني *</label>
+                         <select id="post-track" class="form-control" required>
+                             <option value="" data-i18n="empTrackSelectPh">اختر المسار...</option>
+                             <option value="AI & Deep Learning" data-i18n="trackAI">AI & Deep Learning</option>
+                             <option value="Full-Stack Cloud" data-i18n="trackFullStack">Full-Stack Cloud</option>
+                             <option value="Cybersecurity SOC" data-i18n="trackCyber">Cybersecurity SOC</option>
+                             <option value="Mechatronics & Robotics" data-i18n="trackMecha">Mechatronics & Robotics</option>
+                             <option value="FinTech Trading" data-i18n="trackFinTech">FinTech Trading</option>
+                             <option value="Bioinformatics" data-i18n="trackBio">Bioinformatics</option>
+                             <option value="Embedded Systems" data-i18n="trackEmbedded">Embedded Systems</option>
+                             <option value="Digital Law" data-i18n="trackLaw">Digital Law</option>
+                         </select>
+                     </div>
+                 </div>
 
- <div class="form-group">
- <label for="post-desc" data-i18n="empFormDescLabel">تفاصيل التدريب والمسؤوليات (Description) *</label>
- <textarea id="post-desc" class="form-control" rows="4" placeholder="اكتب وصفاً مفصلاً لمهام المتدرب والمهارات التي سيكتسبها..." data-i18n="empFormDescPh" required minlength="30" oninput="updateCharCount(this)"></textarea>
- <div style="text-align: end; font-size: 0.8rem; color: var(--color-muted-foreground); margin-top: 0.25rem;">
- <span id="char-counter">0</span> <span data-i18n="empCharSuffix">/ 1000 حرف</span>
- </div>
- </div>
+                 <div class="form-row">
+                     <div class="form-group">
+                         <label for="post-faculty" data-i18n="empFormFacultyLabel">الكلية المستهدفة *</label>
+                         <select id="post-faculty" class="form-control" required>
+                             <option value="Computing & AI" data-i18n="facultyComputing">الحاسبات والذكاء الاصطناعي</option>
+                             <option value="Engineering" data-i18n="facultyEngineering">الهندسة والتكنولوجيا</option>
+                             <option value="Sciences" data-i18n="facultyScience">العلوم الأساسية</option>
+                             <option value="Business" data-i18n="facultyBusiness">التجارة وإدارة الأعمال</option>
+                             <option value="Law" data-i18n="facultyLaw">الحقوق والتشريعات الرقمية</option>
+                             <option value="All Faculties" data-i18n="facultyAll">كافة الكليات</option>
+                         </select>
+                     </div>
+                     <div class="form-group">
+                         <label for="post-compensation" data-i18n="empCompLabel">التعويض *</label>
+                         <select id="post-compensation" class="form-control" required>
+                             <option value="Paid" data-i18n="empPaidLabel">مدفوع الأجر</option>
+                             <option value="Academic Credit" data-i18n="empCreditLabel">ساعات أكاديمية</option>
+                             <option value="Stipend" data-i18n="empStipendLabel">بدل تدريب</option>
+                             <option value="Volunteer" data-i18n="empVolunteerLabel">تطوعي</option>
+                         </select>
+                     </div>
+                 </div>
 
- <div class="form-group">
- <label data-i18n="empSkillsLabel">المهارات المطلوبة (Required Skills) *</label>
- <div class="skills-picker">
- <div class="selected-skills" id="selected-skills-box"></div>
- <input type="text" id="skill-input-search" class="form-control" placeholder="ابحث عن مهارة أو اكتب واضغط Enter لإضافتها..." data-i18n="empSkillInputPh" onkeydown="handleSkillKey(event)">
- <div class="skill-options" id="predefined-skills-box"></div>
- </div>
- </div>
+                 <div class="form-group">
+                     <label for="post-desc" data-i18n="empFormDescLabel">الوصف والمتطلبات *</label>
+                     <textarea id="post-desc" class="form-control" rows="4" placeholder="صف المهام، المهارات المطلوبة، وما سيكتسبه المتدرب..." required minlength="30"></textarea>
+                 </div>
 
- <div class="form-group">
- <label data-i18n="empCompLabel">طبيعة المكافأة المالية (Compensation)</label>
- <div style="display: flex; gap: 1rem; align-items: center;">
- <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-weight: normal; cursor: pointer;">
- <input type="radio" name="pay-type" value="paid" checked> <span data-i18n="empPaidLabel">مدفوع الأجر (Paid)</span>
- </label>
- <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-weight: normal; cursor: pointer;">
- <input type="radio" name="pay-type" value="free"> <span data-i18n="empFreeLabel">تدريب تطوعي / أكاديمي (Free)</span>
- </label>
- </div>
- </div>
+                 <div class="form-group">
+                     <label data-i18n="empSkillsLabel">المهارات المطلوبة *</label>
+                     <div class="skills-picker">
+                         <div class="selected-skills" id="selected-skills-box"></div>
+                         <input type="text" id="skill-input-search" class="form-control" placeholder="اكتب مهارة واضغط Enter..." onkeydown="handleSkillKey(event)">
+                         <div class="skill-options" id="predefined-skills-box"></div>
+                     </div>
+                 </div>
 
- <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
- <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem;" data-i18n="empSubmitPostBtn">
- نشر التدريب الآن
- </button>
- <button type="reset" class="btn btn-secondary" onclick="resetSkillForm()" data-i18n="empResetFormBtn">
- إفراغ النموذج
- </button>
- </div>
+                 <div class="form-row">
+                     <div class="form-group">
+                         <label for="post-start" data-i18n="empFormStartLabel">بداية التسجيل *</label>
+                         <input type="date" id="post-start" class="form-control" required>
+                     </div>
+                     <div class="form-group">
+                         <label for="post-end" data-i18n="empFormEndLabel">الموعد النهائي *</label>
+                         <input type="date" id="post-end" class="form-control" required>
+                     </div>
+                 </div>
 
- <div id="post-success-banner" style="display: none; background: rgba(22, 163, 74, 0.15); border: 1px solid #16A34A; color: #16A34A; padding: 1rem; border-radius: 12px; margin-top: 1.25rem; font-weight: 600;" data-i18n="empSuccessBanner">
- تم نشر فرصة التدريب بنجاح! أصبحت متاحة الآن لطلاب جامعة دمنهور وظهرت في لوحة المتابعة.
- </div>
- </form>
- </div>
- </section>
+                 <div class="form-group">
+                     <label for="post-link" data-i18n="empFormLinkLabel">رابط التقديم الرسمي *</label>
+                     <input type="url" id="post-link" class="form-control" placeholder="https://careers.company.com/apply" required>
+                 </div>
 
- <!-- ================= SECTION 3: APPLICANT REVIEW (US12) ================= -->
- <section id="section-applicants" class="tab-content">
- <div class="panel-card">
- <div class="panel-head">
- <div>
- <h2 data-i18n="empMatrixHeading">مصفوفة مراجعة وتقييم المتقدمين (Applicant Review Matrix)</h2>
- <p style="color: var(--color-muted-foreground); font-size: 0.88rem; margin-top: 0.25rem;" data-i18n="empMatrixSub">
- فرز وتقييم دقيق للمرشحين بالذكاء الاصطناعي وفق نسبة تطابق الـ ATS.
- </p>
- </div>
- <div style="display: flex; gap: 0.5rem; align-items: center;">
- <label for="filter-status-select" style="font-size: 0.85rem; font-weight: 600;" data-i18n="empFilterStatusLabel">Filter by Status:</label>
- <select id="filter-status-select" class="form-control" style="width: auto; padding: 0.4rem 0.75rem;" onchange="renderApplicants()">
- <option value="all" data-i18n="empStatusAll">All Statuses</option>
- <option value="New" data-i18n="empStatusNew">New</option>
- <option value="Shortlisted" data-i18n="empStatusShortlisted">Shortlisted</option>
- <option value="Accepted" data-i18n="empStatusAccepted">Accepted</option>
- <option value="Rejected" data-i18n="empStatusRejected">Rejected</option>
- </select>
- </div>
- </div>
+                 <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
+                     <button type="button" class="btn btn-secondary" onclick="resetSkillForm()" data-i18n="empResetFormBtn">مسح</button>
+                     <button type="submit" class="btn btn-primary" data-i18n="empSubmitPostBtn">نشر الفرصة</button>
+                 </div>
 
- <div class="applicant-split">
- <!-- Candidates List -->
- <div id="candidates-container" style="max-height: 520px; overflow-y: auto;">
- <!-- Populated by JavaScript -->
- </div>
+                 <div id="post-success-banner" style="display: none; background: color-mix(in srgb, var(--color-fg) 10%, transparent); border: 1px solid var(--color-fg); color: var(--color-fg); padding: 1rem; border-radius: var(--radius-md); margin-top: 1.25rem; font-weight: 600; text-align: center;" data-i18n="empSuccessBanner">تم نشر الفرصة بنجاح! أصبحت متاحة للطلاب الآن.</div>
+             </form>
+         </div>
+     </section>
 
- <!-- Candidate Details -->
- <div id="candidate-detail-pane" class="panel-card" style="border-color: var(--color-border); background: var(--color-muted);">
- <!-- Populated by JavaScript -->
- </div>
- </div>
- </div>
- </section>
+     <!-- ================= SECTION 3: APPLICANT REVIEW ================= -->
+     <section id="section-applicants" class="tab-content" aria-labelledby="applicants-heading">
+         <h2 id="applicants-heading" class="visually-hidden">مراجعة المتقدمين</h2>
+         <div class="panel-card">
+             <div class="panel-head">
+                 <div>
+                     <h2 data-i18n="empMatrixHeading">مصفوفة مراجعة المتقدمين</h2>
+                     <p style="color: var(--color-fg-muted); font-size: 0.9rem; margin-top: 0.25rem;" data-i18n="empMatrixSub">فرز وتقييم دقيق بالذكاء الاصطناعي وفق نسبة التطابق.</p>
+                 </div>
+                 <div style="display: flex; gap: 0.5rem; align-items: center;">
+                     <label for="filter-status-select" style="font-size: 0.85rem; font-weight: 600;" data-i18n="empFilterStatusLabel">الحالة:</label>
+                     <select id="filter-status-select" class="form-control" style="width: auto; padding: 0.4rem 0.75rem;" onchange="renderApplicants()">
+                         <option value="all" data-i18n="empStatusAll">الكل</option>
+                         <option value="New" data-i18n="empStatusNew">جديد</option>
+                         <option value="Shortlisted" data-i18n="empStatusShortlisted">مختار</option>
+                         <option value="Accepted" data-i18n="empStatusAccepted">مقبول</option>
+                         <option value="Rejected" data-i18n="empStatusRejected">مرفوض</option>
+                     </select>
+                 </div>
+             </div>
+
+             <div class="applicant-split">
+                 <!-- Candidates List -->
+                 <div id="candidates-container" style="max-height: 520px; overflow-y: auto;">
+                     <p style="color: var(--color-fg-muted); text-align: center; padding: 2rem;" data-i18n="empNoApplicants">لا توجد طلبات بعد. سيتم عرض المتقدمين هنا عند التقديم على فرصك.</p>
+                 </div>
+
+                 <!-- Candidate Details -->
+                 <div id="candidate-detail-pane" class="panel-card" style="border-color: var(--color-border); background: var(--color-bg-elevated);">
+                     <p style="color: var(--color-fg-muted); text-align: center; padding: 2rem;" data-i18n="empSelectCandidate">اختر مرشحاً من القائمة لعرض التفاصيل الكاملة واتخاذ قرار.</p>
+                 </div>
+             </div>
+         </div>
+     </section>
 
  </main>
 
  <!-- Scripts -->
+ <script src="../js/i18n.js"></script>
+ <script src="../js/galaxy.js"></script>
+ <script src="../js/opportunities.js"></script>
+ <script src="../js/app.js"></script>
  <script>
- // Initial Mock Data (Synchronized with US10, US11, US12)
- const DEFAULT_POSTS = [
- { id: 1, title: "Cloud Security Intern", track: "Cloud and DevOps", paid: true, open: true, apps: 24, fresh: 5 },
- { id: 2, title: "Frontend Developer Intern", track: "Frontend", paid: false, open: true, apps: 41, fresh: 8 },
- { id: 3, title: "Data Analyst Intern", track: "Data and AI", paid: true, open: true, apps: 17, fresh: 0 },
- { id: 4, title: "QA Engineer Intern", track: "QA", paid: false, open: false, apps: 9, fresh: 0 }
- ];
-
- let applicants = [
- { id: 101, name: "Mariam Hassan", post: 1, match: 94, status: "New", faculty: "Computing & AI", major: "Cybersecurity", skills: ["Linux", "AWS", "Docker", "Python"], missing: ["Terraform"], experience: "Graduation project in cloud security architecture and trainee security analyst" },
- { id: 102, name: "Omar Khaled", post: 2, match: 91, status: "New", faculty: "Computing & AI", major: "Computer Science", skills: ["React", "JavaScript", "HTML5", "CSS3"], missing: ["TypeScript"], experience: "Built modular interactive frontend interfaces across multiple university projects" },
- { id: 103, name: "Nour Ibrahim", post: 1, match: 88, status: "New", faculty: "Engineering", major: "Communications & Electronics", skills: ["Networking", "Linux", "Git"], missing: ["AWS"], experience: "CCNA certified with hands-on lab networking configuration experience" },
- { id: 104, name: "Youssef Adel", post: 3, match: 76, status: "Shortlisted", faculty: "Business & Commerce", major: "Information Systems", skills: ["SQL", "Excel", "PowerBI"], missing: ["Python"], experience: "Financial statement modeling and executive dashboard reporting" },
- { id: 105, name: "Salma Tarek", post: 2, match: 69, status: "Reviewing", faculty: "Computing & AI", major: "Information Technology", skills: ["HTML5", "CSS3"], missing: ["React", "Git"], experience: "Junior web developer with responsive design portfolio" }
- ];
-
- let selectedCandidateId = 101;
-
+ // Employer-specific initialization
  const AVAILABLE_SKILLS = [
- "JavaScript", "TypeScript", "React", "Node.js", "Python", "Java", "SQL",
- "MongoDB", "Git", "Docker", "AWS", "Linux", "Figma", "REST APIs",
- "Machine Learning", "Networking", "Flutter", "Testing"
+     "JavaScript", "TypeScript", "React", "Node.js", "Python", "Java", "SQL",
+     "MongoDB", "Git", "Docker", "AWS", "Linux", "Figma", "REST APIs",
+     "Machine Learning", "Networking", "Flutter", "Testing", "Cybersecurity",
+     "Cloud Architecture", "DevOps", "Data Analysis", "UI/UX Design", "Embedded C"
  ];
- const selectedSkills = new Set(["AWS", "Linux"]);
+ const selectedSkills = new Set();
+
+ function initEmployerDashboard() {
+     const userName = localStorage.getItem('user_name') || 'منظم';
+     const userEmail = localStorage.getItem('user_email') || '';
+     const userOrg = localStorage.getItem('organization') || '';
+
+     document.getElementById('user-display')?.textContent = userName;
+     document.getElementById('dropdown-user-name')?.textContent = userName;
+     document.getElementById('dropdown-user-email')?.textContent = userEmail;
+
+     // Set default dates
+     const today = new Date().toISOString().split('T')[0];
+     const defaultEnd = new Date(Date.now() + 21 * 86400000).toISOString().split('T')[0];
+     document.getElementById('post-start')?.value = today;
+     document.getElementById('post-end')?.value = defaultEnd;
+
+     renderSkillChips();
+     renderOverview();
+ }
+
+ function switchSection(tabName) {
+     document.querySelectorAll('.tab-btn').forEach(btn => {
+         btn.classList.toggle('active', btn.dataset.tab === tabName);
+     });
+     document.querySelectorAll('.tab-content').forEach(sec => {
+         sec.classList.toggle('active', sec.id === 'section-' + tabName);
+     });
+     window.location.hash = tabName;
+
+     if (tabName === 'overview') renderOverview();
+     if (tabName === 'applicants') renderApplicants();
+ }
+
+ // Overview Rendering
+ function renderOverview() {
+     const posts = getPosts();
+     const openPosts = posts.filter(p => p.open);
+     const totalApps = posts.reduce((sum, p) => sum + (p.apps || 0), 0);
+     const applicants = getApplicants();
+     const highMatches = applicants.filter(a => a.match >= 85);
+
+     document.getElementById('kpi-posts').textContent = openPosts.length;
+     document.getElementById('kpi-apps').textContent = totalApps;
+     document.getElementById('kpi-matched').textContent = highMatches.length;
+     document.getElementById('applicants-badge').textContent = applicants.length;
+
+     const postingsList = document.getElementById('postings-list');
+     if (!postingsList) return;
+
+     if (posts.length === 0) {
+         postingsList.innerHTML = '<p style="color: var(--color-fg-muted); text-align: center; padding: 2rem;" data-i18n="empNoPosts">لا توجد فرص منشورة بعد.</p>';
+         return;
+     }
+
+     postingsList.innerHTML = posts.map(p => `
+         <div class="post-row">
+             <div>
+                 <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">${p.title}</h4>
+                 <div style="display: flex; flex-wrap: wrap; gap: 0.375rem;">
+                     <span class="tag-pill ${p.type === 'Training Course' ? 'course' : 'internship'}">${p.type === 'Training Course' ? 'كورس' : 'تدريب'}</span>
+                     <span class="tag-pill">${p.track || p.type}</span>
+                     <span class="tag-pill ${p.open ? '' : 'closed'}">${p.open ? 'نشط' : 'مغلق'}</span>
+                 </div>
+             </div>
+             <div style="text-align: end;">
+                 <b style="font-size: 1.25rem; color: var(--color-fg);">${p.apps || 0}</b>
+                 <div style="font-size: 0.75rem; color: var(--color-fg-muted);" data-i18n="empApplicantsLabel">طلبات</div>
+             </div>
+         </div>
+     `).join('');
+
+     const alertsList = document.getElementById('alerts-list');
+     if (alertsList) {
+         if (highMatches.length === 0) {
+             alertsList.innerHTML = '<p style="color: var(--color-fg-muted); text-align: center; padding: 2rem;" data-i18n="empNoAlerts">لا توجد تنبيهات حالياً.</p>';
+         } else {
+             alertsList.innerHTML = highMatches.map(a => `
+                 <div style="display: flex; gap: 0.75rem; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                     <div class="match-circle match-high" style="width: 40px; height: 40px; font-size: 0.8rem;">${a.match}%</div>
+                     <div style="flex: 1;">
+                         <b>${a.name}</b>
+                         <div style="font-size: 0.8rem; color: var(--color-fg-muted);">فرصة #${a.post}</div>
+                     </div>
+                     <button type="button" class="btn btn-secondary btn-sm" onclick="openApplicantDetail(${a.id})" data-i18n="empReviewBtn">مراجعة</button>
+                 </div>
+             `).join('');
+         }
+     }
+ }
 
  function getPosts() {
- let posts = [...DEFAULT_POSTS];
- try {
- const stored = JSON.parse(localStorage.getItem('posted_internships') || '[]');
- if (Array.isArray(stored)) {
- posts = [...stored, ...posts];
- }
- } catch(e) {}
- return posts;
+     let posts = [];
+     try {
+         const stored = JSON.parse(localStorage.getItem('posted_internships') || '[]');
+         if (Array.isArray(stored)) posts = stored;
+     } catch(e) {}
+     return posts;
  }
 
- // Section Tabs Switching
- function switchSection(tabName) {
- document.querySelectorAll('.tab-btn').forEach(btn => {
- btn.classList.toggle('active', btn.dataset.tab === tabName);
- });
- document.querySelectorAll('.tab-content').forEach(sec => {
- sec.classList.toggle('active', sec.id === 'section-' + tabName);
- });
- window.location.hash = tabName;
- if (tabName === 'overview') renderOverview();
- if (tabName === 'applicants') renderApplicants();
+ function getApplicants() {
+     // Mock applicants for demo - in production this would come from API
+     return [
+         { id: 101, name: "مريم حسن", post: 1, match: 94, status: "New", faculty: "الحاسبات والذكاء الاصطناعي", major: "الأمن السيبراني", skills: ["Linux", "AWS", "Docker", "Python"], missing: ["Terraform"] },
+         { id: 102, name: "عمر خالد", post: 2, match: 91, status: "New", faculty: "الحاسبات والذكاء الاصطناعي", major: "علوم الحاسب", skills: ["React", "JavaScript", "HTML5", "CSS3"], missing: ["TypeScript"] },
+         { id: 103, name: "نور إبراهيم", post: 1, match: 88, status: "New", faculty: "الهندسة", major: "الاتصالات", skills: ["Networking", "Linux", "Git"], missing: ["AWS"] },
+     ];
  }
 
- // Render Overview Tab
- function renderOverview() {
- const posts = getPosts();
- const openPosts = posts.filter(p => p.open);
- const totalApps = posts.reduce((sum, p) => sum + (p.apps || 0), 0);
- const highMatches = applicants.filter(a => a.match >= 85);
+ // Applicants Rendering
+ let selectedCandidateId = null;
 
- document.getElementById('kpi-posts').textContent = openPosts.length;
- document.getElementById('kpi-apps').textContent = totalApps;
- document.getElementById('kpi-matched').textContent = highMatches.length;
- document.getElementById('applicants-badge').textContent = applicants.length;
-
- const postingsList = document.getElementById('postings-list');
- postingsList.innerHTML = posts.map(p => `
- <div class="post-row">
- <div>
- <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">${p.title}</h4>
- <div>
- <span class="tag-pill ${p.paid ? 'paid' : 'free'}">${p.paid ? 'Paid' : 'Free'}</span>
- <span class="tag-pill">${p.track}</span>
- ${!p.open ? '<span class="tag-pill" style="background: rgba(239,68,68,0.15); color: #EF4444;">Closed</span>' : ''}
- </div>
- </div>
- <div style="text-align: end;">
- <b style="font-size: 1.35rem; color: var(--color-primary);">${p.apps}</b>
- <div style="font-size: 0.78rem; color: var(--color-muted-foreground);">Applicants</div>
- </div>
- </div>
- `).join('');
-
- const alertsList = document.getElementById('alerts-list');
- alertsList.innerHTML = highMatches.map(a => `
- <div style="display: flex; gap: 0.75rem; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
- <div class="match-circle match-high">${a.match}%</div>
- <div style="flex: 1;">
- <b>${a.name}</b>
- <div style="font-size: 0.8rem; color: var(--color-muted-foreground);">Applied for #${a.post}</div>
- </div>
- <button type="button" class="btn btn-secondary" style="padding: 0.35rem 0.65rem; font-size: 0.78rem;" onclick="openApplicantDetail(${a.id})">
- Review
- </button>
- </div>
- `).join('');
- }
-
- // Render Applicants Tab
  function renderApplicants() {
- const filter = document.getElementById('filter-status-select').value;
- const container = document.getElementById('candidates-container');
- const posts = getPosts();
+     const filter = document.getElementById('filter-status-select')?.value || 'all';
+     const container = document.getElementById('candidates-container');
+     if (!container) return;
 
- const filtered = applicants.filter(a => filter === 'all' || a.status === filter);
+     const applicants = getApplicants();
+     const filtered = applicants.filter(a => filter === 'all' || a.status === filter);
 
- if (!filtered.length) {
- container.innerHTML = '<p style="padding: 1.5rem; text-align: center; color: var(--color-muted-foreground);">No applications matching filter criteria.</p>';
- return;
- }
+     if (!filtered.length) {
+         container.innerHTML = '<p style="color: var(--color-fg-muted); text-align: center; padding: 2rem;" data-i18n="empNoApplicants">لا توجد طلبات مطابقة للفلتر.</p>';
+         return;
+     }
 
- container.innerHTML = filtered.map(a => {
- const matchClass = a.match >= 85 ? 'match-high' : (a.match >= 70 ? 'match-mid' : 'match-low');
- const isSelected = a.id === selectedCandidateId;
- const post = posts.find(p => p.id === a.post) || { title: 'Posting #' + a.post };
- return `
- <div class="applicant-item ${isSelected ? 'selected' : ''}" onclick="selectCandidate(${a.id})">
- <div class="match-circle ${matchClass}">${a.match}%</div>
- <div style="flex: 1;">
- <b style="display: block; font-size: 0.95rem;">${a.name}</b>
- <span style="font-size: 0.78rem; color: var(--color-muted-foreground);">${post.title}</span>
- <div style="margin-top: 0.2rem;">
- <span class="tag-pill" style="font-size: 0.72rem;">${a.status}</span>
- </div>
- </div>
- </div>
- `;
- }).join('');
+     container.innerHTML = filtered.map(a => {
+         const matchClass = a.match >= 85 ? 'match-high' : (a.match >= 70 ? 'match-mid' : 'match-low');
+         const isSelected = a.id === selectedCandidateId;
+         const posts = getPosts();
+         const post = posts.find(p => p.id === a.post) || { title: 'فرصة #' + a.post };
+         return `
+             <div class="applicant-item ${isSelected ? 'selected' : ''}" onclick="selectCandidate(${a.id})">
+                 <div class="match-circle ${matchClass}">${a.match}%</div>
+                 <div style="flex: 1;">
+                     <b style="display: block; font-size: 0.9rem;">${a.name}</b>
+                     <span style="font-size: 0.75rem; color: var(--color-fg-muted);">${post.title}</span>
+                     <div style="margin-top: 0.2rem;">
+                         <span class="tag-pill" style="font-size: 0.65rem;">${a.status}</span>
+                     </div>
+                 </div>
+             </div>
+         `;
+     }).join('');
 
- renderCandidateDetail();
+     renderCandidateDetail();
  }
 
  function selectCandidate(id) {
- selectedCandidateId = id;
- renderApplicants();
+     selectedCandidateId = id;
+     renderApplicants();
  }
 
  function openApplicantDetail(id) {
- selectedCandidateId = id;
- switchSection('applicants');
+     selectedCandidateId = id;
+     switchSection('applicants');
  }
 
  function setApplicantStatus(id, newStatus) {
- const cand = applicants.find(a => a.id === id);
- if (cand) {
- cand.status = newStatus;
- renderApplicants();
- renderOverview();
- }
+     // In production: API call
+     const applicants = getApplicants();
+     const cand = applicants.find(a => a.id === id);
+     if (cand) {
+         cand.status = newStatus;
+         // Save to localStorage for demo
+         const stored = getApplicants().map(a => a.id === id ? cand : a);
+         localStorage.setItem('mock_applicants', JSON.stringify(stored));
+         renderApplicants();
+         renderOverview();
+     }
  }
 
  function renderCandidateDetail() {
- const pane = document.getElementById('candidate-detail-pane');
- const cand = applicants.find(a => a.id === selectedCandidateId);
- const posts = getPosts();
+     const pane = document.getElementById('candidate-detail-pane');
+     const applicants = getApplicants();
+     const cand = applicants.find(a => a.id === selectedCandidateId);
 
- if (!cand) {
- pane.innerHTML = '<p style="color: var(--color-muted-foreground);">Select a candidate to review full profile details.</p>';
- return;
+     if (!cand) {
+         pane.innerHTML = '<p style="color: var(--color-fg-muted); text-align: center; padding: 2rem;" data-i18n="empSelectCandidate">اختر مرشحاً لعرض التفاصيل.</p>';
+         return;
+     }
+
+     const posts = getPosts();
+     const post = posts.find(p => p.id === cand.post) || { title: 'فرصة متخصصة' };
+     const matchClass = cand.match >= 85 ? 'match-high' : (cand.match >= 70 ? 'match-mid' : 'match-low');
+
+     pane.innerHTML = `
+         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;">
+             <div>
+                 <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">${cand.name}</h3>
+                 <p style="color: var(--color-fg-muted); font-size: 0.85rem;">${cand.faculty} · ${cand.major}</p>
+                 <div style="margin-top: 0.35rem; font-size: 0.85rem;">الفرصة: <b>${post.title}</b></div>
+             </div>
+             <div style="text-align: end;">
+                 <div class="match-circle ${matchClass}" style="width: 56px; height: 56px; font-size: 1.15rem; margin-inline-start: auto;">${cand.match}%</div>
+                 <span style="font-size: 0.75rem; color: var(--color-fg-muted);">نسبة التطابق</span>
+             </div>
+         </div>
+
+         <div style="background: var(--color-bg); border-radius: var(--radius-md); padding: 1rem; border: 1px solid var(--color-border); margin-bottom: 1rem;">
+             <h4 style="font-size: 0.85rem; margin-bottom: 0.5rem;" data-i18n="empMatchingSkills">المهارات المتطابقة:</h4>
+             <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem;">
+                 ${cand.skills.map(s => `<span class="tag-pill" style="background: color-mix(in srgb, var(--color-fg) 10%, transparent); color: var(--color-fg); font-size: 0.7rem;">✓ ${s}</span>`).join('')}
+             </div>
+             <h4 style="font-size: 0.85rem; margin-bottom: 0.5rem;" data-i18n="empSkillGaps">الفجوات المهارية:</h4>
+             <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                 ${cand.missing.map(m => `<span class="tag-pill" style="background: color-mix(in srgb, var(--color-fg-muted) 10%, transparent); color: var(--color-fg-muted); font-size: 0.7rem;">${m}</span>`).join('')}
+             </div>
+         </div>
+
+         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+             <button class="btn btn-primary" onclick="setApplicantStatus(${cand.id}, 'Accepted')" data-i18n="empAcceptBtn">✓ قبول</button>
+             <button class="btn btn-secondary" onclick="setApplicantStatus(${cand.id}, 'Shortlisted')" data-i18n="empShortlistBtn">اختيار</button>
+             <button class="btn btn-ghost" onclick="setApplicantStatus(${cand.id}, 'Rejected')" data-i18n="empRejectBtn">رفض</button>
+         </div>
+     `;
  }
 
- const post = posts.find(p => p.id === cand.post) || { title: 'Specialized Internship' };
- const matchClass = cand.match >= 85 ? 'match-high' : (cand.match >= 70 ? 'match-mid' : 'match-low');
-
- pane.innerHTML = `
- <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;">
- <div>
- <h3 style="font-size: 1.35rem; margin-bottom: 0.25rem;">${cand.name}</h3>
- <p style="color: var(--color-muted-foreground); font-size: 0.88rem;">${cand.faculty} · ${cand.major}</p>
- <div style="margin-top: 0.35rem; font-size: 0.85rem;">Applied for: <b>${post.title}</b></div>
- </div>
- <div style="text-align: end;">
- <div class="match-circle ${matchClass}" style="width: 56px; height: 56px; font-size: 1.15rem; margin-inline-start: auto;">${cand.match}%</div>
- <span style="font-size: 0.75rem; color: var(--color-muted-foreground);">ATS Match</span>
- </div>
- </div>
-
- <div style="background: var(--color-card); border-radius: 12px; padding: 1rem; border: 1px solid var(--color-border); margin-bottom: 1rem;">
- <h4 style="font-size: 0.92rem; margin-bottom: 0.5rem;">Matching Skills:</h4>
- <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem;">
- ${cand.skills.map(s => `<span class="tag-pill" style="background: rgba(22, 163, 74, 0.15); color: #16A34A;">✓ ${s}</span>`).join('')}
- </div>
- <h4 style="font-size: 0.92rem; margin-bottom: 0.5rem;">Skill Gaps:</h4>
- <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
- ${cand.missing.map(m => `<span class="tag-pill" style="background: rgba(239, 68, 68, 0.12); color: #DC2626;"> ${m}</span>`).join('')}
- </div>
- </div>
-
- <div style="background: var(--color-card); border-radius: 12px; padding: 1rem; border: 1px solid var(--color-border); margin-bottom: 1.25rem;">
- <h4 style="font-size: 0.92rem; margin-bottom: 0.35rem;">Academic Summary & Background:</h4>
- <p style="font-size: 0.88rem; color: var(--color-foreground); line-height: 1.5;">${cand.experience}</p>
- </div>
-
- <!-- Action Buttons -->
- <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
- <button type="button" class="btn" style="background: #16A34A; color: #FFF; border: none; padding: 0.6rem 1.25rem; font-weight: 700;" onclick="setApplicantStatus(${cand.id}, 'Accepted')">
- ✓ Accept Candidate
- </button>
- <button type="button" class="btn btn-primary" style="padding: 0.6rem 1.25rem;" onclick="setApplicantStatus(${cand.id}, 'Shortlisted')">
- Shortlist
- </button>
- <button type="button" class="btn" style="background: #EF4444; color: #FFF; border: none; padding: 0.6rem 1.25rem;" onclick="setApplicantStatus(${cand.id}, 'Rejected')">
- Reject
- </button>
- </div>
- `;
- }
-
- // Skills Picker Logic
+ // Skills Picker
  function renderSkillChips() {
- const selectedBox = document.getElementById('selected-skills-box');
- selectedBox.innerHTML = Array.from(selectedSkills).map(s => `
- <span class="skill-tag">
- ${s}
- <button type="button" onclick="removeSkill('${s}')">&times;</button>
- </span>
- `).join('');
+     const selectedBox = document.getElementById('selected-skills-box');
+     if (selectedBox) {
+         selectedBox.innerHTML = Array.from(selectedSkills).map(s => `
+             <span class="skill-tag">
+                 ${s}
+                 <button type="button" onclick="removeSkill('${s}')">&times;</button>
+             </span>
+         `).join('');
+     }
 
- const optsBox = document.getElementById('predefined-skills-box');
- optsBox.innerHTML = AVAILABLE_SKILLS.map(s => {
- const isSelected = selectedSkills.has(s);
- return `
- <button type="button" class="skill-opt-btn ${isSelected ? 'active' : ''}" onclick="toggleSkill('${s}')">
- ${isSelected ? '✓ ' : '+ '}${s}
- </button>
- `;
- }).join('');
+     const optsBox = document.getElementById('predefined-skills-box');
+     if (optsBox) {
+         optsBox.innerHTML = AVAILABLE_SKILLS.map(s => {
+             const isSelected = selectedSkills.has(s);
+             return `
+                 <button type="button" class="skill-opt-btn ${isSelected ? 'active' : ''}" onclick="toggleSkill('${s}')">
+                     ${isSelected ? '✓ ' : '+ '}${s}
+                 </button>
+             `;
+         }).join('');
+     }
  }
 
  function toggleSkill(skill) {
- if (selectedSkills.has(skill)) selectedSkills.delete(skill);
- else selectedSkills.add(skill);
- renderSkillChips();
+     if (selectedSkills.has(skill)) selectedSkills.delete(skill);
+     else selectedSkills.add(skill);
+     renderSkillChips();
  }
 
  function removeSkill(skill) {
- selectedSkills.delete(skill);
- renderSkillChips();
+     selectedSkills.delete(skill);
+     renderSkillChips();
  }
 
  function handleSkillKey(e) {
- if (e.key === 'Enter') {
- e.preventDefault();
- const val = e.target.value.trim();
- if (val) {
- selectedSkills.add(val);
- e.target.value = '';
- renderSkillChips();
- }
- }
- }
-
- function updateCharCount(textarea) {
- document.getElementById('char-counter').textContent = textarea.value.length;
+     if (e.key === 'Enter') {
+         e.preventDefault();
+         const val = e.target.value.trim();
+         if (val) {
+             selectedSkills.add(val);
+             e.target.value = '';
+             renderSkillChips();
+         }
+     }
  }
 
  function resetSkillForm() {
- selectedSkills.clear();
- renderSkillChips();
- document.getElementById('char-counter').textContent = '0';
- document.getElementById('post-success-banner').style.display = 'none';
+     selectedSkills.clear();
+     renderSkillChips();
+     document.getElementById('post-success-banner')?.style.setProperty('display', 'none');
  }
 
+ // Post Submit
  function handlePostSubmit(e) {
- e.preventDefault();
- const title = document.getElementById('post-title').value.trim();
- const track = document.getElementById('post-track').value;
- const desc = document.getElementById('post-desc').value.trim();
- const isPaid = document.querySelector('input[name="pay-type"]:checked').value === 'paid';
+     e.preventDefault();
+     const title = document.getElementById('post-title')?.value?.trim();
+     const type = document.getElementById('post-type')?.value;
+     const track = document.getElementById('post-track')?.value;
+     const faculty = document.getElementById('post-faculty')?.value;
+     const compensation = document.getElementById('post-compensation')?.value;
+     const desc = document.getElementById('post-desc')?.value?.trim();
+     const startDate = document.getElementById('post-start')?.value;
+     const endDate = document.getElementById('post-end')?.value;
+     const applyUrl = document.getElementById('post-link')?.value?.trim();
 
- const payload = {
- id: Date.now(),
- title: title,
- track: track,
- description: desc,
- requiredSkills: Array.from(selectedSkills),
- paid: isPaid,
- open: true,
- apps: 0,
- fresh: 0
- };
+     if (!title || !type || !track || !faculty || !desc || !applyUrl) return;
 
- try {
- const stored = JSON.parse(localStorage.getItem('posted_internships') || '[]');
- stored.unshift(payload);
- localStorage.setItem('posted_internships', JSON.stringify(stored));
- } catch(err) {}
+     const payload = {
+         id: Date.now(),
+         title, type, track, targetFaculty: faculty,
+         compensation, description: desc,
+         requiredSkills: Array.from(selectedSkills),
+         startDate, endDate, applyUrl,
+         open: true, apps: 0, fresh: 0,
+         stipend: compensation,
+         imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80"
+     };
 
- document.getElementById('post-success-banner').style.display = 'block';
- setTimeout(() => {
- switchSection('overview');
- }, 1400);
+     try {
+         const stored = JSON.parse(localStorage.getItem('posted_internships') || '[]');
+         stored.unshift(payload);
+         localStorage.setItem('posted_internships', JSON.stringify(stored));
+     } catch(err) {}
+
+     if (window.hytOpportunities) {
+         window.hytOpportunities.addOpportunity(payload);
+     }
+
+     document.getElementById('post-success-banner')?.style.setProperty('display', 'block');
+     setTimeout(() => { switchSection('overview'); }, 1400);
  }
- </script>
 
- <!-- Unified Framework Scripts -->
- <script src="../js/i18n.js"></script>
- <script src="../js/ocean-background.js"></script>
- <script>
- // Initial Routing on Load
- window.addEventListener('load', () => {
- const hash = (window.location.hash || '').replace('#', '');
- if (hash === 'post' || hash === 'applicants') {
- switchSection(hash);
+ // Initialize
+ if (document.readyState === 'loading') {
+     document.addEventListener('DOMContentLoaded', initEmployerDashboard);
  } else {
- switchSection('overview');
+     initEmployerDashboard();
  }
- renderSkillChips();
+
+ // Initial routing
+ window.addEventListener('load', () => {
+     const hash = (window.location.hash || '').replace('#', '');
+     if (hash === 'post' || hash === 'applicants') {
+         switchSection(hash);
+     } else {
+         switchSection('overview');
+     }
  });
 
  window.addEventListener('hyt:langChanged', () => {
- renderOverview();
- renderApplicants();
+     renderOverview();
+     renderApplicants();
+     renderSkillChips();
  });
  </script>
 </body>
