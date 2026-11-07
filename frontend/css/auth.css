@@ -70,9 +70,9 @@ body.auth-page {
     direction: rtl;
 }
 
-/* Visual Left Panel */
+/* Visual Left Panel - Always dark theme for consistent contrast */
 .auth-visual-hero {
-    background: linear-gradient(135deg, #4338CA 0%, #6366F1 50%, #4F46E5 100%);
+    background: #0B0F19;
     color: #FFFFFF;
     padding: 3.5rem 2.5rem;
     display: flex;
@@ -87,7 +87,8 @@ body.auth-page {
     position: absolute;
     width: 250px;
     height: 250px;
-    background: rgba(255, 255, 255, 0.08);
+    background: #FFFFFF;
+    opacity: 0.05;
     border-radius: 50%;
     top: -50px;
     right: -50px;
@@ -98,8 +99,8 @@ body.auth-page {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: #FFFFFF;
     font-size: 0.75rem;
     font-weight: 600;
@@ -115,12 +116,13 @@ body.auth-page {
     font-weight: 800;
     line-height: 1.2;
     margin: 1.5rem 0 1rem 0;
+    color: #FFFFFF;
 }
 
 .auth-visual-hero p {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: #E0E7FF;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .hero-features-list {
@@ -136,14 +138,19 @@ body.auth-page {
     align-items: center;
     gap: 0.6rem;
     font-size: 0.88rem;
-    color: #EEF2FF;
+    color: #FFFFFF;
+}
+
+.hero-features-list li > span:first-child {
+    background: #FFFFFF;
+    color: #0B0F19;
 }
 
 .hero-academic-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     padding-top: 1rem;
     font-size: 0.75rem;
-    color: #C7D2FE;
+    color: rgba(255, 255, 255, 0.6);
     line-height: 1.5;
 }
 

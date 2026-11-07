@@ -1,7 +1,6 @@
 /**
- * HuntYourTrack - Galaxy Background System
- * Fluid, organic particle system with scroll/mouse parallax
- * Pure Black & White · 60fps target · Canvas 2D
+ * HuntYourTrack - Realistic Starfield Galaxy Background
+ * Multi-layer parallax starfield · Pure Black & White · 60fps target · Canvas 2D
  */
 
 (function() {
@@ -11,20 +10,28 @@
     // CONFIGURATION
     // ========================================
     const CONFIG = {
-        particleCount: 180,
-        maxConnections: 3,
-        connectionDistance: 140,
-        mouseAttractionRadius: 200,
-        mouseAttractionForce: 0.008,
+        // Star layers (back to front for parallax)
+        layers: [
+            { count: 200, minSize: 0.3, maxSize: 0.8, minOpacity: 0.1, maxOpacity: 0.4, speed: 0.02, twinkleSpeed: 0.0001, parallax: 0.05 },  // Far background
+            { count: 150, minSize: 0.5, maxSize: 1.2, minOpacity: 0.2, maxOpacity: 0.6, speed: 0.04, twinkleSpeed: 0.0003, parallax: 0.15 },  // Mid ground
+            { count: 80,  minSize: 0.8, maxSize: 2.0, minOpacity: 0.3, maxOpacity: 0.8, speed: 0.08, twinkleSpeed: 0.0005, parallax: 0.30 },  // Foreground
+        ],
+        // Shooting stars
+        shootingStars: {
+            maxCount: 3,
+            minInterval: 8000,
+            maxInterval: 20000,
+            minLength: 100,
+            maxLength: 300,
+            minSpeed: 8,
+            maxSpeed: 15,
+        },
+        // Mouse parallax
+        mouseParallaxFactor: 0.15,
+        // Scroll parallax
         scrollParallaxFactor: 0.3,
-        particleMinSize: 0.8,
-        particleMaxSize: 2.5,
-        particleMinSpeed: 0.15,
-        particleMaxSpeed: 0.5,
-        fadeEdge: 0.15,
-        backgroundStars: 60,
-        nebulaBlobs: 3,
-        animationDuration: 20000,
+        // Reduced motion
+        respectReducedMotion: true,
     };
 
     // ========================================
@@ -35,14 +42,14 @@
     let width = 0;
     let height = 0;
     let dpr = 1;
-    let particles = [];
-    let backgroundStars = [];
-    let nebulaBlobs = [];
-    let mouse = { x: -10000, y: -10000, active: false };
+    let layers = [];
+    let shootingStars = [];
+    let mouse = { x: width / 2, y: height / 2, active: false };
     let scrollY = 0;
     let lastTime = 0;
     let animationId = null;
     let reducedMotion = false;
+    let nextShootingStarTime = 0;
 
     // ========================================
     // UTILITIES
@@ -55,78 +62,56 @@
     function getThemeColors() {
         const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
         return {
-            particle: isDarkMode ? '#FFFFFF' : '#000000',
-            particleDim: isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)',
-            connection: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
-            connectionStrong: isDarkMode ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.14)',
             star: isDarkMode ? '#FFFFFF' : '#000000',
-            nebula: isDarkMode ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
-            nebulaEdge: isDarkMode ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+            shootingStar: isDarkMode ? '#FFFFFF' : '#000000',
         };
     }
 
     // ========================================
-    // PARTICLE CLASS
+    // STAR CLASS
     // ========================================
-    class Particle {
-        constructor() {
-            this.reset(true);
+    class Star {
+        constructor(layerConfig, layerIndex) {
+            this.layerIndex = layerIndex;
+            this.layerConfig = layerConfig;
+            this.reset();
         }
 
-        reset(init = false) {
-            const margin = 100;
-            this.x = rand(-margin, width + margin);
-            this.y = rand(-margin, height + margin);
-            this.baseX = this.x;
-            this.baseY = this.y;
-            this.size = rand(CONFIG.particleMinSize, CONFIG.particleMaxSize);
-            this.speedX = rand(-CONFIG.particleMaxSpeed, CONFIG.particleMaxSpeed);
-            this.speedY = rand(-CONFIG.particleMaxSpeed, CONFIG.particleMaxSpeed);
-            this.opacity = rand(0.2, 0.8);
-            this.targetOpacity = this.opacity;
-            this.phase = rand(0, Math.PI * 2);
-            this.phaseSpeed = rand(0.0005, 0.002);
-            this.connections = [];
-
-            if (init) {
-                this.x = rand(0, width);
-                this.y = rand(0, height);
-            }
+        reset() {
+            this.x = rand(-width * 0.2, width * 1.2);
+            this.y = rand(-height * 0.2, height * 1.2);
+            this.size = rand(this.layerConfig.minSize, this.layerConfig.maxSize);
+            this.baseOpacity = rand(this.layerConfig.minOpacity, this.layerConfig.maxOpacity);
+            this.opacity = this.baseOpacity;
+            this.twinklePhase = rand(0, Math.PI * 2);
+            this.twinkleSpeed = this.layerConfig.twinkleSpeed * rand(0.5, 1.5);
+            // Some stars have more dramatic twinkling
+            this.twinkleAmount = rand(0.1, 0.4);
         }
 
-        update(deltaTime, colors) {
-            this.phase += this.phaseSpeed * deltaTime;
-            this.x = this.baseX + Math.sin(this.phase) * 30 + Math.cos(this.phase * 0.7) * 20;
-            this.y = this.baseY + Math.cos(this.phase * 0.9) * 25 + Math.sin(this.phase * 1.3) * 15;
+        update(deltaTime, colors, mouseParallaxX, mouseParallaxY, scrollParallaxY) {
+            this.twinklePhase += this.twinkleSpeed * deltaTime;
+            this.opacity = this.baseOpacity + Math.sin(this.twinklePhase) * this.twinkleAmount * this.baseOpacity;
+            this.opacity = clamp(this.opacity, this.layerConfig.minOpacity * 0.3, this.layerConfig.maxOpacity);
 
-            if (mouse.active) {
-                const dx = mouse.x - this.x;
-                const dy = mouse.y - this.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
+            // Parallax movement
+            this.x += mouseParallaxX * this.layerConfig.parallax;
+            this.y += mouseParallaxY * this.layerConfig.parallax;
+            this.y += scrollParallaxY * this.layerConfig.parallax;
 
-                if (dist < CONFIG.mouseAttractionRadius && dist > 1) {
-                    const force = (1 - dist / CONFIG.mouseAttractionRadius) * CONFIG.mouseAttractionForce;
-                    this.baseX += dx * force;
-                    this.baseY += dy * force;
-                }
-            }
-
-            this.y += scrollY * CONFIG.scrollParallaxFactor * 0.01;
-
-            const edge = Math.max(width, height) * CONFIG.fadeEdge;
-            if (this.x < -edge) { this.baseX = width + edge; this.x = this.baseX; }
-            if (this.x > width + edge) { this.baseX = -edge; this.x = this.baseX; }
-            if (this.y < -edge) { this.baseY = height + edge; this.y = this.baseY; }
-            if (this.y > height + edge) { this.baseY = -edge; this.y = this.baseY; }
-
-            this.opacity = lerp(this.opacity, this.targetOpacity, 0.02 * deltaTime);
+            // Wrap around
+            const margin = Math.max(width, height) * 0.2;
+            if (this.x < -margin) this.x = width + margin;
+            if (this.x > width + margin) this.x = -margin;
+            if (this.y < -margin) this.y = height + margin;
+            if (this.y > height + margin) this.y = -margin;
         }
 
         draw(ctx, colors) {
-            const alpha = clamp(this.opacity, 0.05, 0.9);
+            const alpha = clamp(this.opacity, 0.02, 1.0);
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = colors.particle;
+            ctx.fillStyle = colors.star;
             ctx.globalAlpha = alpha;
             ctx.fill();
             ctx.globalAlpha = 1;
@@ -134,80 +119,92 @@
     }
 
     // ========================================
-    // BACKGROUND STAR CLASS
+    // SHOOTING STAR CLASS
     // ========================================
-    class BackgroundStar {
+    class ShootingStar {
         constructor() {
-            this.x = rand(0, width);
-            this.y = rand(0, height);
-            this.size = rand(0.4, 1.5);
-            this.opacity = rand(0.1, 0.4);
-            this.twinklePhase = rand(0, Math.PI * 2);
-            this.twinkleSpeed = rand(0.0002, 0.0008);
-        }
-
-        update(deltaTime) {
-            this.twinklePhase += this.twinkleSpeed * deltaTime;
-            this.y += scrollY * CONFIG.scrollParallaxFactor * 0.005;
-        }
-
-        draw(ctx, colors) {
-            const alpha = this.opacity + Math.sin(this.twinklePhase) * 0.15;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = colors.star;
-            ctx.globalAlpha = clamp(alpha, 0.02, 0.6);
-            ctx.fill();
-            ctx.globalAlpha = 1;
-        }
-    }
-
-    // ========================================
-    // NEBULA BLOB CLASS
-    // ========================================
-    class NebulaBlob {
-        constructor(index) {
-            this.index = index;
             this.reset();
         }
 
         reset() {
-            this.x = rand(-width * 0.3, width * 1.3);
-            this.y = rand(-height * 0.3, height * 1.3);
-            this.baseRadius = rand(Math.min(width, height) * 0.25, Math.min(width, height) * 0.5);
-            this.radius = this.baseRadius;
-            this.phase = rand(0, Math.PI * 2);
-            this.phaseSpeed = rand(0.00005, 0.00015);
-            this.driftX = rand(-0.02, 0.02);
-            this.driftY = rand(-0.02, 0.02);
-            this.opacity = rand(0.15, 0.35);
+            // Start from random edge
+            const edge = randInt(0, 3);
+            const margin = 100;
+            switch (edge) {
+                case 0: // Top
+                    this.x = rand(-margin, width + margin);
+                    this.y = -margin;
+                    break;
+                case 1: // Right
+                    this.x = width + margin;
+                    this.y = rand(-margin, height + margin);
+                    break;
+                case 2: // Bottom
+                    this.x = rand(-margin, width + margin);
+                    this.y = height + margin;
+                    break;
+                case 3: // Left
+                    this.x = -margin;
+                    this.y = rand(-margin, height + margin);
+                    break;
+            }
+
+            // Direction towards center with some variance
+            const centerX = width / 2 + rand(-width * 0.3, width * 0.3);
+            const centerY = height / 2 + rand(-height * 0.3, height * 0.3);
+            const dx = centerX - this.x;
+            const dy = centerY - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            this.speed = rand(CONFIG.shootingStars.minSpeed, CONFIG.shootingStars.maxSpeed);
+            this.vx = (dx / dist) * this.speed;
+            this.vy = (dy / dist) * this.speed;
+
+            this.length = rand(CONFIG.shootingStars.minLength, CONFIG.shootingStars.maxLength);
+            this.opacity = 1.0;
+            this.life = 0;
+            this.maxLife = dist / this.speed;
         }
 
         update(deltaTime, colors) {
-            this.phase += this.phaseSpeed * deltaTime;
-            this.radius = this.baseRadius * (0.85 + Math.sin(this.phase) * 0.15);
-            this.x += this.driftX * deltaTime;
-            this.y += this.driftY * deltaTime;
-            this.y += scrollY * CONFIG.scrollParallaxFactor * 0.002;
-
-            if (this.x - this.radius > width * 1.5) this.x = -width * 0.5;
-            if (this.x + this.radius < -width * 0.5) this.x = width * 1.5;
-            if (this.y - this.radius > height * 1.5) this.y = -height * 0.5;
-            if (this.y + this.radius < -height * 0.5) this.y = height * 1.5;
+            this.x += this.vx * (deltaTime / 16.67); // Normalize to 60fps
+            this.y += this.vy * (deltaTime / 16.67);
+            this.life += deltaTime;
+            this.opacity = 1.0 - (this.life / this.maxLife);
         }
 
         draw(ctx, colors) {
-            const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-            gradient.addColorStop(0, colors.nebulaEdge);
-            gradient.addColorStop(0.5, colors.nebula);
+            if (this.opacity <= 0) return;
+
+            const alpha = clamp(this.opacity, 0, 1);
+            const endX = this.x - this.vx * (this.length / this.speed);
+            const endY = this.y - this.vy * (this.length / this.speed);
+
+            const gradient = ctx.createLinearGradient(this.x, this.y, endX, endY);
+            gradient.addColorStop(0, colors.shootingStar);
             gradient.addColorStop(1, 'transparent');
 
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = gradient;
-            ctx.globalAlpha = this.opacity;
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 1.5;
+            ctx.lineCap = 'round';
+            ctx.globalAlpha = alpha;
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+
+            // Head glow
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = colors.shootingStar;
+            ctx.globalAlpha = alpha;
             ctx.fill();
             ctx.globalAlpha = 1;
+        }
+
+        isDead() {
+            return this.opacity <= 0 || this.life >= this.maxLife;
         }
     }
 
@@ -224,9 +221,8 @@
         reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         resize();
-        createParticles();
-        createBackgroundStars();
-        createNebulaBlobs();
+        createStars();
+        nextShootingStarTime = performance.now() + rand(CONFIG.shootingStars.minInterval, CONFIG.shootingStars.maxInterval);
 
         window.addEventListener('resize', debounce(resize, 150));
         window.addEventListener('scroll', onScroll, { passive: true });
@@ -234,6 +230,7 @@
         document.addEventListener('mouseleave', onMouseLeave);
         document.addEventListener('visibilitychange', onVisibilityChange);
 
+        // Theme change observer
         const observer = new MutationObserver(() => {});
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
@@ -257,32 +254,21 @@
 
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        if (particles.length !== CONFIG.particleCount) {
-            createParticles();
-            createBackgroundStars();
-            createNebulaBlobs();
-        }
+        // Recreate stars on resize
+        createStars();
     }
 
-    function createParticles() {
-        particles = [];
-        for (let i = 0; i < CONFIG.particleCount; i++) {
-            particles.push(new Particle());
+    function createStars() {
+        layers = [];
+        for (let i = 0; i < CONFIG.layers.length; i++) {
+            const layerConfig = CONFIG.layers[i];
+            const layerStars = [];
+            for (let j = 0; j < layerConfig.count; j++) {
+                layerStars.push(new Star(layerConfig, i));
+            }
+            layers.push(layerStars);
         }
-    }
-
-    function createBackgroundStars() {
-        backgroundStars = [];
-        for (let i = 0; i < CONFIG.backgroundStars; i++) {
-            backgroundStars.push(new BackgroundStar());
-        }
-    }
-
-    function createNebulaBlobs() {
-        nebulaBlobs = [];
-        for (let i = 0; i < CONFIG.nebulaBlobs; i++) {
-            nebulaBlobs.push(new NebulaBlob(i));
-        }
+        shootingStars = [];
     }
 
     // ========================================
@@ -328,97 +314,67 @@
 
     function update(dt) {
         const colors = getThemeColors();
-        nebulaBlobs.forEach(blob => blob.update(dt, colors));
-        backgroundStars.forEach(star => star.update(dt));
-        particles.forEach(p => p.update(dt, colors));
-        buildConnections();
-    }
 
-    function buildConnections() {
-        const maxDistSq = CONFIG.connectionDistance * CONFIG.connectionDistance;
+        // Calculate parallax offsets
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const mouseParallaxX = mouse.active ? (mouse.x - centerX) * CONFIG.mouseParallaxFactor : 0;
+        const mouseParallaxY = mouse.active ? (mouse.y - centerY) * CONFIG.mouseParallaxFactor : 0;
+        const scrollParallaxY = scrollY * CONFIG.scrollParallaxFactor * 0.01;
 
-        for (let i = 0; i < particles.length; i++) {
-            particles[i].connections = [];
-
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const distSq = dx * dx + dy * dy;
-
-                if (distSq < maxDistSq) {
-                    const dist = Math.sqrt(distSq);
-                    const opacity = 1 - dist / CONFIG.connectionDistance;
-
-                    if (particles[i].connections.length < CONFIG.maxConnections) {
-                        particles[i].connections.push({ particle: particles[j], dist, opacity });
-                    }
-                    if (particles[j].connections.length < CONFIG.maxConnections) {
-                        particles[j].connections.push({ particle: particles[i], dist, opacity });
-                    }
-                }
+        // Update star layers
+        for (const layerStars of layers) {
+            for (const star of layerStars) {
+                star.update(dt, colors, mouseParallaxX, mouseParallaxY, scrollParallaxY);
             }
+        }
+
+        // Update shooting stars
+        for (let i = shootingStars.length - 1; i >= 0; i--) {
+            shootingStars[i].update(dt, colors);
+            if (shootingStars[i].isDead()) {
+                shootingStars.splice(i, 1);
+            }
+        }
+
+        // Spawn new shooting stars
+        if (!reducedMotion && currentTime >= nextShootingStarTime && shootingStars.length < CONFIG.shootingStars.maxCount) {
+            shootingStars.push(new ShootingStar());
+            nextShootingStarTime = currentTime + rand(CONFIG.shootingStars.minInterval, CONFIG.shootingStars.maxInterval);
         }
     }
 
     function draw() {
         const colors = getThemeColors();
         ctx.clearRect(0, 0, width, height);
-        nebulaBlobs.forEach(blob => blob.draw(ctx, colors));
-        backgroundStars.forEach(star => star.draw(ctx, colors));
-        drawConnections(colors);
-        particles.forEach(p => p.draw(ctx, colors));
-    }
 
-    function drawConnections(colors) {
-        ctx.lineWidth = 0.8;
-        ctx.lineCap = 'round';
-
-        for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-
-            for (const conn of p.connections) {
-                if (conn.particle.baseX < p.baseX) continue;
-
-                const alpha = conn.opacity * 0.6 * p.opacity * conn.particle.opacity;
-                if (alpha < 0.01) continue;
-
-                ctx.beginPath();
-                ctx.moveTo(p.x, p.y);
-                ctx.lineTo(conn.particle.x, conn.particle.y);
-
-                const gradient = ctx.createLinearGradient(p.x, p.y, conn.particle.x, conn.particle.y);
-                gradient.addColorStop(0, colors.connection);
-                gradient.addColorStop(0.5, colors.connectionStrong);
-                gradient.addColorStop(1, colors.connection);
-
-                ctx.strokeStyle = gradient;
-                ctx.globalAlpha = alpha;
-                ctx.stroke();
-                ctx.globalAlpha = 1;
+        // Draw layers back to front
+        for (const layerStars of layers) {
+            for (const star of layerStars) {
+                star.draw(ctx, colors);
             }
+        }
+
+        // Draw shooting stars on top
+        for (const shootingStar of shootingStars) {
+            shootingStar.draw(ctx, colors);
         }
     }
 
     function drawStatic() {
         const colors = getThemeColors();
         ctx.clearRect(0, 0, width, height);
-        nebulaBlobs.forEach(blob => blob.draw(ctx, colors));
-        backgroundStars.forEach(star => {
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-            ctx.fillStyle = colors.star;
-            ctx.globalAlpha = star.opacity;
-            ctx.fill();
-            ctx.globalAlpha = 1;
-        });
-        particles.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = colors.particle;
-            ctx.globalAlpha = p.opacity;
-            ctx.fill();
-            ctx.globalAlpha = 1;
-        });
+
+        for (const layerStars of layers) {
+            for (const star of layerStars) {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = colors.star;
+                ctx.globalAlpha = star.baseOpacity;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
     }
 
     function debounce(fn, wait) {

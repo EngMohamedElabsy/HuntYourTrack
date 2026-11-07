@@ -38,11 +38,7 @@
     --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-[data-theme="dark"],
-[data-theme="abyss"],
-[data-theme="reef"],
-[data-theme="nebula"],
-[data-theme="ember"] {
+[data-theme="dark"] {
     --color-bg: #0B0F19;
     --color-bg-elevated: #131B2E;
     --color-fg: #FFFFFF;
@@ -58,14 +54,6 @@
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.5);
     --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.6);
-}
-
-/* Coral Reef - Dark palette with teal accents */
-[data-theme="reef"] {
-    --color-accent: #10B981;
-    --color-accent-hover: #059669;
-    --glass: rgba(11, 15, 25, 0.9);
-    --glass-strong: rgba(11, 15, 25, 0.98);
 }
 
 /* ========================================
@@ -279,14 +267,6 @@ img { max-width: 100%; height: auto; display: block; }
 
 .theme-opt-btn svg {
     flex-shrink: 0;
-}
-
-.theme-swatch-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 1px solid var(--color-border);
 }
 
 /* Auth Entry */
@@ -802,6 +782,16 @@ img { max-width: 100%; height: auto; display: block; }
     border: 1px solid var(--color-border);
     background: var(--color-bg);
     min-height: 120px;
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.hooked-track-panel.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ========================================
