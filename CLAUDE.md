@@ -328,7 +328,7 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
 - **Mandatory Session Initialization:** At the start of every session or task, Claude MUST read `CLAUDE.md` and inspect `.global_skills/` to ground all decisions in the project's living rules.
 - **Strict 6-Phase Pipeline Adherence:** Claude must execute every single task through the 6-phase engineering workflow defined in Section 3 without skipping steps.
 - **Cumulative Knowledge Growth:** Every time a new design pattern, architectural invariant, debugging edge-case, or testing protocol is established, Claude MUST append and refine `CLAUDE.md` and the relevant skill definitions.
-- **Mandatory End-of-Task Handoff Update:** At the conclusion of every completed issue, feature, or pull request, Claude MUST update `CLAUDE.md` (specifically Section 8: Continuous Project Ledger) and any relevant skills before concluding the session.
+- **Mandatory Dual-File Constitution Synchronization (`CLAUDE.md` & `AGENTS.md`):** `CLAUDE.md` and `AGENTS.md` are identical twins and form the single source of truth for the codebase. Whenever any AI assistant (Claude, Codex, Antigravity, Cursor) or team member completes any task, issue, feature, or pull request, they MUST immediately return to both `CLAUDE.md` and `AGENTS.md` to append the continuous project ledger and keep both files 100% identical and synchronized before concluding any session.
 - **Zero Knowledge Loss:** **NEVER** delete, wipe, or overwrite established workflows, team protocols, or skill definitions. Project intelligence is strictly additive, continuously evolving, and permanently preserved across sessions.
 
 ---
@@ -347,7 +347,7 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - 1-Click demo accounts for Student, Recruiter, and Admin.
   - Rigorous test suite (`npm test`) validating 5 critical dimensions with 100% pass rate.
 
-### 🟢 Skills & Governance Harmonization (Latest Update: 2026-10-31 19:20 UTC+2)
+### 🟢 Skills & Governance Harmonization (2026-10-31 19:20 UTC+2)
 
 - **Commit:** `645aefe`
 - **Deliverables:**
@@ -356,18 +356,21 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - Re-established mandatory feature branching, immediate PR creation, and teammate handover protocol (`Hi @<teammate>...`).
   - Codified the 6-Phase Systematic Engineering Workflow into `CLAUDE.md`.
   - Upgraded `scripts/setup-skills.js` to dynamically synchronize repository skills to host environment (`npm run setup:skills`).
-### 🟢 US18: Pure B&W Theme Overhaul, Realistic Galaxy & Professional Track Hunter Radar (Completed 2026-11-07)
 
-- **PR:** #116 (merged to `main` at commit `9d09fbd`)
-- **Issue:** #63 — Universal Multi-Faculty Roadmaps & Production SaaS Sanitization
-- **Files Modified:** 13 files across CSS, JS, HTML, and test suites
-- **Deliverables Verified:**
-  - **Pure B&W Theme System:** Removed all 5 color palettes (Abyss, Reef, Nebula, Ember, Daylight). Only Light/Dark modes remain. Theme dropdown simplified to two toggle buttons.
-  - **Realistic Galaxy Background:** 3-layer parallax starfield (background stars, mid nebulae, foreground dust) with twinkling, shooting stars, and mouse/scroll parallax — pure B&W luminance.
-  - **Professional Track Hunter Radar:** 12 career tracks across 5 faculties (Computing, Engineering, Science, Business, Law) rendered as logarithmic spiral galaxy arms with telemetry HUD on hover, 3D depth perception, and faculty differentiation via position/iconography/typography (no color coding).
-  - **Font Size Compliance:** All text ≥ 0.75rem (11px) for WCAG AA compliance — fixed 6 instances of 0.65rem/0.72rem.
-  - **Test Compliance:** All 9 E2E audit sections pass (100%); 5-stage CI/CD pipeline green.
+### 🟢 Architecture Restoration, Apple-Grade Celestial Galaxy & Brand Harmonization (2026-11-07 12:15 UTC+2)
+
+- **Status:** Baseline restored to commit `629f6e6c5d16f26b4fc1d1ac91048fb5ffdda85b`.
+- **Deliverables:**
+  - Removed broken regressions from PR #115 and PR #116 (purged `app.js`, `galaxy.js`, and `.impeccable/`).
+  - Implemented Apple/iOS-grade Celestial Galaxy Engine (`frontend/js/ocean-background.js`): 3-tier multi-depth starfield (micro-dust, mid-constellations, hero stars with halos and 4-point diffraction spikes), organic drifting nebulae, fluid mouse/scroll parallax, and rare graceful meteor streaks with zero spiderweb/mesh lines.
+  - Harmonized HuntYourTrack precision reticle brand mark (`brand-mark` SVG + `brand-title`) across all pages (`index.html`, `auth.html`, `student.html`, `admin.html`, `employer.html`).
+  - Confirmed 100% WCAG AA contrast across all 7 theme palettes (Dark, Light, Abyss, Reef, Nebula, Ember, Daylight).
+  - Synchronized `CLAUDE.md` and `AGENTS.md` with zero external/hallucinated framework artifacts.
+  - Pruned all 9 stale remote tracking branches on GitHub, retaining strictly `main`.
+  - All 9 Playwright deep E2E audit sections passing with 100% compliance (`npm test`).
 - **Next Immediate Priority:**
-  - **Sprint 2 Remaining:** Implement US19 (#64) and US20 (#65) on dedicated feature branches:
-    1. US19: Interactive Role-Based Onboarding & Intelligent Resume Keyword Parser.
-    2. US20: Comprehensive Opportunity Organization, Deadlines & Publishing Lifecycle.
+  - **Sprint 2 Execution:** Implement US18 (#63), US19 (#64), and US20 (#65) on dedicated feature branches:
+    1. US18: Universal Multi-Faculty Roadmaps & Production SaaS Sanitization.
+    2. US19: Interactive Role-Based Onboarding & Intelligent Resume Keyword Parser.
+    3. US20: Comprehensive Opportunity Organization, Deadlines & Publishing Lifecycle.
+

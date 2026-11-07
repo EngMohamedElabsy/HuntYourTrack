@@ -1,13 +1,15 @@
 /**
- * HuntYourTrack - Professional Career Track Radar Visualization
- * Production-grade data visualization · Pure Black & White · 60fps target · Canvas 2D
- *
+ * HuntYourTrack - Bespoke Cosmic Galaxy & Constellation Track Hunter Canvas Engine
+ * High-performance vanilla HTML5 Canvas interactive visualization.
+ * 
  * Features:
- * - Hierarchical galaxy visualization with 12 career tracks across 5 faculties
- * - Interactive node selection with roadmap.sh syllabus display
- * - Smooth parallax animations with mouse interaction
- * - Professional data visualization aesthetics (no game-like elements)
- * - WCAG AA compliant contrast in both light/dark modes
+ * - Central Supermassive Galactic Core & Dynamic Accretion Disc with Logarithmic Spiral Arms.
+ * - 350+ Keplerian stardust particles in orbital motion responding to mouse gravity & inertia.
+ * - 5 Faculty Constellation Sectors (12 Accredited Career Tracks).
+ * - Glowing Constellation Vector Networks connecting discipline clusters.
+ * - Precision Holographic HUD Reticle & Real-time Telemetry [RA/DEC] Coordinate Display.
+ * - Coherent Multi-Target Laser Lock-On Beams with traveling photon pulses.
+ * - Zero Emoji Architecture: 100% SVG and vector typography.
  */
 
 class TrackHunterCanvas {
@@ -25,15 +27,15 @@ class TrackHunterCanvas {
         this.animationId = null;
         const initialTheme = document.documentElement.getAttribute('data-theme') || 'dark';
         this.theme = initialTheme;
-        this.isDark = initialTheme === 'dark';
+        this.isDark = !['light', 'daylight'].includes(initialTheme);
 
-        // Multi-select targets & current active faculty
+        // Multi-Hook targets & current active faculty
         this.activeFaculty = 'all';
         this.searchQuery = '';
         this.hookedNodes = [];
 
-        // Background particles
-        this.backgroundParticles = [];
+        // Particles & Atmosphere
+        this.stardust = [];
 
         // 12 Accredited Discipline Nodes across 5 faculties
         this.nodes = [
@@ -46,7 +48,7 @@ class TrackHunterCanvas {
                 facultyAr: 'الحاسبات والذكاء الاصطناعي',
                 weeks: '12 أسبوعاً',
                 weeksEn: '12 Weeks',
-                sector: 'Computing',
+                sector: 'ALPHA-01',
                 telemetry: { ra: '19h 50m', dec: '+08° 52\'' },
                 skills: ['Python', 'PyTorch', 'Transformers', 'FastAPI', 'Vector DBs'],
                 milestonesAr: [
@@ -61,7 +63,7 @@ class TrackHunterCanvas {
                     'NLP Architectures & Generative LLM Engineering',
                     'Production AI Microservice & Cloud Deployment'
                 ],
-                xRel: 0.22, yRel: 0.26, radius: 9
+                xRel: 0.22, yRel: 0.26, color: '#00F2FE', radius: 9, glow: 18
             },
             {
                 id: 'cs-cloud',
@@ -71,7 +73,7 @@ class TrackHunterCanvas {
                 facultyAr: 'الحاسبات والذكاء الاصطناعي',
                 weeks: '14 أسبوعاً',
                 weeksEn: '14 Weeks',
-                sector: 'Computing',
+                sector: 'ALPHA-02',
                 telemetry: { ra: '20h 14m', dec: '+12° 36\'' },
                 skills: ['TypeScript', 'Node.js', 'Docker', 'Kubernetes', 'AWS'],
                 milestonesAr: [
@@ -86,7 +88,7 @@ class TrackHunterCanvas {
                     'CI/CD Automation Pipelines & Terraform IaC',
                     'Observability, Performance & Horizontal Scaling'
                 ],
-                xRel: 0.14, yRel: 0.44, radius: 9
+                xRel: 0.14, yRel: 0.44, color: '#38BDF8', radius: 9, glow: 18
             },
             {
                 id: 'cs-sec',
@@ -96,7 +98,7 @@ class TrackHunterCanvas {
                 facultyAr: 'الحاسبات والذكاء الاصطناعي',
                 weeks: '10 أسابيع',
                 weeksEn: '10 Weeks',
-                sector: 'Computing',
+                sector: 'ALPHA-03',
                 telemetry: { ra: '21h 05m', dec: '+15° 20\'' },
                 skills: ['Network Security', 'Wireshark', 'SIEM', 'Linux Hardening'],
                 milestonesAr: [
@@ -111,7 +113,7 @@ class TrackHunterCanvas {
                     'Ethical Penetration Testing & Vulnerability Assessment',
                     'Incident Response & Business Continuity Planning'
                 ],
-                xRel: 0.28, yRel: 0.58, radius: 8
+                xRel: 0.28, yRel: 0.58, color: '#818CF8', radius: 8, glow: 15
             },
 
             // Engineering & Tech
@@ -123,7 +125,7 @@ class TrackHunterCanvas {
                 facultyAr: 'الهندسة والتكنولوجيا',
                 weeks: '14 أسبوعاً',
                 weeksEn: '14 Weeks',
-                sector: 'Engineering',
+                sector: 'BETA-01',
                 telemetry: { ra: '05h 35m', dec: '-05° 23\'' },
                 skills: ['ROS2', 'C++', 'Control Systems', 'SolidWorks', 'MATLAB'],
                 milestonesAr: [
@@ -138,7 +140,7 @@ class TrackHunterCanvas {
                     'Robot Operating System (ROS2) & Real-time C++',
                     'Autonomous Navigation & Industrial Automation'
                 ],
-                xRel: 0.74, yRel: 0.26, radius: 9
+                xRel: 0.74, yRel: 0.26, color: '#34D399', radius: 9, glow: 18
             },
             {
                 id: 'eng-auto',
@@ -148,7 +150,7 @@ class TrackHunterCanvas {
                 facultyAr: 'الهندسة والتكنولوجيا',
                 weeks: '12 أسبوعاً',
                 weeksEn: '12 Weeks',
-                sector: 'Engineering',
+                sector: 'BETA-02',
                 telemetry: { ra: '06h 45m', dec: '-16° 42\'' },
                 skills: ['Embedded C', 'AUTOSAR', 'CAN-bus', 'RTOS', 'ARM Cortex'],
                 milestonesAr: [
@@ -163,7 +165,7 @@ class TrackHunterCanvas {
                     'AUTOSAR Architecture & ECU Layering',
                     'In-Vehicle Networks: CAN, LIN & Diagnostics'
                 ],
-                xRel: 0.86, yRel: 0.44, radius: 8
+                xRel: 0.86, yRel: 0.44, color: '#10B981', radius: 8, glow: 16
             },
             {
                 id: 'eng-energy',
@@ -173,7 +175,7 @@ class TrackHunterCanvas {
                 facultyAr: 'الهندسة والتكنولوجيا',
                 weeks: '10 أسابيع',
                 weeksEn: '10 Weeks',
-                sector: 'Engineering',
+                sector: 'BETA-03',
                 telemetry: { ra: '07h 12m', dec: '-18° 10\'' },
                 skills: ['SCADA', 'Power Electronics', 'Solar PV', 'Smart Grid Protocols', 'MATLAB Simulink'],
                 milestonesAr: [
@@ -188,7 +190,7 @@ class TrackHunterCanvas {
                     'SCADA Control & Industrial Grid Telemetry',
                     'Energy Storage Systems & Smart Grid Interconnection'
                 ],
-                xRel: 0.68, yRel: 0.16, radius: 8
+                xRel: 0.68, yRel: 0.16, color: '#059669', radius: 8, glow: 15
             },
 
             // Pure & Applied Sciences
@@ -200,7 +202,7 @@ class TrackHunterCanvas {
                 facultyAr: 'العلوم الأساسية',
                 weeks: '10 أسابيع',
                 weeksEn: '10 Weeks',
-                sector: 'Science',
+                sector: 'GAMMA-01',
                 telemetry: { ra: '12h 30m', dec: '+12° 23\'' },
                 skills: ['Python', 'Biopython', 'Nextflow', 'BLAST', 'R/Bioconductor'],
                 milestonesAr: [
@@ -215,7 +217,7 @@ class TrackHunterCanvas {
                     'Automated Analysis Pipelines with Nextflow',
                     'Precision Medicine & Protein Structure Prediction'
                 ],
-                xRel: 0.18, yRel: 0.76, radius: 8
+                xRel: 0.18, yRel: 0.76, color: '#A78BFA', radius: 8, glow: 15
             },
             {
                 id: 'sci-chem',
@@ -225,7 +227,7 @@ class TrackHunterCanvas {
                 facultyAr: 'العلوم الأساسية',
                 weeks: '8 أسابيع',
                 weeksEn: '8 Weeks',
-                sector: 'Science',
+                sector: 'GAMMA-02',
                 telemetry: { ra: '13h 15m', dec: '+08° 10\'' },
                 skills: ['Molecular Dynamics', 'GROMACS', 'PyMOL', 'QSAR'],
                 milestonesAr: [
@@ -240,7 +242,7 @@ class TrackHunterCanvas {
                     'Structure-Based Virtual Screening & Molecular Docking',
                     'Quantitative Structure-Activity Relationships (QSAR)'
                 ],
-                xRel: 0.32, yRel: 0.86, radius: 7
+                xRel: 0.32, yRel: 0.86, color: '#C084FC', radius: 7, glow: 13
             },
 
             // Business & FinTech
@@ -252,7 +254,7 @@ class TrackHunterCanvas {
                 facultyAr: 'التجارة وإدارة الأعمال',
                 weeks: '10 أسابيع',
                 weeksEn: '10 Weeks',
-                sector: 'Business',
+                sector: 'DELTA-01',
                 telemetry: { ra: '14h 15m', dec: '+19° 11\'' },
                 skills: ['Financial Modeling', 'Python Pandas', 'SQL', 'Risk Management'],
                 milestonesAr: [
@@ -267,7 +269,7 @@ class TrackHunterCanvas {
                     'Algorithmic Strategy Backtesting & Optimization',
                     'Digital Payment Rails, Open Banking & FinTech Compliance'
                 ],
-                xRel: 0.84, yRel: 0.72, radius: 8
+                xRel: 0.84, yRel: 0.72, color: '#FBBF24', radius: 8, glow: 16
             },
             {
                 id: 'bus-analytics',
@@ -277,7 +279,7 @@ class TrackHunterCanvas {
                 facultyAr: 'التجارة وإدارة الأعمال',
                 weeks: '8 أسابيع',
                 weeksEn: '8 Weeks',
-                sector: 'Business',
+                sector: 'DELTA-02',
                 telemetry: { ra: '15h 02m', dec: '+22° 45\'' },
                 skills: ['Power BI', 'SQL Server', 'Tableau', 'DAX', 'Excel Advanced'],
                 milestonesAr: [
@@ -292,7 +294,7 @@ class TrackHunterCanvas {
                     'Advanced DAX & Business Calculation Engines',
                     'Data Storytelling & Executive Decision Support'
                 ],
-                xRel: 0.70, yRel: 0.84, radius: 8
+                xRel: 0.70, yRel: 0.84, color: '#F59E0B', radius: 8, glow: 15
             },
 
             // Law & Digital IP
@@ -304,7 +306,7 @@ class TrackHunterCanvas {
                 facultyAr: 'الحقوق والتشريعات الرقمية',
                 weeks: '8 أسابيع',
                 weeksEn: '8 Weeks',
-                sector: 'Law',
+                sector: 'EPSILON-01',
                 telemetry: { ra: '16h 45m', dec: '-28° 02\'' },
                 skills: ['Cybercrime Law', 'GDPR', 'Digital Evidence', 'Compliance'],
                 milestonesAr: [
@@ -319,7 +321,7 @@ class TrackHunterCanvas {
                     'GDPR & National Data Protection Compliance',
                     'Corporate Digital Governance & Risk Auditing'
                 ],
-                xRel: 0.44, yRel: 0.88, radius: 8
+                xRel: 0.44, yRel: 0.88, color: '#F472B6', radius: 8, glow: 15
             },
             {
                 id: 'law-ip',
@@ -329,7 +331,7 @@ class TrackHunterCanvas {
                 facultyAr: 'الحقوق والتشريعات الرقمية',
                 weeks: '8 أسابيع',
                 weeksEn: '8 Weeks',
-                sector: 'Law',
+                sector: 'EPSILON-02',
                 telemetry: { ra: '17h 20m', dec: '-32° 18\'' },
                 skills: ['IP Law', 'Patents', 'Software Licensing', 'AI Ethics'],
                 milestonesAr: [
@@ -344,11 +346,12 @@ class TrackHunterCanvas {
                     'AI-Generated Output Copyright & Ethical Regulations',
                     'Technology Licensing, NDAs & Commercial Contract Drafting'
                 ],
-                xRel: 0.56, yRel: 0.88, radius: 7
+                xRel: 0.56, yRel: 0.88, color: '#FB7185', radius: 7, glow: 13
             }
         ];
 
         this.init();
+        this.initTypewriter();
     }
 
     init() {
@@ -376,7 +379,7 @@ class TrackHunterCanvas {
         // Theme sync
         window.addEventListener('hyt:themeChanged', (e) => {
             this.theme = e.detail && e.detail.theme ? e.detail.theme : (document.documentElement.getAttribute('data-theme') || 'dark');
-            this.isDark = this.theme === 'dark';
+            this.isDark = !['light', 'daylight'].includes(this.theme);
         });
 
         // Language sync
@@ -395,7 +398,7 @@ class TrackHunterCanvas {
             this.selectNearestNodes(clickX, clickY);
         });
 
-        this.initBackground();
+        this.initAtmosphere();
         this.updateHookedNodes();
         if (this.hookedNodes.length > 0) {
             this.renderHookedPanel(this.hookedNodes[0]);
@@ -418,24 +421,24 @@ class TrackHunterCanvas {
         this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
 
         this.updateNodeCoordinates();
-        this.initBackground();
+        this.initAtmosphere();
     }
 
-    initBackground() {
-        const count = 180;
-        const maxDist = Math.hypot(this.width, this.height) * 0.6;
+    initAtmosphere() {
+        const count = 360;
+        const maxDist = Math.hypot(this.width, this.height) * 0.55;
 
-        this.backgroundParticles = Array.from({ length: count }, () => {
-            const dist = Math.pow(Math.random(), 0.7) * maxDist + 30;
+        this.stardust = Array.from({ length: count }, () => {
+            const dist = Math.pow(Math.random(), 0.75) * maxDist + 25;
             const angle = Math.random() * Math.PI * 2;
-            const orbitalSpeed = (0.2 / Math.sqrt(dist + 20)) * (Math.random() * 0.5 + 0.7);
+            const orbitalSpeed = (0.25 / Math.sqrt(dist + 20)) * (Math.random() * 0.4 + 0.8);
             return {
                 dist,
                 angle,
                 baseDist: dist,
                 speed: orbitalSpeed,
-                size: Math.random() * 1.5 + 0.4,
-                alpha: Math.random() * 0.5 + 0.15,
+                size: Math.random() * 1.8 + 0.6,
+                alpha: Math.random() * 0.65 + 0.25,
                 colorShift: Math.random(),
                 z: Math.random() * 0.8 + 0.2
             };
@@ -448,8 +451,8 @@ class TrackHunterCanvas {
             n.y = n.yRel * this.height;
             n.baseX = n.x;
             n.baseY = n.y;
-            n.vx = (Math.random() - 0.5) * 0.15;
-            n.vy = (Math.random() - 0.5) * 0.15;
+            n.vx = (Math.random() - 0.5) * 0.2;
+            n.vy = (Math.random() - 0.5) * 0.2;
         });
     }
 
@@ -491,7 +494,7 @@ class TrackHunterCanvas {
             this.hookedNodes = this.nodes.filter(n => n.faculty === this.activeFaculty);
             if (this.hookedNodes.length > 0) this.renderHookedPanel(this.hookedNodes[0]);
         } else {
-            // Default: Show representative tracks across key faculties
+            // Default: Hook primary tracks across key faculties
             this.hookedNodes = [
                 this.nodes.find(n => n.id === 'cs-ai'),
                 this.nodes.find(n => n.id === 'cs-cloud'),
@@ -548,13 +551,13 @@ class TrackHunterCanvas {
         const isAr = document.documentElement.lang === 'ar';
         const count = this.hookedNodes.length;
         if (count === 0) {
-            statusEl.textContent = isAr
-                ? 'انقر على أي مسار في الرادار لاصطياده واستعراض خارطة طريقه'
-                : 'Click any track node on the radar to select and view roadmap';
+            statusEl.textContent = isAr 
+                ? 'انقر على أي مسار في الرادار لاصطياده واستعراض خارطة طريقه' 
+                : 'Select any track node on the radar to lock on and view roadmap';
         } else {
-            statusEl.textContent = isAr
-                ? `تم اختيار ${count} مسار${count > 2 ? 'ات' : ''} بنجاح · انقر على أي مسار للتحديد أو الإلغاء`
-                : `${count} track${count > 1 ? 's' : ''} selected · Click any node to select or deselect`;
+            statusEl.textContent = isAr 
+                ? `تم اصطياد ${count} مسار${count > 2 ? 'ات' : ''} بنجاح · انقر على أي مسار لاصطياده أو إلغائه`
+                : `${count} track${count > 1 ? 's' : ''} locked · Click any star to hook or release`;
         }
     }
 
@@ -747,7 +750,6 @@ class TrackHunterCanvas {
 
         if (syllabi[node.id]) return syllabi[node.id];
 
-        // Generic syllabus for tracks without detailed syllabus
         const skills = node.skills || ['Foundations', 'Tooling', 'Advanced Applications'];
         const milestonesAr = node.milestonesAr || ['الأساسيات والمبادئ الأولية', 'التطبيق العملي والأدوات', 'المشاريع المتقدمة', 'الاعتماد المهني'];
         const milestonesEn = node.milestonesEn || ['Theoretical Foundations', 'Applied Tooling & Simulation', 'Complex Project Execution', 'Industry Standards & Deployment'];
@@ -785,12 +787,8 @@ class TrackHunterCanvas {
     }
 
     focusTrack(id) {
-        console.log('focusTrack called with:', id);
         const node = this.nodes.find(n => n.id === id);
-        if (!node) {
-            console.warn('Node not found for id:', id);
-            return;
-        }
+        if (!node) return;
         if (!this.hookedNodes.some(hn => hn.id === id)) {
             this.hookedNodes.push(node);
         }
@@ -798,38 +796,13 @@ class TrackHunterCanvas {
         this.updateLiveStatus();
     }
 
-    getThemeColors() {
-        return {
-            bg: this.isDark ? '#0B0F19' : '#FFFFFF',
-            fg: this.isDark ? '#FFFFFF' : '#000000',
-            fgMuted: this.isDark ? '#94A3B8' : '#525252',
-            border: this.isDark ? 'rgba(255,255,255,0.08)' : '#E5E5E5',
-            borderStrong: this.isDark ? 'rgba(255,255,255,0.16)' : '#D4D4D4',
-            accent: this.isDark ? '#FFFFFF' : '#000000',
-            particle: this.isDark ? '#FFFFFF' : '#000000',
-            particleDim: this.isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)',
-            connection: this.isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-            connectionStrong: this.isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)',
-            nodeGlow: this.isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.15)',
-            nodeHover: this.isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.25)',
-        };
-    }
-
     renderHookedPanel(node) {
         const panel = document.getElementById('hooked-track-panel');
-        if (!panel) {
-            console.warn('hooked-track-panel element not found');
-            return;
-        }
+        if (!panel) return;
         if (!node) {
             panel.classList.remove('active');
             return;
         }
-        console.log('renderHookedPanel called for:', node.id, 'panel exists:', !!panel, 'current classes:', panel.className);
-
-        // Ensure panel is visible - add active class
-        panel.classList.add('active');
-        console.log('Added active class. Panel classes now:', panel.className);
 
         const isAr = document.documentElement.lang === 'ar';
         const title = isAr ? (node.labelAr || node.label) : node.label;
@@ -851,7 +824,7 @@ class TrackHunterCanvas {
             <div class="hooked-track-header">
                 <div>
                     <span class="badge-tag badge-remote" style="margin-bottom: 0.5rem; display: inline-flex; align-items: center;">
-                        ${reticleSvg} ${isAr ? 'مسار نشط ومحدد في الرادار' : 'Selected Radar Track'} · ${faculty}
+                        ${reticleSvg} ${isAr ? 'مسار نشط ومقفل في الرادار' : 'Locked Radar Track'} · ${faculty}
                     </span>
                     <h3 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--color-foreground);">
                         ${title}
@@ -868,7 +841,7 @@ class TrackHunterCanvas {
                         ${isAr ? 'التدريبات المرتبطة' : 'Matching Internships'}
                     </a>
                     <button type="button" class="btn btn-outline" onclick="window.hytHunter.toggleTrackHook('${node.id}')" style="padding: 0.65rem 1.1rem;">
-                        ${isAr ? 'إلغاء التحديد' : 'Deselect Track'}
+                        ${isAr ? 'إلغاء التحديد' : 'Release Star'}
                     </button>
                 </div>
             </div>
@@ -895,7 +868,7 @@ class TrackHunterCanvas {
                         </span>
                     </div>
                     <div style="width: 100%; height: 10px; background: var(--color-border); border-radius: 999px; overflow: hidden;">
-                        <div style="width: ${progressPercent}%; height: 100%; background: var(--color-primary); border-radius: 999px; transition: width 0.3s ease;"></div>
+                        <div style="width: ${progressPercent}%; height: 100%; background: linear-gradient(90deg, #00F2FE, #6366F1); border-radius: 999px; transition: width 0.3s ease;"></div>
                     </div>
                 </div>
                 <div style="font-size: 0.8rem; color: var(--color-muted-foreground);">
@@ -914,7 +887,7 @@ class TrackHunterCanvas {
                             ${isAr ? 'شبكة العقد والمهارات المتتابعة من البداية وحتى الجاهزية لسوق العمل' : 'Connected milestone progression from foundational theory to market readiness'}
                         </span>
                     </div>
-                    <span class="badge-tag" style="background: var(--color-bg-elevated); color: var(--color-primary); font-weight: 700;">
+                    <span class="badge-tag" style="background: rgba(16, 185, 129, 0.12); color: #10B981; font-weight: 700;">
                         ${isAr ? 'شبكة تفاعلية مترابطة' : 'Live Interconnected Nodes'}
                     </span>
                 </div>
@@ -964,7 +937,7 @@ class TrackHunterCanvas {
                                     </p>
                                 </div>
                             </div>
-                            <span class="badge-tag" style="font-size: 0.75rem; background: var(--color-bg-elevated); color: var(--color-primary);">
+                            <span class="badge-tag" style="font-size: 0.75rem; background: rgba(99, 102, 241, 0.1); color: var(--color-primary);">
                                 ${p.nodes.length} ${isAr ? 'مواضيع رئيسية' : 'Key Modules'}
                             </span>
                         </div>
@@ -990,7 +963,6 @@ class TrackHunterCanvas {
         `;
 
         panel.classList.add('active');
-        console.log('Panel classes after adding active:', panel.className);
         setTimeout(() => {
             panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 50);
@@ -1005,80 +977,188 @@ class TrackHunterCanvas {
 
         this.ctx.clearRect(0, 0, this.width, this.height);
 
-        // 1. Draw Background Starfield
-        this.drawBackground();
+        // 1. Draw Space Atmosphere & Swirling Stardust
+        this.drawAtmosphere();
 
-        // 2. Draw Faculty Constellation Connections
+        // 2. Draw Galactic Accretion Disc & Logarithmic Spiral Arms
+        this.drawAccretionCore();
+
+        // 3. Draw Constellation Vector Networks (Faculty clusters)
         this.drawConstellations();
 
-        // 3. Draw Selection Indicators to Hooked Nodes
-        this.drawSelectionLines();
+        // 4. Draw Quantum Laser Lock-On Beams to Hooked Nodes
+        this.drawCosmicBeams();
 
-        // 4. Draw Career Track Nodes
-        this.drawTrackNodes();
+        // 5. Draw 12 Stellar Career Track Nodes
+        this.drawStellarTracks();
 
-        // 5. Draw HUD Info on Hover
+        // 6. Draw Precision Holographic HUD Reticle & Telemetry
         if (this.mouse.isHovering) {
-            this.drawCoordinateHUD();
+            this.drawTargetingHUD();
         }
 
         this.animationId = requestAnimationFrame(() => this.animate());
     }
 
-    drawBackground() {
+    getThemePalette() {
+        switch (this.theme) {
+            case 'reef':
+                return {
+                    coreGlow: 'rgba(16, 185, 129, 0.35)',
+                    coreCenter: '#10B981',
+                    spiral1: 'rgba(34, 211, 238, 0.22)',
+                    spiral2: 'rgba(16, 185, 129, 0.18)',
+                    textColor: '#E3F2EC',
+                    mutedText: '#86A397',
+                    hudColor: '#10B981'
+                };
+            case 'nebula':
+                return {
+                    coreGlow: 'rgba(167, 139, 250, 0.35)',
+                    coreCenter: '#C084FC',
+                    spiral1: 'rgba(192, 132, 252, 0.22)',
+                    spiral2: 'rgba(129, 140, 248, 0.18)',
+                    textColor: '#ECE8F7',
+                    mutedText: '#9A93B3',
+                    hudColor: '#C084FC'
+                };
+            case 'ember':
+                return {
+                    coreGlow: 'rgba(251, 146, 60, 0.35)',
+                    coreCenter: '#F97316',
+                    spiral1: 'rgba(251, 146, 60, 0.22)',
+                    spiral2: 'rgba(239, 68, 68, 0.18)',
+                    textColor: '#F5ECE3',
+                    mutedText: '#AD9C8B',
+                    hudColor: '#F97316'
+                };
+            case 'light':
+            case 'daylight':
+                return {
+                    coreGlow: 'rgba(2, 132, 199, 0.25)',
+                    coreCenter: '#0284C7',
+                    spiral1: 'rgba(56, 189, 248, 0.20)',
+                    spiral2: 'rgba(99, 102, 241, 0.15)',
+                    textColor: '#090D16',
+                    mutedText: '#64748B',
+                    hudColor: '#0284C7'
+                };
+            case 'dark':
+            case 'abyss':
+            default:
+                return {
+                    coreGlow: 'rgba(0, 242, 254, 0.35)',
+                    coreCenter: '#00F2FE',
+                    spiral1: 'rgba(0, 242, 254, 0.24)',
+                    spiral2: 'rgba(99, 102, 241, 0.22)',
+                    textColor: '#F8FAFC',
+                    mutedText: '#94A3B8',
+                    hudColor: '#00F2FE'
+                };
+        }
+    }
+
+    drawAtmosphere() {
         const cx = this.width * 0.5;
-        const cy = this.height * 0.5;
-        const colors = this.getThemeColors();
+        const cy = this.height * 0.46;
+        const pal = this.getThemePalette();
 
         this.ctx.save();
-
-        // Draw subtle central glow
-        const coreRad = Math.min(this.width, this.height) * 0.35;
-        const radGrad = this.ctx.createRadialGradient(cx, cy, 0, cx, cy, coreRad);
-        radGrad.addColorStop(0, colors.nodeGlow);
-        radGrad.addColorStop(0.5, 'transparent');
-        radGrad.addColorStop(1, 'transparent');
-
-        this.ctx.fillStyle = radGrad;
-        this.ctx.beginPath();
-        this.ctx.ellipse(cx, cy, coreRad, coreRad * 0.6, -0.1, 0, Math.PI * 2);
-        this.ctx.fill();
-
-        // Draw background particles
-        this.backgroundParticles.forEach(p => {
+        this.stardust.forEach(p => {
+            // Orbital rotation
             p.angle += p.speed;
 
+            // Compute Cartesian coordinates
             let px = cx + Math.cos(p.angle) * p.dist;
-            let py = cy + Math.sin(p.angle) * p.dist * 0.55;
+            let py = cy + Math.sin(p.angle) * p.dist * 0.65; // subtle elliptical tilt
 
             // Mouse gravity perturbation
             if (this.mouse.active) {
                 const dx = this.mouse.x - px;
                 const dy = this.mouse.y - py;
                 const distToMouse = Math.hypot(dx, dy);
-                if (distToMouse < 120 && distToMouse > 2) {
-                    const force = (120 - distToMouse) / 120 * 1.2;
-                    px += (dx / distToMouse) * force * 3;
-                    py += (dy / distToMouse) * force * 3;
+                if (distToMouse < 110 && distToMouse > 2) {
+                    const force = (110 - distToMouse) / 110 * 1.5;
+                    px += (dx / distToMouse) * force * 4;
+                    py += (dy / distToMouse) * force * 4;
                 }
             }
 
+            // Draw drifting starlight particle
             this.ctx.beginPath();
             this.ctx.arc(px, py, p.size, 0, Math.PI * 2);
-            this.ctx.fillStyle = colors.particle;
+            this.ctx.fillStyle = p.colorShift > 0.5 ? pal.coreCenter : '#FFFFFF';
             this.ctx.globalAlpha = p.alpha;
             this.ctx.fill();
         });
+        this.ctx.restore();
+    }
+
+    drawAccretionCore() {
+        const cx = this.width * 0.5;
+        const cy = this.height * 0.46;
+        const pal = this.getThemePalette();
+
+        this.ctx.save();
+
+        // 1. Central Multi-layered Nebula Radiance
+        const coreRad = Math.min(this.width, this.height) * 0.28;
+        const radGrad = this.ctx.createRadialGradient(cx, cy, 0, cx, cy, coreRad);
+        radGrad.addColorStop(0, pal.coreGlow);
+        radGrad.addColorStop(0.35, pal.spiral1);
+        radGrad.addColorStop(0.7, pal.spiral2);
+        radGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+        this.ctx.fillStyle = radGrad;
+        this.ctx.beginPath();
+        this.ctx.ellipse(cx, cy, coreRad, coreRad * 0.65, -0.15, 0, Math.PI * 2);
+        this.ctx.fill();
+
+        // 2. Logarithmic Spiral Accretion Arms
+        for (let arm = 0; arm < 2; arm++) {
+            const armOffset = arm * Math.PI;
+            this.ctx.beginPath();
+            const armPoints = 65;
+            for (let i = 0; i < armPoints; i++) {
+                const t = i / armPoints;
+                const theta = t * Math.PI * 3.5 + this.time * 0.35 + armOffset;
+                const r = Math.pow(t, 0.85) * (coreRad * 1.35);
+                const x = cx + Math.cos(theta) * r;
+                const y = cy + Math.sin(theta) * r * 0.65;
+                if (i === 0) this.ctx.moveTo(x, y);
+                else this.ctx.lineTo(x, y);
+            }
+            this.ctx.strokeStyle = arm === 0 ? pal.spiral1 : pal.spiral2;
+            this.ctx.lineWidth = 1.4;
+            this.ctx.stroke();
+        }
+
+        // 3. Central Photon Sphere Ring
+        const ringR = 26 + Math.sin(this.time * 2) * 2;
+        this.ctx.beginPath();
+        this.ctx.arc(cx, cy, ringR, 0, Math.PI * 2);
+        this.ctx.strokeStyle = pal.coreCenter;
+        this.ctx.lineWidth = 1.8;
+        this.ctx.shadowColor = pal.coreCenter;
+        this.ctx.shadowBlur = 15;
+        this.ctx.stroke();
+
+        // 4. Center Singularity Core Disc
+        this.ctx.beginPath();
+        this.ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+        this.ctx.fillStyle = this.isDark ? '#FFFFFF' : '#090D16';
+        this.ctx.shadowBlur = 20;
+        this.ctx.fill();
 
         this.ctx.restore();
     }
 
     drawConstellations() {
-        const colors = this.getThemeColors();
+        const pal = this.getThemePalette();
         const faculties = ['computing', 'engineering', 'science', 'business', 'law'];
 
         this.ctx.save();
-        this.ctx.setLineDash([4, 6]);
+        this.ctx.setLineDash([3, 4]);
 
         faculties.forEach(fac => {
             const facNodes = this.nodes.filter(n => n.faculty === fac);
@@ -1088,9 +1168,9 @@ class TrackHunterCanvas {
                 for (let i = 1; i < facNodes.length; i++) {
                     this.ctx.lineTo(facNodes[i].x, facNodes[i].y);
                 }
-                this.ctx.strokeStyle = colors.connection;
-                this.ctx.globalAlpha = 0.4;
-                this.ctx.lineWidth = 1;
+                this.ctx.strokeStyle = facNodes[0].color;
+                this.ctx.globalAlpha = this.isDark ? 0.35 : 0.25;
+                this.ctx.lineWidth = 1.2;
                 this.ctx.stroke();
             }
         });
@@ -1099,10 +1179,9 @@ class TrackHunterCanvas {
         this.ctx.restore();
     }
 
-    drawSelectionLines() {
-        const colors = this.getThemeColors();
+    drawCosmicBeams() {
         const cx = this.width * 0.5;
-        const cy = this.height * 0.5;
+        const cy = this.height * 0.46;
 
         this.ctx.save();
 
@@ -1110,133 +1189,147 @@ class TrackHunterCanvas {
             const destX = node.x;
             const destY = node.y;
 
+            // Animated laser pulse offset
+            const pulse = (this.time * 2.5 + i * 0.4) % 1;
+
             this.ctx.beginPath();
             this.ctx.moveTo(cx, cy);
-            const ctrlX = (cx + destX) / 2 + Math.sin(this.time * 1.5 + i) * 8;
-            const ctrlY = (cy + destY) / 2 - 6;
+            const ctrlX = (cx + destX) / 2 + Math.sin(this.time * 2 + i) * 15;
+            const ctrlY = (cy + destY) / 2 - 12;
             this.ctx.quadraticCurveTo(ctrlX, ctrlY, destX, destY);
 
-            this.ctx.strokeStyle = colors.connectionStrong;
-            this.ctx.lineWidth = 1.5;
+            this.ctx.strokeStyle = node.color;
+            this.ctx.lineWidth = 1.6;
+            this.ctx.shadowColor = node.color;
+            this.ctx.shadowBlur = 12;
             this.ctx.stroke();
 
-            // Selection indicator at destination
+            // Traveling photon packet
+            const t = pulse;
+            const bx = (1 - t) * (1 - t) * cx + 2 * (1 - t) * t * ctrlX + t * t * destX;
+            const by = (1 - t) * (1 - t) * cy + 2 * (1 - t) * t * ctrlY + t * t * destY;
+
             this.ctx.beginPath();
-            this.ctx.arc(destX, destY, node.radius + 10 + Math.sin(this.time * 3 + i) * 2, 0, Math.PI * 2);
-            this.ctx.strokeStyle = colors.accent;
-            this.ctx.lineWidth = 2;
-            this.ctx.setLineDash([8, 4]);
+            this.ctx.arc(bx, by, 3.2, 0, Math.PI * 2);
+            this.ctx.fillStyle = '#FFFFFF';
+            this.ctx.shadowColor = node.color;
+            this.ctx.shadowBlur = 14;
+            this.ctx.fill();
+
+            // Lock-on ring waves at destination star
+            this.ctx.beginPath();
+            this.ctx.arc(destX, destY, node.radius + 8 + Math.sin(this.time * 4 + i) * 3, 0, Math.PI * 2);
+            this.ctx.strokeStyle = node.color;
+            this.ctx.lineWidth = 1.2;
             this.ctx.stroke();
-            this.ctx.setLineDash([]);
         });
 
         this.ctx.restore();
     }
 
-    drawTrackNodes() {
-        const colors = this.getThemeColors();
+    drawStellarTracks() {
+        const pal = this.getThemePalette();
 
         this.nodes.forEach(n => {
-            // Gentle orbital movement
-            n.x = n.baseX + Math.sin(this.time * 0.8 + n.id.charCodeAt(0)) * 3;
-            n.y = n.baseY + Math.cos(this.time * 1.0 + n.id.charCodeAt(1)) * 2;
+            // Gentle Keplerian orbital bobbing
+            n.x = n.baseX + Math.sin(this.time * 1.1 + n.id.charCodeAt(0)) * 5;
+            n.y = n.baseY + Math.cos(this.time * 1.3 + n.id.charCodeAt(1)) * 4;
 
             const isHooked = this.hookedNodes.some(hn => hn.id === n.id);
-            const isHovered = this.mouse.isHovering && Math.hypot(n.x - this.mouse.x, n.y - this.mouse.y) < 28;
+            const isHovered = this.mouse.isHovering && Math.hypot(n.x - this.mouse.x, n.y - this.mouse.y) < 32;
 
             this.ctx.save();
 
-            // 1. Selection/hover halo
-            if (isHooked || isHovered) {
-                this.ctx.beginPath();
-                this.ctx.arc(n.x, n.y, n.radius * 2.8, 0, Math.PI * 2);
-                this.ctx.fillStyle = isHooked ? colors.nodeHover : colors.nodeGlow;
-                this.ctx.fill();
-            }
+            // 1. Stellar Corona Halo
+            this.ctx.beginPath();
+            this.ctx.arc(n.x, n.y, n.radius * 2.4, 0, Math.PI * 2);
+            this.ctx.fillStyle = isHooked 
+                ? (this.isDark ? 'rgba(0, 242, 254, 0.28)' : 'rgba(99, 102, 241, 0.22)')
+                : (this.isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(100, 116, 139, 0.08)');
+            this.ctx.fill();
 
-            // 2. Node core
+            // 2. Star Core Disc
             this.ctx.beginPath();
             this.ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-            this.ctx.fillStyle = isHooked ? colors.accent : colors.fgMuted;
-            if (isHooked) {
-                this.ctx.shadowColor = colors.accent;
-                this.ctx.shadowBlur = 15;
-            }
+            this.ctx.fillStyle = isHooked ? '#FFFFFF' : n.color;
+            this.ctx.shadowColor = n.color;
+            this.ctx.shadowBlur = isHooked ? 22 : 10;
             this.ctx.fill();
             this.ctx.shadowBlur = 0;
 
-            // 3. Node ring for hovered/selected
+            // 3. Rotating Holographic Reticle Brackets on Active/Hovered
             if (isHooked || isHovered) {
-                this.ctx.beginPath();
-                this.ctx.arc(n.x, n.y, n.radius + 4, 0, Math.PI * 2);
-                this.ctx.strokeStyle = isHooked ? colors.accent : colors.fgMuted;
-                this.ctx.lineWidth = 2;
-                this.ctx.stroke();
-
-                // Four bracket markers (subtle)
-                const rot = this.time * 0.8;
-                const r = n.radius + 8;
-                this.ctx.strokeStyle = isHooked ? colors.accent : colors.fgMuted;
+                const rot = this.time * 1.5;
+                const r = n.radius + 12;
+                this.ctx.strokeStyle = n.color;
                 this.ctx.lineWidth = 1.5;
 
+                // 4 Reticle Brackets
                 for (let b = 0; b < 4; b++) {
                     const ang = rot + (b * Math.PI / 2);
                     this.ctx.beginPath();
-                    this.ctx.arc(n.x, n.y, r, ang - 0.2, ang + 0.2);
+                    this.ctx.arc(n.x, n.y, r, ang - 0.25, ang + 0.25);
                     this.ctx.stroke();
+                }
+
+                // Telemetry Coordinates Readout
+                if (n.telemetry) {
+                    this.ctx.font = '9px monospace';
+                    this.ctx.fillStyle = n.color;
+                    this.ctx.textAlign = 'center';
+                    this.ctx.fillText(`RA ${n.telemetry.ra} / DEC ${n.telemetry.dec}`, n.x, n.y - n.radius - 12);
                 }
             }
 
-            // 4. Label
-            this.ctx.font = isHooked ? 'bold 11px Inter, sans-serif' : '10px Inter, sans-serif';
+            // 4. Label Typography
+            this.ctx.font = isHooked ? 'bold 12px Inter, sans-serif' : '11px Inter, sans-serif';
             this.ctx.textAlign = 'center';
-            this.ctx.fillStyle = isHooked ? colors.fg : colors.fgMuted;
-            this.ctx.fillText(n.label, n.x, n.y + n.radius + 14);
+            this.ctx.fillStyle = isHooked ? pal.textColor : pal.mutedText;
+            this.ctx.fillText(n.label, n.x, n.y + n.radius + 15);
 
-            // 5. Faculty sector label
+            // 5. Faculty Sector Pill
             if (isHooked) {
                 this.ctx.font = '9px monospace';
-                this.ctx.fillStyle = colors.accent;
-                this.ctx.fillText(`[${n.sector || n.faculty.toUpperCase()}]`, n.x, n.y + n.radius + 26);
+                this.ctx.fillStyle = n.color;
+                this.ctx.fillText(`[${n.sector || n.faculty.toUpperCase()}]`, n.x, n.y + n.radius + 28);
             }
 
             this.ctx.restore();
         });
     }
 
-    drawCoordinateHUD() {
+    drawTargetingHUD() {
         const mx = this.mouse.x;
         const my = this.mouse.y;
-        const colors = this.getThemeColors();
+        const pal = this.getThemePalette();
 
         this.ctx.save();
-        this.ctx.strokeStyle = colors.fgMuted;
-        this.ctx.lineWidth = 1;
-        this.ctx.globalAlpha = 0.6;
+        this.ctx.strokeStyle = pal.hudColor;
+        this.ctx.lineWidth = 1.2;
 
-        // Crosshair
+        // Outer Reticle Circle
         this.ctx.beginPath();
-        this.ctx.moveTo(mx - 20, my);
+        this.ctx.arc(mx, my, 18, 0, Math.PI * 2);
+        this.ctx.stroke();
+
+        // Center Crosshairs
+        this.ctx.beginPath();
+        this.ctx.moveTo(mx - 24, my);
         this.ctx.lineTo(mx - 8, my);
         this.ctx.moveTo(mx + 8, my);
-        this.ctx.lineTo(mx + 20, my);
-        this.ctx.moveTo(mx, my - 20);
+        this.ctx.lineTo(mx + 24, my);
+        this.ctx.moveTo(mx, my - 24);
         this.ctx.lineTo(mx, my - 8);
         this.ctx.moveTo(mx, my + 8);
-        this.ctx.lineTo(mx, my + 20);
+        this.ctx.lineTo(mx, my + 24);
         this.ctx.stroke();
 
-        // Outer circle
-        this.ctx.beginPath();
-        this.ctx.arc(mx, my, 22, 0, Math.PI * 2);
-        this.ctx.stroke();
-
-        // Coordinate text
+        // Real-time HUD Telemetry Badge
         this.ctx.font = '9px monospace';
-        this.ctx.fillStyle = colors.fgMuted;
+        this.ctx.fillStyle = pal.hudColor;
         this.ctx.textAlign = 'left';
-        this.ctx.globalAlpha = 0.8;
-        this.ctx.fillText(`${Math.round(mx)}, ${Math.round(my)}`, mx + 24, my - 6);
+        this.ctx.fillText(`[COORD: ${Math.round(mx)}, ${Math.round(my)}]`, mx + 24, my - 8);
+        this.ctx.fillText(`RADAR // LOCK ACTIVE`, mx + 24, my + 6);
 
         this.ctx.restore();
     }
@@ -1246,17 +1339,17 @@ class TrackHunterCanvas {
         if (!el) return;
 
         const messagesEn = [
-            "Tracking accredited career tracks across 5 university faculties...",
-            "Mapping professional pathways: Computing, Engineering, Science, Business & Law...",
-            "Matching student competencies with certified industry opportunities...",
-            "Connecting Damanhour University curricula with certified career outcomes..."
+            "Stellar Radar: Tracking accredited internships across 5 university faculties...",
+            "Mapping career constellations: Computing, Engineering, Science, Business & Law...",
+            "Scanning student resume keywords with instant ATS match scoring...",
+            "Connecting Damanhour University coursework with certified industry careers..."
         ];
 
         const messagesAr = [
-            "تتبع المسارات المهنية المعتمدة عبر ٥ كليات جامعية...",
-            "رسم خرائط المسارات المهنية: الحاسبات، الهندسة، العلوم، التجارة، والحقوق...",
-            "مطابقة كفاءات الطلاب مع فرص الصناعة المعتمدة...",
-            "ربط المناهج الدراسية بجامعة دمنهور بمخرجات مهنية معتمدة..."
+            "رادار المجرة: تتبع فرص التدريب الصيفي المعتمدة لطلاب ٥ كليات جامعية...",
+            "رسم خرائط المهن خطوة بخطوة: حاسبات، هندسة، علوم، تجارة، وحقوق...",
+            "فحص ومطابقة الكلمات المفتاحية في السيرة الذاتية بنظام الـ ATS المعتمد...",
+            "ربط المقررات الدراسية بجامعة دمنهور باحتياجات سوق العمل الحقيقية..."
         ];
 
         let msgIndex = 0;
@@ -1282,7 +1375,7 @@ class TrackHunterCanvas {
             let delay = isDeleting ? 25 : 45;
 
             if (!isDeleting && charIndex === fullMsg.length) {
-                delay = 2400;
+                delay = 2400; // Hold full sentence for 2.4s
                 isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
@@ -1291,11 +1384,12 @@ class TrackHunterCanvas {
             }
 
             setTimeout(type, delay);
-        }
+        };
 
         type();
     }
 }
+
 // Global initialization
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('hunter-radar-canvas')) {

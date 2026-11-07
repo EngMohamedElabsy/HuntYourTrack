@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000000">
-    <title data-i18n="mainPageTitle">HuntYourTrack · اصطد مسارك المهني | Career Navigator</title>
+    <meta name="theme-color" content="#EEF2FF">
+    <title data-i18n="mainPageTitle">HuntYourTrack · منصة اصطياد المسار المهني والتدريب الصيفي | Career & Internship Hub</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,60 +14,45 @@
 </head>
 <body>
 
-    <!-- Minimal Top Bar - Zero Clutter -->
-    <nav class="top-bar landing-nav" id="top-bar" role="navigation" aria-label="Main navigation">
-        <div class="top-bar-inner">
-            <!-- Brand: Illustrated Logo -->
-            <a href="index.html" class="brand" aria-label="HuntYourTrack Home">
-                <svg class="brand-logo" width="40" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hunt Your Track">
-                    <!-- HUNT - Hunter casting rod -->
-                    <g class="logo-hunt" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-                        <path d="M4 36 V6 M4 6 h10 M4 21 h10 M14 6 v30"/>
-                        <circle cx="9" cy="3" r="3" fill="currentColor"/>
-                        <path d="M14 15 Q25 5, 40 15 Q55 25, 60 15" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.5"/>
-                        <g transform="translate(60, 15)">
-                            <ellipse cx="0" cy="0" rx="5" ry="2.5" stroke-width="1.5"/>
-                            <path d="M-5 0 Q-8 -3, -10 0 Q-8 3, -5 0" stroke-width="1.5"/>
-                            <circle cx="-1.5" cy="-0.5" r="0.8" fill="currentColor"/>
-                        </g>
-                    </g>
-                    <!-- YOUR - Bridge -->
-                    <g class="logo-your" font-family="'Sora', 'Inter', sans-serif" font-weight="600" font-size="14" fill="currentColor" text-anchor="middle" opacity="0.6">
-                        <text x="80" y="27" letter-spacing="0.3">YOUR</text>
-                        <path d="M80 30 L90 24 M80 30 L90 36" stroke-width="1.5" opacity="0.4"/>
-                    </g>
-                    <!-- TRACK - Railway with target -->
-                    <g class="logo-track" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none">
-                        <path d="M108 34 L152 34 M108 12 L152 12" opacity="0.25" stroke-width="1.5"/>
-                        <g stroke-width="1.5" opacity="0.4">
-                            <line x1="112" y1="12" x2="112" y2="34"/>
-                            <line x1="124" y1="12" x2="124" y2="34"/>
-                            <line x1="136" y1="12" x2="136" y2="34"/>
-                            <line x1="148" y1="12" x2="148" y2="34"/>
-                        </g>
-                        <circle id="track-target" cx="148" cy="23" r="4" stroke-width="1.5"/>
-                        <circle cx="148" cy="23" r="1.5" fill="currentColor"/>
-                    </g>
-                    <animate href="#track-target" attributeName="r" values="4;5.5;4" dur="1.8s" repeatCount="indefinite"/>
-                </svg>
+    <!-- Sticky Navigation Bar (Clean & Role-Sanitized) -->
+    <nav class="landing-nav" id="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="brand-wrapper" aria-label="HuntYourTrack Home">
+                <span class="brand-mark">
+                    <svg class="brand-reticle-svg" width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 3" opacity="0.6"/>
+                        <circle cx="16" cy="16" r="7.5" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="16" cy="16" r="2.8" fill="currentColor"/>
+                        <path d="M16 2V6M16 26V30M2 16H6M26 16H30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M21 11L27 5M27 5H23M27 5V9" stroke="#00F2FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="brand-title">
+                    <span class="brand-word-hunt">Hunt</span><span class="brand-word-your">Your</span><span class="brand-word-track">Track</span>
+                </span>
             </a>
 
-            <!-- Center: Empty for Galaxy focus -->
+            <!-- Desktop Links -->
+            <ul class="nav-menu">
+                <li><a href="#tracks" class="nav-link" data-i18n="navTracks">مسارات التخصص</a></li>
+                <li><a href="#opportunities" class="nav-link" data-i18n="navInternships">فرص التدريب والكورسات</a></li>
+                <li><a href="#hunter-radar-section" class="nav-link" data-i18n="navHunterRadar">رادار اصطياد المسار</a></li>
+                <li><a href="#how-it-works" class="nav-link" data-i18n="navHowItWorks">كيف تعمل المنصة</a></li>
+            </ul>
 
-            <!-- Right: Actions Only -->
-            <div class="top-bar-actions" id="top-bar-actions">
-                <!-- Language Toggle -->
-                <button id="hyt-lang-toggle" class="icon-btn" type="button" aria-label="Toggle language" title="Toggle Language">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-                        <path d="M2 12h20"/>
-                    </svg>
+            <!-- Controls & Auth CTAs -->
+            <div class="nav-cta-group">
+                <!-- Command Palette Trigger Button -->
+                <button type="button" class="nav-util-btn" onclick="openCommandSearch()" aria-label="Quick Search" title="Quick Search (Ctrl+K)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> <span style="font-size: 0.72rem; opacity: 0.8; margin-inline-start: 3px;">Ctrl+K</span>
                 </button>
 
-                <!-- Unified Theme Button (opens dropdown) -->
+                <!-- Language & Theme Switchers -->
+                <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-inline-end: 4px;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>English</button>
+
+                <!-- Unified Theme & Appearance Dropdown -->
                 <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
-                    <button id="hyt-theme-btn" class="icon-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
+                    <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
                         <span id="theme-btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
                     </button>
                     <div class="theme-dropdown-menu" id="theme-dropdown-menu">
@@ -80,419 +65,604 @@
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
                             <span data-i18n="themeLightOption">الوضع النهاري (Light Mode)</span>
                         </button>
+                        <div class="theme-menu-divider"></div>
+                        <div class="theme-menu-header" data-i18n="themePalettesHeader">لوحات الألوان المخصصة</div>
+                        <button type="button" class="theme-opt-btn" data-theme-val="abyss" onclick="setAppTheme('abyss')">
+                            <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
+                            <span data-i18n="themeAbyss">أعماق المحيط (Abyss)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" data-theme-val="reef" onclick="setAppTheme('reef')">
+                            <span class="theme-swatch-dot" style="background: #10B981;"></span>
+                            <span data-i18n="themeReef">الشعب المرجانية (Reef)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" data-theme-val="nebula" onclick="setAppTheme('nebula')">
+                            <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
+                            <span data-i18n="themeNebula">سديم الفضاء (Nebula)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" data-theme-val="ember" onclick="setAppTheme('ember')">
+                            <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
+                            <span data-i18n="themeEmber">الوهج الشمسي (Ember)</span>
+                        </button>
+                        <button type="button" class="theme-opt-btn" data-theme-val="daylight" onclick="setAppTheme('daylight')">
+                            <span class="theme-swatch-dot" style="background: #0284C7;"></span>
+                            <span data-i18n="themeDaylight">وضح النهار (Daylight)</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Auth/Profile Entry -->
-                <div id="auth-entry" class="auth-entry"></div>
-            </div>
-
-        <!-- Mobile Hamburger Toggle -->
-        <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Navigation Menu">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-        </button>
-    </div>
-</nav>
-
-<!-- Galaxy Canvas - Full Viewport Background -->
-<canvas id="galaxy-canvas" class="galaxy-canvas" aria-hidden="true"></canvas>
-
-<!-- Main Content -->
-<main id="main-content">
-    <!-- Guest Landing Hero -->
-    <section id="guest-landing" class="guest-landing" aria-labelledby="guest-title">
-        <div class="guest-hero">
-            <div class="guest-badge" data-i18n="guestBadge">منصة اصطياد المسار المهني 2026</div>
-            <h1 id="guest-title" class="guest-headline hero-headline">
-                <span data-i18n="heroTitleLine1">اصطد مسارك المهني، واصنع</span>
-                <span class="guest-accent" data-i18n="heroTitleLine2">شبكة مهاراتك وانطلق في سوق العمل</span>
-            </h1>
-            <p class="guest-desc" data-i18n="guestDesc">
-                المنصة الذكية الوحيدة التي ترسم لك خارطة طريق مهنية خطوة بخطوة — من الكلية إلى التوظيف. مسارات معتمدة، فرص حقيقية، إشراف أكاديمي.
-            </p>
-
-            <!-- CTA Group -->
-            <div class="guest-cta-group">
-                <button type="button" class="btn btn-primary btn-lg" id="start-journey-btn" data-i18n="startJourneyBtn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-inline-end: 8px;">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                    ابدأ رحلتك الآن
-                </button>
-                <button type="button" class="btn btn-ghost btn-lg" id="explore-first-btn" data-i18n="exploreFirstBtn">
-                    استكشف أولاً
-                </button>
-            </div>
-
-            <!-- Trust Indicators -->
-            <div class="guest-trust" aria-label="Platform statistics">
-                <div class="trust-item">
-                    <span class="trust-num" data-count="136">0</span>
-                    <span class="trust-label" data-i18n="trustRoles">فرصة معتمدة</span>
-                </div>
-                <div class="trust-divider" aria-hidden="true"></div>
-                <div class="trust-item">
-                    <span class="trust-num" data-count="48">0</span>
-                    <span class="trust-label" data-i18n="trustPartners">شريك صناعي</span>
-                </div>
-                <div class="trust-divider" aria-hidden="true"></div>
-                <div class="trust-item">
-                    <span class="trust-num" data-count="91">0</span>
-                    <span class="trust-label" data-i18n="trustMatch">٪ معدل التوافق</span>
-                </div>
-                <div class="trust-divider" aria-hidden="true"></div>
-                <div class="trust-item">
-                    <span class="trust-num" data-count="2400">0</span>
-                    <span class="trust-label" data-i18n="trustStudents">طالب ومرشد</span>
+                <div id="nav-auth-actions" style="display: flex; gap: 0.5rem; align-items: center;">
+                    <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.5rem 1.15rem; font-size: 0.88rem;" data-i18n="navUnifiedAuth"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-inline-end: 4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>دخول المنصة</a>
                 </div>
             </div>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Navigation Menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            </button>
         </div>
 
-        <!-- Scroll Indicator --><!-- Scroll Indicator -->
-            <div class="scroll-indicator" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M12 5v14M19 12l-7 7-7-7"/>
-                </svg>
+        <!-- Mobile Drawer (Cleaned of developer links) -->
+        <div class="mobile-drawer" id="mobile-drawer">
+            <a href="#tracks" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navTracks">مسارات التخصص</a>
+            <a href="#opportunities" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navInternships">فرص التدريب والكورسات</a>
+            <a href="#hunter-radar-section" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHunterRadar">رادار اصطياد المسار</a>
+            <a href="#how-it-works" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHowItWorks">كيف تعمل المنصة</a>
+            <a href="#employers" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navEmployers">للشركات والمنظمين</a>
+            
+            <div style="display: flex; gap: 0.5rem; margin: 1rem 0;">
+                <button onclick="window.hytI18n.toggleLanguage(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="langToggleLabel">اللغة</button>
+                <button onclick="window.hytI18n.toggleTheme(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="themeToggleLabel">المظهر</button>
             </div>
-        </section>
 
-        <!-- Value Props (Hidden until scroll) -->
-        <section id="value-props" class="value-props-section" aria-labelledby="value-title" style="opacity:0; transform:translateY(40px);">
-            <div class="section-container">
-                <header class="section-head" style="text-align:center; margin-bottom:3rem;">
-                    <span class="eyebrow" data-i18n="whyHytEyebrow">لماذا HuntYourTrack؟</span>
-                    <h2 id="value-title" class="section-title" data-i18n="whyHytHeading">مصممة للطلاب، موثوقة من الأكاديميين</h2>
-                    <p class="section-subtitle" data-i18n="whyHytSub">منظومة متكاملة تربط مخرجات التعليم الجامعي بمتطلبات سوق العمل الفعلي.</p>
-                </header>
-                <div class="value-props-grid">
-                    <article class="value-prop-card panel">
-                        <div class="value-prop-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
-                            </svg>
+            <div class="nav-cta-group" id="mobile-auth-actions" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <a href="pages/auth.html" class="btn btn-primary" style="width: 100%;" data-i18n="navUnifiedAuth"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-inline-end: 4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>دخول المنصة</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <!-- Hero Section (Lovable & Stage Design Fusion) -->
+        <header class="hero-section" style="padding-bottom: 2rem;">
+            <div class="hero-split-grid">
+                <!-- Left Column: Copy & Actions & Stats -->
+                <div class="hero-content-col">
+                    <div class="hero-pill">
+                        <span data-i18n="academicBadge">دورة التدريب الصيفي 2026 مفتوحة الآن · جامعة دمنهور</span>
+                    </div>
+                    <h1 class="hero-headline">
+                        <span data-i18n="heroTitleLine1">اصطد مسارك المهني، واصنع</span> <br>
+                        <span class="gradient-text" data-i18n="heroTitleLine2">شبكة مهاراتك وانطلق في سوق العمل</span>
+                    </h1>
+                    <p class="hero-description" data-i18n="heroDesc">
+                        المنصة الذكية الأولى في جامعة دمنهور لرسم خريطة طريق مهنية مخصصة لكل طالب في مختلف الكليات (حاسبات، هندسة، تجارة، حقوق)، مع ربط مباشر بفرص التدريب الصيفي والكورسات المعتمدة وإشراف أكاديمي معتمد.
+                    </p>
+                    <div class="hero-typewriter-box">
+                        <span class="typewriter-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg></span>
+                        <span id="hyt-typewriter"></span><span class="typewriter-cursor">|</span>
+                    </div>
+                    <div class="hero-actions">
+                        <a href="#opportunities" class="btn btn-primary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnExplore">
+                            استكشف الفرص المعتمدة ←
+                        </a>
+                        <a href="pages/auth.html" class="btn btn-secondary" style="font-size: 1rem; padding: 0.85rem 1.75rem;" data-i18n="heroBtnSignIn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-inline-end: 4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>دخول المنصة
+                        </a>
+                        <button type="button" class="btn btn-accent" style="font-size: 1rem; padding: 0.85rem 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem;" onclick="openCommandSearch()">
+                            <span data-i18n="heroCmdBtn">بحث سريع (Ctrl+K)</span>
+                        </button>
+                    </div>
+
+                    <!-- Key Metrics Strip -->
+                    <section class="metrics-strip" aria-label="Platform Statistics" style="width: 100%;">
+                        <div class="metric-item">
+                            <div class="metric-number">136+</div>
+                            <div class="metric-label" data-i18n="metricRoles">فرصة تدريب معتمدة</div>
                         </div>
-                        <h3 class="value-prop-title" data-i18n="vp1Title">درجات توافق حقيقية</h3>
-                        <p class="value-prop-desc" data-i18n="vp1Desc">كل فرصة تُقيَّم مقابل موادك ومهاراتك وسيرتك — فتتقدم حيث تنتمي حقاً.</p>
-                    </article>
-                    <article class="value-prop-card panel">
-                        <div class="value-prop-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
+                        <div class="metric-item">
+                            <div class="metric-number">48</div>
+                            <div class="metric-label" data-i18n="metricPartners">شريك صناعي وتكنولوجي</div>
                         </div>
-                        <h3 class="value-prop-title" data-i18n="vp2Title">فرص معتمدة أكاديمياً</h3>
-                        <p class="value-prop-desc" data-i18n="vp2Desc">مكتب التوظيف يتحقق من كل شريك ودور قبل وصوله للطلاب.</p>
-                    </article>
-                    <article class="value-prop-card panel">
-                        <div class="value-prop-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/>
-                            </svg>
+                        <div class="metric-item">
+                            <div class="metric-number">91%</div>
+                            <div class="metric-label" data-i18n="metricMatchRate">متوسط التوافق الأكاديمي</div>
                         </div>
-                        <h3 class="value-prop-title" data-i18n="vp3Title">تتبع كل طلب</h3>
-                        <p class="value-prop-desc" data-i18n="vp3Desc">حالة الطلب من الإرسال للعرض، مع مواعيد نهائية وخطوات قادمة في لوحة واحدة.</p>
-                    </article>
-                    <article class="value-prop-card panel">
-                        <div class="value-prop-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/>
-                            </svg>
+                        <div class="metric-item">
+                            <div class="metric-number">2.4k</div>
+                            <div class="metric-label" data-i18n="metricStudents">طالب ومرشد أكاديمي</div>
                         </div>
-                        <h3 class="value-prop-title" data-i18n="vp4Title">رادار المسار المهني</h3>
-                        <p class="value-prop-desc" data-i18n="vp4Desc">اكتشف المهارات الصاعدة والمسارات الأكثر طلباً عبر كل كلية قبل فتح الدورة.</p>
-                    </article>
+                    </section>
+                </div>
+
+                <!-- Right Column: Lovable Product Preview Component (with Cosmic Orbit Rings) -->
+                <div class="hero-preview-col" aria-hidden="true">
+                    <div class="hero-orbit-container">
+                        <div class="orbit-ring orbit-ring-outer orbit-spin">
+                            <span class="orbit-dot orbit-dot-1"></span>
+                        </div>
+                        <div class="orbit-ring orbit-ring-inner orbit-spin-reverse">
+                            <span class="orbit-dot orbit-dot-2"></span>
+                        </div>
+                    </div>
+                    <div class="hero-preview-card panel shadow-glow">
+                        <div class="preview-badge-faculty">
+                            <span>✓</span> <span data-i18n="previewFacultyEndorsed">معتمد أكاديمياً</span>
+                        </div>
+                        <div class="preview-card-header">
+                            <div class="preview-logo-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg></div>
+                            <div class="preview-company-info">
+                                <div class="preview-company-name">Damanhour AI Lab × Zewail</div>
+                                <div class="preview-role-title">Machine Learning Research Intern</div>
+                            </div>
+                            <div class="preview-ring-wrap">
+                                <svg viewBox="0 0 48 48" class="preview-ring-svg">
+                                    <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="3.5"></circle>
+                                    <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3.5" stroke-dasharray="125.6" stroke-dashoffset="2.5"></circle>
+                                </svg>
+                                <span class="preview-ring-score">98%</span>
+                            </div>
+                        </div>
+                        <div class="preview-bars-stack">
+                            <div class="preview-bar-row">
+                                <div class="preview-bar-labels">
+                                    <span data-i18n="previewCourseAlign">Course alignment</span>
+                                    <span class="preview-bar-val">96%</span>
+                                </div>
+                                <div class="preview-bar-track">
+                                    <div class="preview-bar-fill" style="width: 96%;"></div>
+                                </div>
+                            </div>
+                            <div class="preview-bar-row">
+                                <div class="preview-bar-labels">
+                                    <span data-i18n="previewSkillOverlap">Skill overlap</span>
+                                    <span class="preview-bar-val">89%</span>
+                                </div>
+                                <div class="preview-bar-track">
+                                    <div class="preview-bar-fill" style="width: 89%;"></div>
+                                </div>
+                            </div>
+                            <div class="preview-bar-row">
+                                <div class="preview-bar-labels">
+                                    <span data-i18n="previewResumeKeywords">Résumé keywords</span>
+                                    <span class="preview-bar-val">84%</span>
+                                </div>
+                                <div class="preview-bar-track">
+                                    <div class="preview-bar-fill" style="width: 84%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="preview-status-pill panel">
+                            <div class="eyebrow" data-i18n="previewAppStatus">APPLICATION STATUS</div>
+                            <div class="preview-steps-row">
+                                <div class="preview-step active">
+                                    <span class="preview-step-dot"></span>
+                                    <span data-i18n="previewStepSubmitted">Submitted</span>
+                                </div>
+                                <div class="preview-step active">
+                                    <span class="preview-step-dot"></span>
+                                    <span data-i18n="previewStepReview">Review</span>
+                                </div>
+                                <div class="preview-step">
+                                    <span class="preview-step-dot"></span>
+                                    <span data-i18n="previewStepInterview">Interview</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Value Props Section: Built for students, trusted by faculty -->
+        <section class="section-wrapper value-props-section">
+            <div class="section-head" style="text-align: center; margin-bottom: 2rem;">
+                <p class="eyebrow" data-i18n="whyHytEyebrow">WHY HUNTYOURTRACK</p>
+                <h2 class="section-title" data-i18n="whyHytHeading" style="margin-top: 0.35rem;">Built for students, trusted by faculty.</h2>
+                <p class="section-subtitle" data-i18n="whyHytSub" style="margin-top: 0.5rem;">منظومة أكاديمية متكاملة لربط مخرجات التعليم الجامعي بمتطلبات سوق العمل الفعلي.</p>
+            </div>
+            <div class="value-props-grid">
+                <div class="value-prop-card panel">
+                    <div class="value-prop-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+                    <h3 class="value-prop-title" data-i18n="vp1Title">Match scores that mean something</h3>
+                    <p class="value-prop-desc" data-i18n="vp1Desc">Every role is scored against your courses, skills and résumé — so you apply where you fit.</p>
+                </div>
+                <div class="value-prop-card panel">
+                    <div class="value-prop-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    <h3 class="value-prop-title" data-i18n="vp2Title">Faculty-endorsed listings</h3>
+                    <p class="value-prop-desc" data-i18n="vp2Desc">The placement office verifies each partner and role before it reaches students.</p>
+                </div>
+                <div class="value-prop-card panel">
+                    <div class="value-prop-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg></div>
+                    <h3 class="value-prop-title" data-i18n="vp3Title">Track every application</h3>
+                    <p class="value-prop-desc" data-i18n="vp3Desc">See status from submission to offer, with deadlines and next steps in one dashboard.</p>
+                </div>
+                <div class="value-prop-card panel">
+                    <div class="value-prop-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg></div>
+                    <h3 class="value-prop-title" data-i18n="vp4Title">Career Radar insights</h3>
+                    <p class="value-prop-desc" data-i18n="vp4Desc">Spot rising skills and in-demand tracks across every faculty before the cycle opens.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Track Hunter Radar Section -->
-        <section id="hunter-radar-section" class="section-wrapper" style="opacity:0; transform:translateY(40px);" aria-labelledby="radar-title">
-            <div class="section-container">
-                <header class="section-head">
-                    <span class="section-badge" data-i18n="hunterBadge">هوية بصرية حركية</span>
-                    <h2 id="radar-title" class="section-title" data-i18n="hunterHeadline">محاكي رادار المجرة للمسارات (Track Hunter Radar)</h2>
-                    <p class="section-subtitle" data-i18n="hunterSub">حرّك مؤشر الماوس لاكتشاف العقد المهنية ونسج شبكة مهاراتك وتتبع مسارك حتى الاحتراف.</p>
-                </header>
-
-                <div class="hunter-controls-bar">
-                    <div class="hero-faculty-dock" role="toolbar" aria-label="Faculty filter">
-                        <button class="dock-pill active" onclick="setHunterFaculty('all', this)" data-faculty="all" data-i18n="dockAll">كافة الكليات</button>
-                        <button class="dock-pill" onclick="setHunterFaculty('computing', this)" data-faculty="computing" data-i18n="dockComputing">الحاسبات والذكاء الاصطناعي</button>
-                        <button class="dock-pill" onclick="setHunterFaculty('engineering', this)" data-faculty="engineering" data-i18n="dockEngineering">الهندسة والتكنولوجيا</button>
-                        <button class="dock-pill" onclick="setHunterFaculty('science', this)" data-faculty="science" data-i18n="dockScience">العلوم الأساسية</button>
-                        <button class="dock-pill" onclick="setHunterFaculty('business', this)" data-faculty="business" data-i18n="dockBusiness">التجارة وإدارة الأعمال</button>
-                        <button class="dock-pill" onclick="setHunterFaculty('law', this)" data-faculty="law" data-i18n="dockLaw">الحقوق والتشريعات الرقمية</button>
-                    </div>
-                    <div class="hunter-search-wrapper">
-                        <div class="hunter-search-box aura" style="display:flex; gap:0.5rem; align-items:center; padding:0.35rem 0.65rem;">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-inline-start:4px; opacity:0.8;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                            <input type="text" id="hunter-quick-search" placeholder="ابحث عن مسار لاصطياده (AI, Cloud, Mechatronics...)" oninput="handleHunterSearch(this.value)" onfocus="handleHunterSearch(this.value)" data-i18n="hunterSearchPh" style="flex:1; border:none; background:transparent; color:var(--color-foreground); outline:none; font-size:0.92rem;" autocomplete="off" />
-                            <button type="button" class="btn btn-secondary" style="padding:0.45rem 0.9rem; font-size:0.82rem; border-radius:9999px; white-space:nowrap;" onclick="if(window.hytHunter) window.hytHunter.shuffleTrack();" data-i18n="hunterShuffleBtn">اصطياد عشوائي</button>
-                        </div>
-                        <div id="hunter-autocomplete-dropdown" class="hunter-autocomplete-dropdown" style="display:none;"></div>
-                    </div>
-                    <div class="hunter-quick-chips" style="display:flex; flex-wrap:wrap; gap:0.45rem; justify-content:center; margin-top:0.75rem;">
-                        <button type="button" class="hunter-quick-chip active" onclick="hookQuickChip('all', this)">كافة المسارات (12)</button>
-                        <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-ai', this)">AI & Deep Learning</button>
-                        <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-cloud', this)">Full-Stack Cloud</button>
-                        <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-sec', this)">Cybersecurity SOC</button>
-                        <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('eng-mecha', this)">Mechatronics & Robotics</button>
-                        <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('bus-fintech', this)">FinTech Trading</button>
-                        <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('sci-bio', this)">Bioinformatics</button>
-                    </div>
-                </div>
-
-                <div class="hunter-canvas-wrapper">
-                    <div class="hunter-canvas-header">
-                        <span class="hunter-status-chip" data-i18n="hunterRadarStatus">مسح راداري نشط ومستمر</span>
-                        <span id="hunter-tracks-counter" class="hunter-live-stat" data-i18n="hunterLiveStat">12 مساراً مهنياً معتمداً · اضغط على أي مسار لاصطياده</span>
-                    </div>
-                    <canvas id="hunter-radar-canvas"></canvas>
-                </div>
-                <div id="hooked-track-panel" class="hooked-track-panel"></div>
+        <!-- Bespoke "Track Hunter" Radar & Constellation Motion Section (Non-AI Visual Identity) -->
+        <section class="section-wrapper" id="hunter-radar-section" style="padding-top: 1rem;">
+            <div class="section-head">
+                <span class="section-badge" data-i18n="hunterBadge">الهوية البصرية والحركية</span>
+                <h2 class="section-title" data-i18n="hunterHeadline">محاكي رادار المجرة الكونية للمسارات (Track Hunter Radar)</h2>
+                <p class="section-subtitle" data-i18n="hunterSub">
+                    حرّك مؤشر الماوس لاكتشاف العقد المهنية ونسج شبكة مهاراتك المتكاملة وتتبع مسارك حتى الاحتراف.
+                </p>
             </div>
+
+            <!-- Interactive Faculty Dock & Real-time Hunter Filter -->
+            <div class="hunter-controls-bar">
+                <div class="hero-faculty-dock" role="toolbar" aria-label="Faculty filter dock">
+                    <button class="dock-pill active" onclick="setHunterFaculty('all', this)" data-faculty="all" data-i18n="dockAll">كافة الكليات</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('computing', this)" data-faculty="computing" data-i18n="dockComputing">الحاسبات والذكاء الاصطناعي</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('engineering', this)" data-faculty="engineering" data-i18n="dockEngineering">الهندسة والتكنولوجيا</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('science', this)" data-faculty="science" data-i18n="dockScience">العلوم الأساسية</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('business', this)" data-faculty="business" data-i18n="dockBusiness">التجارة وإدارة الأعمال</button>
+                    <button class="dock-pill" onclick="setHunterFaculty('law', this)" data-faculty="law" data-i18n="dockLaw">الحقوق والتشريعات الرقمية</button>
+                </div>
+                <!-- Enriched Hunter Search with Autocomplete & Non-Existent Input Guard -->
+                <div class="hunter-search-wrapper">
+                    <div class="hunter-search-box aura" style="display: flex; gap: 0.5rem; align-items: center; padding: 0.35rem 0.65rem;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-inline-start: 4px; opacity: 0.8;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        <input type="text" id="hunter-quick-search" placeholder="ابحث عن مسار لاصطياده واستعراض خارطة طريقه (AI, Cloud, Mechatronics...)" oninput="handleHunterSearch(this.value)" onfocus="handleHunterSearch(this.value)" data-i18n="hunterSearchPh" style="flex: 1; border: none; background: transparent; color: var(--color-foreground); outline: none; font-size: 0.92rem;" autocomplete="off" />
+                        <button type="button" class="btn btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.82rem; border-radius: 9999px; white-space: nowrap;" onclick="if(window.hytHunter) window.hytHunter.shuffleTrack();" data-i18n="hunterShuffleBtn">اصطياد عشوائي</button>
+                    </div>
+                    <div id="hunter-autocomplete-dropdown" class="hunter-autocomplete-dropdown" style="display: none;"></div>
+                </div>
+
+                <!-- Quick-Hook Interactive Track Chips -->
+                <div class="hunter-quick-chips" style="display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center; margin-top: 0.75rem;">
+                    <button type="button" class="hunter-quick-chip active" onclick="hookQuickChip('all', this)">كافة المسارات (12)</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-ai', this)">AI & Deep Learning</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-cloud', this)">Full-Stack Cloud</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('cs-sec', this)">Cybersecurity SOC</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('eng-mecha', this)">Mechatronics & Robotics</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('bus-fintech', this)">FinTech Trading</button>
+                    <button type="button" class="hunter-quick-chip" onclick="hookQuickChip('sci-bio', this)">Bioinformatics</button>
+                </div>
+            </div>
+
+            <div class="hunter-canvas-wrapper">
+                <div class="hunter-canvas-header">
+                    <span class="hunter-status-chip" data-i18n="hunterRadarStatus">مسح راداري نشط ومستمر</span>
+                    <span id="hunter-tracks-counter" class="hunter-live-stat" data-i18n="hunterLiveStat">12 مساراً مهنياً معتمداً · اضغط على أي مسار لاصطياده واستعراض خارطة طريقه</span>
+                </div>
+                <canvas id="hunter-radar-canvas"></canvas>
+            </div>
+            <!-- Live Hooked Track Roadmap Panel (Outside wrapper for responsive full-width expansion) -->
+            <div id="hooked-track-panel" class="hooked-track-panel"></div>
         </section>
 
-        <!-- Opportunities Section -->
-        <section id="opportunities" class="section-wrapper" style="opacity:0; transform:translateY(40px);" aria-labelledby="opp-title">
-            <div class="section-container">
-                <header class="section-head" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem;">
+        <!-- Live Corporate Opportunities & Courses Catalog (Fed by opportunities.js) -->
+        <section class="section-wrapper" id="opportunities">
+            <div class="section-head">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
                     <div>
                         <span class="section-badge" data-i18n="oppBadge">الشراكات المعتمدة</span>
-                        <h2 id="opp-title" class="section-title" data-i18n="oppHeading">فرص التدريب والكورسات المتاحة</h2>
-                        <p class="section-subtitle" data-i18n="oppSub">معتمدة مباشرة من الشركات مع مواعيد نهائية وعداد زمني مباشر.</p>
+                        <h2 class="section-title" data-i18n="oppHeading">فرص التدريب والكورسات المتاحة حالياً</h2>
+                        <p class="section-subtitle" data-i18n="oppSub">
+                            معتمدة ومباشرة من الشركات والمنظمات مع مواعيد نهائية للتسجيل وعداد زمني مباشر.
+                        </p>
                     </div>
-                    <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="font-size:0.9rem;" data-i18n="postOpportunityBtn">نشر فرصة جديدة</button>
-                </header>
-                <div class="opportunities-grid" id="opportunities-catalog-container"></div>
+                    <div>
+                        <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="font-size: 0.9rem;" data-i18n="postOpportunityBtn">
+                            نشر فرصة جديدة (للشركات والمنظمات)
+                        </button>
+                    </div>
+                </div>
             </div>
+
+            <!-- Opportunities Grid Container -->
+            <div class="opportunities-grid" id="opportunities-catalog-container"></div>
         </section>
 
-        <!-- Tracks Grid Section -->
-        <section id="tracks" class="section-wrapper" style="opacity:0; transform:translateY(40px);" aria-labelledby="tracks-title">
-            <div class="section-container">
-                <header class="section-head">
-                    <span class="section-badge" data-i18n="tracksBadge">المسارات الأكاديمية المعتمدة</span>
-                    <h2 id="tracks-title" class="section-title" data-i18n="tracksHeading">المسارات المهنية المعتمدة</h2>
-                    <p class="section-subtitle" data-i18n="tracksSub">خرائط طريق تطبيقية خطوة بخطوة بالتعاون مع كبرى الشركات في مختلف التخصصات.</p>
-                </header>
-                <div class="tracks-grid" id="tracks-grid-container"></div>
+        <!-- Career Tracks Pathways (Across Multi-Faculties) -->
+        <section class="section-wrapper" id="tracks">
+            <div class="section-head">
+                <span class="section-badge" data-i18n="tracksBadge">المسارات الأكاديمية المعتمدة</span>
+                <h2 class="section-title" data-i18n="tracksHeading">المسارات المهنية المعتمدة</h2>
+                <p class="section-subtitle" data-i18n="tracksSub">
+                    خرائط طريق تطبيقية خطوة بخطوة بالتعاون مع كبرى الشركات الأكاديمية والتقنية في مختلف التخصصات.
+                </p>
             </div>
-        </section>
 
-        <!-- How It Works -->
-        <section id="how-it-works" class="section-wrapper" style="opacity:0; transform:translateY(40px);" aria-labelledby="hiw-title">
-            <div class="section-container">
-                <header class="section-head" style="text-align:center; margin-bottom:2rem;">
-                    <span class="section-badge" data-i18n="hiwBadge">رحلة الطالب</span>
-                    <h2 id="hiw-title" class="section-title" data-i18n="hiwHeading">كيف تعمل HuntYourTrack؟</h2>
-                    <p class="section-subtitle" data-i18n="hiwSub">أربع خطوات مدروسة تنقلك من مقاعد الدراسة إلى التوظيف المباشر.</p>
-                </header>
-                <div class="steps-grid">
-                    <article class="step-card">
-                        <div class="step-num">1</div>
-                        <h3 class="step-title" data-i18n="step1Title">تحديد الكلية والتخصص</h3>
-                        <p class="step-desc" data-i18n="step1Desc">سجِّل كليتك وقسمك لفرز التراكات المناسبة وتحديد المسار الأكثر طلباً.</p>
+            <div class="tracks-grid">
+                <!-- Track 1: Software & Web -->
+                <div class="track-card-3d-wrapper">
+                    <article class="track-card">
+                        <!-- Front Face -->
+                        <div class="track-card-face track-card-front">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div class="track-icon-box icon-web"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                                    <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
+                                        <span data-i18n="flipCardBtn">الخطة والمناهج</span>
+                                    </button>
+                                </div>
+                                <h3 class="track-title" data-i18n="track1Title">هندسة البرمجيات وتطبيقات الويب (Full-Stack)</h3>
+                                <p class="track-desc" data-i18n="track1Desc">
+                                    معمارية الواجهات الحديثة، الربط بالخدمات الخلفية، تصميم الأنظمة السحابية، وضمان جودة الكود واختبارات الأداء القياسية.
+                                </p>
+                                <div class="skills-pill-group">
+                                    <span class="skill-pill" data-i18n="skillPillT1_1">React & TypeScript</span>
+                                    <span class="skill-pill" data-i18n="skillPillT1_2">Node.js API</span>
+                                    <span class="skill-pill" data-i18n="skillPillT1_3">Docker & Cloud</span>
+                                    <span class="skill-pill" data-i18n="skillPillT1_4">PostgreSQL</span>
+                                </div>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration" data-i18n="track1Duration">مسار 16 أسبوعاً</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
+
+                        <!-- Back Face (Curriculum & Prerequisites) -->
+                        <div class="track-card-face track-card-back">
+                            <div>
+                                <div class="card-back-header">
+                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
+                                    <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
+                                        <span data-i18n="flipBackBtn">العودة</span>
+                                    </button>
+                                </div>
+                                <ul class="card-syllabus-list">
+                                    <li class="card-syllabus-item">معمارية React 19 والأنماط المؤسسية في TypeScript</li>
+                                    <li class="card-syllabus-item">واجهات Node.js وقواعد بيانات PostgreSQL الموزعة</li>
+                                    <li class="card-syllabus-item">حاويات Docker وخطوط أتمتة CI/CD والنشر السحابي</li>
+                                    <li class="card-syllabus-item">مشروع تخرج تطبيقي متوافق مع معايير الشركات الشريكة</li>
+                                </ul>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration">Full-Stack Engineer</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
                     </article>
-                    <article class="step-card">
-                        <div class="step-num">2</div>
-                        <h3 class="step-title" data-i18n="step2Title">رفع السيرة والاصطياد</h3>
-                        <p class="step-desc" data-i18n="step2Desc">ارفع سيرتك ودع الذكاء الاصطناعي يحدد الفجوات المهارية ونقاط القوة.</p>
+                </div>
+
+                <!-- Track 2: AI & Data Science -->
+                <div class="track-card-3d-wrapper">
+                    <article class="track-card">
+                        <!-- Front Face -->
+                        <div class="track-card-face track-card-front">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div class="track-icon-box icon-ai"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v2M15 1v2M9 21v2M15 21v2M1 9h2M1 15h2M21 9h2M21 15h2"/></svg></div>
+                                    <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
+                                        <span data-i18n="flipCardBtn">الخطة والمناهج</span>
+                                    </button>
+                                </div>
+                                <h3 class="track-title" data-i18n="track2Title">الذكاء الاصطناعي وعلم البيانات (AI & Data)</h3>
+                                <p class="track-desc" data-i18n="track2Desc">
+                                    التعلم الآلي والعميق، معالجة اللغات الطبيعية، نماذج التوليد الذكي، وهندسة البيانات الكبيرة وتحليلها لخدمة متطلبات السوق.
+                                </p>
+                                <div class="skills-pill-group">
+                                    <span class="skill-pill" data-i18n="skillPillT2_1">Python & PyTorch</span>
+                                    <span class="skill-pill" data-i18n="skillPillT2_2">NLP & GenAI</span>
+                                    <span class="skill-pill" data-i18n="skillPillT2_3">Data Pipelines</span>
+                                    <span class="skill-pill" data-i18n="skillPillT2_4">Model Deployment</span>
+                                </div>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration" data-i18n="track2Duration">مسار 20 أسبوعاً</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
+
+                        <!-- Back Face (Curriculum & Prerequisites) -->
+                        <div class="track-card-face track-card-back">
+                            <div>
+                                <div class="card-back-header">
+                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
+                                    <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
+                                        <span data-i18n="flipBackBtn">العودة</span>
+                                    </button>
+                                </div>
+                                <ul class="card-syllabus-list">
+                                    <li class="card-syllabus-item">الجبر الخطي وتحليل البيانات بـ NumPy و Pandas</li>
+                                    <li class="card-syllabus-item">تدريب وتقييم خوارزميات التعلم الآلي الكلاسيكي</li>
+                                    <li class="card-syllabus-item">الشبكات العصبية العميقة ونماذج الرؤية ومعالجة اللغات</li>
+                                    <li class="card-syllabus-item">أنظمة الـ RAG والوكلاء ونشر النماذج بـ FastAPI</li>
+                                </ul>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration">AI & ML Engineer</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
                     </article>
-                    <article class="step-card">
-                        <div class="step-num">3</div>
-                        <h3 class="step-title" data-i18n="step3Title">إنجاز المهام التطبيقية</h3>
-                        <p class="step-desc" data-i18n="step3Desc">تعلَّم عبر مشاريع حقيقية ووثِّق كل خطوة في ملفك المعتمد أكاديمياً.</p>
+                </div>
+
+                <!-- Track 3: Embedded Systems (Engineering) -->
+                <div class="track-card-3d-wrapper">
+                    <article class="track-card">
+                        <!-- Front Face -->
+                        <div class="track-card-face track-card-front">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div class="track-icon-box icon-embedded"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                                    <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
+                                        <span data-i18n="flipCardBtn">الخطة والمناهج</span>
+                                    </button>
+                                </div>
+                                <h3 class="track-title" data-i18n="track3Title">الأنظمة المدمجة وبرمجيات السيارات (Embedded)</h3>
+                                <p class="track-desc" data-i18n="track3Desc">
+                                    مخصص لطلاب هندسة وحاسبات: لغات C/C++ المتقدمة، معمارية AUTOSAR، أنظمة التشغيل في الوقت الحقيقي RTOS، وبروتوكولات CAN-bus.
+                                </p>
+                                <div class="skills-pill-group">
+                                    <span class="skill-pill" data-i18n="skillPillT3_1">Embedded C/C++</span>
+                                    <span class="skill-pill" data-i18n="skillPillT3_2">AUTOSAR</span>
+                                    <span class="skill-pill" data-i18n="skillPillT3_3">RTOS</span>
+                                    <span class="skill-pill" data-i18n="skillPillT3_4">Microcontrollers</span>
+                                </div>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration" data-i18n="track3Duration">مسار 18 أسبوعاً</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
+
+                        <!-- Back Face (Curriculum & Prerequisites) -->
+                        <div class="track-card-face track-card-back">
+                            <div>
+                                <div class="card-back-header">
+                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
+                                    <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
+                                        <span data-i18n="flipBackBtn">العودة</span>
+                                    </button>
+                                </div>
+                                <ul class="card-syllabus-list">
+                                    <li class="card-syllabus-item">أساسيات Embedded C/C++ وبرمجة العتاد المباشر</li>
+                                    <li class="card-syllabus-item">معمارية الـ AUTOSAR Classic وبروتوكولات CAN/LIN</li>
+                                    <li class="card-syllabus-item">أنظمة التشغيل في الوقت الحقيقي FreeRTOS & Scheduling</li>
+                                    <li class="card-syllabus-item">تطبيق معايير MISRA-C والأمان الوظيفي ISO 26262</li>
+                                </ul>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration">Embedded Software Engineer</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
                     </article>
-                    <article class="step-card">
-                        <div class="step-num">4</div>
-                        <h3 class="step-title" data-i18n="step4Title">التقديم للتدريب والتوظيف</h3>
-                        <p class="step-desc" data-i18n="step4Desc">قدَّم على فرص التدريب والكورسات المعتمدة المنشورة مباشرة من الشركاء.</p>
+                </div>
+
+                <!-- Track 4: FinTech & Business (Commerce) -->
+                <div class="track-card-3d-wrapper">
+                    <article class="track-card">
+                        <!-- Front Face -->
+                        <div class="track-card-face track-card-front">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div class="track-icon-box icon-fintech"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></div>
+                                    <button type="button" class="btn-flip-card" onclick="toggleCardFlip(this)" aria-label="Flip for Syllabus">
+                                        <span data-i18n="flipCardBtn">الخطة والمناهج</span>
+                                    </button>
+                                </div>
+                                <h3 class="track-title" data-i18n="track4Title">تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)</h3>
+                                <p class="track-desc" data-i18n="track4Desc">
+                                    مخصص لطلاب تجارة وحاسبات: تحليل البيانات المالية، بوابات الدفع الإلكتروني، أنظمة ERP، ومواءمة التقنية مع الأعمال التجارية.
+                                </p>
+                                <div class="skills-pill-group">
+                                    <span class="skill-pill" data-i18n="skillPillT4_1">FinTech APIs</span>
+                                    <span class="skill-pill" data-i18n="skillPillT4_2">Business Analytics</span>
+                                    <span class="skill-pill" data-i18n="skillPillT4_3">SQL & BI</span>
+                                    <span class="skill-pill" data-i18n="skillPillT4_4">ERP Systems</span>
+                                </div>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration" data-i18n="track4Duration">مسار 14 أسبوعاً</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
+
+                        <!-- Back Face (Curriculum & Prerequisites) -->
+                        <div class="track-card-face track-card-back">
+                            <div>
+                                <div class="card-back-header">
+                                    <span class="card-back-title">المنهج والمخرجات المهنية</span>
+                                    <button type="button" class="btn-flip-card-back" onclick="toggleCardFlip(this)" aria-label="Flip Back">
+                                        <span data-i18n="flipBackBtn">العودة</span>
+                                    </button>
+                                </div>
+                                <ul class="card-syllabus-list">
+                                    <li class="card-syllabus-item">الأسواق المالية والمشتقات وتحليل السلاسل الزمنية</li>
+                                    <li class="card-syllabus-item">بناء بوابات الدفع الإلكتروني وتكامل الـ APIs المصرفية</li>
+                                    <li class="card-syllabus-item">مستودعات البيانات ونمذجة لوحات التحكم في Power BI</li>
+                                    <li class="card-syllabus-item">أنظمة الـ ERP والامتثال التشريعي المالي PCI-DSS</li>
+                                </ul>
+                            </div>
+                            <div class="track-footer">
+                                <span class="track-duration">FinTech Quantitative Analyst</span>
+                                <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;" data-i18n="enrollTrackBtn">بدء المسار ←</a>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </div>
         </section>
 
-        <!-- Employers CTA -->
-        <section id="employers" class="section-wrapper" style="opacity:0; transform:translateY(40px); background:var(--color-card); border-radius:28px; padding:3rem 2rem; border:1px solid var(--color-border);" aria-labelledby="emp-title">
-            <div style="text-align:center; max-width:750px; margin:0 auto;">
+        <!-- How It Works Section -->
+        <section class="section-wrapper" id="how-it-works">
+            <div class="section-head">
+                <span class="section-badge" data-i18n="hiwBadge">رحلة الطالب</span>
+                <h2 class="section-title" data-i18n="hiwHeading">كيف تعمل منصة HuntYourTrack؟</h2>
+                <p class="section-subtitle" data-i18n="hiwSub">أربع خطوات مدروسة وموثقة أكاديمياً تنقلك من مقاعد الدراسة إلى التوظيف المباشر.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3 class="step-title" data-i18n="step1Title">تحديد الكلية والتخصص</h3>
+                    <p class="step-desc" data-i18n="step1Desc">سجّل كليتك وقسمك الأكاديمي لفرز التراكات المناسبة وتحديد المسار المهني الأكثر طلباً.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3 class="step-title" data-i18n="step2Title">رفع السيرة والاصطياد</h3>
+                    <p class="step-desc" data-i18n="step2Desc">ارفع سيرتك الذاتية ودع خوارزمية الذكاء الاصطناعي تحدد الفجوات المهارية ونقاط القوة.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3 class="step-title" data-i18n="step3Title">إنجاز المهام التطبيقية</h3>
+                    <p class="step-desc" data-i18n="step3Desc">تعلّم عبر مشاريع حقيقية ووثّق كل خطوة في ملفك الأكاديمي المعتمد من هيئة التدريس.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">4</div>
+                    <h3 class="step-title" data-i18n="step4Title">التقديم للتدريب والتوظيف</h3>
+                    <p class="step-desc" data-i18n="step4Desc">قدّم على فرص التدريب الصيفي والكورسات المعتمدة المنشورة مباشرة من الشركاء.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Employers Section -->
+        <section class="section-wrapper" id="employers" style="background: var(--color-card); border-radius: 28px; padding: 3rem 2rem; border: 1px solid var(--color-border); margin: 3rem auto; max-width: 1200px;">
+            <div style="text-align: center; max-width: 750px; margin: 0 auto;">
                 <span class="section-badge" data-i18n="empBadge">بوابة الشركات والمنظمين</span>
-                <h2 id="emp-title" style="font-size:2rem; font-weight:800; margin-bottom:1rem; color:var(--color-foreground);" data-i18n="empHeading">هل أنت شركة تبحث عن كفاءات متميزة؟</h2>
-                <p style="font-size:1rem; color:var(--color-muted-foreground); line-height:1.6; margin-bottom:2rem;" data-i18n="empSub">انضم لشبكة الشركاء، انشر فرص التدريب، واستقبل طلبات مفروزة مطابقة لمعاييرك.</p>
-                <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-                    <a href="pages/employer.html?demo=true" class="btn btn-primary" data-i18n="empDashboardBtn">لوحة تحكم الشركة</a>
-                    <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" data-i18n="empPostBtn">نشر فرصة تدريب</button>
-                    <a href="pages/auth.html" class="btn btn-secondary" data-i18n="empRegisterBtn">تسجيل حساب شركة</a>
+                <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-foreground);" data-i18n="empHeading">هل أنت شركة أو منظمة تبحث عن كفاءات متميزة؟</h2>
+                <p style="font-size: 1rem; color: var(--color-muted-foreground); line-height: 1.6; margin-bottom: 2rem;" data-i18n="empSub">
+                    انضم إلى شبكة شركاء جامعة دمنهور، وانشر فرص التدريب الصيفي والكورسات المعتمدة، واستقبل طلبات وسير ذاتية مفروزة ومطابقة لمعاييرك بدقة.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="pages/employer.html?demo=true" class="btn btn-primary" style="padding: 0.85rem 1.75rem;" data-i18n="empDashboardBtn">
+                        لوحة تحكم الشركة / المنظم
+                    </a>
+                    <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="padding: 0.85rem 1.75rem;" data-i18n="empPostBtn">
+                        نشر فرصة تدريب الآن
+                    </button>
+                    <a href="pages/auth.html" class="btn btn-secondary" style="padding: 0.85rem 1.75rem;" data-i18n="empRegisterBtn">
+                        تسجيل حساب شركة / منظم →
+                    </a>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Auth Modal (Guest Entry Point) -->
-    <dialog id="auth-modal" class="auth-modal" aria-modal="true" aria-labelledby="auth-modal-title">
-        <div class="auth-modal-content">
-            <button type="button" class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close modal">&times;</button>
-
-            <div class="auth-modal-header">
-                <h2 id="auth-modal-title" data-i18n="authModalTitle">اختر دورك لبدء الرحلة</h2>
-                <p data-i18n="authModalSub">سجل دخولك أو أنشئ حساباً جديداً للوصول إلى لوحة التحكم المخصصة</p>
-            </div>
-
-            <!-- Role Selector (Signup) -->
-            <div id="role-selector" class="role-selector" style="display:none;">
-                <h3 data-i18n="selectRoleTitle">من أنت؟</h3>
-                <div class="role-cards">
-                    <button type="button" class="role-card" data-role="student" onclick="selectAuthRole('student')">
-                        <div class="role-icon">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                        </div>
-                        <h4 data-i18n="roleStudent">طالب أكاديمي</h4>
-                        <p data-i18n="roleStudentDesc">خارطة طريق مهنية، مطابقة مهارات، فرص تدريب</p>
-                    </button>
-                    <button type="button" class="role-card" data-role="organizer" onclick="selectAuthRole('organizer')">
-                        <div class="role-icon">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-                        </div>
-                        <h4 data-i18n="roleOrganizer">منظم / شركة</h4>
-                        <p data-i18n="roleOrganizerDesc">نشر فرص، مراجعة طلبات، إدارة المواهب</p>
-                    </button>
-                    <button type="button" class="role-card" data-role="employer" onclick="selectAuthRole('employer')">
-                        <div class="role-icon">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        </div>
-                        <h4 data-i18n="roleEmployer">جهة عمل / شريك</h4>
-                        <p data-i18n="roleEmployerDesc">برامج تدريب، توظيف خريجين، شراكات بحثية</p>
-                    </button>
-                    <button type="button" class="role-card" data-role="admin" onclick="selectAuthRole('admin')">
-                        <div class="role-icon">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                        </div>
-                        <h4 data-i18n="roleAdmin">مشرف أكاديمي</h4>
-                        <p data-i18n="roleAdminDesc">إدارة المنصة، اعتماد الفرص، تقارير الأداء</p>
-                    </button>
-                </div>
-                <button type="button" class="btn btn-secondary" onclick="showAuthTabs('login')" style="width:100%; margin-top:1rem;" data-i18n="backToLogin">لدي حساب بالفعل → تسجيل دخول</button>
-            </div>
-
-            <!-- Auth Tabs (Login/Signup) -->
-            <div id="auth-tabs" class="auth-tabs">
-                <div class="tab-buttons" role="tablist">
-                    <button role="tab" id="tab-login" class="tab-btn active" aria-selected="true" onclick="switchAuthTab('login')" data-i18n="tabLogin">تسجيل دخول</button>
-                    <button role="tab" id="tab-signup" class="tab-btn" aria-selected="false" onclick="switchAuthTab('signup')" data-i18n="tabSignup">إنشاء حساب</button>
-                </div>
-
-                <!-- Login Form -->
-                <form id="login-form" class="auth-form" onsubmit="handleLoginSubmit(event)" style="display:block;">
-                    <div class="form-group">
-                        <label for="login-email" data-i18n="emailLabel">البريد الإلكتروني</label>
-                        <input type="email" id="login-email" class="form-control" placeholder="you@university.edu" required autocomplete="email">
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width:100%;" data-i18n="btnLogin">دخول المنصة</button>
-
-                    <div class="demo-divider" data-i18n="demoDivider">أو جرِّب الحسابات التجريبية</div>
-
-                    <div class="demo-buttons">
-                        <button type="button" class="demo-btn" onclick="selectDemoRole('student')" data-i18n="demoStudent">🎓 طالب</button>
-                        <button type="button" class="demo-btn" onclick="selectDemoRole('organizer')" data-i18n="demoOrganizer">🏢 منظم</button>
-                        <button type="button" class="demo-btn" onclick="selectDemoRole('employer')" data-i18n="demoEmployer">🤝 شريك</button>
-                        <button type="button" class="demo-btn" onclick="selectDemoRole('admin')" data-i18n="demoAdmin">⚙️ مشرف</button>
-                    </div>
-                </form>
-
-                <!-- Signup Form -->
-                <form id="signup-form" class="auth-form" onsubmit="handleSignupSubmit(event)" style="display:none;">
-                    <div class="form-group">
-                        <label for="signup-name" data-i18n="nameLabel">الاسم الكامل</label>
-                        <input type="text" id="signup-name" class="form-control" placeholder="أحمد محمد علي" required autocomplete="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-email" data-i18n="emailLabel">البريد الإلكتروني</label>
-                        <input type="email" id="signup-email" class="form-control" placeholder="ahmed@university.edu" required autocomplete="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-role" data-i18n="roleLabel">الدور</label>
-                        <select id="signup-role" class="form-control" required onchange="toggleSignupFields(this.value)">
-                            <option value="student" data-i18n="roleStudentOpt">طالب أكاديمي</option>
-                            <option value="organizer" data-i18n="roleOrganizerOpt">منظم / شركة</option>
-                            <option value="employer" data-i18n="roleEmployerOpt">جهة عمل / شريك</option>
-                            <option value="admin" data-i18n="roleAdminOpt">مشرف أكاديمي</option>
-                        </select>
-                    </div>
-
-                    <!-- Student Fields -->
-                    <div id="student-fields" class="dynamic-fields">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="signup-faculty" data-i18n="facultyLabel">الكلية</label>
-                                <select id="signup-faculty" class="form-control" required onchange="updateDepartmentOptions(this.value)">
-                                    <option value="" disabled selected data-i18n="selectFaculty">اختر الكلية</option>
-                                    <option value="computing" data-i18n="facultyComputing">الحاسبات والذكاء الاصطناعي</option>
-                                    <option value="engineering" data-i18n="facultyEngineering">الهندسة والتكنولوجيا</option>
-                                    <option value="science" data-i18n="facultyScience">العلوم الأساسية</option>
-                                    <option value="business" data-i18n="facultyBusiness">التجارة وإدارة الأعمال</option>
-                                    <option value="law" data-i18n="facultyLaw">الحقوق والتشريعات الرقمية</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="signup-dept" data-i18n="deptLabel">القسم / التخصص</label>
-                                <select id="signup-dept" class="form-control" required>
-                                    <option value="" disabled selected data-i18n="selectDept">اختر القسم</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Organizer/Employer Fields -->
-                    <div id="org-fields" class="dynamic-fields" style="display:none;">
-                        <div class="form-group">
-                            <label for="signup-org" data-i18n="orgLabel">اسم الشركة / المنظمة</label>
-                            <input type="text" id="signup-org" class="form-control" placeholder="مثال: شركة مصر لنظم المعلومات" autocomplete="organization">
-                        </div>
-                        <div class="form-group">
-                            <label for="signup-org-type" data-i18n="orgTypeLabel">نوع الجهة</label>
-                            <select id="signup-org-type" class="form-control">
-                                <option value="company" data-i18n="orgTypeCompany">شركة خاصة</option>
-                                <option value="startup" data-i18n="orgTypeStartup">شركة ناشئة</option>
-                                <option value="gov" data-i18n="orgTypeGov">جهة حكومية</option>
-                                <option value="ngo" data-i18n="orgTypeNGO">منظمة غير ربحية</option>
-                                <option value="academic" data-i18n="orgTypeAcademic">جهة أكاديمية / بحثية</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Admin Fields -->
-                    <div id="admin-fields" class="dynamic-fields" style="display:none;">
-                        <div class="form-group">
-                            <label for="signup-admin-code" data-i18n="adminCodeLabel">كود المشرف</label>
-                            <input type="password" id="signup-admin-code" class="form-control" placeholder="أدخل كود الترخيص" autocomplete="off">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" style="width:100%;" data-i18n="btnSignup">إنشاء الحساب</button>
-                </form>
-            </div>
-        </div>
-    </dialog>
-
-    <!-- Publish Opportunity Modal -->
-    <dialog id="publish-opportunity-modal" class="modal" style="max-width:580px; border-radius:24px; padding:2rem;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem;">
+    <!-- Employer Opportunity Publishing Modal -->
+    <dialog class="modal" id="publish-opportunity-modal" style="max-width: 580px; border-radius: 24px; padding: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
             <div>
                 <span class="hunter-status-chip" data-i18n="modalOppChip">نشر فرصة جديدة</span>
-                <h3 style="margin-top:0.5rem; font-size:1.35rem;" data-i18n="modalOppTitle">إضافة تدريب صيفي أو كورس معتمد</h3>
+                <h3 style="margin-top: 0.5rem; font-size: 1.35rem;" data-i18n="modalOppTitle">إضافة تدريب صيفي أو كورس معتمد</h3>
             </div>
-            <button type="button" onclick="closePublishOpportunityModal()" class="icon-btn" aria-label="Close">&times;</button>
+            <button type="button" onclick="closePublishOpportunityModal()" class="nav-util-btn" style="border: none; font-size: 1.25rem;">&times;</button>
         </div>
+
         <form onsubmit="handlePublishOpportunitySubmit(event)">
             <div class="form-group">
-                <label for="opp-form-title" data-i18n="modalOppTitleLabel">عنوان الفرصة:</label>
-                <input id="opp-form-title" class="form-control" placeholder="مثال: تدريب مهندس ذكاء اصطناعي صيفي 2026" required>
+                <label for="opp-form-title" data-i18n="modalOppTitleLabel">عنوان الفرصة أو التدريب (Title):</label>
+                <input id="opp-form-title" class="form-control" data-i18n="modalOppTitlePlaceholder" placeholder="مثال: تدريب مهندس ذكاء اصطناعي صيفي 2026" required>
             </div>
+
             <div class="form-group">
-                <label for="opp-form-org" data-i18n="modalOppOrgLabel">اسم الشركة / المنظمة:</label>
-                <input id="opp-form-org" class="form-control" placeholder="مثال: شركة مصر لنظم المعلومات / ITIDA" required>
+                <label for="opp-form-org" data-i18n="modalOppOrgLabel">اسم الشركة أو المنظمة (Company / Organizer):</label>
+                <input id="opp-form-org" class="form-control" data-i18n="modalOppOrgPlaceholder" placeholder="مثال: شركة مصر لنظم المعلومات / ITIDA" required>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                 <div class="form-group">
                     <label for="opp-form-type" data-i18n="modalOppTypeLabel">نوع الفرصة:</label>
                     <select id="opp-form-type" class="form-control" required>
@@ -512,50 +682,58 @@
                     </select>
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="opp-form-desc" data-i18n="modalOppDescLabel">تفاصيل ومتطلبات الفرصة:</label>
-                <textarea id="opp-form-desc" class="form-control" rows="3" placeholder="اكتب نبذة عن المهارات المطلوبة وطبيعة التدريب..." required></textarea>
+                <textarea id="opp-form-desc" class="form-control" rows="3" data-i18n="modalOppDescPlaceholder" placeholder="اكتب نبذة عن المهارات المطلوبة وطبيعة التدريب..." required></textarea>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                 <div class="form-group">
-                    <label for="opp-form-start" data-i18n="modalOppStartLabel">بداية التسجيل:</label>
+                    <label for="opp-form-start" data-i18n="modalOppStartLabel">تاريخ بداية التسجيل:</label>
                     <input id="opp-form-start" type="date" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="opp-form-end" data-i18n="modalOppEndLabel">الموعد النهائي:</label>
+                    <label for="opp-form-end" data-i18n="modalOppEndLabel">الموعد النهائي للتقديم (Deadline):</label>
                     <input id="opp-form-end" type="date" class="form-control" required>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="opp-form-link" data-i18n="modalOppLinkLabel">رابط التقديم الرسمي:</label>
+                <label for="opp-form-link" data-i18n="modalOppLinkLabel">رابط التقديم الرسمي (Apply URL):</label>
                 <input id="opp-form-link" type="url" class="form-control" placeholder="https://careers.company.com/apply" required>
             </div>
-            <div style="display:flex; gap:0.75rem; justify-content:flex-end; margin-top:1.5rem;">
+
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
                 <button type="button" onclick="closePublishOpportunityModal()" class="btn btn-secondary" data-i18n="modalCancelBtn">إلغاء</button>
-                <button type="submit" class="btn btn-accent" data-i18n="modalSubmitBtn">اعتماد ونشر</button>
+                <button type="submit" class="btn btn-accent" data-i18n="modalSubmitBtn">اعتماد ونشر الفرصة فوراً</button>
             </div>
         </form>
     </dialog>
 
-    <!-- Footer -->
-    <footer class="landing-footer" style="opacity:0; transform:translateY(40px);">
+    <!-- Command Search Palette Modal (Ctrl+K) -->
+    <dialog class="cmd-palette-dialog" id="command-search-modal">
+        <div class="cmd-search-input-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="cmd-search-input" placeholder="ابحث عن مسار مهني أو فرصة تدريب (Full-Stack, AI, Python)..." data-i18n="cmdSearchPh" oninput="handleCommandSearch(this.value)" autocomplete="off">
+            <button type="button" onclick="closeCommandSearch()" class="nav-util-btn" style="border: none; padding: 0.25rem 0.5rem; font-size: 1.1rem;" aria-label="Close">&times;</button>
+        </div>
+        <div class="cmd-results-list" id="cmd-results-list"></div>
+    </dialog>
+
+        <!-- Footer (Canonical Link) -->
+        <footer class="landing-footer">
         <div class="footer-container">
             <div class="footer-col">
-                <h4 style="display:flex; align-items:center; gap:0.5rem;" data-i18n="footerAboutTitle">
-                    <svg class="brand-logo" width="28" height="28" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hunt Your Track">
-                        <g class="logo-hunt" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-                            <path d="M4 36 V6 M4 6 h10 M4 21 h10 M14 6 v30"/>
-                            <circle cx="9" cy="3" r="3" fill="currentColor"/>
-                            <path d="M14 15 Q25 5, 40 15 Q55 25, 60 15" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.5"/>
-                            <g transform="translate(60, 15)"><ellipse cx="0" cy="0" rx="5" ry="2.5" stroke-width="1.5"/><path d="M-5 0 Q-8 -3, -10 0 Q-8 3, -5 0" stroke-width="1.5"/><circle cx="-1.5" cy="-0.5" r="0.8" fill="currentColor"/></g>
-                        </g>
-                        <g class="logo-your" font-family="'Sora', 'Inter', sans-serif" font-weight="600" font-size="14" fill="currentColor" text-anchor="middle" opacity="0.6"><text x="80" y="27" letter-spacing="0.3">YOUR</text><path d="M80 30 L90 24 M80 30 L90 36" stroke-width="1.5" opacity="0.4"/></g>
-                        <g class="logo-track" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M108 34 L152 34 M108 12 L152 12" opacity="0.25" stroke-width="1.5"/><g stroke-width="1.5" opacity="0.4"><line x1="112" y1="12" x2="112" y2="34"/><line x1="124" y1="12" x2="124" y2="34"/><line x1="136" y1="12" x2="136" y2="34"/><line x1="148" y1="12" x2="148" y2="34"/></g><circle id="track-target" cx="148" cy="23" r="4" stroke-width="1.5"/><circle cx="148" cy="23" r="1.5" fill="currentColor"/></g>
-                        <animate href="#track-target" attributeName="r" values="4;5.5;4" dur="1.8s" repeatCount="indefinite"/>
-                    </svg>
+                <h4 style="display: flex; align-items: center; gap: 0.5rem;" data-i18n="footerAboutTitle">
+                    HuntYourTrack
                 </h4>
-                <p style="margin-bottom:1rem; line-height:1.6;" data-i18n="footerAboutText">مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور.</p>
-                <p style="color:var(--color-muted-foreground); font-size:0.8rem;" data-i18n="footerLeadText">منظومة برمجية موحدة ومعتمدة · جامعة دمنهور</p>
+                <p style="margin-bottom: 1rem; line-height: 1.6;" data-i18n="footerAboutText">
+                    مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور (قسم علوم الحاسب).
+                </p>
+                <p style="color: #64748B; font-size: 0.8rem;" data-i18n="footerLeadText">
+                    منظومة برمجية موحدة ومعتمدة · جامعة دمنهور
+                </p>
             </div>
             <div class="footer-col">
                 <h4 data-i18n="footerPlatformHeading">المنصة</h4>
@@ -567,11 +745,11 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4 data-i18n="footerPortalsHeading">البوابات</h4>
+                <h4 data-i18n="footerPortalsHeading">البوابات الرسمية</h4>
                 <ul>
                     <li><a href="pages/student.html" data-i18n="footerStudentHubLink">لوحة الطالب الأكاديمي</a></li>
                     <li><a href="pages/auth.html" data-i18n="footerAuthLink">بوابة التحكيم والتسجيل</a></li>
-                    <li><a href="https://engmohamedelabsy.github.io/HuntYourTrack/" data-i18n="footerCanonicalLink">البوابة الموحدة ↗</a></li>
+                    <li><a href="https://engmohamedelabsy.github.io/HuntYourTrack/" data-i18n="footerCanonicalLink">البوابة الموحدة للمنصة</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -579,7 +757,7 @@
                 <ul>
                     <li><a href="https://github.com/users/EngMohamedElabsy/projects/5" target="_blank" data-i18n="footerSprintBoardLink">لوحة سبرنت التخرج ↗</a></li>
                     <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack" target="_blank" data-i18n="footerGithubRepoLink">مستودع GitHub ↗</a></li>
-                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack/actions" target="_blank" data-i18n="footerCicdLink">فحوصات الجودة CI/CD ↗</a></li>
+                    <li><a href="https://github.com/EngMohamedElabsy/HuntYourTrack/actions" target="_blank" data-i18n="footerCicdLink">فحوصات الجودة الآلية CI/CD ↗</a></li>
                 </ul>
             </div>
         </div>
@@ -591,17 +769,459 @@
 
     <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
-    <!-- Scripts -->
     <script src="js/i18n.js"></script>
-    <script src="js/galaxy.js"></script>
+    <script src="js/ocean-background.js"></script>
     <script src="js/hunter-canvas.js"></script>
-    <script>
-        // Debug: Check if TrackHunterCanvas loaded
-        console.log('TrackHunterCanvas loaded:', typeof window.TrackHunterCanvas);
-        console.log('hytHunter exists:', typeof window.hytHunter);
-    </script>
     <script src="js/opportunities.js"></script>
     <script src="js/components.js"></script>
-    <script src="js/app.js"></script>
+    <script>
+        // Dynamic Theme Dropdown Controls
+        function toggleThemeDropdown(e) {
+            if (e) e.stopPropagation();
+            const menu = document.getElementById('theme-dropdown-menu');
+            if (menu) menu.classList.toggle('show');
+        }
+        window.toggleThemeDropdown = toggleThemeDropdown;
+
+        function setAppTheme(theme) {
+            if (window.setHytTheme) window.setHytTheme(theme);
+            const menu = document.getElementById('theme-dropdown-menu');
+            if (menu) menu.classList.remove('show');
+        }
+        window.setAppTheme = setAppTheme;
+
+        // User Account Dropdown Controls
+        function toggleUserDropdown(e) {
+            if (e) e.stopPropagation();
+            const menu = document.getElementById('user-menu-dropdown');
+            if (menu) menu.classList.toggle('show');
+        }
+        window.toggleUserDropdown = toggleUserDropdown;
+
+        function hytSignOut(e) {
+            if (window.hytI18n && window.hytSignOut) {
+                window.hytSignOut(e);
+            } else {
+                localStorage.clear();
+                window.location.reload();
+            }
+        }
+        window.hytSignOut = hytSignOut;
+
+        // Close dropdowns on outside click
+        document.addEventListener('click', (e) => {
+            const themeMenu = document.getElementById('theme-dropdown-menu');
+            if (themeMenu && !e.target.closest('#theme-dropdown-wrapper')) {
+                themeMenu.classList.remove('show');
+            }
+            const userMenu = document.getElementById('user-menu-dropdown');
+            if (userMenu && !e.target.closest('#user-profile-menu-wrapper')) {
+                userMenu.classList.remove('show');
+            }
+        });
+
+        // Adjust navbar buttons based on active session
+        function updateNavSession() {
+            const userRole = localStorage.getItem('user');
+            const userEmail = localStorage.getItem('user_email');
+            const isEn = (document.documentElement.lang === 'en');
+            let storedName = localStorage.getItem('user_name');
+            if (isEn && (!storedName || storedName === 'المستخدم' || storedName === 'طالب أكاديمي')) {
+                storedName = userEmail ? userEmail.split('@')[0] : 'Student Account';
+            } else if (!isEn && (!storedName || storedName === 'Student Account' || storedName === 'Academic Student')) {
+                storedName = userEmail ? userEmail.split('@')[0] : 'المستخدم';
+            }
+            const userName = storedName || (userEmail ? userEmail.split('@')[0] : (isEn ? 'Student Account' : 'المستخدم'));
+            const navActions = document.getElementById('nav-auth-actions');
+            const mobileAuthActions = document.getElementById('mobile-auth-actions');
+
+            if (userRole) {
+                let portalTarget = 'pages/student.html';
+                let portalLabel = isEn ? 'Student Portal' : 'لوحة الطالب';
+                let roleBadge = isEn ? 'Student' : 'طالب';
+
+                if (userRole === 'admin') {
+                    portalTarget = 'pages/admin.html';
+                    portalLabel = isEn ? 'Admin Console' : 'لوحة الإدارة الأكاديمية';
+                    roleBadge = isEn ? 'Admin' : 'مشرف';
+                } else if (userRole === 'employer') {
+                    portalTarget = 'pages/employer.html';
+                    portalLabel = isEn ? 'Employer Portal' : 'لوحة المنظم والفرص';
+                    roleBadge = isEn ? 'Partner' : 'شريك';
+                }
+
+                let displayName = roleBadge;
+                if (storedName && !['Student Account', 'المستخدم', 'طالب أكاديمي', 'Academic Student'].includes(storedName)) {
+                    displayName = storedName.split(' ')[0];
+                }
+
+                const signOutLabel = isEn ? 'Sign Out' : 'خروج';
+                const sessionHtml = `
+                    <div class="user-profile-menu-wrapper" id="user-profile-menu-wrapper">
+                        <button class="nav-user-pill" type="button" onclick="toggleUserDropdown(event)" aria-label="User Menu">
+                            <span class="user-avatar-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                            <span class="user-name-text">${displayName}</span>
+                            <span class="dropdown-caret">▾</span>
+                        </button>
+                        <div class="user-menu-dropdown" id="user-menu-dropdown">
+                            <div class="user-dropdown-header">
+                                <strong>${userName}</strong>
+                                <span class="user-role-badge">${roleBadge}</span>
+                                <small>${userEmail || ''}</small>
+                            </div>
+                            <a href="${portalTarget}" class="user-dropdown-item">${portalLabel}</a>
+                            <button type="button" class="user-dropdown-item signout-item" onclick="hytSignOut()">${signOutLabel}</button>
+                        </div>
+                    </div>
+                `;
+
+                const mobileSessionHtml = `
+                    <a href="${portalTarget}" class="btn btn-primary" style="width: 100%;">${portalLabel}</a>
+                    <button onclick="hytSignOut()" class="btn btn-secondary" style="width: 100%;">${signOutLabel}</button>
+                `;
+
+                if (navActions) navActions.innerHTML = sessionHtml;
+                if (mobileAuthActions) mobileAuthActions.innerHTML = mobileSessionHtml;
+            } else {
+                const guestHtml = `<a href="pages/auth.html" class="btn btn-primary nav-auth-btn" data-i18n="navUnifiedAuth">${isEn ? 'Sign In' : 'دخول'}</a>`;
+                const mobileGuestHtml = `<a href="pages/auth.html" class="btn btn-primary nav-auth-btn" style="width: 100%;" data-i18n="navUnifiedAuth">${isEn ? 'Sign In' : 'دخول'}</a>`;
+                if (navActions) navActions.innerHTML = guestHtml;
+                if (mobileAuthActions) mobileAuthActions.innerHTML = mobileGuestHtml;
+            }
+        }
+        updateNavSession();
+        window.addEventListener('hyt:langChanged', updateNavSession);
+
+        // Command Palette Search Catalog & Logic
+        const COMMAND_TRACKS = [
+            { id: 'fullstack', titleAr: 'هندسة البرمجيات وتطبيقات الويب (Full-Stack)', titleEn: 'Full-Stack Software Engineering', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '' },
+            { id: 'ai', titleAr: 'الذكاء الاصطناعي وعلم البيانات (AI & Data Science)', titleEn: 'AI & Data Science Engineering', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '' },
+            { id: 'cyber', titleAr: 'الأمن السيبراني والتحقيق الجنائي الرقمي', titleEn: 'Cybersecurity & Digital Forensics', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '' },
+            { id: 'cloud', titleAr: 'الحوسبة السحابية وهندسة الـ DevOps', titleEn: 'Cloud Computing & DevOps', facultyAr: 'الحاسبات والذكاء الاصطناعي', facultyEn: 'Computing & AI', icon: '' },
+            { id: 'embedded', titleAr: 'الأنظمة المدمجة وبرمجيات السيارات (AUTOSAR)', titleEn: 'Embedded Systems & Automotive', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '' },
+            { id: 'robotics', titleAr: 'الميكاترونكس وهندسة الروبوتات الذكية', titleEn: 'Robotics & Intelligent Mechatronics', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '' },
+            { id: 'energy', titleAr: 'الطاقة المتجددة والشبكات الذكية', titleEn: 'Renewable Energy & Smart Grids', facultyAr: 'الهندسة والتكنولوجيا', facultyEn: 'Engineering & Tech', icon: '' },
+            { id: 'bioinfo', titleAr: 'المعلوماتية الحيوية والبيولوجيا الحاسوبية', titleEn: 'Bioinformatics & Computational Biology', facultyAr: 'العلوم الأساسية', facultyEn: 'Sciences', icon: '' },
+            { id: 'nano', titleAr: 'النانوتكنولوجي وعلوم المواد المتقدمة', titleEn: 'Nanotechnology & Advanced Materials', facultyAr: 'العلوم الأساسية', facultyEn: 'Sciences', icon: '' },
+            { id: 'fintech', titleAr: 'تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)', titleEn: 'FinTech & Business Intelligence', facultyAr: 'التجارة وإدارة الأعمال', facultyEn: 'Business & Finance', icon: '' },
+            { id: 'cyberlaw', titleAr: 'التشريعات الرقمية وحوكمة البيانات والعقود الذكية', titleEn: 'Digital Law & Smart Contracts', facultyAr: 'الحقوق والتشريعات الرقمية', facultyEn: 'Law & Governance', icon: '' }
+        ];
+
+        function openCommandSearch() {
+            const modal = document.getElementById('command-search-modal');
+            if (modal) {
+                modal.showModal();
+                const input = document.getElementById('cmd-search-input');
+                if (input) {
+                    input.value = '';
+                    input.focus();
+                }
+                handleCommandSearch('');
+            }
+        }
+        window.openCommandSearch = openCommandSearch;
+
+        function closeCommandSearch() {
+            const modal = document.getElementById('command-search-modal');
+            if (modal) modal.close();
+        }
+        window.closeCommandSearch = closeCommandSearch;
+
+        function handleCommandSearch(query) {
+            const list = document.getElementById('cmd-results-list');
+            if (!list) return;
+            const isEn = (document.documentElement.lang === 'en');
+            const q = (query || '').trim().toLowerCase();
+
+            let matchedTracks = COMMAND_TRACKS.filter(t => {
+                if (!q) return true;
+                return t.titleAr.toLowerCase().includes(q) ||
+                       t.titleEn.toLowerCase().includes(q) ||
+                       t.facultyAr.toLowerCase().includes(q) ||
+                       t.facultyEn.toLowerCase().includes(q) ||
+                       t.id.toLowerCase().includes(q);
+            });
+
+            let html = '';
+            if (matchedTracks.length > 0) {
+                html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.25rem 0.75rem; text-transform: uppercase;">${isEn ? 'Career Tracks' : 'المسارات المهنية'}</div>`;
+                matchedTracks.forEach(t => {
+                    const title = isEn ? t.titleEn : t.titleAr;
+                    const faculty = isEn ? t.facultyEn : t.facultyAr;
+                    html += `
+                        <div class="cmd-result-item" onclick="selectCommandTrack('${t.id}')">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <span style="font-size: 1.25rem;">${t.icon}</span>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 0.95rem;">${title}</div>
+                                    <small style="color: var(--color-muted-foreground); font-size: 0.78rem;">${faculty}</small>
+                                </div>
+                            </div>
+                            <span style="font-size: 0.78rem; color: #6366F1; font-weight: 600;">${isEn ? 'Hook Track' : 'اصطياد المسار'}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            // Search corporate opportunities if available
+            if (window.hytOpportunities && window.hytOpportunities.opportunities) {
+                const opps = window.hytOpportunities.opportunities.filter(o => {
+                    if (!q) return true;
+                    return (o.title || '').toLowerCase().includes(q) ||
+                           (o.orgName || '').toLowerCase().includes(q) ||
+                           (o.type || '').toLowerCase().includes(q);
+                }).slice(0, 5);
+
+                if (opps.length > 0) {
+                    html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.5rem 0.75rem 0.25rem; text-transform: uppercase;">${isEn ? 'Internship Opportunities' : 'فرص التدريب المتاحة'}</div>`;
+                    opps.forEach(o => {
+                        html += `
+                            <div class="cmd-result-item" onclick="selectCommandOpportunity('${o.id}')">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 0.95rem;">${o.title}</div>
+                                        <small style="color: var(--color-muted-foreground); font-size: 0.78rem;">${o.orgName} · ${o.type}</small>
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.78rem; color: #10B981; font-weight: 600;">${isEn ? 'View ↗' : 'استعراض ↗'}</span>
+                            </div>
+                        `;
+                    });
+                }
+            }
+
+            if (!html) {
+                html = `<div style="text-align: center; padding: 2rem; color: var(--color-muted-foreground);">${isEn ? 'No matching results found.' : 'لا توجد نتائج مطابقة لبحثك.'}</div>`;
+            }
+
+            list.innerHTML = html;
+        }
+        window.handleCommandSearch = handleCommandSearch;
+
+        function selectCommandTrack(trackId) {
+            closeCommandSearch();
+            const radarSection = document.getElementById('hunter-radar-section');
+            if (radarSection) radarSection.scrollIntoView({ behavior: 'smooth' });
+            if (window.hytHunter && window.hytHunter.toggleTrackHook) {
+                window.hytHunter.toggleTrackHook(trackId);
+            }
+        }
+        window.selectCommandTrack = selectCommandTrack;
+
+        function selectCommandOpportunity(oppId) {
+            closeCommandSearch();
+            const oppsSection = document.getElementById('opportunities');
+            if (oppsSection) oppsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        window.selectCommandOpportunity = selectCommandOpportunity;
+
+        // Global Keyboard Shortcut (Ctrl+K or Cmd+K)
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                openCommandSearch();
+            }
+            if (e.key === 'Escape') {
+                closeCommandSearch();
+            }
+        });
+
+        // Close Command Modal when clicking backdrop
+        const cmdModal = document.getElementById('command-search-modal');
+        if (cmdModal) {
+            cmdModal.addEventListener('click', (e) => {
+                const rect = cmdModal.getBoundingClientRect();
+                const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+                                    rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+                if (!isInDialog) {
+                    cmdModal.close();
+                }
+            });
+        }
+
+        // Mobile drawer toggling
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileDrawer = document.getElementById('mobile-drawer');
+
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => {
+                mobileDrawer.classList.toggle('open');
+            });
+        }
+
+        function closeMobileDrawer() {
+            if (mobileDrawer) mobileDrawer.classList.remove('open');
+        }
+
+        // Modal Publish Opportunity Handlers
+        function openPublishOpportunityModal() {
+            const modal = document.getElementById('publish-opportunity-modal');
+            if (modal) {
+                const today = new Date().toISOString().split('T')[0];
+                const defaultEnd = new Date(Date.now() + 21 * 86400000).toISOString().split('T')[0];
+                document.getElementById('opp-form-start').value = today;
+                document.getElementById('opp-form-end').value = defaultEnd;
+                modal.showModal();
+            }
+        }
+        window.openPublishOpportunityModal = openPublishOpportunityModal;
+
+        function closePublishOpportunityModal() {
+            const modal = document.getElementById('publish-opportunity-modal');
+            if (modal) modal.close();
+        }
+        window.closePublishOpportunityModal = closePublishOpportunityModal;
+
+        function handlePublishOpportunitySubmit(e) {
+            e.preventDefault();
+            const title = document.getElementById('opp-form-title').value.trim();
+            const orgName = document.getElementById('opp-form-org').value.trim();
+            const type = document.getElementById('opp-form-type').value;
+            const targetFaculty = document.getElementById('opp-form-faculty').value;
+            const desc = document.getElementById('opp-form-desc').value.trim();
+            const startDate = document.getElementById('opp-form-start').value;
+            const endDate = document.getElementById('opp-form-end').value;
+            const applyUrl = document.getElementById('opp-form-link').value.trim();
+
+            if (window.hytOpportunities) {
+                window.hytOpportunities.addOpportunity({
+                    title,
+                    orgName,
+                    type,
+                    targetFaculty,
+                    desc,
+                    startDate,
+                    endDate,
+                    applyUrl,
+                    stipend: (document.documentElement.lang === 'en') ? "Accredited Training + Certificate" : "معتمد أكاديمياً + شهادة تدريب",
+                    imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80"
+                });
+            }
+
+            closePublishOpportunityModal();
+            const isEn = (document.documentElement.lang === 'en');
+            showToast(isEn ? 'Opportunity successfully accredited and published to unified catalog!' : 'تم اعتماد ونشر الفرصة بنجاح في المنصة الموحدة!', 'success');
+        }
+        function setHunterFaculty(faculty, btn) {
+            document.querySelectorAll('.dock-pill').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            if (window.hytHunter) {
+                window.hytHunter.filterFaculty(faculty);
+            }
+        }
+        window.setHunterFaculty = setHunterFaculty;
+
+        function handleHunterSearch(query) {
+            if (window.hytHunter) {
+                window.hytHunter.searchTrack(query);
+            }
+        }
+        window.handleHunterSearch = handleHunterSearch;
+
+        // 3D Card Flip Handler ("شوية دلع")
+        function toggleCardFlip(btn) {
+            const card = btn.closest('.track-card');
+            if (card) {
+                card.classList.toggle('flipped');
+            }
+        }
+        window.toggleCardFlip = toggleCardFlip;
+
+        // Interactive Hunter Autocomplete & Non-Existent Input Guard
+        function updateHunterAutocomplete(query, matches) {
+            const dropdown = document.getElementById('hunter-autocomplete-dropdown');
+            if (!dropdown) return;
+            if (!query) {
+                dropdown.style.display = 'none';
+                dropdown.innerHTML = '';
+                return;
+            }
+
+            const isAr = document.documentElement.lang === 'ar';
+            if (!matches || matches.length === 0) {
+                dropdown.style.display = 'block';
+                dropdown.innerHTML = `
+                    <div class="no-track-match-banner">
+                        <span data-i18n="noTrackFoundMsg">${isAr ? 'المسار غير موجود — يرجى الاختيار من المسارات الـ 12 المعتمدة أدناه' : 'Track not found — please select from the 12 accredited tracks below'}</span>
+                    </div>
+                `;
+                return;
+            }
+
+            dropdown.style.display = 'block';
+            dropdown.innerHTML = matches.map(track => `
+                <div class="hunter-autocomplete-item" onclick="selectHunterTrack('${track.id}')">
+                    <div>
+                        <div class="hunter-autocomplete-track-title">${isAr ? (track.labelAr || track.label) : track.label}</div>
+                        <div style="font-size: 0.75rem; color: var(--color-muted-foreground); margin-top: 2px;">
+                            ${isAr ? track.weeks : track.weeksEn} · ${(track.skills || []).slice(0, 3).join(', ')}
+                        </div>
+                    </div>
+                    <span class="hunter-autocomplete-faculty-tag">${track.faculty.toUpperCase()}</span>
+                </div>
+            `).join('');
+        }
+        window.updateHunterAutocomplete = updateHunterAutocomplete;
+
+        function selectHunterTrack(trackId) {
+            const dropdown = document.getElementById('hunter-autocomplete-dropdown');
+            if (dropdown) dropdown.style.display = 'none';
+            const input = document.getElementById('hunter-quick-search');
+            if (window.hytHunter) {
+                const track = window.hytHunter.nodes.find(n => n.id === trackId);
+                if (track && input) {
+                    const isAr = document.documentElement.lang === 'ar';
+                    input.value = isAr ? (track.labelAr || track.label) : track.label;
+                }
+                window.hytHunter.focusTrack(trackId);
+            }
+        }
+        window.selectHunterTrack = selectHunterTrack;
+
+        function hookQuickChip(trackId, chipBtn) {
+            document.querySelectorAll('.hunter-quick-chip').forEach(c => c.classList.remove('active'));
+            if (chipBtn) chipBtn.classList.add('active');
+            const input = document.getElementById('hunter-quick-search');
+            if (input) input.value = '';
+            const dropdown = document.getElementById('hunter-autocomplete-dropdown');
+            if (dropdown) dropdown.style.display = 'none';
+
+            if (window.hytHunter) {
+                if (trackId === 'all') {
+                    window.hytHunter.searchTrack('');
+                } else {
+                    window.hytHunter.focusTrack(trackId);
+                }
+            }
+        }
+        window.hookQuickChip = hookQuickChip;
+
+        // Close hunter autocomplete on outside click
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('hunter-autocomplete-dropdown');
+            if (dropdown && !e.target.closest('.hunter-search-wrapper')) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span>${message}</span>
+                <button class="toast-close-btn" onclick="this.parentElement.remove()">&times;</button>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentElement) toast.remove();
+            }, 4500);
+        }
+        window.showToast = showToast;
+    </script>
 </body>
 </html>

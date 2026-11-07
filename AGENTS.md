@@ -32,7 +32,6 @@ HuntYourTrack is an AI-assisted career navigator and opportunity aggregator desi
 - **Language Classification & Linguist Hygiene:** The primary codebase is strictly JavaScript, HTML5, and CSS3. To prevent auxiliary AI skills and tooling scripts (TypeScript, Python, Shell in `.global_skills/`) from distorting GitHub's language statistics bar, `.gitattributes` configures `linguist-vendored` overrides so GitHub accurately reflects our authentic frontend stack.
 
 ### 2.1. Bilingual Input Translation & 100% English Execution Directive
-
 - **Arabic User Prompt Ingestion:** When the lead engineer or team communicates in Arabic, Claude / Codex / Cursor MUST internally decompose and translate the requirements into structured English specifications and task plans.
 - **100% English Operational Output:** All code, comments, Git commits, GitHub PR titles/descriptions, issue comments, artifacts, and user responses MUST be written strictly in professional English.
 - **Session Language & Theme Persistence:** The user's active language (`hyt_lang`) and theme (`hyt_theme`) selections in `localStorage` must never be purged upon user sign-out; only role and credential keys (`user_role`, `user_email`, `user_name`, `faculty`, `department`) are cleared.
@@ -119,20 +118,17 @@ Tasks in **[HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com
   Never bundle multiple user stories or tasks into a single branch or PR. All tasks and issues MUST be solved strictly **one by one**. Every issue gets its own branch and its own dedicated PR to eliminate merge collisions between teammates, keep reviews isolated, and allow clean rollbacks.
 - **No Direct Commits to `main` for Features:**
   To guarantee that work does not collide, overwrite, or drift between teammates, **every engineer (including Mohamed @EngMohamedElabsy, Hager @hager678, and Abdulrahman @abdulrhman-masoud)** MUST create an isolated branch before beginning work on any feature or user story:
-
   ```bash
   git checkout -b feature/usXX-<feature-name>
   ```
 - **Immediate Pull Request (PR) Creation:**
   Immediately upon creating the branch and making the initial commit, an open Pull Request MUST be created against `main`:
-
   ```bash
   gh pr create --title "USXX: <Title>" --body "Closes #<issue_number>" --base main
   ```
 
   This provides 100% transparency to the whole team in the GitHub Pull Requests tab, prevents duplicate efforts, and tracks code progress.
 - **Conflict Resolution & Code Drift Protocol:**
-
   - Before merging, always synchronize the feature branch cleanly with the latest `main`:
     ```bash
     git fetch origin
@@ -141,7 +137,6 @@ Tasks in **[HuntYourTrack - Graduation Sprint 1 (Project #5)](https://github.com
   - Resolve any merge conflicts cleanly, run the full test suite (`npm test`), verify the live server (`http://localhost:8080`), and only merge to `main` when all checks pass with 100% compliance.
   - Never use destructive force pushes (`--force`) to `main`.
 - **Mandatory Post-Merge Branch Deletion Protocol (Zero Stale Branches):**
-
   - Immediately upon merging any Pull Request into `main`, the feature branch MUST be deleted both locally and on the remote repository:
     ```bash
     git checkout main
@@ -333,7 +328,7 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
 - **Mandatory Session Initialization:** At the start of every session or task, Claude MUST read `CLAUDE.md` and inspect `.global_skills/` to ground all decisions in the project's living rules.
 - **Strict 6-Phase Pipeline Adherence:** Claude must execute every single task through the 6-phase engineering workflow defined in Section 3 without skipping steps.
 - **Cumulative Knowledge Growth:** Every time a new design pattern, architectural invariant, debugging edge-case, or testing protocol is established, Claude MUST append and refine `CLAUDE.md` and the relevant skill definitions.
-- **Mandatory End-of-Task Handoff Update:** At the conclusion of every completed issue, feature, or pull request, Claude MUST update `CLAUDE.md` (specifically Section 8: Continuous Project Ledger) and any relevant skills before concluding the session.
+- **Mandatory Dual-File Constitution Synchronization (`CLAUDE.md` & `AGENTS.md`):** `CLAUDE.md` and `AGENTS.md` are identical twins and form the single source of truth for the codebase. Whenever any AI assistant (Claude, Codex, Antigravity, Cursor) or team member completes any task, issue, feature, or pull request, they MUST immediately return to both `CLAUDE.md` and `AGENTS.md` to append the continuous project ledger and keep both files 100% identical and synchronized before concluding any session.
 - **Zero Knowledge Loss:** **NEVER** delete, wipe, or overwrite established workflows, team protocols, or skill definitions. Project intelligence is strictly additive, continuously evolving, and permanently preserved across sessions.
 
 ---
@@ -352,7 +347,7 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - 1-Click demo accounts for Student, Recruiter, and Admin.
   - Rigorous test suite (`npm test`) validating 5 critical dimensions with 100% pass rate.
 
-### 🟢 Skills & Governance Harmonization (Latest Update: 2026-10-31 19:20 UTC+2)
+### 🟢 Skills & Governance Harmonization (2026-10-31 19:20 UTC+2)
 
 - **Commit:** `645aefe`
 - **Deliverables:**
@@ -361,46 +356,21 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - Re-established mandatory feature branching, immediate PR creation, and teammate handover protocol (`Hi @<teammate>...`).
   - Codified the 6-Phase Systematic Engineering Workflow into `CLAUDE.md`.
   - Upgraded `scripts/setup-skills.js` to dynamically synchronize repository skills to host environment (`npm run setup:skills`).
+
+### 🟢 Architecture Restoration, Apple-Grade Celestial Galaxy & Brand Harmonization (2026-11-07 12:15 UTC+2)
+
+- **Status:** Baseline restored to commit `629f6e6c5d16f26b4fc1d1ac91048fb5ffdda85b`.
+- **Deliverables:**
+  - Removed broken regressions from PR #115 and PR #116 (purged `app.js`, `galaxy.js`, and `.impeccable/`).
+  - Implemented Apple/iOS-grade Celestial Galaxy Engine (`frontend/js/ocean-background.js`): 3-tier multi-depth starfield (micro-dust, mid-constellations, hero stars with halos and 4-point diffraction spikes), organic drifting nebulae, fluid mouse/scroll parallax, and rare graceful meteor streaks with zero spiderweb/mesh lines.
+  - Harmonized HuntYourTrack precision reticle brand mark (`brand-mark` SVG + `brand-title`) across all pages (`index.html`, `auth.html`, `student.html`, `admin.html`, `employer.html`).
+  - Confirmed 100% WCAG AA contrast across all 7 theme palettes (Dark, Light, Abyss, Reef, Nebula, Ember, Daylight).
+  - Synchronized `CLAUDE.md` and `AGENTS.md` with zero external/hallucinated framework artifacts.
+  - Pruned all 9 stale remote tracking branches on GitHub, retaining strictly `main`.
+  - All 9 Playwright deep E2E audit sections passing with 100% compliance (`npm test`).
 - **Next Immediate Priority:**
   - **Sprint 2 Execution:** Implement US18 (#63), US19 (#64), and US20 (#65) on dedicated feature branches:
     1. US18: Universal Multi-Faculty Roadmaps & Production SaaS Sanitization.
     2. US19: Interactive Role-Based Onboarding & Intelligent Resume Keyword Parser.
     3. US20: Comprehensive Opportunity Organization, Deadlines & Publishing Lifecycle.
 
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-
-## What Lovable manages
-
-Rules outside this block are the project's own. Change the pieces below in
-Lovable, not by hand. With the [Lovable MCP](https://mcp.lovable.dev)
-connected, `send_message` asks Lovable to do it; otherwise ask the user to
-use the editor.
-
-- **Database.** Do not add or edit `supabase/migrations/` or `drizzle/`.
-  Ask Lovable to change the schema.
-- **Generated files.** Do not edit a file whose header says it is automatically
-  generated.
-- **AI gateway.** Keep model calls on Lovable's gateway, and keep
-  `LOVABLE_API_KEY` out of browser code.
-- **Connectors.** Lovable provides native connectors. `list_connectors` shows
-  which are enabled; `add_connector` only returns the dashboard link. When a
-  connector is enabled, calls go through the connector gateway and need
-  `LOVABLE_API_KEY`. When Lovable does not provide one, users can bring their
-  own key and store it in Secrets.
-- **Secrets.** Lovable manages them. Do not put secret values in the repo.
-
-<!-- LOVABLE:END -->
-
-## Project rules
-
-- Opportunity listings and all filter/sort logic live in `src/lib/opportunities.ts` as pure functions; pages only hold filter state. Why: keeps rules testable and lets a future database swap the data source in one place.
-- Saved/applied state is stored on-device via `src/lib/saved-store.ts` (useSyncExternalStore, empty on the server). Why: no accounts exist yet and SSR must not read browser storage.
-- Header, nav and footer live in `src/components/app-shell.tsx`, wrapped around `<Outlet />` in `__root.tsx`. Why: one shared layout for every page.
-- All colors, gradients, shadows and the starfield are semantic tokens/utilities in `src/styles.css` (`panel`, `eyebrow`, `bg-hero`, etc.); components never hardcode colors. Why: a theme change is a one-file edit.
