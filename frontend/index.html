@@ -80,28 +80,6 @@
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
                             <span data-i18n="themeLightOption">الوضع النهاري (Light Mode)</span>
                         </button>
-                        <div class="theme-menu-divider"></div>
-                        <div class="theme-menu-header" data-i18n="themePalettesHeader">لوحات الألوان المخصصة</div>
-                        <button type="button" class="theme-opt-btn" data-theme-val="abyss" onclick="setAppTheme('abyss')">
-                            <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
-                            <span data-i18n="themeAbyss">أعماق المحيط (Abyss)</span>
-                        </button>
-                        <button type="button" class="theme-opt-btn" data-theme-val="reef" onclick="setAppTheme('reef')">
-                            <span class="theme-swatch-dot" style="background: #10B981;"></span>
-                            <span data-i18n="themeReef">الشعب المرجانية (Reef)</span>
-                        </button>
-                        <button type="button" class="theme-opt-btn" data-theme-val="nebula" onclick="setAppTheme('nebula')">
-                            <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
-                            <span data-i18n="themeNebula">سديم الفضاء (Nebula)</span>
-                        </button>
-                        <button type="button" class="theme-opt-btn" data-theme-val="ember" onclick="setAppTheme('ember')">
-                            <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
-                            <span data-i18n="themeEmber">الوهج الشمسي (Ember)</span>
-                        </button>
-                        <button type="button" class="theme-opt-btn" data-theme-val="daylight" onclick="setAppTheme('daylight')">
-                            <span class="theme-swatch-dot" style="background: #0284C7;"></span>
-                            <span data-i18n="themeDaylight">وضح النهار (Daylight)</span>
-                        </button>
                     </div>
                 </div>
 
@@ -109,68 +87,68 @@
                 <div id="auth-entry" class="auth-entry"></div>
             </div>
 
-            <!-- Mobile Hamburger Toggle -->
-            <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Navigation Menu">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-            </button>
-        </div>
-    </nav>
+        <!-- Mobile Hamburger Toggle -->
+        <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Navigation Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+    </div>
+</nav>
 
-    <!-- Galaxy Canvas - Full Viewport Background -->
-    <canvas id="galaxy-canvas" class="galaxy-canvas" aria-hidden="true"></canvas>
+<!-- Galaxy Canvas - Full Viewport Background -->
+<canvas id="galaxy-canvas" class="galaxy-canvas" aria-hidden="true"></canvas>
 
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Guest Landing Hero -->
-        <section id="guest-landing" class="guest-landing" aria-labelledby="guest-title">
-            <div class="guest-hero">
-                <div class="guest-badge" data-i18n="guestBadge">منصة اصطياد المسار المهني 2026</div>
-                <h1 id="guest-title" class="guest-headline hero-headline">
-                    <span data-i18n="heroTitleLine1">اصطد مسارك المهني، واصنع</span>
-                    <span class="guest-accent" data-i18n="heroTitleLine2">شبكة مهاراتك وانطلق في سوق العمل</span>
-                </h1>
-                <p class="guest-desc" data-i18n="guestDesc">
-                    المنصة الذكية الوحيدة التي ترسم لك خارطة طريق مهنية خطوة بخطوة — من الكلية إلى التوظيف. مسارات معتمدة، فرص حقيقية، إشراف أكاديمي.
-                </p>
+<!-- Main Content -->
+<main id="main-content">
+    <!-- Guest Landing Hero -->
+    <section id="guest-landing" class="guest-landing" aria-labelledby="guest-title">
+        <div class="guest-hero">
+            <div class="guest-badge" data-i18n="guestBadge">منصة اصطياد المسار المهني 2026</div>
+            <h1 id="guest-title" class="guest-headline hero-headline">
+                <span data-i18n="heroTitleLine1">اصطد مسارك المهني، واصنع</span>
+                <span class="guest-accent" data-i18n="heroTitleLine2">شبكة مهاراتك وانطلق في سوق العمل</span>
+            </h1>
+            <p class="guest-desc" data-i18n="guestDesc">
+                المنصة الذكية الوحيدة التي ترسم لك خارطة طريق مهنية خطوة بخطوة — من الكلية إلى التوظيف. مسارات معتمدة، فرص حقيقية، إشراف أكاديمي.
+            </p>
 
-                <!-- CTA Group -->
-                <div class="guest-cta-group">
-                    <button type="button" class="btn btn-primary btn-lg" id="start-journey-btn" data-i18n="startJourneyBtn">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-inline-end: 8px;">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                        ابدأ رحلتك الآن
-                    </button>
-                    <button type="button" class="btn btn-ghost btn-lg" id="explore-first-btn" data-i18n="exploreFirstBtn">
-                        استكشف أولاً
-                    </button>
-                </div>
-
-                <!-- Trust Indicators -->
-                <div class="guest-trust" aria-label="Platform statistics">
-                    <div class="trust-item">
-                        <span class="trust-num" data-count="136">0</span>
-                        <span class="trust-label" data-i18n="trustRoles">فرصة معتمدة</span>
-                    </div>
-                    <div class="trust-divider" aria-hidden="true"></div>
-                    <div class="trust-item">
-                        <span class="trust-num" data-count="48">0</span>
-                        <span class="trust-label" data-i18n="trustPartners">شريك صناعي</span>
-                    </div>
-                    <div class="trust-divider" aria-hidden="true"></div>
-                    <div class="trust-item">
-                        <span class="trust-num" data-count="91">0</span>
-                        <span class="trust-label" data-i18n="trustMatch">٪ معدل التوافق</span>
-                    </div>
-                    <div class="trust-divider" aria-hidden="true"></div>
-                    <div class="trust-item">
-                        <span class="trust-num" data-count="2400">0</span>
-                        <span class="trust-label" data-i18n="trustStudents">طالب ومرشد</span>
-                    </div>
-                </div>
+            <!-- CTA Group -->
+            <div class="guest-cta-group">
+                <button type="button" class="btn btn-primary btn-lg" id="start-journey-btn" data-i18n="startJourneyBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-inline-end: 8px;">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    ابدأ رحلتك الآن
+                </button>
+                <button type="button" class="btn btn-ghost btn-lg" id="explore-first-btn" data-i18n="exploreFirstBtn">
+                    استكشف أولاً
+                </button>
             </div>
 
-            <!-- Scroll Indicator -->
+            <!-- Trust Indicators -->
+            <div class="guest-trust" aria-label="Platform statistics">
+                <div class="trust-item">
+                    <span class="trust-num" data-count="136">0</span>
+                    <span class="trust-label" data-i18n="trustRoles">فرصة معتمدة</span>
+                </div>
+                <div class="trust-divider" aria-hidden="true"></div>
+                <div class="trust-item">
+                    <span class="trust-num" data-count="48">0</span>
+                    <span class="trust-label" data-i18n="trustPartners">شريك صناعي</span>
+                </div>
+                <div class="trust-divider" aria-hidden="true"></div>
+                <div class="trust-item">
+                    <span class="trust-num" data-count="91">0</span>
+                    <span class="trust-label" data-i18n="trustMatch">٪ معدل التوافق</span>
+                </div>
+                <div class="trust-divider" aria-hidden="true"></div>
+                <div class="trust-item">
+                    <span class="trust-num" data-count="2400">0</span>
+                    <span class="trust-label" data-i18n="trustStudents">طالب ومرشد</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator --><!-- Scroll Indicator -->
             <div class="scroll-indicator" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <path d="M12 5v14M19 12l-7 7-7-7"/>
