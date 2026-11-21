@@ -391,3 +391,17 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Track Hunter Radar Telemetry Removal:** Eliminated rotating focus brackets, reticle HUD, and telemetry coordinates overlay on hover. Tracks remain clean, floating nodes with glass pill labels.
   - **Quality Assurance:** Both `tests/frontend-smoke-test.js` and `tests/rigorous-e2e-audit.js` updated to verify direct theme toggles; all 9 E2E audit sections pass with 100% compliance (`npm test`).
 
+### 🟢 Admin Dark Contrast, Universal Sign-Out, Galaxy Uncoupling & Opportunity Role Guard (2026-11-07 13:45 UTC+2)
+
+- **Feature Branch:** `feature/admin-galaxy-signout-polish`
+- **Deliverables:**
+  - **Admin Dashboard Dark Mode Contrast:** Replaced light-assumed colors in `admin.css` with theme-aware tokens. Fixed `.admin-tab-btn.active`, `.filter-pill.active`, `.nav-link.active`, and `.avatar` to eliminate illegible white-on-white text and controls in Dark Mode.
+  - **Brand Title RTL LTR Isolation:** Added `direction: ltr !important; unicode-bidi: isolate; display: inline-flex;` to `.brand-title` across `style.css` and all portal headers (`admin.html`, `student.html`, `employer.html`, `auth.html`, `index.html`) so the brand name never reverses to "TrackYourHunt" in Arabic RTL mode.
+  - **Zero GitHub External Data Leakage in Admin:** Completely eradicated external GitHub "Sprint Board" links from `admin.html` desktop navbar and mobile drawer.
+  - **Universal Session Sign-Out Across All Portals:** Updated `hytSignOut()` in `i18n.js` to completely purge all authentication and session keys (`user`, `role`, `user_role`, `user_name`, `user_email`, `faculty`, `department`, `auth_token`, `hyt_auth`, `hyt_user`) while strictly preserving `hyt_lang` and `hyt_theme`. Added visible, working sign-out buttons with icons in Admin, Student, Employer, and Guest headers.
+  - **Galaxy Canvas Uncoupling:** Made `drawAccretionCore()` and `drawCosmicBeams()` no-op methods in `hunter-canvas.js`. Eradicated the central sphere and connecting beam lines; all 12 discipline track nodes float independently in deep space.
+  - **Interactive Multi-Selection Tray & Dismissal Chips:** In `#hooked-track-panel`, introduced an interactive selected tracks tray with a counter, active track switcher, individual `✕` dismiss buttons per track, and a "Clear All" button for fluid management.
+  - **Opportunity Bookmark Ribbon Icon:** Populated the empty bookmark button in `opportunities.js` with an SVG ribbon icon and label, toggling gold fill on bookmark/save.
+  - **New Post Organizer Role Guard:** Enforced authentication check in `openPublishOpportunityModal()`, routing guests and students with a notification to log in as an Employer Partner before publishing.
+  - **Quality Gate:** All 9 Playwright deep E2E audit sections passed with 100% compliance (`npm test`).
+

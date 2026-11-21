@@ -200,6 +200,9 @@ html[lang="ar"] body {
     font-size: 1.35rem;
     letter-spacing: -0.03em;
     display: inline-flex;
+    flex-direction: row !important;
+    direction: ltr !important;
+    unicode-bidi: isolate;
     align-items: baseline;
     line-height: 1;
 }

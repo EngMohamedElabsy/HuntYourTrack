@@ -596,8 +596,11 @@ class OpportunitiesManager {
                                 <button type="button" class="btn btn-secondary" onclick="window.openOpportunityDetails('${opp.id}')" style="font-size: 0.88rem;" title="${isArabic ? "عرض التفاصيل الكاملة" : "View Full Details"}">
                                     ℹ️ ${isArabic ? "التفاصيل" : "Details"}
                                 </button>
-                                <button type="button" class="btn btn-secondary" onclick="window.toggleBookmarkOpportunity('${opp.id}', this)" style="padding: 0.45rem 0.75rem;" title="${isArabic ? "حفظ الفرصة" : "Bookmark"}">
-                                    
+                                <button type="button" class="btn btn-secondary bookmark-btn" onclick="window.toggleBookmarkOpportunity('${opp.id}', this)" style="padding: 0.45rem 0.75rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;" title="${isArabic ? "حفظ الفرصة" : "Save / Bookmark"}">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bookmark-icon">
+                                        <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+                                    </svg>
+                                    <span class="bookmark-label" style="font-size: 0.8rem; font-weight: 600;">${isArabic ? "حفظ" : "Save"}</span>
                                 </button>
                             </div>
                         </div>

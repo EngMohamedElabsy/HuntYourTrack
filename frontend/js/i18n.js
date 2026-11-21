@@ -1031,12 +1031,17 @@ window.hytSignOut = function(e) {
  const savedLang = localStorage.getItem('hyt_lang') || 'en';
  const savedTheme = localStorage.getItem('hyt_theme') || 'dark';
 
- // Clear user credentials and session variables
+ // Clear all user credentials and session variables
+ localStorage.removeItem('user');
+ localStorage.removeItem('role');
  localStorage.removeItem('user_role');
  localStorage.removeItem('user_name');
  localStorage.removeItem('user_email');
  localStorage.removeItem('faculty');
  localStorage.removeItem('department');
+ localStorage.removeItem('auth_token');
+ localStorage.removeItem('hyt_auth');
+ localStorage.removeItem('hyt_user');
 
  // Preserve language and visual theme preferences
  localStorage.setItem('hyt_lang', savedLang);
