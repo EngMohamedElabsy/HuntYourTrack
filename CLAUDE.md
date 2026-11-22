@@ -431,3 +431,20 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Project #5 Backlog Deadlines Synchronization:** Synchronized 100% of closed sprint user stories on Project #5 (`HuntYourTrack - Graduation Sprint 1`). Added missing closed cards #104, #105, #106, configured exact chronological deadlines across all issues (Sprint 1: `2026-11-01`, Sprint 2: `2026-11-08`, Sprint 3: `2026-11-15`, US33: `2026-11-22`), and confirmed all cards transitioned to `Done`.
   - **Redundant Skills Symlink Removal:** Cleanly deleted redundant root symlink `skills -> .global_skills` per project hygiene instructions, standardizing all tooling strictly on the singular source `.global_skills/`.
   - **Quality Assurance:** Re-verified test suite with 100% compliance across all 9 audit sections (`npm test`).
+
+### 🟢 US34: Class Central & Roadmap Course Aggregator with Visual Syllabi (2026-11-23 01:25 UTC+2)
+
+- **Feature Branch:** `feature/us34-course-aggregator`
+- **Issue:** Closes #109 (US34: Class Central & Roadmap Course Aggregator with Visual Syllabi)
+- **Assignee:** `@EngMohamedElabsy`
+- **Deliverables:**
+  - **Comprehensive Developer Roadmaps Tree (`docs/roadmaps/COMPUTERS_AND_AI_ROADMAP_TREE.md`):** Formatted canonical 4-tier syllabi for Faculty of Computers & AI tracks (AI & Deep Learning, Cybersecurity SOC, Cloud & DevOps, Full-Stack Web Development, Data Science, and Embedded Systems/IoT), mapped to global standards (`roadmap.sh`, Class Central, Coursera, and top universities).
+  - **Verified Free Courses Catalog (`database/nosql/courses-catalog.json`):** Curated comprehensive dataset of verified free courses from MIT, Stanford, Harvard, Google, and IBM with duration, level, rating, certificate status, provider logos, and direct enrollment links.
+  - **Relational Core Database Schema (`database/sql/01_schema_init.sql`):** Created full DDL for Microsoft SQL Server / MySQL 8.0+ covering `users`, `student_profiles`, `user_sessions`, `course_enrollments`, and `opportunity_applications` with strict RBAC constraints and foreign keys.
+  - **Lightweight Native Backend API Server (`backend/server.js`):** Built standalone RESTful API server using native Node.js HTTP/fs (zero external npm packages, preserving network quota) providing endpoints for `/api/v1/health`, `/api/v1/courses`, `/api/v1/roadmaps/tree`, and `/api/v1/cv/parse-keywords`.
+  - **Client API Layer with Offline Fallback (`frontend/js/api.js`):** Engineered decoupled client API service connecting to backend endpoints with automatic offline catalog fallback for seamless static deployment on GitHub Pages.
+  - **Interactive Courses UI & Track Filtering (`frontend/index.html`, `frontend/css/landing.css`):** Implemented high-contrast, unslop-compliant course cards with duration badges, provider tags, and instant track filter buttons (`All`, `AI & Deep Learning`, `Cybersecurity SOC`, `Cloud & DevOps`, `Full-Stack Web`).
+  - **Unslop Minimalist Icon Buttons (`frontend/js/opportunities.js`):** Streamlined opportunity cards by replacing verbose secondary button text (`Save`, `Details`) with micro-animated SVG icons featuring hover tooltips and eliminating emoji tells.
+  - **Installed `.claude/skills/unslop`:** Ensured `unslop` skill is directly accessible within `.claude/skills/unslop`.
+  - **Test Compliance:** All 9 Playwright audit suites and smoke tests passed with 100% compliance (`npm test`).
+

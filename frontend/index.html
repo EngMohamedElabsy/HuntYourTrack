@@ -312,6 +312,27 @@
             <div class="opportunities-grid" id="opportunities-catalog-container"></div>
         </section>
 
+        <!-- Verified Free Courses & Class Central MOOCs (US34) -->
+        <section class="section-wrapper" id="courses">
+            <div class="section-head">
+                <span class="section-badge" data-i18n="coursesBadge">Verified Global Syllabi</span>
+                <h2 class="section-title" data-i18n="coursesHeading">Accredited Free Courses & MOOCs</h2>
+                <p class="section-subtitle" data-i18n="coursesSub">Aggregated from Class Central, Stanford, Harvard, MIT, Google, and IBM with duration, free audits, and verified tracks.</p>
+            </div>
+
+            <!-- Course Track Filter Chips -->
+            <div class="courses-filter-bar" id="courses-filter-chips">
+                <button type="button" class="course-filter-btn active" data-track="" onclick="filterCoursesByTrack('', this)">All Tracks</button>
+                <button type="button" class="course-filter-btn" data-track="ai-deeplearning" onclick="filterCoursesByTrack('ai-deeplearning', this)">AI & Deep Learning</button>
+                <button type="button" class="course-filter-btn" data-track="cybersecurity" onclick="filterCoursesByTrack('cybersecurity', this)">Cybersecurity SOC</button>
+                <button type="button" class="course-filter-btn" data-track="cloud-devops" onclick="filterCoursesByTrack('cloud-devops', this)">Cloud & DevOps</button>
+                <button type="button" class="course-filter-btn" data-track="fullstack-web" onclick="filterCoursesByTrack('fullstack-web', this)">Full-Stack Web</button>
+            </div>
+
+            <!-- Courses Grid Container -->
+            <div class="courses-grid" id="courses-catalog-container"></div>
+        </section>
+
         <!-- Career Tracks Pathways (Across Multi-Faculties) -->
         <section class="section-wrapper" id="tracks">
             <div class="section-head">
@@ -703,11 +724,73 @@
     <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
     <script src="js/i18n.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/ocean-background.js"></script>
     <script src="js/hunter-canvas.js"></script>
     <script src="js/opportunities.js"></script>
     <script src="js/components.js"></script>
     <script>
+        // Verified Courses Catalog (US34)
+        async function renderCoursesCatalog(trackFilter = '') {
+            const container = document.getElementById('courses-catalog-container');
+            if (!container) return;
+            if (window.HYT_API) {
+                const courses = await window.HYT_API.getCourses(trackFilter);
+                if (!courses || courses.length === 0) {
+                    container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--color-muted-foreground);">No courses found for this track.</div>';
+                    return;
+                }
+                container.innerHTML = courses.map(course => `
+                    <article class="course-card" data-track="${course.track}">
+                        <div class="course-media">
+                            <img src="${course.thumbnail}" alt="${course.title}" loading="lazy" />
+                            <span class="course-provider-badge">${course.provider}</span>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">${course.title}</h3>
+                            <p class="course-desc">${course.description}</p>
+                            <div class="course-meta-tags">
+                                <span class="course-meta-item">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    ${course.duration}
+                                </span>
+                                <span class="course-meta-item">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    ${course.rating || '4.9'}
+                                </span>
+                                <span class="course-meta-item" style="color: var(--color-accent); font-weight: 600;">
+                                    ${course.certificate || 'Free Audit'}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <span class="tag-pill" style="font-size: 0.72rem; background: var(--color-muted); color: var(--color-foreground);">
+                                ${course.level || 'Beginner to Intermediate'}
+                            </span>
+                            <a href="${course.enrollmentUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">
+                                Enroll Free →
+                            </a>
+                        </div>
+                    </article>
+                `).join('');
+            }
+        }
+
+        function filterCoursesByTrack(track, btn) {
+            document.querySelectorAll('.course-filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderCoursesCatalog(track);
+        }
+        window.filterCoursesByTrack = filterCoursesByTrack;
+        window.renderCoursesCatalog = renderCoursesCatalog;
+
+        // Initialize courses catalog
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => renderCoursesCatalog(''));
+        } else {
+            renderCoursesCatalog('');
+        }
+
         // Dynamic Theme Toggle Controls (Pure B&W Single-Click)
         function toggleThemeDropdown(e) {
             if (e) e.stopPropagation();

@@ -458,7 +458,10 @@ class OpportunitiesManager {
                                     <span style="font-weight: 600;">${stipend}</span>
                                 </div>
                                 <div class="opp-fact-pill">
-                                    <span class="fact-label">⏱️ Term:</span>
+                                    <span class="fact-label" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                        Term:
+                                    </span>
                                     <span style="font-weight: 600;">${term}</span>
                                 </div>
                                 <div class="opp-fact-pill">
@@ -482,23 +485,25 @@ class OpportunitiesManager {
                                 <span class="tag-pill" style="font-size: 0.75rem; background: var(--color-muted); color: var(--color-foreground);">
                                     ${targetFaculty}
                                 </span>
-                                <span class="tag-pill opp-countdown-badge ${countdown.badgeClass}" style="font-size: 0.75rem;">
-                                    ⏱️ ${countdown.text}
+                                <span class="tag-pill opp-countdown-badge ${countdown.badgeClass}" style="font-size: 0.75rem; display: inline-flex; align-items: center; gap: 0.3rem;">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    ${countdown.text}
                                 </span>
                             </div>
 
-                            <div class="opp-footer-actions">
-                                <button type="button" class="btn btn-primary" onclick="window.openOpportunityApply('${opp.id}')" style="font-size: 0.88rem; font-weight: 700;">
+                            <div class="opp-footer-actions" style="display: flex; align-items: center; gap: 0.5rem;">
+                                <button type="button" class="btn btn-primary" onclick="window.openOpportunityApply('${opp.id}')" style="flex: 1; font-size: 0.88rem; font-weight: 700; padding: 0.45rem 1rem;">
                                     Apply Now →
                                 </button>
-                                <button type="button" class="btn btn-secondary" onclick="window.openOpportunityDetails('${opp.id}')" style="font-size: 0.88rem;" title="View Full Details">
-                                    ℹ️ Details
+                                <button type="button" class="btn btn-secondary icon-action-btn" onclick="window.openOpportunityDetails('${opp.id}')" title="View Full Details" aria-label="View Full Details" style="padding: 0.45rem 0.65rem; display: inline-flex; align-items: center; justify-content: center;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                                    </svg>
                                 </button>
-                                <button type="button" class="btn btn-secondary bookmark-btn" onclick="window.toggleBookmarkOpportunity('${opp.id}', this)" style="padding: 0.45rem 0.75rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;" title="Save / Bookmark">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bookmark-icon">
+                                <button type="button" class="btn btn-secondary bookmark-btn icon-action-btn" onclick="window.toggleBookmarkOpportunity('${opp.id}', this)" title="Save Opportunity" aria-label="Save Opportunity" style="padding: 0.45rem 0.65rem; display: inline-flex; align-items: center; justify-content: center;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bookmark-icon">
                                         <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
                                     </svg>
-                                    <span class="bookmark-label" style="font-size: 0.8rem; font-weight: 600;">Save</span>
                                 </button>
                             </div>
                         </div>
