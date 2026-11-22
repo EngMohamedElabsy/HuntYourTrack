@@ -89,7 +89,7 @@ function enforceAdminAuthorization() {
         const userEmail = localStorage.getItem('user_email');
         const userDisplay = document.getElementById('admin-user-display');
         if (userDisplay && userEmail) {
-            const userName = localStorage.getItem('user_name') || 'المشرف الأكاديمي';
+            const userName = localStorage.getItem('user_name') || 'Academic Admin';
             userDisplay.textContent = `${userName} (${userEmail})`;
         }
         return true;

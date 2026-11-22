@@ -59,9 +59,9 @@ async function runAudit() {
         });
 
         // -------------------------------------------------------------------------------------------------
-        // AUDIT 1: i18n & Language Consistency Check (Arabic RTL ⇄ English LTR)
+        // AUDIT 1: i18n & Language Consistency Check (Pure 100% English UI - Zero Arabic Tolerance)
         // -------------------------------------------------------------------------------------------------
-        console.log('\n--- [1/5] Testing i18n & Language Consistency (Zero Mixed Languages) ---');
+        console.log('\n--- [1/5] Testing i18n & Language Consistency (Pure 100% English UI) ---');
         const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
         page.setDefaultTimeout(10000);
 
@@ -70,33 +70,28 @@ async function runAudit() {
         await page.route('https://fonts.gstatic.com/**', (route) => route.abort());
 
         await page.goto(`${baseUrl}/index.html`);
-        await page.evaluate(() => localStorage.setItem('hyt_lang', 'ar'));
-        await page.reload();
-
-        // 1a. Arabic RTL Default Check
-        const dirAr = await page.evaluate(() => document.documentElement.dir);
-        const langAr = await page.evaluate(() => document.documentElement.lang);
-        assert.equal(dirAr, 'rtl', 'Landing page must start in RTL mode for Arabic');
-        assert.equal(langAr, 'ar', 'Landing page lang attribute must be "ar"');
-
-        // Check Arabic text elements
-        const heroTitleAr = await page.locator('.hero-headline').innerText();
-        assert.ok(/اصطد مسارك المهني/.test(heroTitleAr), 'Arabic hero headline must be present');
-
-        // 1b. Switch to English LTR
-        const langToggle = page.locator('#hyt-lang-toggle');
-        await langToggle.click();
         await page.waitForTimeout(200);
 
-        const dirEn = await page.evaluate(() => document.documentElement.dir);
-        const langEn = await page.evaluate(() => document.documentElement.lang);
-        assert.equal(dirEn, 'ltr', 'Switching to English must set document dir="ltr"');
-        assert.equal(langEn, 'en', 'Switching to English must set document lang="en"');
+        // 1a. English LTR Architecture Check
+        const dir = await page.evaluate(() => document.documentElement.dir);
+        const lang = await page.evaluate(() => document.documentElement.lang);
+        assert.equal(dir, 'ltr', 'Landing page must strictly operate in LTR mode');
+        assert.equal(lang, 'en', 'Landing page lang attribute must strictly be "en"');
 
+        // Check English hero headline
         const heroTitleEn = await page.locator('.hero-headline').innerText();
-        assert.ok(/Hunt Your Tech Track/.test(heroTitleEn), 'English hero headline must be present');
+        assert.ok(/Hunt Your Tech Track/i.test(heroTitleEn), 'English hero headline must be present');
 
-        // Verify zero Arabic characters on data-i18n elements in English mode
+        // Verify language toggle button #hyt-lang-toggle is eliminated
+        const langToggleCount = await page.locator('#hyt-lang-toggle').count();
+        assert.equal(langToggleCount, 0, 'Language toggle button #hyt-lang-toggle must be completely removed');
+
+        // 1b. Verify zero Arabic characters across the entire landing page DOM
+        const bodyText = await page.evaluate(() => document.body.innerText);
+        const arabicRegex = /[\u0600-\u06FF]/;
+        assert.equal(arabicRegex.test(bodyText), false, 'Zero Arabic characters allowed across the entire landing page DOM');
+
+        // Verify zero Arabic characters on all data-i18n elements
         const i18nTextsEn = await page.evaluate(() => {
             const elements = Array.from(document.querySelectorAll('[data-i18n]'));
             return elements.map(el => ({
@@ -105,19 +100,13 @@ async function runAudit() {
             }));
         });
 
-        const arabicRegex = /[\u0600-\u06FF]/;
-        const leakedArabic = i18nTextsEn.filter(item => {
-            // Exclude lang button itself if it shows target language switcher name
-            if (item.key === 'langToggleLabel') return false;
-            return arabicRegex.test(item.text);
-        });
-
+        const leakedArabic = i18nTextsEn.filter(item => arabicRegex.test(item.text));
         assert.equal(leakedArabic.length, 0, `Zero Arabic strings allowed in English mode. Leaked: ${JSON.stringify(leakedArabic)}`);
-        console.log('  ✓ 100% data-i18n text translated cleanly with 0 leftover Arabic in English mode.');
+        console.log('  ✓ 100% data-i18n text translated cleanly with 0 leftover Arabic across entire page.');
 
         // 1c. Layout integrity: Flexbox/Grid margins & padding with zero horizontal overflow
         const overflowEn = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
-        assert.equal(overflowEn, false, 'Changing to LTR must not introduce horizontal scrollbar/overflow');
+        assert.equal(overflowEn, false, 'LTR layout must not introduce horizontal scrollbar/overflow');
         console.log('  ✓ LTR Flexbox/Grid layouts intact without horizontal scroll.');
 
         // -------------------------------------------------------------------------------------------------
@@ -180,7 +169,7 @@ async function runAudit() {
         // Check Theme Tokens (High Contrast)
         const themeBtn = page.locator('#hyt-theme-btn');
         await page.evaluate(() => { if (window.hytI18n) window.hytI18n.applyTheme('dark'); });
-        await page.waitForTimeout(300);
+        await page.waitForTimeout(600);
         const darkTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
         assert.equal(darkTheme, 'dark', 'Dark theme token must activate');
 

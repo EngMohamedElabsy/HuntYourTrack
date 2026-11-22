@@ -45,59 +45,59 @@
  </div>
 
  <nav class="nav-links">
- <a href="../index.html" class="nav-link" data-i18n="adminNavHome"> Platform Home</a>
+ <a href="../index.html" class="nav-link" data-i18n="adminNavHome">Platform Home</a>
  <a href="admin.html" class="nav-link active" data-i18n="adminNavConsole">️ Admin Console</a>
  </nav>
 
  <div style="display: flex; align-items: center; gap: 0.5rem;">
- <button id="hyt-lang-toggle" class="nav-util-btn" type="button" aria-label="Toggle Language">English</button>
+ 
  <!-- Unified Theme & Appearance Dropdown -->
  <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
  <button id="hyt-theme-toggle" type="button" aria-label="Toggle Theme" style="display: none;"></button>
  <button id="hyt-theme-btn" class="nav-util-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
- <span id="theme-btn-icon"></span> <span style="font-size: 0.8rem; margin-inline-start: 4px;" data-i18n="themeDropdownLabel">المظهر</span>
+ <span id="theme-btn-icon"></span> <span style="font-size: 0.8rem; margin-inline-start: 4px;" data-i18n="themeDropdownLabel">Appearance</span>
  </button>
  <div class="theme-dropdown-menu" id="theme-dropdown-menu">
- <div class="theme-menu-header" data-i18n="themeModesHeader">نمط الإضاءة</div>
+ <div class="theme-menu-header" data-i18n="themeModesHeader">Lighting Mode</div>
  <button type="button" class="theme-opt-btn" data-theme-val="dark" onclick="setAppThemeMode('dark')">
  <span style="font-size: 0.95rem;"></span>
- <span data-i18n="themeDarkOption">الوضع الليلي (Dark Mode)</span>
+ <span data-i18n="themeDarkOption">Dark Mode (Night)</span>
  </button>
  <button type="button" class="theme-opt-btn" data-theme-val="light" onclick="setAppThemeMode('light')">
  <span style="font-size: 0.95rem;"></span>
- <span data-i18n="themeLightOption">الوضع النهاري (Light Mode)</span>
+ <span data-i18n="themeLightOption">Light Mode (Daylight)</span>
  </button>
  <div class="theme-menu-divider"></div>
- <div class="theme-menu-header" data-i18n="themePalettesHeader">لوحات الألوان المخصصة</div>
+ <div class="theme-menu-header" data-i18n="themePalettesHeader">Curated Color Palettes</div>
  <button type="button" class="theme-opt-btn" data-theme-val="abyss" onclick="setAppTheme('abyss')">
  <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
- <span data-i18n="themeAbyss"> أعماق المحيط (Abyss)</span>
+ <span data-i18n="themeAbyss">Abyss Deep</span>
  </button>
  <button type="button" class="theme-opt-btn" data-theme-val="reef" onclick="setAppTheme('reef')">
  <span class="theme-swatch-dot" style="background: #10B981;"></span>
- <span data-i18n="themeReef"> الشعب المرجانية (Reef)</span>
+ <span data-i18n="themeReef">Coral Reef</span>
  </button>
  <button type="button" class="theme-opt-btn" data-theme-val="nebula" onclick="setAppTheme('nebula')">
  <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
- <span data-i18n="themeNebula"> سديم الفضاء (Nebula)</span>
+ <span data-i18n="themeNebula">Deep Nebula</span>
  </button>
  <button type="button" class="theme-opt-btn" data-theme-val="ember" onclick="setAppTheme('ember')">
  <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
- <span data-i18n="themeEmber"> الوهج الشمسي (Ember)</span>
+ <span data-i18n="themeEmber">Solar Ember</span>
  </button>
  <button type="button" class="theme-opt-btn" data-theme-val="daylight" onclick="setAppTheme('daylight')">
  <span class="theme-swatch-dot" style="background: #0284C7;"></span>
- <span data-i18n="themeDaylight"> وضح النهار (Daylight)</span>
+ <span data-i18n="themeDaylight">️ Daylight Sky</span>
  </button>
  </div>
  </div>
  
  <div class="admin-profile">
  <div class="avatar" style="background: rgba(99, 102, 241, 0.2); color: var(--color-foreground); border: 1px solid rgba(99, 102, 241, 0.4);">🛡️</div>
- <span id="admin-user-display" style="font-weight: 600; font-size: 0.85rem;">المشرف الأكاديمي</span>
+ <span id="admin-user-display" style="font-weight: 600; font-size: 0.85rem;">Academic Admin</span>
  <button type="button" id="admin-logout-btn" title="Sign Out" onclick="handleAdminLogout(event)" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.35rem;">
      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-     <span data-i18n="navSignOut">خروج</span>
+     <span data-i18n="navSignOut">Sign Out</span>
  </button>
  </div>
  </div>
@@ -112,7 +112,7 @@
  <div class="mobile-drawer" id="admin-mobile-drawer">
  <div style="padding-bottom: 0.75rem; border-bottom: 1px solid #E2E8F0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
  <div class="avatar">️</div>
- <span style="font-weight: 600; font-size: 0.9rem;">المشرف الأكاديمي (Lead Admin)</span>
+ <span style="font-weight: 600; font-size: 0.9rem;">Lead Academic Admin</span>
  </div>
  <a href="../index.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> Product Landing</a>
  <a href="student.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> Student Career Hub</a>
@@ -181,15 +181,11 @@
 
  <!-- Admin Workspace Tabs -->
  <div class="admin-tabs">
- <button class="admin-tab-btn active" data-tab="users" onclick="switchAdminTab('users')" data-i18n="adminTabUsers">
- User Management (Data-Table)
- </button>
+ <button class="admin-tab-btn active" data-tab="users" onclick="switchAdminTab('users')" data-i18n="adminTabUsers">User Management (Data-Table)</button>
  <button class="admin-tab-btn" data-tab="verification" onclick="switchAdminTab('verification')">
- <span data-i18n="adminTabQueue"> Corporate Accreditation Queue</span> <span class="tab-badge" id="badge-queue-count">3</span>
+ <span data-i18n="adminTabQueue">Corporate Accreditation Queue</span> <span class="tab-badge" id="badge-queue-count">3</span>
  </button>
- <button class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')" data-i18n="adminTabSettings">
- ️ Platform Configuration
- </button>
+ <button class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')" data-i18n="adminTabSettings">️ Platform Configuration</button>
  </div>
 
  <!-- TAB 1: User Management Data-Table (US04) -->
