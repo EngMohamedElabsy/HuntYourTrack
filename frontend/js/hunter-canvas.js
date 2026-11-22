@@ -43,20 +43,11 @@ class TrackHunterCanvas {
             {
                 id: 'cs-ai',
                 label: 'AI & Deep Learning',
-                labelAr: 'الذكاء الاصطناعي وتعلم الآلة',
                 faculty: 'computing',
-                facultyAr: 'الحاسبات والذكاء الاصطناعي',
-                weeks: '12 أسبوعاً',
                 weeksEn: '12 Weeks',
                 sector: 'ALPHA-01',
                 telemetry: { ra: '19h 50m', dec: '+08° 52\'' },
                 skills: ['Python', 'PyTorch', 'Transformers', 'FastAPI', 'Vector DBs'],
-                milestonesAr: [
-                    'الرياضيات التطبيقية والتعلم الآلي الكلاسيكي',
-                    'الشبكات العصبية العميقة ورؤية الحاسب',
-                    'معالجة اللغات الطبيعية ونماذج التوليد LLMs',
-                    'نشر النماذج سحابياً في بيئة الإنتاج المباشرة'
-                ],
                 milestonesEn: [
                     'Applied Mathematics & Classical ML Foundations',
                     'Deep Neural Networks & Computer Vision',
@@ -68,20 +59,11 @@ class TrackHunterCanvas {
             {
                 id: 'cs-cloud',
                 label: 'Full-Stack Cloud & DevOps',
-                labelAr: 'الحوسبة السحابية والأنظمة الموزعة',
                 faculty: 'computing',
-                facultyAr: 'الحاسبات والذكاء الاصطناعي',
-                weeks: '14 أسبوعاً',
                 weeksEn: '14 Weeks',
                 sector: 'ALPHA-02',
                 telemetry: { ra: '20h 14m', dec: '+12° 36\'' },
                 skills: ['TypeScript', 'Node.js', 'Docker', 'Kubernetes', 'AWS'],
-                milestonesAr: [
-                    'معمارية الويب والخدمات المصغرة Microservices',
-                    'الحاويات Docker وهندسة Kubernetes',
-                    'خطوط التكامل المستمر CI/CD والبنية ككود Terraform',
-                    'المراقبة ورصد الأداء وقابلية التوسع الأفقي'
-                ],
                 milestonesEn: [
                     'Web Architecture & Microservices Protocols',
                     'Containerization with Docker & Kubernetes',
@@ -93,20 +75,11 @@ class TrackHunterCanvas {
             {
                 id: 'cs-sec',
                 label: 'Cybersecurity SOC',
-                labelAr: 'الأمن السيبراني وعمليات الدفاع',
                 faculty: 'computing',
-                facultyAr: 'الحاسبات والذكاء الاصطناعي',
-                weeks: '10 أسابيع',
                 weeksEn: '10 Weeks',
                 sector: 'ALPHA-03',
                 telemetry: { ra: '21h 05m', dec: '+15° 20\'' },
                 skills: ['Network Security', 'Wireshark', 'SIEM', 'Linux Hardening'],
-                milestonesAr: [
-                    'أساسيات الشبكات والتحليل الجنائي الرقمي',
-                    'إدارة مراكز العمليات الأمنية SOC و SIEM',
-                    'اختبار الاختراق الأخلاقي وتقييم الثغرات',
-                    'الاستجابة للحوادث الأمنية والتعافي الرقمي'
-                ],
                 milestonesEn: [
                     'Network Security & Digital Forensics Fundamentals',
                     'SOC Operations & SIEM Telemetry Analysis',
@@ -120,20 +93,11 @@ class TrackHunterCanvas {
             {
                 id: 'eng-mecha',
                 label: 'Mechatronics & Robotics',
-                labelAr: 'الميكاترونكس وهندسة الروبوتات',
                 faculty: 'engineering',
-                facultyAr: 'الهندسة والتكنولوجيا',
-                weeks: '14 أسبوعاً',
                 weeksEn: '14 Weeks',
                 sector: 'BETA-01',
                 telemetry: { ra: '05h 35m', dec: '-05° 23\'' },
                 skills: ['ROS2', 'C++', 'Control Systems', 'SolidWorks', 'MATLAB'],
-                milestonesAr: [
-                    'الديناميكا والحركية الميكانيكية وتصميم CAD',
-                    'الدوائر الإلكترونية والمتحكمات الدقيقة',
-                    'برمجة الروبوتات بنظام ROS2 و C++',
-                    'تكامل الأنظمة ذاتية القيادة والأتمتة الصناعية'
-                ],
                 milestonesEn: [
                     'Kinematics, Dynamics & CAD Modeling',
                     'Embedded Electronics & Microcontroller Interfacing',
@@ -145,20 +109,11 @@ class TrackHunterCanvas {
             {
                 id: 'eng-auto',
                 label: 'Embedded Automotive',
-                labelAr: 'الأنظمة المدمجة وبرمجيات السيارات',
                 faculty: 'engineering',
-                facultyAr: 'الهندسة والتكنولوجيا',
-                weeks: '12 أسبوعاً',
                 weeksEn: '12 Weeks',
                 sector: 'BETA-02',
                 telemetry: { ra: '06h 45m', dec: '-16° 42\'' },
                 skills: ['Embedded C', 'AUTOSAR', 'CAN-bus', 'RTOS', 'ARM Cortex'],
-                milestonesAr: [
-                    'برمجة المتحكمات بلغة Embedded C المتقدمة',
-                    'أنظمة التشغيل في الوقت الحقيقي FreeRTOS',
-                    'معمارية برمجيات السيارات القياسية AUTOSAR',
-                    'بروتوكولات الاتصال CAN-bus و LIN والتشخيص'
-                ],
                 milestonesEn: [
                     'Embedded C & Hardware Register Programming',
                     'Real-Time Operating Systems (RTOS) Scheduling',
@@ -170,20 +125,11 @@ class TrackHunterCanvas {
             {
                 id: 'eng-energy',
                 label: 'Renewable Energy & Smart Grids',
-                labelAr: 'الطاقة المتجددة والشبكات الذكية',
                 faculty: 'engineering',
-                facultyAr: 'الهندسة والتكنولوجيا',
-                weeks: '10 أسابيع',
                 weeksEn: '10 Weeks',
                 sector: 'BETA-03',
                 telemetry: { ra: '07h 12m', dec: '-18° 10\'' },
                 skills: ['SCADA', 'Power Electronics', 'Solar PV', 'Smart Grid Protocols', 'MATLAB Simulink'],
-                milestonesAr: [
-                    'مبادئ توليد الطاقة الكهروضوئية وتوربينات الرياح',
-                    'إلكترونيات القوى والمحولات والمحاكاة بـ Simulink',
-                    'أنظمة التحكم الإشرافي SCADA ومراقبة الشبكات',
-                    'إدارة وتخزين الطاقة والربط بالشبكات الذكية'
-                ],
                 milestonesEn: [
                     'Solar PV & Wind Energy Generation Fundamentals',
                     'Power Electronics, Inverters & Simulink Modeling',
@@ -197,20 +143,11 @@ class TrackHunterCanvas {
             {
                 id: 'sci-bio',
                 label: 'Bioinformatics & Genomics',
-                labelAr: 'المعلوماتية الحيوية والجينوم الحاسوبي',
                 faculty: 'science',
-                facultyAr: 'العلوم الأساسية',
-                weeks: '10 أسابيع',
                 weeksEn: '10 Weeks',
                 sector: 'GAMMA-01',
                 telemetry: { ra: '12h 30m', dec: '+12° 23\'' },
                 skills: ['Python', 'Biopython', 'Nextflow', 'BLAST', 'R/Bioconductor'],
-                milestonesAr: [
-                    'البيولوجيا الجزيئية ومصادر البيانات الحيوية',
-                    'خوارزميات محاذاة التسلسلات وتسلسل الجيل التالي NGS',
-                    'بناء خطوط الأنابيب التحليلية باستخدام Nextflow',
-                    'الطب الدقيق والنمذجة الهيكلية للبروتينات'
-                ],
                 milestonesEn: [
                     'Molecular Biology & NCBI Database Interfacing',
                     'Sequence Alignment & Next-Gen Sequencing (NGS)',
@@ -222,20 +159,11 @@ class TrackHunterCanvas {
             {
                 id: 'sci-chem',
                 label: 'Computational Chemistry',
-                labelAr: 'الكيمياء الحاسوبية والنمذجة الدوائية',
                 faculty: 'science',
-                facultyAr: 'العلوم الأساسية',
-                weeks: '8 أسابيع',
                 weeksEn: '8 Weeks',
                 sector: 'GAMMA-02',
                 telemetry: { ra: '13h 15m', dec: '+08° 10\'' },
                 skills: ['Molecular Dynamics', 'GROMACS', 'PyMOL', 'QSAR'],
-                milestonesAr: [
-                    'مبادئ ميكانيكا الكم والنمذجة الجزيئية',
-                    'محاكاة الديناميكا الجزيئية ببرنامج GROMACS',
-                    'الالتحام الجزيئي وتصميم الأدوية بمساعدة الحاسوب',
-                    'تحليل علاقات النشاط بالتركيب الكيميائي QSAR'
-                ],
                 milestonesEn: [
                     'Quantum Chemistry & Force Field Principles',
                     'Molecular Dynamics Simulation with GROMACS',
@@ -249,20 +177,11 @@ class TrackHunterCanvas {
             {
                 id: 'bus-fintech',
                 label: 'FinTech Algorithmic Trading',
-                labelAr: 'التكنولوجيا المالية والتداول الخوارزمي',
                 faculty: 'business',
-                facultyAr: 'التجارة وإدارة الأعمال',
-                weeks: '10 أسابيع',
                 weeksEn: '10 Weeks',
                 sector: 'DELTA-01',
                 telemetry: { ra: '14h 15m', dec: '+19° 11\'' },
                 skills: ['Financial Modeling', 'Python Pandas', 'SQL', 'Risk Management'],
-                milestonesAr: [
-                    'الأسواق المالية والمشتقات وإدارة المخاطر',
-                    'تحليل السلاسل الزمنية المالية بلغة بايثون',
-                    'بناء واختبار استراتيجيات التداول الخوارزمي',
-                    'أنظمة المدفوعات الرقمية وبوابات التكنولوجيا المالية'
-                ],
                 milestonesEn: [
                     'Financial Markets, Derivatives & Risk Metrics',
                     'Time Series Quantitative Analysis in Python',
@@ -274,20 +193,11 @@ class TrackHunterCanvas {
             {
                 id: 'bus-analytics',
                 label: 'Business Intelligence & BI',
-                labelAr: 'ذكاء الأعمال وتحليل البيانات المؤسسية',
                 faculty: 'business',
-                facultyAr: 'التجارة وإدارة الأعمال',
-                weeks: '8 أسابيع',
                 weeksEn: '8 Weeks',
                 sector: 'DELTA-02',
                 telemetry: { ra: '15h 02m', dec: '+22° 45\'' },
                 skills: ['Power BI', 'SQL Server', 'Tableau', 'DAX', 'Excel Advanced'],
-                milestonesAr: [
-                    'مستودعات البيانات ونمذجة الأبعاد Star Schema',
-                    'تطوير مؤشرات الأداء ولوحات التحكم في Power BI',
-                    'صياغة معادلات DAX المتقدمة للتحليل التجاري',
-                    'رواية القصص بالبيانات ودعم القرارات الاستراتيجية'
-                ],
                 milestonesEn: [
                     'Enterprise Data Warehousing & Dimensional Modeling',
                     'Power BI Executive Dashboard Engineering',
@@ -301,20 +211,11 @@ class TrackHunterCanvas {
             {
                 id: 'law-cyber',
                 label: 'Cyber Law & Digital Evidence',
-                labelAr: 'القانون السيبراني والأدلة الرقمية',
                 faculty: 'law',
-                facultyAr: 'الحقوق والتشريعات الرقمية',
-                weeks: '8 أسابيع',
                 weeksEn: '8 Weeks',
                 sector: 'EPSILON-01',
                 telemetry: { ra: '16h 45m', dec: '-28° 02\'' },
                 skills: ['Cybercrime Law', 'GDPR', 'Digital Evidence', 'Compliance'],
-                milestonesAr: [
-                    'أطر وتشريعات مكافحة الجرائم الإلكترونية',
-                    'حجية الأدلة الرقمية وسلسلة الحيازة القانونية',
-                    'قوانين حماية البيانات والخصوصية GDPR واللوائح الوطنية',
-                    'الامتثال المؤسسي والحوكمة الرقمية'
-                ],
                 milestonesEn: [
                     'Cybercrime Legal Frameworks & Jurisdictions',
                     'Digital Forensics Chain of Custody & Admissibility',
@@ -326,20 +227,11 @@ class TrackHunterCanvas {
             {
                 id: 'law-ip',
                 label: 'Tech & AI IP Protection',
-                labelAr: 'الملكية الفكرية في التكنولوجيا والذكاء الاصطناعي',
                 faculty: 'law',
-                facultyAr: 'الحقوق والتشريعات الرقمية',
-                weeks: '8 أسابيع',
                 weeksEn: '8 Weeks',
                 sector: 'EPSILON-02',
                 telemetry: { ra: '17h 20m', dec: '-32° 18\'' },
                 skills: ['IP Law', 'Patents', 'Software Licensing', 'AI Ethics'],
-                milestonesAr: [
-                    'براءات الاختراع للبرمجيات والخوارزميات',
-                    'تراخيص البرمجيات مفتوحة المصدر والملكية التجارية',
-                    'التشريعات الدولية للمصنفات المولدة بالذكاء الاصطناعي',
-                    'صياغة عقود التكنولوجيا واتفاقيات عدم الإفصاح NDA'
-                ],
                 milestonesEn: [
                     'Software & Algorithmic Patentability Principles',
                     'Open-Source Licensing, Copyleft & Commercial IP',
@@ -491,7 +383,7 @@ class TrackHunterCanvas {
         const q = (query || '').toLowerCase().trim();
         return this.nodes.filter(n =>
             (n.label && n.label.toLowerCase().includes(q)) ||
-            (n.labelAr && n.labelAr.toLowerCase().includes(q)) ||
+            
             (n.faculty && n.faculty.toLowerCase().includes(q)) ||
             (n.facultyAr && n.facultyAr.toLowerCase().includes(q)) ||
             (n.skills && n.skills.some(s => s.toLowerCase().includes(q)))
@@ -573,16 +465,12 @@ class TrackHunterCanvas {
     updateLiveStatus() {
         const statusEl = document.getElementById('hunter-tracks-counter');
         if (!statusEl) return;
-        const isAr = document.documentElement.lang === 'ar';
+        
         const count = this.hookedNodes.length;
         if (count === 0) {
-            statusEl.textContent = isAr 
-                ? 'انقر على أي مسار في الرادار لاصطياده واستعراض خارطة طريقه' 
-                : 'Select any track node on the radar to lock on and view roadmap';
+            statusEl.textContent = 'Select any track node on the radar to lock on and view roadmap';
         } else {
-            statusEl.textContent = isAr 
-                ? `تم اصطياد ${count} مسار${count > 2 ? 'ات' : ''} بنجاح · انقر على أي مسار لاصطياده أو إلغائه`
-                : `${count} track${count > 1 ? 's' : ''} locked · Click any star to hook or release`;
+            statusEl.textContent = `${count} track${count > 1 ? 's' : ''} locked · Click any star to hook or release`;
         }
     }
 
@@ -612,66 +500,56 @@ class TrackHunterCanvas {
                 {
                     phase: 1,
                     titleEn: 'Phase 1: Mathematical Foundations & Python Engineering',
-                    titleAr: 'المرحلة الأولى: الأساسيات الرياضية والبرمجة بلغة بايثون',
                     descEn: 'Master computational linear algebra, probability, and vectorized data structures.',
-                    descAr: 'إتقان الجبر الخطي الحسابي والاحتمالات وهياكل البيانات المصفوفية.',
                     nodes: [
-                        { id: 'ai-py', titleEn: 'Python OOP & Advanced Typing', titleAr: 'بايثون المتقدمة والبرمجة الكائنية', descEn: 'Generators, decorators, dataclasses, asynchronous I/O', descAr: 'المولدات، البرمجة غير المتزامنة، وهياكل الفئات المتقدمة' },
-                        { id: 'ai-math', titleEn: 'Linear Algebra & Multivariable Calculus', titleAr: 'الجبر الخطي وحساب التفاضل والتكامل', descEn: 'Matrix decompositions, eigenvalues, gradients & partial derivatives', descAr: 'المصفوفات والمتجهات، التدرج، والمشتقات الجزئية' },
-                        { id: 'ai-data', titleEn: 'Vectorized Data Wrangling (NumPy & Pandas)', titleAr: 'معالجة وتحليل البيانات (NumPy & Pandas)', descEn: 'Tensor reshaping, indexing, time-series & aggregation pipelines', descAr: 'العمليات على المصفوفات، معالجة السلاسل الزمنية والبيانات الضخمة' },
-                        { id: 'ai-sql', titleEn: 'Relational & Analytical SQL', titleAr: 'قواعد البيانات والـ SQL التحليلي', descEn: 'Window functions, CTEs, indexing & data warehouse modeling', descAr: 'الاستعلامات المعقدة والنمذجة التحليلية للبيانات' }
+                        { id: 'ai-py', titleEn: 'Python OOP & Advanced Typing', descEn: 'Generators, decorators, dataclasses, asynchronous I/O' },
+                        { id: 'ai-math', titleEn: 'Linear Algebra & Multivariable Calculus', descEn: 'Matrix decompositions, eigenvalues, gradients & partial derivatives' },
+                        { id: 'ai-data', titleEn: 'Vectorized Data Wrangling (NumPy & Pandas)', descEn: 'Tensor reshaping, indexing, time-series & aggregation pipelines' },
+                        { id: 'ai-sql', titleEn: 'Relational & Analytical SQL', descEn: 'Window functions, CTEs, indexing & data warehouse modeling' }
                     ]
                 },
                 {
                     phase: 2,
                     titleEn: 'Phase 2: Classical Machine Learning & Feature Science',
-                    titleAr: 'المرحلة الثانية: تعلم الآلة الكلاسيكي وهندسة الخصائص',
                     descEn: 'Design, train, and mathematically evaluate foundational machine learning algorithms.',
-                    descAr: 'بناء وتدريب وتقييم خوارزميات التعلم الآلي الكلاسيكية.',
                     nodes: [
-                        { id: 'ai-sup', titleEn: 'Supervised Learning & Regularization', titleAr: 'التعلم الخاضع للإشراف (Supervised ML)', descEn: 'Linear/Logistic regression, Ridge, Lasso, ElasticNet', descAr: 'الانحدار الخطي واللوجستي وأساليب معالجة فرط التخصيص' },
-                        { id: 'ai-tree', titleEn: 'Tree Ensembles & Gradient Boosting', titleAr: 'خوارزميات الأشجار والتعزيز التدرجي', descEn: 'Random Forests, XGBoost, LightGBM, CatBoost architectures', descAr: 'الغابات العشوائية ومكتبات XGBoost و LightGBM فائقة السرعة' },
-                        { id: 'ai-unsup', titleEn: 'Unsupervised Learning & Dimensionality Reduction', titleAr: 'التعلم غير الخاضع للإشراف وتقليل الأبعاد', descEn: 'K-Means, DBSCAN, PCA, t-SNE & clustering metrics', descAr: 'التجميع العنقودي، وتحليل المكونات الرئيسية PCA' },
-                        { id: 'ai-eval', titleEn: 'Validation Strategies & Metric Engineering', titleAr: 'استراتيجيات التحقق ومقاييس الأداء', descEn: 'Stratified K-Fold, ROC-AUC, PR-curves, calibration curves', descAr: 'التحقق المتقاطع ومنحنيات ROC والدقة والاستدعاء' }
+                        { id: 'ai-sup', titleEn: 'Supervised Learning & Regularization', descEn: 'Linear/Logistic regression, Ridge, Lasso, ElasticNet' },
+                        { id: 'ai-tree', titleEn: 'Tree Ensembles & Gradient Boosting', descEn: 'Random Forests, XGBoost, LightGBM, CatBoost architectures' },
+                        { id: 'ai-unsup', titleEn: 'Unsupervised Learning & Dimensionality Reduction', descEn: 'K-Means, DBSCAN, PCA, t-SNE & clustering metrics' },
+                        { id: 'ai-eval', titleEn: 'Validation Strategies & Metric Engineering', descEn: 'Stratified K-Fold, ROC-AUC, PR-curves, calibration curves' }
                     ]
                 },
                 {
                     phase: 3,
                     titleEn: 'Phase 3: Deep Neural Architectures & PyTorch Ecosystem',
-                    titleAr: 'المرحلة الثالثة: الشبكات العصبية العميقة وبيئة PyTorch',
                     descEn: 'Construct artificial neural networks, backpropagation graphs, and spatial vision models.',
-                    descAr: 'تصميم الشبكات العصبية، حساب التدرج العكسي، ونماذج الرؤية الحاسوبية.',
                     nodes: [
-                        { id: 'ai-nn', titleEn: 'Neural Network Foundations & Backpropagation', titleAr: 'أساسيات الشبكات العصبية والتغذية العكسية', descEn: 'Perceptrons, activation functions (GELU, Swish), AdamW optimization', descAr: 'المدركات، دوال التنشيط، وخوارزميات التحسين AdamW' },
-                        { id: 'ai-torch', titleEn: 'PyTorch Tensor Graphs & Autograd Engine', titleAr: 'إطار عمل PyTorch وحساب التدرج الآلي', descEn: 'Custom nn.Modules, Datasets, Dataloaders & GPU acceleration', descAr: 'بناء الطبقات المخصصة ومحركات التسريع الرسومي CUDA' },
-                        { id: 'ai-cv', titleEn: 'Convolutional Vision & Object Detection', titleAr: 'الرؤية الحاسوبية واكتشاف الكائنات', descEn: 'ResNet, EfficientNet, YOLOv10 object detection & segmentation', descAr: 'الشبكات الالتفافية CNN ونماذج YOLO لاكتشاف العناصر' },
-                        { id: 'ai-seq', titleEn: 'Sequential Modeling & Attention Prelude', titleAr: 'معالجة السلاسل والتمهيد لآلية الانتباه', descEn: 'Bidirectional LSTMs, GRUs, seq2seq models & encoder-decoder networks', descAr: 'الشبكات المتكررة RNN وموديلات التشفير وفك التشفير' }
+                        { id: 'ai-nn', titleEn: 'Neural Network Foundations & Backpropagation', descEn: 'Perceptrons, activation functions (GELU, Swish), AdamW optimization' },
+                        { id: 'ai-torch', titleEn: 'PyTorch Tensor Graphs & Autograd Engine', descEn: 'Custom nn.Modules, Datasets, Dataloaders & GPU acceleration' },
+                        { id: 'ai-cv', titleEn: 'Convolutional Vision & Object Detection', descEn: 'ResNet, EfficientNet, YOLOv10 object detection & segmentation' },
+                        { id: 'ai-seq', titleEn: 'Sequential Modeling & Attention Prelude', descEn: 'Bidirectional LSTMs, GRUs, seq2seq models & encoder-decoder networks' }
                     ]
                 },
                 {
                     phase: 4,
                     titleEn: 'Phase 4: Modern Generative AI, Transformers & LLM Engineering',
-                    titleAr: 'المرحلة الرابعة: الذكاء الاصطناعي التوليدي والـ LLMs والـ RAG',
                     descEn: 'Architect self-attention transformers, fine-tune open models, and deploy RAG systems.',
-                    descAr: 'معماريات المحولات، ضبط وتطويع النماذج التوليدية، وبناء أنظمة الـ RAG.',
                     nodes: [
-                        { id: 'ai-trans', titleEn: 'Self-Attention & Transformer Mechanics', titleAr: 'معمارية المحولات (Transformer Architecture)', descEn: 'Multi-head attention, positional encoding, RoPE, KV-caching', descAr: 'آلية الانتباه الذاتي متعدد الرؤوس والتخزين المؤقت KV' },
-                        { id: 'ai-rag', titleEn: 'Retrieval-Augmented Generation (RAG)', titleAr: 'أنظمة التوليد المعزز بالاسترجاع (RAG)', descEn: 'Vector embeddings, chunking, hybrid BM25 + dense search, Chroma/Pinecone', descAr: 'تضمين النصوص، البحث الهجين، وقواعد البيانات الشعاعية' },
-                        { id: 'ai-ft', titleEn: 'Efficient Parameter Fine-Tuning (PEFT/LoRA)', titleAr: 'الضبط الدقيق منخفض الرتبة (LoRA/QLoRA)', descEn: 'Quantization (4-bit/8-bit), instruct-tuning, alignment with DPO', descAr: 'تكميم النماذج وتطويعها لمهام مخصصة باستهلاك منخفض للذاكرة' },
-                        { id: 'ai-agent', titleEn: 'Autonomous Agents & Tool Execution', titleAr: 'الوكلاء الذكاء الاصطناعي واستدعاء الأدوات', descEn: 'ReAct loops, function calling, structured outputs, multi-agent frameworks', descAr: 'وكلاء المهام المستقلة واستدعاء واجهات البرمجة تلقائياً' }
+                        { id: 'ai-trans', titleEn: 'Self-Attention & Transformer Mechanics', descEn: 'Multi-head attention, positional encoding, RoPE, KV-caching' },
+                        { id: 'ai-rag', titleEn: 'Retrieval-Augmented Generation (RAG)', descEn: 'Vector embeddings, chunking, hybrid BM25 + dense search, Chroma/Pinecone' },
+                        { id: 'ai-ft', titleEn: 'Efficient Parameter Fine-Tuning (PEFT/LoRA)', descEn: 'Quantization (4-bit/8-bit), instruct-tuning, alignment with DPO' },
+                        { id: 'ai-agent', titleEn: 'Autonomous Agents & Tool Execution', descEn: 'ReAct loops, function calling, structured outputs, multi-agent frameworks' }
                     ]
                 },
                 {
                     phase: 5,
                     titleEn: 'Phase 5: MLOps, High-Throughput Serving & Production',
-                    titleAr: 'المرحلة الخامسة: عمليات تعلم الآلة MLOps والنشر السحابي',
                     descEn: 'Deploy scalable AI inference microservices with monitoring and continuous retraining.',
-                    descAr: 'نشر واجهات الاستدلال السحابية عالية السرعة ومراقبة النماذج في الإنتاج.',
                     nodes: [
-                        { id: 'ai-serve', titleEn: 'High-Throughput Inference Engines', titleAr: 'محركات استدلال النماذج فائقة السرعة', descEn: 'vLLM, Ollama, TensorRT-LLM, batching & speculative decoding', descAr: 'تقنيات الـ vLLM وتسريع زمن الاستجابة للاستدلال' },
-                        { id: 'ai-api', titleEn: 'FastAPI Production Inference Gateway', titleAr: 'بوابة الاستدلال بـ FastAPI وحاويات Docker', descEn: 'Asynchronous streaming endpoints, SSE, rate limiting & containerization', descAr: 'بث النتائج اللحظي، عزل الحاويات، وإدارة الأحمال' },
-                        { id: 'ai-pipe', titleEn: 'CI/CD Pipeline & Experiment Tracking', titleAr: 'خطوط الأتمتة CI/CD وتتبع التجارب', descEn: 'MLflow registry, Weights & Biases, model drift & data versioning DVC', descAr: 'رصد تدهور النماذج وإدارة إصدارات البيانات والنماذج' },
-                        { id: 'ai-cloud', titleEn: 'Cloud Orchestration & Auto-Scaling', titleAr: 'إدارة السحابة وتوسيع النطاق الآلي', descEn: 'Kubernetes GPU pods, AWS SageMaker / GCP Vertex AI endpoints', descAr: 'إدارة موارد معالجات الرسوم على كوبرنيتس والسحابة' }
+                        { id: 'ai-serve', titleEn: 'High-Throughput Inference Engines', descEn: 'vLLM, Ollama, TensorRT-LLM, batching & speculative decoding' },
+                        { id: 'ai-api', titleEn: 'FastAPI Production Inference Gateway', descEn: 'Asynchronous streaming endpoints, SSE, rate limiting & containerization' },
+                        { id: 'ai-pipe', titleEn: 'CI/CD Pipeline & Experiment Tracking', descEn: 'MLflow registry, Weights & Biases, model drift & data versioning DVC' },
+                        { id: 'ai-cloud', titleEn: 'Cloud Orchestration & Auto-Scaling', descEn: 'Kubernetes GPU pods, AWS SageMaker / GCP Vertex AI endpoints' }
                     ]
                 }
             ],
@@ -679,49 +557,41 @@ class TrackHunterCanvas {
                 {
                     phase: 1,
                     titleEn: 'Phase 1: Modern Full-Stack Foundations & TypeScript',
-                    titleAr: 'المرحلة الأولى: أساسيات الويب المتكامل والـ TypeScript',
                     descEn: 'Type-safe frontend architecture, modern frameworks, and responsive design systems.',
-                    descAr: 'بناء واجهات ويب آمنة برمجياً باستخدام أحدث أطر العمل.',
                     nodes: [
-                        { id: 'fs-ts', titleEn: 'TypeScript Enterprise Patterns', titleAr: 'أنماط TypeScript للمؤسسات', descEn: 'Generics, union discriminating, utility types & strict typing', descAr: 'الأنواع المتقدمة والقوالب العامة لضمان استقرار الكود' },
-                        { id: 'fs-react', titleEn: 'React Architecture & Server Components', titleAr: 'معمارية React ومكونات الخادم', descEn: 'Concurrent rendering, custom hooks, state stores, Next.js App Router', descAr: 'الرندرة المتزامنة، خطافات الحالة، وتوجيه Next.js' },
-                        { id: 'fs-api', titleEn: 'API Design & Contract Protocols', titleAr: 'تصميم واجهات البرمجة REST & GraphQL', descEn: 'OpenAPI specs, tRPC, GraphQL schemas & real-time WebSockets', descAr: 'بروتوكولات الاتصال اللحظي والتوثيق القياسي' }
+                        { id: 'fs-ts', titleEn: 'TypeScript Enterprise Patterns', descEn: 'Generics, union discriminating, utility types & strict typing' },
+                        { id: 'fs-react', titleEn: 'React Architecture & Server Components', descEn: 'Concurrent rendering, custom hooks, state stores, Next.js App Router' },
+                        { id: 'fs-api', titleEn: 'API Design & Contract Protocols', descEn: 'OpenAPI specs, tRPC, GraphQL schemas & real-time WebSockets' }
                     ]
                 },
                 {
                     phase: 2,
                     titleEn: 'Phase 2: Backend Microservices & Distributed Data',
-                    titleAr: 'المرحلة الثانية: الخدمات المصغرة وقواعد البيانات الموزعة',
                     descEn: 'Design resilient microservice backends with transactional reliability and caching.',
-                    descAr: 'معمارية الخدمات الموزعة، التخزين المؤقت، وقواعد البيانات العلائقية.',
                     nodes: [
-                        { id: 'fs-node', titleEn: 'Scalable Node.js / Go Backend Services', titleAr: 'خدمات خلفية بلغة Node.js أو Go', descEn: 'Event loop tuning, goroutines, concurrency patterns & Clean Architecture', descAr: 'هيكلية الكود النظيف والتعامل مع التزامن العالي' },
-                        { id: 'fs-db', titleEn: 'Relational Database Optimization (PostgreSQL)', titleAr: 'تحسين قواعد بيانات PostgreSQL', descEn: 'ACID transactions, B-Tree & GIN indexes, partitioning & connection pools', descAr: 'المعاملات المالية، الفهارس الذكية، وتوزيع الأحمال' },
-                        { id: 'fs-cache', titleEn: 'Distributed Caching & Messaging Queues', titleAr: 'التخزين المؤقت وطوابير الرسائل', descEn: 'Redis cluster cache invalidation, RabbitMQ & Kafka streaming', descAr: 'شبكات التخزين المؤقت Redis وبث الأحداث بـ Kafka' }
+                        { id: 'fs-node', titleEn: 'Scalable Node.js / Go Backend Services', descEn: 'Event loop tuning, goroutines, concurrency patterns & Clean Architecture' },
+                        { id: 'fs-db', titleEn: 'Relational Database Optimization (PostgreSQL)', descEn: 'ACID transactions, B-Tree & GIN indexes, partitioning & connection pools' },
+                        { id: 'fs-cache', titleEn: 'Distributed Caching & Messaging Queues', descEn: 'Redis cluster cache invalidation, RabbitMQ & Kafka streaming' }
                     ]
                 },
                 {
                     phase: 3,
                     titleEn: 'Phase 3: Containerization & Cloud Native Orchestration',
-                    titleAr: 'المرحلة الثالثة: تقنيات الحاويات وإدارة Kubernetes',
                     descEn: 'Containerize multi-service applications and deploy them to fault-tolerant clusters.',
-                    descAr: 'تغليف التطبيقات في حاويات وإدارتها عبر عنقود كوبرنيتس.',
                     nodes: [
-                        { id: 'fs-dock', titleEn: 'Multi-Stage Docker Packaging', titleAr: 'بناء حاويات Docker متعددة المراحل', descEn: 'Minimal Alpine/Distroless images, build caching & rootless security', descAr: 'تقليص حجم الحاويات وتعزيز الأمان الداخلي' },
-                        { id: 'fs-k8s', titleEn: 'Kubernetes Cluster Architecture', titleAr: 'معمارية ونشر كوبرنيتس (Kubernetes)', descEn: 'Deployments, Services, Ingress NGINX, ConfigMaps & StatefulSets', descAr: 'إدارة النطاقات، موازنة الحمل، والخدمات الثابتة' },
-                        { id: 'fs-helm', titleEn: 'Helm Package Management & GitOps', titleAr: 'إدارة الحزم بـ Helm ونموذج GitOps', descEn: 'Reusable Helm charts, ArgoCD automated synchronization', descAr: 'مزامنة الحالة المستمرة للتطبيقات من مستودع Git' }
+                        { id: 'fs-dock', titleEn: 'Multi-Stage Docker Packaging', descEn: 'Minimal Alpine/Distroless images, build caching & rootless security' },
+                        { id: 'fs-k8s', titleEn: 'Kubernetes Cluster Architecture', descEn: 'Deployments, Services, Ingress NGINX, ConfigMaps & StatefulSets' },
+                        { id: 'fs-helm', titleEn: 'Helm Package Management & GitOps', descEn: 'Reusable Helm charts, ArgoCD automated synchronization' }
                     ]
                 },
                 {
                     phase: 4,
                     titleEn: 'Phase 4: CI/CD Automation & Infrastructure as Code',
-                    titleAr: 'المرحلة الرابعة: خطوط الأتمتة والبنية التحتية ككود',
                     descEn: 'Automate build, test, security scans, and provision cloud resources declaratively.',
-                    descAr: 'أتمتة الفحص والدمج وبناء البنية التحتية السحابية آلياً.',
                     nodes: [
-                        { id: 'fs-cicd', titleEn: 'Production GitHub Actions Pipelines', titleAr: 'خطوط الأتمتة بـ GitHub Actions', descEn: 'Matrix testing, caching, security scanning & zero-downtime deploy', descAr: 'فحص الأمان الآلي والنشر بدون توقف للنظام' },
-                        { id: 'fs-iac', titleEn: 'Declarative Cloud with Terraform', titleAr: 'البنية التحتية ككود (Terraform)', descEn: 'VPC networks, EKS clusters, RDS databases & remote state locking', descAr: 'إنشاء الخوادم والشبكات السحابية المشفرة آلياً' },
-                        { id: 'fs-obs', titleEn: 'Observability, Metrics & SRE', titleAr: 'المراقبة ورصد الأداء واستقرار الأنظمة', descEn: 'Prometheus alerts, Grafana dashboards & OpenTelemetry distributed tracing', descAr: 'لوحات قياس الأداء والإنذارات الاستباقية للأعطال' }
+                        { id: 'fs-cicd', titleEn: 'Production GitHub Actions Pipelines', descEn: 'Matrix testing, caching, security scanning & zero-downtime deploy' },
+                        { id: 'fs-iac', titleEn: 'Declarative Cloud with Terraform', descEn: 'VPC networks, EKS clusters, RDS databases & remote state locking' },
+                        { id: 'fs-obs', titleEn: 'Observability, Metrics & SRE', descEn: 'Prometheus alerts, Grafana dashboards & OpenTelemetry distributed tracing' }
                     ]
                 }
             ],
@@ -729,45 +599,37 @@ class TrackHunterCanvas {
                 {
                     phase: 1,
                     titleEn: 'Phase 1: Core Networking & OS Defense Fundamentals',
-                    titleAr: 'المرحلة الأولى: أساسيات الشبكات والدفاع عن أنظمة التشغيل',
                     descEn: 'Deep understanding of packets, operating system kernels, and security baselines.',
-                    descAr: 'فهم بروتوكولات الحزم وتحصين أنظمة التشغيل.',
                     nodes: [
-                        { id: 'sec-net', titleEn: 'Deep Protocol & Packet Analysis', titleAr: 'تحليل الحزم والبروتوكولات (Wireshark)', descEn: 'TCP/IP 3-way handshake, TLS 1.3 handshake, DNS & Wireshark triage', descAr: 'تفكيك وفحص حركة مرور البيانات المشفرة والشبكية' },
-                        { id: 'sec-linux', titleEn: 'Linux Kernel & System Hardening', titleAr: 'تحصين نظام لينكس (Linux Hardening)', descEn: 'SELinux, AppArmor, PAM, auditd, SSH key defense & CIS benchmarks', descAr: 'إدارة أذونات الأمان المتقدمة وسياسات الوصول الصارمة' }
+                        { id: 'sec-net', titleEn: 'Deep Protocol & Packet Analysis', descEn: 'TCP/IP 3-way handshake, TLS 1.3 handshake, DNS & Wireshark triage' },
+                        { id: 'sec-linux', titleEn: 'Linux Kernel & System Hardening', descEn: 'SELinux, AppArmor, PAM, auditd, SSH key defense & CIS benchmarks' }
                     ]
                 },
                 {
                     phase: 2,
                     titleEn: 'Phase 2: Security Operations (SOC) & Threat Telemetry',
-                    titleAr: 'المرحلة الثانية: عمليات مركز الأمن السيبراني (SOC) والـ SIEM',
                     descEn: 'Collect, correlate, and investigate enterprise security logs and intrusions.',
-                    descAr: 'تجميع ومطابقة سجلات الأمان والتحقيق في الهجمات السيبرانية.',
                     nodes: [
-                        { id: 'sec-siem', titleEn: 'SIEM Deployment & Query Mastery (Splunk/ELK)', titleAr: 'منصات الـ SIEM وتحليل السجلات (Splunk)', descEn: 'Log parsing, correlation rules, dashboard metrics & MITRE ATT&CK mapping', descAr: 'اكتشاف الأنماط المشبوهة وربطها بإطار MITRE العالمي' },
-                        { id: 'sec-hunt', titleEn: 'Proactive Threat Hunting & EDR', titleAr: 'صيد التهديدات وحماية النقاط الطرفية (EDR)', descEn: 'Endpoint telemetry, process trees, Sysmon monitoring & Sigma rules', descAr: 'تحليل سلوك العمليات المشبوهة وقواعد الكشف الموحدة' }
+                        { id: 'sec-siem', titleEn: 'SIEM Deployment & Query Mastery (Splunk/ELK)', descEn: 'Log parsing, correlation rules, dashboard metrics & MITRE ATT&CK mapping' },
+                        { id: 'sec-hunt', titleEn: 'Proactive Threat Hunting & EDR', descEn: 'Endpoint telemetry, process trees, Sysmon monitoring & Sigma rules' }
                     ]
                 },
                 {
                     phase: 3,
                     titleEn: 'Phase 3: Ethical Hacking & Defensive Hardening',
-                    titleAr: 'المرحلة الثالثة: اختبار الاختراق الأخلاقي والتقييم الأمني',
                     descEn: 'Simulate attacker tactics to identify and remediate security vulnerabilities.',
-                    descAr: 'محاكاة تكتيكات المهاجمين لاكتشاف الثغرات وسدها استباقياً.',
                     nodes: [
-                        { id: 'sec-web', titleEn: 'Web Application Security (OWASP Top 10)', titleAr: 'أمان تطبيقات الويب (OWASP Top 10)', descEn: 'SQLi, XSS, SSRF, IDOR, authentication bypass & Burp Suite Pro', descAr: 'فحص واكتشاف ثغرات الويب المتقدمة وأمان واجهات الـ API' },
-                        { id: 'sec-pen', titleEn: 'Network Penetration Testing & Pivoting', titleAr: 'اختبار اختراق الشبكات والأنظمة الداخلية', descEn: 'Port scanning Nmap, credential cracking, privilege escalation, Metasploit', descAr: 'فحص المنافذ ورفع الصلاحيات واختبار دفاعات الجدران النارية' }
+                        { id: 'sec-web', titleEn: 'Web Application Security (OWASP Top 10)', descEn: 'SQLi, XSS, SSRF, IDOR, authentication bypass & Burp Suite Pro' },
+                        { id: 'sec-pen', titleEn: 'Network Penetration Testing & Pivoting', descEn: 'Port scanning Nmap, credential cracking, privilege escalation, Metasploit' }
                     ]
                 },
                 {
                     phase: 4,
                     titleEn: 'Phase 4: Digital Forensics & Incident Response (DFIR)',
-                    titleAr: 'المرحلة الرابعة: التحقيق الجنائي الرقمي والاستجابة للحوادث',
                     descEn: 'Investigate breaches, preserve legal evidence, and neutralize advanced threats.',
-                    descAr: 'فحص الذاكرة والأقراص وعزل الهجمات وتوثيق الأدلة القانونية.',
                     nodes: [
-                        { id: 'sec-foren', titleEn: 'Memory & Disk Forensic Analysis', titleAr: 'التحليل الجنائي للذاكرة والأقراص (Volatility)', descEn: 'RAM artifact triage with Volatility, filesystem timeline & chain of custody', descAr: 'استخراج الأدلة من ذاكرة الوصول العشوائي وسجلات النظام' },
-                        { id: 'sec-ir', titleEn: 'Enterprise Incident Response Playbooks', titleAr: 'خطط وإجراءات الاستجابة للحوادث السيبرانية', descEn: 'Containment, eradication, ransomware recovery & post-mortem reporting', descAr: 'عزل الأجهزة المصابة ومواجهة برمجيات الفدية والتعافي' }
+                        { id: 'sec-foren', titleEn: 'Memory & Disk Forensic Analysis', descEn: 'RAM artifact triage with Volatility, filesystem timeline & chain of custody' },
+                        { id: 'sec-ir', titleEn: 'Enterprise Incident Response Playbooks', descEn: 'Containment, eradication, ransomware recovery & post-mortem reporting' }
                     ]
                 }
             ]
@@ -776,36 +638,27 @@ class TrackHunterCanvas {
         if (syllabi[node.id]) return syllabi[node.id];
 
         const skills = node.skills || ['Foundations', 'Tooling', 'Advanced Applications'];
-        const milestonesAr = node.milestonesAr || ['الأساسيات والمبادئ الأولية', 'التطبيق العملي والأدوات', 'المشاريع المتقدمة', 'الاعتماد المهني'];
         const milestonesEn = node.milestonesEn || ['Theoretical Foundations', 'Applied Tooling & Simulation', 'Complex Project Execution', 'Industry Standards & Deployment'];
 
         return [1, 2, 3, 4].map((phaseNum, i) => ({
             phase: phaseNum,
             titleEn: `Phase ${phaseNum}: ${milestonesEn[i] || 'Advanced Competency'}`,
-            titleAr: `المرحلة ${phaseNum}: ${milestonesAr[i] || 'الكفاءة المتقدمة'}`,
             descEn: `Structured professional competencies and milestones aligned with corporate requirements.`,
-            descAr: `المهارات والخبرات العملية المعتمدة والمتوافقة مع معايير الشركات الشريكة.`,
             nodes: [
                 {
                     id: `${node.id}-topic-${phaseNum}-a`,
                     titleEn: `${skills[i % skills.length] || 'Core Methodology'} Fundamentals`,
-                    titleAr: `أساسيات وتطبيقات ${skills[i % skills.length] || 'المهارة الأساسية'}`,
-                    descEn: `Key theoretical frameworks and hands-on laboratory exercises.`,
-                    descAr: `المفاهيم النظرية والتطبيقات المعملية المعيارية.`
+                    descEn: `Key theoretical frameworks and hands-on laboratory exercises.`
                 },
                 {
                     id: `${node.id}-topic-${phaseNum}-b`,
                     titleEn: `Applied Enterprise Tools & Practice`,
-                    titleAr: `الأدوات والممارسات البرمجية المعتمدة`,
-                    descEn: `Production tooling, automated test cases, and domain workflows.`,
-                    descAr: `أدوات العمل وسيناريوهات التطبيق المعيارية في المؤسسات.`
+                    descEn: `Production tooling, automated test cases, and domain workflows.`
                 },
                 {
                     id: `${node.id}-topic-${phaseNum}-c`,
                     titleEn: `Industry Standards & Production Case Studies`,
-                    titleAr: `دراسات الحالة وتطبيقات سوق العمل المعتمدة`,
-                    descEn: `Enterprise execution protocols, quality validation, and deliverables.`,
-                    descAr: `بروتوكولات التنفيذ واختبارات الجودة ومخرجات العمل الحقيقية.`
+                    descEn: `Enterprise execution protocols, quality validation, and deliverables.`
                 }
             ]
         }));
@@ -842,10 +695,10 @@ class TrackHunterCanvas {
             return;
         }
 
-        const isAr = document.documentElement.lang === 'ar';
-        const title = isAr ? (node.labelAr || node.label) : node.label;
-        const faculty = isAr ? (node.facultyAr || node.faculty) : node.faculty.toUpperCase();
-        const duration = isAr ? node.weeks : node.weeksEn;
+        
+        const title = node.label;
+        const faculty = node.faculty.toUpperCase();
+        const duration = node.weeksEn || "12 Weeks";
 
         // Fetch deep roadmap.sh syllabus and completion state
         const syllabus = this.getRoadmapSyllabus(node);
@@ -862,17 +715,17 @@ class TrackHunterCanvas {
             <div class="selected-tracks-tray" style="margin-bottom: 1.25rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.85rem 1.25rem; background: var(--color-card); border: 1px solid var(--color-border); border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
                 <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
                     <span style="font-size: 0.82rem; font-weight: 700; color: var(--color-foreground); text-transform: uppercase; letter-spacing: 0.5px;">
-                        ${isAr ? "المسارات المحددة (" + this.hookedNodes.length + "):" : "Selected Tracks (" + this.hookedNodes.length + "):"}
+                        "Selected Tracks (" + this.hookedNodes.length + "):"
                     </span>
                     <div style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
                         ${this.hookedNodes.map(hn => {
-                            const hnTitle = isAr ? (hn.labelAr || hn.label) : hn.label;
+                            const hnTitle = hn.label;
                             const isActive = (hn.id === node.id);
                             return `
                                 <div class="selected-track-pill" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; background: ${isActive ? "rgba(99, 102, 241, 0.2)" : "var(--color-muted)"}; border: 1px solid ${isActive ? hn.color : "var(--color-border)"}; color: ${isActive ? "var(--color-foreground)" : "var(--color-muted-foreground)"};" onclick="window.hytHunter.focusTrack('${hn.id}')">
                                     <span style="width: 8px; height: 8px; border-radius: 50%; background: ${hn.color};"></span>
                                     <span>${hnTitle}</span>
-                                    <button type="button" aria-label="Remove Track" onclick="event.stopPropagation(); window.hytHunter.removeTrackFromHook('${hn.id}');" style="background: none; border: none; cursor: pointer; color: inherit; padding: 0 2px; font-size: 0.88rem; line-height: 1; display: inline-flex; align-items: center; opacity: 0.75;" title="${isAr ? "إلغاء هذا المسار" : "Dismiss this track"}">✕</button>
+                                    <button type="button" aria-label="Remove Track" onclick="event.stopPropagation(); window.hytHunter.removeTrackFromHook('${hn.id}');" style="background: none; border: none; cursor: pointer; color: inherit; padding: 0 2px; font-size: 0.88rem; line-height: 1; display: inline-flex; align-items: center; opacity: 0.75;" title="Dismiss this track">✕</button>
                                 </div>
                             `;
                         }).join("")}
@@ -880,7 +733,7 @@ class TrackHunterCanvas {
                 </div>
                 ${this.hookedNodes.length > 1 ? `
                     <button type="button" class="btn btn-secondary" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;" onclick="window.hytHunter.clearAllHookedTracks()">
-                        ${isAr ? "إلغاء تحديد الكل" : "Clear All"}
+                        Clear All
                     </button>
                 ` : ""}
             </div>
@@ -891,24 +744,24 @@ class TrackHunterCanvas {
             <div class="hooked-track-header">
                 <div>
                     <span class="badge-tag badge-remote" style="margin-bottom: 0.5rem; display: inline-flex; align-items: center;">
-                        ${reticleSvg} ${isAr ? 'مسار نشط ومقفل في الرادار' : 'Locked Radar Track'} · ${faculty}
+                        ${reticleSvg} Locked Radar Track · ${faculty}
                     </span>
                     <h3 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--color-foreground);">
                         ${title}
                     </h3>
                     <p style="color: var(--color-muted-foreground); font-size: 0.95rem; margin: 0; display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
-                        ${clockSvg} <span>${duration}</span> · <span>${isAr ? 'منهج هرمي تفاعلي كامل وفق المعايير الأكاديمية' : 'Full interactive hierarchical syllabus aligned with enterprise benchmarks'}</span>
+                        ${clockSvg} <span>${duration}</span> · <span>Full interactive hierarchical syllabus aligned with enterprise benchmarks</span>
                     </p>
                 </div>
                 <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
                     <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.65rem 1.4rem;">
-                        ${isAr ? 'بدء هذا المسار المهني' : 'Start This Track'}
+                        Start This Track
                     </a>
                     <a href="#opportunities" class="btn btn-secondary" style="padding: 0.65rem 1.4rem;">
-                        ${isAr ? 'التدريبات المرتبطة' : 'Matching Internships'}
+                        Matching Internships
                     </a>
                     <button type="button" class="btn btn-outline" onclick="window.hytHunter.toggleTrackHook('${node.id}')" style="padding: 0.65rem 1.1rem;">
-                        ${isAr ? 'إلغاء التحديد' : 'Release Star'}
+                        Release Star
                     </button>
                 </div>
             </div>
@@ -916,7 +769,7 @@ class TrackHunterCanvas {
             <!-- Skills Gained Pills -->
             <div style="margin-top: 1rem;">
                 <strong style="display: block; font-size: 0.88rem; margin-bottom: 0.6rem; color: var(--color-foreground);">
-                    ${isAr ? 'المهارات والتقنيات الأساسية المكتسبة:' : 'Core Competencies & Skills Gained:'}
+                    Core Competencies & Skills Gained:
                 </strong>
                 <div class="skills-pill-group" style="margin-bottom: 1rem;">
                     ${(node.skills || []).map(s => `<span class="skill-pill" style="font-size: 0.85rem; padding: 0.35rem 0.8rem;">${s}</span>`).join('')}
@@ -928,10 +781,10 @@ class TrackHunterCanvas {
                 <div style="flex: 1; min-width: 260px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                         <span style="font-weight: 700; font-size: 0.95rem; color: var(--color-foreground);">
-                            ${isAr ? 'إنجاز خارطة الطريق التفاعلية:' : 'Interactive Roadmap Progression:'}
+                            Interactive Roadmap Progression:
                         </span>
                         <span style="font-weight: 800; font-size: 0.95rem; color: var(--color-primary); font-family: monospace;">
-                            ${completedCount} / ${totalTopics} ${isAr ? 'موضوع' : 'Topics'} (${progressPercent}%)
+                            ${completedCount} / ${totalTopics} Topics (${progressPercent}%)
                         </span>
                     </div>
                     <div style="width: 100%; height: 10px; background: var(--color-border); border-radius: 999px; overflow: hidden;">
@@ -939,7 +792,7 @@ class TrackHunterCanvas {
                     </div>
                 </div>
                 <div style="font-size: 0.8rem; color: var(--color-muted-foreground);">
-                    ${isAr ? 'انقر على أي بطاقة موضوع لتحديد الإنجاز والمتابعة الذاتية' : 'Click any topic card to mark as completed for self-paced tracking'}
+                    Click any topic card to mark as completed for self-paced tracking
                 </div>
             </div>
 
@@ -948,14 +801,14 @@ class TrackHunterCanvas {
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
                     <div>
                         <strong style="font-size: 1.05rem; color: var(--color-foreground);">
-                            ${isAr ? 'المخطط البصري لخارطة الطريق (Visual Roadmap Flowchart)' : 'Visual Roadmap Graph (Interactive Node Flowchart)'}
+                            Visual Roadmap Graph (Interactive Node Flowchart)
                         </strong>
                         <span style="display: block; font-size: 0.8rem; color: var(--color-muted-foreground);">
-                            ${isAr ? 'شبكة العقد والمهارات المتتابعة من البداية وحتى الجاهزية لسوق العمل' : 'Connected milestone progression from foundational theory to market readiness'}
+                            Connected milestone progression from foundational theory to market readiness
                         </span>
                     </div>
                     <span class="badge-tag" style="background: rgba(16, 185, 129, 0.12); color: #10B981; font-weight: 700;">
-                        ${isAr ? 'شبكة تفاعلية مترابطة' : 'Live Interconnected Nodes'}
+                        Live Interconnected Nodes
                     </span>
                 </div>
 
@@ -963,21 +816,21 @@ class TrackHunterCanvas {
                     <div class="roadmap-graph-connector-line"></div>
                     ${syllabus.map((p) => `
                         <div class="roadmap-graph-node-col">
-                            <div class="roadmap-graph-node-bubble" title="${isAr ? p.titleAr : p.titleEn}">
+                            <div class="roadmap-graph-node-bubble" title="${p.titleEn}">
                                 ${p.phase}
                             </div>
                             <div class="roadmap-graph-node-title">
-                                ${isAr ? p.titleAr : p.titleEn}
+                                ${p.titleEn}
                             </div>
                             <div class="roadmap-graph-node-desc">
-                                ${isAr ? p.descAr : p.descEn}
+                                ${p.descEn}
                             </div>
                             <div class="roadmap-graph-subtopics">
                                 ${p.nodes.map(n => {
                                     const isDone = completedTopics.includes(n.id);
                                     return `
-                                        <div class="roadmap-graph-subtopic-pill ${isDone ? 'completed' : ''}" onclick="window.hytHunter.toggleTopicComplete('${node.id}', '${n.id}')" title="${isAr ? 'اضغط لتحديد الإنجاز' : 'Click to toggle completion'}">
-                                            <span>${isAr ? n.titleAr : n.titleEn}</span>
+                                        <div class="roadmap-graph-subtopic-pill ${isDone ? 'completed' : ''}" onclick="window.hytHunter.toggleTopicComplete('${node.id}', '${n.id}')" title="Click to toggle completion">
+                                            <span>${n.titleEn}</span>
                                             <span>${isDone ? '✓' : '○'}</span>
                                         </div>
                                     `;
@@ -997,15 +850,15 @@ class TrackHunterCanvas {
                                 <span class="roadmap-phase-num">${p.phase}</span>
                                 <div>
                                     <h4 style="font-size: 1.05rem; font-weight: 800; margin: 0; color: var(--color-foreground);">
-                                        ${isAr ? p.titleAr : p.titleEn}
+                                        ${p.titleEn}
                                     </h4>
                                     <p style="font-size: 0.82rem; color: var(--color-muted-foreground); margin: 0.2rem 0 0;">
-                                        ${isAr ? p.descAr : p.descEn}
+                                        ${p.descEn}
                                     </p>
                                 </div>
                             </div>
                             <span class="badge-tag" style="font-size: 0.75rem; background: rgba(99, 102, 241, 0.1); color: var(--color-primary);">
-                                ${p.nodes.length} ${isAr ? 'مواضيع رئيسية' : 'Key Modules'}
+                                ${p.nodes.length} Key Modules
                             </span>
                         </div>
 
@@ -1016,8 +869,8 @@ class TrackHunterCanvas {
                                     <div class="roadmap-node-card ${isDone ? 'completed' : ''}" onclick="window.hytHunter.toggleTopicComplete('${node.id}', '${n.id}')">
                                         <div class="roadmap-checkbox">${isDone ? '✓' : ''}</div>
                                         <div class="roadmap-node-content">
-                                            <div class="roadmap-node-title">${isAr ? n.titleAr : n.titleEn}</div>
-                                            <div class="roadmap-node-desc">${isAr ? n.descAr : n.descEn}</div>
+                                            <div class="roadmap-node-title">${n.titleEn}</div>
+                                            <div class="roadmap-node-desc">${n.descEn}</div>
                                         </div>
                                     </div>
                                 `;
@@ -1171,7 +1024,7 @@ class TrackHunterCanvas {
 
     drawStellarTracks() {
         const pal = this.getThemePalette();
-        const isAr = document.documentElement.lang === 'ar';
+        
 
         this.nodes.forEach(n => {
             // Gentle Keplerian orbital bobbing
@@ -1202,7 +1055,7 @@ class TrackHunterCanvas {
             this.ctx.fill();
 
             // 3. Clean Floating Track Name Badge (Glass Pill) - ONLY TRACK NAME
-            const trackTitle = isAr ? (n.labelAr || n.label) : (n.label || n.labelAr);
+            const trackTitle = n.label;
             this.ctx.font = isHooked ? 'bold 12px Inter, Cairo, sans-serif' : '500 11px Inter, Cairo, sans-serif';
             const textWidth = this.ctx.measureText(trackTitle).width;
             const badgeW = textWidth + 18;
@@ -1257,10 +1110,10 @@ class TrackHunterCanvas {
         ];
 
         const messagesAr = [
-            "رادار المجرة: تتبع فرص التدريب الصيفي المعتمدة لطلاب ٥ كليات جامعية...",
-            "رسم خرائط المهن خطوة بخطوة: حاسبات، هندسة، علوم، تجارة، وحقوق...",
-            "فحص ومطابقة الكلمات المفتاحية في السيرة الذاتية بنظام الـ ATS المعتمد...",
-            "ربط المقررات الدراسية بجامعة دمنهور باحتياجات سوق العمل الحقيقية..."
+            "Galaxy Radar: Tracking accredited summer internship opportunities across 5 university faculties...",
+            "Career Roadmapping Step-by-Step: Computing, Engineering, Science, Business, and Law...",
+            "ATS-Validated Resume Parsing and Keyword Alignment Engine...",
+            "Bridging University Curricula with Enterprise Market Standards..."
         ];
 
         let msgIndex = 0;

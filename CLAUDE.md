@@ -405,3 +405,21 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **New Post Organizer Role Guard:** Enforced authentication check in `openPublishOpportunityModal()`, routing guests and students with a notification to log in as an Employer Partner before publishing.
   - **Quality Gate:** All 9 Playwright deep E2E audit sections passed with 100% compliance (`npm test`).
 
+
+### 🟢 US33: Complete Elimination of Arabic Language & 100% Unified English UI (2026-11-22 04:00 UTC+2)
+
+- **Feature Branch:** `feature/us33-remove-arabic-unify-english`
+- **Issue:** Closes #108 (US33: Remove Arabic Language & Unify 100% English UI)
+- **Assignee:** `@EngMohamedElabsy`
+- **Deliverables:**
+  - **Eradication of Arabic Dictionaries & Engine Refactor (`frontend/js/i18n.js`):** Completely removed `HYT_TRANSLATIONS.ar`. Enforced 100% pure English LTR architecture (`lang="en"`, `dir="ltr"`). Removed `#hyt-lang-toggle` and language toggle triggers. Preserved `localStorage.getItem('hyt_theme')` and theme management.
+  - **Removal of Language Toggle Buttons across all Views:** Deleted `#hyt-lang-toggle` and mobile drawer language switcher buttons across `index.html`, `pages/auth.html`, `pages/student.html`, `pages/employer.html`, and `pages/admin.html`.
+  - **HTML Templates Sanitization:** Converted all templates to `<html lang="en" dir="ltr">`. Replaced all Arabic fallback text in static HTML with English equivalents.
+  - **Interactive Canvas & Syllabi Cleansing (`frontend/js/hunter-canvas.js`):** Stripped all `labelAr`, `facultyAr`, `milestonesAr`, and `descAr` properties from 12 discipline track nodes and syllabi. Standardized telemetry quotes and status indicators to pure English.
+  - **Opportunities Catalog & Modals Cleansing (`frontend/js/opportunities.js`, `frontend/js/components.js`):** Removed all `*Ar` properties and Arabic branches from countdown timers, discipline filters, detail modals, and application submission flows.
+  - **Authentication & Administrative Scripts (`frontend/js/auth.js`, `frontend/js/admin.js`):** Purged all Arabic text, persona names, and status toasts, standardizing 100% on English terminology (`Academic Admin`, `Academic Student`, `Partner Organizer`).
+  - **Installed `unslop` Skill:** Established `skills/unslop/SKILL.md` and `.global_skills/unslop/` based on `heydamir/unslop` to prevent AI-slop design tells (cliché purple gradients, emojis) and enforce human designer standards.
+  - **Automated Test Suite Realignment (`tests/`):**
+    - `tests/frontend-smoke-test.js`: Updated assertions to assert `dir="ltr"`, `lang="en"`, and verified the absence of `#hyt-lang-toggle`.
+    - `tests/rigorous-e2e-audit.js`: Replaced Audit 1 with a strict 100% Pure English UI audit asserting zero Arabic regex `[\u0600-\u06FF]` across the entire page DOM.
+    - All 9 Playwright deep E2E audit sections pass with 100% compliance (`npm test`).

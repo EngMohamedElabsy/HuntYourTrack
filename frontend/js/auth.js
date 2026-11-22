@@ -5,25 +5,25 @@
 
 const DEPARTMENT_MAP = {
     computers: [
-        { val: "cs", labelAr: "علوم الحاسب (Computer Science)", labelEn: "Computer Science (CS)" },
-        { val: "ai", labelAr: "الذكاء الاصطناعي (AI)", labelEn: "Artificial Intelligence (AI)" },
-        { val: "is", labelAr: "نظم المعلومات (Information Systems)", labelEn: "Information Systems (IS)" },
-        { val: "it", labelAr: "تكنولوجيا المعلومات (IT)", labelEn: "Information Technology (IT)" },
-        { val: "cyber", labelAr: "الأمن السيبراني (Cybersecurity)", labelEn: "Cybersecurity" }
+        { val: "cs", label: "Computer Science (CS)" },
+        { val: "ai", label: "Artificial Intelligence (AI)" },
+        { val: "is", label: "Information Systems (IS)" },
+        { val: "it", label: "Information Technology (IT)" },
+        { val: "cyber", label: "Cybersecurity" }
     ],
     engineering: [
-        { val: "cce", labelAr: "هندسة الحاسبات والتحكم (Computer Eng)", labelEn: "Computer & Control Engineering" },
-        { val: "comm", labelAr: "هندسة الإلكترونيات والاتصالات", labelEn: "Electronics & Communications" },
-        { val: "mecha", labelAr: "هندسة الميكاترونكس (Mechatronics)", labelEn: "Mechatronics Engineering" }
+        { val: "cce", label: "Computer & Control Engineering" },
+        { val: "comm", label: "Electronics & Communications" },
+        { val: "mecha", label: "Mechatronics Engineering" }
     ],
     commerce: [
-        { val: "mis", labelAr: "نظم المعلومات الإدارية (MIS)", labelEn: "Management Info Systems (MIS)" },
-        { val: "fintech", labelAr: "تكنولوجيا المعاملات المالية (FinTech)", labelEn: "Financial Technology (FinTech)" },
-        { val: "analytics", labelAr: "تحليل الأعمال والبيانات (Business Analytics)", labelEn: "Business Analytics" }
+        { val: "mis", label: "Management Info Systems (MIS)" },
+        { val: "fintech", label: "Financial Technology (FinTech)" },
+        { val: "analytics", label: "Business Analytics" }
     ],
     law: [
-        { val: "cyberlaw", labelAr: "القانون الرقمي ومكافحة الجرائم الإلكترونية", labelEn: "Digital Law & Cybercrime Regulation" },
-        { val: "techip", labelAr: "الملكية الفكرية في التكنولوجيا والذكاء الاصطناعي", labelEn: "Tech & AI Intellectual Property" }
+        { val: "cyberlaw", label: "Digital Law & Cybercrime Regulation" },
+        { val: "techip", label: "Tech & AI Intellectual Property" }
     ]
 };
 
@@ -32,10 +32,10 @@ function updateDepartmentOptions(facultyKey) {
     if (!deptSelect) return;
 
     const list = DEPARTMENT_MAP[facultyKey] || DEPARTMENT_MAP.computers;
-    const isArabic = document.documentElement.lang === 'ar';
+    
 
     deptSelect.innerHTML = list.map(item => {
-        return `<option value="${item.val}">${isArabic ? item.labelAr : item.labelEn}</option>`;
+        return `<option value="${item.val}">${item.label}</option>`;
     }).join('');
 }
 window.updateDepartmentOptions = updateDepartmentOptions;
@@ -48,7 +48,7 @@ function switchAuthTab(mode) {
     const title = document.getElementById('form-title');
     const subtitle = document.getElementById('form-subtitle');
     const status = document.getElementById('auth-status');
-    const isArabic = document.documentElement.lang === 'ar';
+    
 
     if (status) status.textContent = '';
 
@@ -60,8 +60,8 @@ function switchAuthTab(mode) {
         btnLogin.setAttribute('aria-selected', 'true');
         btnSignup.setAttribute('aria-selected', 'false');
 
-        if (title) title.textContent = isArabic ? "تسجيل الدخول" : "Sign In";
-        if (subtitle) subtitle.textContent = isArabic ? "سجّل دخولك للوصول إلى خارطة طريقك المخصصة." : "Access your personalized career path.";
+        if (title) title.textContent = "Sign In";
+        if (subtitle) subtitle.textContent = "Access your personalized career path.";
     } else {
         loginForm.classList.add('form-hidden');
         signupForm.classList.remove('form-hidden');
@@ -70,8 +70,8 @@ function switchAuthTab(mode) {
         btnLogin.setAttribute('aria-selected', 'false');
         btnSignup.setAttribute('aria-selected', 'true');
 
-        if (title) title.textContent = isArabic ? "إنشاء حساب جديد" : "Create Account";
-        if (subtitle) subtitle.textContent = isArabic ? "حدد كليتك وقسمك لبدء رحلة التخصص واصطياد المسار." : "Choose your faculty and track to start your journey.";
+        if (title) title.textContent = "Create Account";
+        if (subtitle) subtitle.textContent = "Choose your faculty and track to start your journey.";
     }
 }
 window.switchAuthTab = switchAuthTab;
@@ -101,15 +101,15 @@ window.closeJuryModal = closeJuryModal;
 
 function selectJuryPersona(persona) {
     closeJuryModal();
-    const isArabic = document.documentElement.lang === 'ar';
+    
 
     if (persona === 'admin') {
         localStorage.setItem('user', 'admin');
         localStorage.setItem('role', 'admin');
         localStorage.setItem('user_email', 'admin@damanhour.edu.eg');
-        localStorage.setItem('user_name', isArabic ? 'المشرف الأكاديمي' : 'Academic Admin');
+        localStorage.setItem('user_name', 'Academic Admin');
         localStorage.setItem('faculty', 'Computers & Artificial Intelligence');
-        showToast(isArabic ? 'تم تفعيل حساب المشرف الأكاديمي (Admin) بنجاح' : 'Admin Academic session activated', 'success');
+        showToast('Admin Academic session activated', 'success');
         setTimeout(() => { window.location.href = 'admin.html'; }, 800);
     } else if (persona === 'employer') {
         localStorage.setItem('user', 'employer');
@@ -117,16 +117,16 @@ function selectJuryPersona(persona) {
         localStorage.setItem('user_email', 'partner@techcorp.eg');
         localStorage.setItem('user_name', 'TechCorp Organizer');
         localStorage.setItem('faculty', 'Corporate Partner Hub');
-        showToast(isArabic ? 'تم تفعيل حساب جهة العمل (Employer Partner)' : 'Employer Organizer session activated', 'success');
+        showToast('Employer Organizer session activated', 'success');
         setTimeout(() => { window.location.href = 'index.html#opportunities'; }, 800);
     } else {
         localStorage.setItem('user', 'student');
         localStorage.setItem('role', 'student');
         localStorage.setItem('user_email', 'student@damanhour.edu.eg');
-        localStorage.setItem('user_name', isArabic ? 'طالب أكاديمي' : 'Academic Student');
+        localStorage.setItem('user_name', 'Academic Student');
         localStorage.setItem('faculty', 'Faculty of Computers & Artificial Intelligence');
         localStorage.setItem('department', 'Computer Science (CS)');
-        showToast(isArabic ? 'تم تفعيل حساب الطالب الأكاديمي (Student)' : 'Student session activated', 'success');
+        showToast('Student session activated', 'success');
         setTimeout(() => { window.location.href = 'student.html'; }, 800);
     }
 }
@@ -135,22 +135,22 @@ window.selectJuryPersona = selectJuryPersona;
 function handleLoginSubmit(e) {
     e.preventDefault();
     const email = document.getElementById('login-email').value.trim().toLowerCase();
-    const isArabic = document.documentElement.lang === 'ar';
+    
     const status = document.getElementById('auth-status');
 
     if (email.includes('admin') || email === 'admin@damanhour.edu.eg') {
         localStorage.setItem('user', 'admin');
         localStorage.setItem('role', 'admin');
         localStorage.setItem('user_email', email);
-        localStorage.setItem('user_name', isArabic ? 'المشرف الأكاديمي' : 'Academic Admin');
-        showToast(isArabic ? 'مرحباً بك في لوحة الإدارة الأكاديمية!' : 'Welcome to Admin Console!', 'success');
+        localStorage.setItem('user_name', 'Academic Admin');
+        showToast('Welcome to Admin Console!', 'success');
         setTimeout(() => { window.location.href = 'admin.html'; }, 800);
     } else if (email.includes('employer') || email.includes('partner') || email.includes('hr')) {
         localStorage.setItem('user', 'employer');
         localStorage.setItem('role', 'employer');
         localStorage.setItem('user_email', email);
         localStorage.setItem('user_name', 'Partner Organizer');
-        showToast(isArabic ? 'مرحباً بك في منصة تنظيم ونشر الفرص!' : 'Welcome to Employer Portal!', 'success');
+        showToast('Welcome to Employer Portal!', 'success');
         setTimeout(() => { window.location.href = 'employer.html'; }, 800);
     } else {
         localStorage.setItem('user', 'student');
@@ -159,7 +159,7 @@ function handleLoginSubmit(e) {
         localStorage.setItem('user_name', email.split('@')[0]);
         localStorage.setItem('faculty', 'Faculty of Computers & Artificial Intelligence');
         localStorage.setItem('department', 'Computer Science (CS)');
-        showToast(isArabic ? 'تم تسجيل الدخول بنجاح! جاري توجيهك لخارطة طريقك' : 'Signed in! Redirecting to Student Hub', 'success');
+        showToast('Signed in! Redirecting to Student Hub', 'success');
         setTimeout(() => { window.location.href = 'student.html'; }, 800);
     }
 }
@@ -172,7 +172,7 @@ function handleSignupSubmit(e) {
     const faculty = document.getElementById('signup-faculty').value;
     const dept = document.getElementById('signup-dept').value;
     const role = document.getElementById('signup-role').value;
-    const isArabic = document.documentElement.lang === 'ar';
+    
 
     localStorage.setItem('user', role);
     localStorage.setItem('role', role);
@@ -181,7 +181,7 @@ function handleSignupSubmit(e) {
     localStorage.setItem('faculty', faculty);
     localStorage.setItem('department', dept);
 
-    showToast(isArabic ? `أهلاً بك يا ${name}! تم إنشاء حسابك بنجاح` : `Welcome ${name}! Account created`, 'success');
+    showToast(`Welcome ${name}! Account created successfully`, 'success');
     
     setTimeout(() => {
         if (role === 'admin') window.location.href = 'admin.html';

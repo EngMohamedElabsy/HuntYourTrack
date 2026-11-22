@@ -1,440 +1,10 @@
 /**
- * HuntYourTrack - Unified Enterprise Internationalization (i18n) Engine
- * 100% Complete Bilingual Dictionaries (Arabic RTL ⇄ English LTR)
- * Zero Mixed Languages Policy across Guest, Student, Employer, and Admin views.
+ * HuntYourTrack - Enterprise Language Engine
+ * 100% Pure English LTR Architecture
  */
 
 const HYT_TRANSLATIONS = {
- ar: {
- // Brand & Meta
- brandName:"HuntYourTrack",
- mainPageTitle:"HuntYourTrack · منصة اصطياد المسار المهني والتدريب الصيفي | Career & Internship Hub",
- empPageTitle:"HuntYourTrack · بوابة الشركات ومنظمي التدريب | Employer Hub",
- brandTagline:"جامعة دمنهور · منصة رسم خارطة الطريق للوظائف والتدريب الصيفي",
- academicBadge:"مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور",
-
- brandBadge:"جامعة دمنهور",
-
- // Global Nav
- navTracks:"مسارات التخصص",
- navInternships:"فرص التدريب والكورسات",
- navHunterRadar:"رادار اصطياد المسار",
- navHowItWorks:"كيف تعمل المنصة",
- navEmployers:"للشركات والمنظمين",
- navSignIn:"تسجيل الدخول",
- navGetStarted:"انضم الآن مجاناً",
- navStudentPortal:"لوحة الطالب",
- navEmployerPortal:"لوحة المنظم والفرص",
- navAdminPortal:"️ لوحة الإدارة الأكاديمية",
- navSignOut:"تسجيل الخروج",
- navExploreHome:"منصة الاستكشاف",
-
- navUnifiedAuth:"دخول المنصة",
- cmdSearchPh:"ابحث عن مسار مهني أو فرصة تدريب (مثال: Full-Stack, AI, Python)...",
- cmdSearchBadge:"البحث السريع الموحد",
- cmdSearchEmpty:"لا توجد نتائج مطابقة لبحثك",
- heroCmdBtn:"بحث سريع (Ctrl+K)",
- navUserStudent:"حساب الطالب الأكاديمي",
- navUserEmployer:"حساب الشركة والمنظم",
- navUserAdmin:"️ حساب المشرف الأكاديمي",
-
- // Hero Section
- heroPill:"إطلاق الإصدار الأكاديمي الموحد 2026",
- heroTitleLine1:"اصطد مسارك المهني، واصنع",
- heroTitleLine2:"شبكة مهاراتك وانطلق في سوق العمل",
- heroDesc:"تربط HuntYourTrack طلاب جامعة دمنهور بفرص التدريب المعتمدة من الكليات في مجالات الهندسة، علوم الحاسب، والتجارة — مرتبة ومصنفة بدقة حسب ملاءمتها لك.",
- heroBtnExplore:"استكشف المسارات التخصصية ←",
- heroBtnRadar:"رادار اصطياد المسار",
- searchTrackPlaceholder:"ابحث عن مسار أو مهارة...",
- heroBtnBrowse:"مسارات الكليات",
- heroBtnAuth:"الدخول للمنصة",
- heroBtnSignIn:"دخول المنصة",
-
- // Metrics Strip
- metricStudents:"طالب ومرشد أكاديمي",
- metricPartners:"شريك صناعي وتكنولوجي",
- metricMatchRate:"متوسط التوافق الأكاديمي",
- metricMilestones:"تتبع الخطوات الأكاديمية",
- metricRoles:"فرصة تدريب معتمدة",
-
- // Lovable Product Preview & Value Props
- previewFacultyEndorsed:"معتمد أكاديمياً",
- previewCourseAlign:"التوافق الأكاديمي",
- previewSkillOverlap:"تطابق المهارات",
- previewResumeKeywords:"كلمات السيرة الذاتية",
- previewAppStatus:"حالة التقديم",
- previewStepSubmitted:"تم الإرسال",
- previewStepReview:"قيد المراجعة",
- previewStepInterview:"المقابلة",
- whyHytEyebrow:"لماذا منصة اصطياد المسار",
- whyHytHeading:"صُممت للطلاب، واعتمدت من الكليات.",
- whyHytSub:"منظومة أكاديمية متكاملة لربط مخرجات التعليم الجامعي بمتطلبات سوق العمل الفعلي.",
- vp1Title:"درجات توافق حقيقية تعني الكثير",
- vp1Desc:"تُحسب كل فرصة بناءً على مقرراتك الدراسية ومهاراتك وسيرتك الذاتية — لتتقدم حيث يناسبك.",
- vp2Title:"فرص معتمدة أكاديمياً",
- vp2Desc:"يتحقق مكتب التدريب والتوظيف بكل كلية من كل شريك وفرصة قبل إتاحتها للطلاب.",
- vp3Title:"تتبع كل طلب بدقة",
- vp3Desc:"تابع حالة طلبك من لحظة التقديم حتى المقابلة والعرض الوظيفي، مع مواعيد نهائية واضحة.",
- vp4Title:"رؤى رادار المسار المهني",
- vp4Desc:"اكتشف المهارات الصاعدة والتخصصات الأكثر طلباً في سوق العمل قبل فتح دورات التوظيف.",
-
- // Hunter Canvas Visual Section
- hunterBadge:"الهوية البصرية والحركية",
- hunterHeadline:"️ محاكي صائد المسارات (Track Hunter Radar)",
- hunterSub:"حرّك مؤشر الماوس لاكتشاف العقد المهنية ونسج شبكة مهاراتك المتكاملة وتتبع مسارك حتى الاحتراف.",
- hunterRadarStatus:"مسح راداري نشط ومستمر",
- hunterPhysicsStatus:"12 مساراً مهنياً معتمداً · اضغط على أي مسار لاصطياده واستعراض خارطة طريقه",
- hunterLiveStat:"12 مساراً مهنياً معتمداً · اضغط على أي مسار لاصطياده واستعراض خارطة طريقه",
- dockAll:"كافة الكليات",
- dockComputing:"الحاسبات والذكاء الاصطناعي",
- dockEngineering:"️ الهندسة والتكنولوجيا",
- dockScience:"العلوم الأساسية",
- dockBusiness:"التجارة وإدارة الأعمال",
- dockLaw:"️ الحقوق والتشريعات الرقمية",
- hunterSearchPh:"ابحث عن مسار لاصطياده (AI, Mechatronics, FinTech...)",
- hunterShuffleBtn:"اصطياد عشوائي",
-
- // Opportunities Catalog Section
- oppBadge:"الشراكات المعتمدة",
- oppHeading:"فرص التدريب والكورسات المتاحة حالياً",
- oppSub:"معتمدة ومباشرة من الشركات والمنظمات مع مواعيد نهائية للتسجيل وعداد زمني مباشر.",
- postOpportunityBtn:"نشر فرصة جديدة (للشركات والمنظمات)",
- targetFacultiesLabel:"الكليات المستهدفة:",
- stipendLabel:"الامتيازات والبدل:",
- datesLabel:"فترة التسجيل:",
- applySubmitBtn:"التقديم وإرسال السيرة الذاتية ←",
-
- // Tracks Section
- tracksBadge:"المسارات الأكاديمية المعتمدة",
- tracksHeading:"المسارات المهنية المعتمدة",
- tracksSub:"خرائط طريق تطبيقية خطوة بخطوة بالتعاون مع كبرى الشركات الأكاديمية والتقنية في مختلف التخصصات.",
- track1Title:"هندسة البرمجيات وتطبيقات الويب (Full-Stack)",
- track1Desc:"معمارية الواجهات الحديثة، الربط بالخدمات الخلفية، تصميم الأنظمة السحابية، وضمان جودة الكود واختبارات الأداء القياسية.",
- track1Duration:"⏱️ مسار 16 أسبوعاً",
- track2Title:"الذكاء الاصطناعي وعلم البيانات (AI & Data)",
- track2Desc:"التعلم الآلي والعميق، معالجة اللغات الطبيعية، نماذج التوليد الذكي، وهندسة البيانات الكبيرة وتحليلها لخدمة متطلبات السوق.",
- track2Duration:"⏱️ مسار 20 أسبوعاً",
- track3Title:"الأنظمة المدمجة وبرمجيات السيارات (Embedded)",
- track3Desc:"مخصص لطلاب هندسة وحاسبات: لغات C/C++ المتقدمة، معمارية AUTOSAR، أنظمة التشغيل في الوقت الحقيقي RTOS، وبروتوكولات CAN-bus.",
- track3Duration:"⏱️ مسار 18 أسبوعاً",
- track4Title:"تكنولوجيا المعاملات المالية وتحليل الأعمال (FinTech)",
- track4Desc:"مخصص لطلاب تجارة وحاسبات: تحليل البيانات المالية، بوابات الدفع الإلكتروني، أنظمة ERP، ومواءمة التقنية مع الأعمال التجارية.",
- track4Duration:"⏱️ مسار 14 أسبوعاً",
- enrollTrackBtn:"بدء المسار ←",
- flipCardBtn:"الخطة والمناهج",
- flipBackBtn:"↩️ العودة للبطاقة",
- noTrackFoundMsg:"المسار غير موجود — يرجى الاختيار من المسارات الـ 12 المعتمدة أدناه",
- skillPillT1_1:"React و TypeScript",
- skillPillT1_2:"واجهات برمجة Node.js",
- skillPillT1_3:"دوكر والخدمات السحابية",
- skillPillT1_4:"قواعد بيانات PostgreSQL",
- skillPillT2_1:"بايثون و PyTorch",
- skillPillT2_2:"معالجة اللغات (NLP)",
- skillPillT2_3:"هندسة خطوط البيانات",
- skillPillT2_4:"نشر النماذج الذكية",
- skillPillT3_1:"برمجة C/C++ المدمجة",
- skillPillT3_2:"معمارية AUTOSAR",
- skillPillT3_3:"أنظمة التشغيل RTOS",
- skillPillT3_4:"المتحكمات الدقيقة",
- skillPillT4_1:"بوابات الدفع الإلكتروني",
- skillPillT4_2:"تحليل بيانات الأعمال",
- skillPillT4_3:"قواعد بيانات SQL و BI",
- skillPillT4_4:"أنظمة ERP المؤسسية",
-
- // 3D Card Back Syllabus & Career Outcomes
- cardBackTitle:"المنهج والمخرجات المهنية",
- t1Syl1:"معمارية React 19 والأنماط المؤسسية في TypeScript",
- t1Syl2:"واجهات Node.js وقواعد بيانات PostgreSQL الموزعة",
- t1Syl3:"حاويات Docker وخطوط أتمتة CI/CD والنشر السحابي",
- t1Syl4:"مشروع تخرج تطبيقي متوافق مع معايير الشركات الشريكة",
- t1Role:"مهندس برمجيات وتطبيقات ويب",
- t2Syl1:"الجبر الخطي وتحليل البيانات بـ NumPy و Pandas",
- t2Syl2:"تدريب وتقييم خوارزميات التعلم الآلي الكلاسيكي",
- t2Syl3:"الشبكات العصبية العميقة ونماذج الرؤية ومعالجة اللغات",
- t2Syl4:"أنظمة الـ RAG والوكلاء ونشر النماذج بـ FastAPI",
- t2Role:"مهندس ذكاء اصطناعي وعلم بيانات",
- t3Syl1:"أساسيات Embedded C/C++ وبرمجة العتاد المباشر",
- t3Syl2:"معمارية الـ AUTOSAR Classic وبروتوكولات CAN/LIN",
- t3Syl3:"أنظمة التشغيل في الوقت الحقيقي FreeRTOS & Scheduling",
- t3Syl4:"تطبيق معايير MISRA-C والأمان الوظيفي ISO 26262",
- t3Role:"مهندس أنظمة مدمجة وبرمجيات سيارات",
- t4Syl1:"الأسواق المالية والمشتقات وتحليل السلاسل الزمنية",
- t4Syl2:"بناء بوابات الدفع الإلكتروني وتكامل الـ APIs المصرفية",
- t4Syl3:"مستودعات البيانات ونمذجة لوحات التحكم في Power BI",
- t4Syl4:"أنظمة الـ ERP والامتثال التشريعي المالي PCI-DSS",
- t4Role:"محلل تكنولوجيا مالية ومعاملات ذكية",
-
- // Quick Hunter Chips & Previews
- hunterChipAll:"كافة المسارات (12)",
- hunterChipAI:"الذكاء الاصطناعي",
- hunterChipCloud:"هندسة السحابة",
- hunterChipSec:"الأمن السيبراني",
- hunterChipMecha:"الميكاترونكس",
- hunterChipFintech:"التكنولوجيا المالية",
- hunterChipBio:"المعلوماتية الحيوية",
- previewCompanyName:"مختبر الذكاء الاصطناعي بجامعة دمنهور",
- previewRoleTitle:"باحث متدرب في تعلم الآلة",
- cmdSearchPh:"ابحث عن مسار مهني أو فرصة تدريب...",
- cmdPaletteHint:"اضغط ESC أو انقر بالخارج للإغلاق",
- cmdCloseBtn:"إغلاق ✕",
-
- // How It Works
- hiwBadge:"رحلة الطالب",
- hiwHeading:"كيف تعمل منصة HuntYourTrack؟",
- hiwSub:"أربع خطوات مدروسة وموثقة أكاديمياً تنقلك من مقاعد الدراسة إلى التوظيف المباشر.",
- step1Title:"تحديد الكلية والتخصص",
- step1Desc:"سجّل كليتك وقسمك الأكاديمي لفرز التراكات المناسبة وتحديد المسار المهني الأكثر طلباً.",
- step2Title:"رفع السيرة والاصطياد",
- step2Desc:"ارفع سيرتك الذاتية ودع خوارزمية الذكاء الاصطناعي تحدد الفجوات المهارية ونقاط القوة.",
- step3Title:"إنجاز المهام التطبيقية",
- step3Desc:"تعلّم عبر مشاريع حقيقية ووثّق كل خطوة في ملفك الأكاديمي المعتمد من هيئة التدريس.",
- step4Title:"التقديم للتدريب والتوظيف",
- step4Desc:"قدّم على فرص التدريب الصيفي والكورسات المعتمدة المنشورة مباشرة من الشركاء.",
-
- // Employers Banner
- empBadge:"بوابة الشركات والمنظمين",
- empHeading:"هل أنت شركة أو منظمة تبحث عن كفاءات متميزة؟",
- empSub:"انضم إلى شبكة شركاء جامعة دمنهور، وانشر فرص التدريب الصيفي والكورسات المعتمدة، واستقبل طلبات وسير ذاتية مفروزة ومطابقة لمعاييرك بدقة.",
- empDashboardBtn:"لوحة تحكم الشركة / المنظم",
- empPostBtn:"نشر فرصة تدريب الآن",
- empRegisterBtn:"تسجيل حساب شركة / منظم →",
-
- // Student Hub
- studentWelcomeHeading:"أهلاً بك مجدداً يا بطل!",
- studentWelcomeSub:"جامعة دمنهور · مسارك المهني المخصص وفرص التدريب الصيفي والكورسات المعتمدة جاهزة بناءً على تخصصك الأكاديمي.",
- syncRoadmapBtn:"مزامنة خريطة الذكاء الاصطناعي",
- studentMetricMatch:"نسبة المواءمة الأكاديمية",
- studentMetricTrackLabel:"مسار هندسة البرمجيات والذكاء الاصطناعي",
- studentMetricApps:"الطلبات النشطة للتدريب",
- studentMetricAppsSub:"2 قيد المراجعة · 1 مرشح للمقابلة",
- studentMetricMilestones:"الخطوات المكتملة في المسار",
- studentMetricMilestonesSub:"75% إنجاز نحو التخرج والاعتماد",
- academicSettingsTitle:"️ التخصص الأكاديمي والكلية (Academic Identity)",
- academicSettingsSub:"اختر كليتك وقسمك الأكاديمي لتكييف خارطة الطريق والفرص تلقائياً:",
- accreditedBadge:"مسار معتمد رسمياً",
- facultyLabel:"الكلية (Faculty):",
- departmentLabel:"القسم الأكاديمي (Department):",
- saveFacultyBtn:"حفظ وتحديث التراك",
- cvDropTitle:"ارفع سيرتك الذاتية (CV / Resume) لاصطياد المسار",
- cvDropSub:"يدعم ملفات PDF أو DOCX · يقوم الذكاء الاصطناعي بمطابقة مهاراتك مع التدريبات المتاحة تلقائياً",
- roadmapTitle:"️ خارطة الطريق الشخصية (Learning Roadmap)",
- roadmapProgress:"75% إنجاز",
- roadmapTargetTrack:"المسار المستهدف: مهندس برمجيات وذكاء اصطناعي (دفعة تخرج 2026)",
- milestone1:"الأساسيات الأكاديمية: خوارزميات وهياكل البيانات (مكتمل)",
- milestone2:"معمارية تطبيقات الويب وتنسيق المكونات القياسية (مكتمل)",
- milestone3:"إدارة الحالة بالمتصفح والتفاعلات الحركية السلسة (مكتمل)",
- milestone4:"○ الربط مع الخدمات السحابية وبوابات أتمتة العمليات (قيد التنفيذ)",
- milestone5:"○ مناقشة مشروع التخرج النهائي والاعتماد الرسمي (قادم)",
- activeOppsHeading:"فرص التدريب والكورسات المتاحة حالياً",
- activeOppsSub:"معتمدة مباشرة من الشركات والمنظمات الشريكة مع عداد زمني للتسجيل:",
-
- // Auth View
- authWelcomeBack:"تسجيل الدخول",
- authAccessSub:"سجّل دخولك للوصول إلى خارطة طريقك المخصصة.",
- authJoinFuture:"إنشاء حساب جديد",
- authJoinSub:"حدد كليتك وقسمك لبدء رحلة التخصص واصطياد المسار.",
- juryAccessBtn:"️ دخول لجان التحكيم والتقييم الأكاديمي",
- loginEmailLabel:"البريد الجامعي / الإلكتروني (Email)",
- loginPasswordLabel:"كلمة المرور (Password)",
- enterPlatformBtn:"دخول المنصة ←",
- signupNameLabel:"الاسم الثلاثي (Full Name)",
- signupEmailLabel:"البريد الإلكتروني (Email)",
- signupRoleLabel:"نوع الحساب (Account Role)",
- signupPassLabel:"كلمة المرور (8 أحرف على الأقل)",
- createAccountBtn:"إنشاء الحساب وتفعيل المسار ←",
- juryModalTitle:"دخول لجان التحكيم والمناقشة",
- juryModalDesc:"اختر إحدى الشخصيات التمثيلية للاختبار السريع والتحقق من صلاحيات النظام وعزل الواجهات:",
- adminPersonaTitle:"️ المشرف الأكاديمي (System Admin)",
- adminPersonaSub:"admin@damanhour.edu.eg · صلاحيات كاملة",
- studentPersonaTitle:"‍ حساب طالب (Enrolled Student)",
- studentPersonaSub:"student@damanhour.edu.eg · استكشاف ومواءمة المسار",
- employerPersonaTitle:"حساب شركة / منظم (Employer Partner)",
- employerPersonaSub:"partner@techcorp.eg · نشر وإدارة الفرص",
- selectPersonaBtn:"تحديد",
- closeModalBtn:"إغلاق النافذة",
-
- // Footer
- footerAboutTitle:"HuntYourTrack",
- footerAboutText:"مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور (قسم علوم الحاسب).",
- footerLeadText:"منظومة برمجية موحدة ومعتمدة · جامعة دمنهور",
- footerPlatformHeading:"المنصة",
- footerPortalsHeading:"البوابات الرسمية",
- footerStudentHubLink:"لوحة الطالب الأكاديمي",
- footerAuthLink:"بوابة التحكيم والتسجيل",
- footerCanonicalLink:"البوابة الموحدة للمنصة",
- footerSprintHeading:"معلومات المشروع",
- footerSprintBoardLink:"لوحة سبرنت التخرج ↗",
- footerGithubRepoLink:"مستودع GitHub ↗",
- footerCicdLink:"فحوصات الجودة الآلية CI/CD ↗",
- footerRights:"© 2026 HuntYourTrack · جامعة دمنهور. جميع الحقوق محفوظة.",
- footerReleaseBadge:"الإصدار الأكاديمي الموحد 2.0 · Live Canonical Release",
-
- // Academic Entities & Roles
- facultyComputers:"كلية الحاسبات والذكاء الاصطناعي",
- facultyEngineering:"كلية الهندسة",
- facultyCommerce:"كلية التجارة وإدارة الأعمال",
- facultyLaw:"كلية الحقوق",
- deptCs:"علوم الحاسب (CS)",
- deptAi:"الذكاء الاصطناعي (AI)",
- deptIs:"نظم المعلومات (IS)",
- deptIt:"تكنولوجيا المعلومات (IT)",
- deptCyber:"الأمن السيبراني (Cybersecurity)",
- deptEngComputers:"هندسة الحاسبات والأنظمة",
- deptEngComms:"هندسة الاتصالات والإلكترونيات",
- deptEngMechatronics:"هندسة الميكاترونكس",
- deptCommMis:"نظم المعلومات الإدارية (MIS)",
- deptCommFintech:"تكنولوجيا المعاملات المالية (FinTech)",
- deptCommAnalytics:"تحليل بيانات الأعمال (Analytics)",
- deptLawDigital:"القانون الرقمي والجرائم المعلوماتية",
- deptLawIp:"قوانين الملكية الفكرية التقنية",
- roleStudentOpt:"حساب طالب (Student Explorer)",
- roleEmployerOpt:"حساب منظمة / شركة (Employer Organizer)",
- juryStatusChip:"️ مناقشة مشروع التخرج 2026",
-
- // Modal Opportunity Publishing
- modalOppChip:"نشر فرصة جديدة",
- modalOppTitle:"إضافة تدريب صيفي أو كورس معتمد",
- modalOppTitleLabel:"عنوان الفرصة أو التدريب (Title):",
- modalOppTitlePlaceholder:"مثال: تدريب مهندس ذكاء اصطناعي صيفي 2026",
- modalOppOrgLabel:"اسم الشركة أو المنظمة (Company / Organizer):",
- modalOppOrgPlaceholder:"مثال: شركة مصر لنظم المعلومات / ITIDA",
- modalOppTypeLabel:"نوع الفرصة:",
- modalOppTypeOpt1:"تدريب صيفي (Internship)",
- modalOppTypeOpt2:"كورس معتمد (Course)",
- modalOppFacultyLabel:"الكلية المستهدفة:",
- modalOppFacOpt1:"حاسبات وهندسة",
- modalOppFacOpt2:"حاسبات فقط",
- modalOppFacOpt3:"هندسة فقط",
- modalOppFacOpt4:"تجارة وإدارة أعمال",
- modalOppFacOpt5:"حقوق",
- modalOppFacOpt6:"كافة الكليات",
- modalOppDescLabel:"تفاصيل ومتطلبات الفرصة:",
- modalOppDescPlaceholder:"اكتب نبذة عن المهارات المطلوبة وطبيعة التدريب...",
- modalOppStartLabel:"تاريخ بداية التسجيل:",
- modalOppEndLabel:"الموعد النهائي للتقديم (Deadline):",
- modalOppLinkLabel:"رابط التقديم الرسمي (Apply URL):",
- modalCancelBtn:"إلغاء",
- modalSubmitBtn:"اعتماد ونشر الفرصة فوراً",
-
- // Auth Visual Features & Footer
- authFeature1:"مواءمة مسارات الذكاء الاصطناعي وهندسة البرمجيات",
- authFeature2:"فرص تدريب حقيقية مع شركات معتمدة",
- authFeature3:"تتبع الخطوات الأكاديمية ونقاط الاعتماد",
- authFooterDept:"قسم علوم الحاسب · كلية الحاسبات والمعلومات",
- userDisplayStudent:"طالب أكاديمي",
- themeToggleLabel:"المظهر",
-
- // Admin Console
- adminBrandBadge:"مساحة إدارة النظام",
- adminNavHome:"منصة الاستكشاف",
- adminNavConsole:"️ لوحة الإدارة الأكاديمية",
- adminNavSprint:"لوحة السبرنت ↗",
- adminPageTitle:"مركز التحكم والإشراف التنفيذي ️",
- adminPageSub:"كلية الحاسبات والمعلومات · جامعة دمنهور (قسم علوم الحاسب). حوكمة المنصة واعتماد الشراكات المؤسسية.",
- adminKpi1Label:"الطلاب المسجلون",
- adminKpi1Meta:"↑ 12% نسبة نمو التسجيل هذا الفصل",
- adminKpi2Label:"الشركات المعتمدة",
- adminKpi2Meta:"شركاء تدريب مهني نشطون",
- adminKpi3Label:"طلبات الاعتماد المعلقة",
- adminKpi3Meta:"مؤسسات بانتظار مراجعة الاعتماد",
- adminKpi4Label:"محرك الذكاء الاصطناعي والمواءمة",
- adminKpi4Meta:"قيد التشغيل · 312 تدريب نشط موائم",
- adminTabUsers:"إدارة المستخدمين (جدول البيانات)",
- adminTabQueue:"قائمة مراجعة اعتماد الشركات",
- adminTabSettings:"️ إعدادات المنصة",
- adminSearchPlaceholder:"ابحث بالاسم أو البريد أو الكلية...",
- adminFilterAll:"جميع المستخدمين",
- adminFilterStudents:"الطلاب",
- adminFilterEmployers:"الشركات",
- adminFilterAdmins:"المشرفون",
- adminThId:"المعرف",
- adminThProfile:"الملف والبريد الإلكتروني",
- adminThRole:"الدور",
- adminThAffiliation:"الجهة / الكلية",
- adminThStatus:"حالة الحساب",
- adminThAction:"الإجراء",
- adminQueueTitle:"قائمة مراجعة واعتماد الشركات",
- adminQueueSub:"مراجعة السجلات التجارية والبطاقات الضريبية وسلامة النطاق المؤسسي قبل منح صلاحية نشر التدريبات.",
- adminSettingsTitle:"قواعد النظام ومعايير المواءمة الذكية",
-
- // Employer Portal Specific Keys
- empTabOverview:"لوحة المتابعة",
- empTabPost:"نشر تدريب جديد",
- empTabApplicants:"مراجعة المتقدمين",
- empHomeBtn:"البوابة الرئيسية",
- empSignOut:"خروج",
- empKpiPosts:"فرص التدريب النشطة (Active Postings)",
- empKpiApps:"إجمالي طلبات التقديم (Applications)",
- empKpiMatched:"مرشحون بتوافق عالٍ جداً (High Match > 85%)",
- empYourPostings:"فرص التدريب الخاصة بك (Your Postings)",
- empAddPostBtn:"+ إضافة تدريب",
- empAlertsHeading:"تنبيهات المرشحين المتميزين",
- empPostTitle:"نشر فرصة تدريب صيفي أو كورس معتمد",
- empPostDescSub:"حدد متطلبات الفرصة والمهارات الأساسية ليتم مواءمتها آلياً مع طلاب الكليات المتخصصة.",
- empFormTitleLabel:"عنوان التدريب / الوظيفة (Title) *",
- empFormTitlePh:"مثال: Cloud Security Intern",
- empFormTrackLabel:"المسار التقني أو الأكاديمي (Track) *",
- empTrackSelectPh:"اختر المسار المعني...",
- empFormDescLabel:"تفاصيل التدريب والمسؤوليات (Description) *",
- empFormDescPh:"اكتب وصفاً مفصلاً لمهام المتدرب والمهارات التي سيكتسبها...",
- empSkillsLabel:"المهارات المطلوبة (Required Skills) *",
- empSkillInputPh:"ابحث عن مهارة أو اكتب واضغط Enter لإضافتها...",
- empCompLabel:"طبيعة المكافأة المالية (Compensation)",
- empPaidLabel:"مدفوع الأجر (Paid)",
- empFreeLabel:"تدريب تطوعي / أكاديمي (Free)",
- empSubmitPostBtn:"نشر التدريب الآن",
- empResetFormBtn:"إفراغ النموذج",
- empCharSuffix:"/ 1000 حرف",
- empTrackCloud:"السحابية والعمليات (Cloud & DevOps)",
- empTrackCyber:"الأمن السيبراني (Cybersecurity)",
- empTrackFrontend:"واجهات الويب (Frontend Development)",
- empTrackBackend:"الخوادم والأنظمة (Backend Development)",
- empTrackDataAI:"البيانات والذكاء الاصطناعي (Data Science & AI)",
- empTrackMobile:"تطبيقات الهواتف (Mobile Development)",
- empTrackUIUX:"التصميم وتجربة المستخدم (UI/UX Design)",
- empTrackQA:"ضمان الجودة والاختبار (Quality Assurance)",
- empSuccessBanner:"تم نشر فرصة التدريب بنجاح! أصبحت متاحة الآن لطلاب جامعة دمنهور وظهرت في لوحة المتابعة.",
- empMatrixHeading:"مصفوفة مراجعة وتقييم المتقدمين (Applicant Review Matrix)",
- empMatrixSub:"فرز وتقييم دقيق للمرشحين بالذكاء الاصطناعي وفق نسبة تطابق الـ ATS.",
- empFilterStatusLabel:"تصفية حسب الحالة:",
- empStatusAll:"كافة الحالات (All)",
- empStatusNew:"جديد (New)",
- empStatusShortlisted:"في القائمة المختصرة (Shortlisted)",
- empStatusAccepted:"مقبول (Accepted)",
- empStatusRejected:"مرفوض (Rejected)",
-
- // Missing Global/Portal Keys
- authNamePh:"الاسم بالكامل (مثال: أحمد محمود علي)",
- authDemoHeading:"اختر إحدى الشخصيات التمثيلية للاختبار السريع والتحقق من صلاحيات النظام وعزل الواجهات:",
- footerGradDesc:"مشروع تخرج 2026 · كلية الحاسبات والمعلومات، جامعة دمنهور (قسم علوم الحاسب).",
- shuffleHuntBtn:"اصطياد عشوائي للمسارات",
-
- // Theme Gallery Keys
- themesBadge:"تخصيص المظهر الحركي",
- themesTitle:"معرض المظاهر والألوان التفاعلية",
- themesSub:"اختر نسق الألوان والمؤثرات التي تناسبك لإعادة إضاءة المحيط التفاعلي وشبكة المسارات في الوقت الحقيقي.",
- themeAbyss:"أعماق المحيط (Abyss)",
- themeAbyssMood:"سايبربانك مظلم ورادارات نيون",
- themeReef:"الشعب المرجانية (Reef)",
- themeReefMood:"أخضر زمردي حيوي وأمواج متلألئة",
- themeNebula:"سديم الفضاء (Nebula)",
- themeNebulaMood:"أرجواني وفوسفوري وأجرام كونية",
- themeEmber:"الوهج الشمسي (Ember)",
- themeEmberMood:"طاقة نارية ودفء حركي متقد",
- themeDaylight:"️ وضح النهار (Daylight)",
- themeDaylightMood:"نسق مضيء وتباين فائق الوضوح",
-
- // Controls
- langToggleLabel:"English",
- themeToggleDark:"",
- themeToggleLight:"️",
- themeDropdownLabel:"المظهر",
- themeModesHeader:"نمط الإضاءة",
- themeDarkOption:"الوضع الليلي (Dark Mode)",
- themeLightOption:"الوضع النهاري (Light Mode)",
- themePalettesHeader:"لوحات الألوان المخصصة"
- },
- en: {
+  en: {
  // Brand & Meta
  brandName:"HuntYourTrack",
  mainPageTitle:"HuntYourTrack · Career Track Navigation & Internship Matching Hub",
@@ -851,7 +421,7 @@ const HYT_TRANSLATIONS = {
  themeDaylightMood:"Clean High-Contrast Daylight Palette",
 
  // Controls
- langToggleLabel:"العربية",
+ langToggleLabel:"English",
  themeToggleDark:"",
  themeToggleLight:"️",
  themeDropdownLabel:"Appearance",
@@ -859,203 +429,178 @@ const HYT_TRANSLATIONS = {
  themeDarkOption:"Dark Mode (Night)",
  themeLightOption:"Light Mode (Daylight)",
  themePalettesHeader:"Curated Color Palettes"
- }
+  }
 };
 
 class I18nManager {
- constructor() {
- this.currentLang = localStorage.getItem('hyt_lang') || 'ar';
- this.theme = localStorage.getItem('hyt_theme') || 'light';
- }
-
- init() {
- this.applyLanguage(this.currentLang);
- this.applyTheme(this.theme);
- this.bindGlobalControls();
- }
-
- applyLanguage(lang) {
- this.currentLang = lang;
- localStorage.setItem('hyt_lang', lang);
- const isRtl = lang === 'ar';
-
- document.documentElement.lang = lang;
- document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
-
- if (isRtl) {
- document.documentElement.classList.add('rtl-layout');
- document.documentElement.classList.remove('ltr-layout');
- } else {
- document.documentElement.classList.add('ltr-layout');
- document.documentElement.classList.remove('rtl-layout');
- }
-
- // Translate all data-i18n elements
- const elements = document.querySelectorAll('[data-i18n]');
- elements.forEach(el => {
- const key = el.getAttribute('data-i18n');
- if (HYT_TRANSLATIONS[lang] && HYT_TRANSLATIONS[lang][key]) {
- const val = HYT_TRANSLATIONS[lang][key];
- if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
- el.placeholder = val;
- } else if (el.tagName === 'OPTION') {
- el.textContent = val;
- } else if (el.tagName === 'TITLE') {
- document.title = val;
- } else {
- el.innerHTML = val;
- }
- }
- });
-
- // Translate all data-i18n-placeholder elements
- document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-  const key = el.getAttribute('data-i18n-placeholder');
-  if (HYT_TRANSLATIONS[lang] && HYT_TRANSLATIONS[lang][key]) {
-   el.placeholder = HYT_TRANSLATIONS[lang][key];
+  constructor() {
+    this.currentLang = "en";
+    this.theme = localStorage.getItem("hyt_theme") || "light";
   }
- });
 
- // Update language toggle button label
- const langToggleBtn = document.getElementById('hyt-lang-toggle');
- if (langToggleBtn) {
- const globeSvg = '<svg width="15"height="15"viewBox="0 0 24 24"fill="none"stroke="currentColor"stroke-width="2"stroke-linecap="round"stroke-linejoin="round"style="vertical-align:middle;margin-inline-end:4px;"><circle cx="12"cy="12"r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>';
- langToggleBtn.innerHTML = globeSvg + (isRtl ? 'English' : 'العربية');
- langToggleBtn.setAttribute('aria-label', isRtl ? 'Switch to English' : 'التحويل للغة العربية');
- }
+  init() {
+    this.applyLanguage("en");
+    this.applyTheme(this.theme);
+    this.bindGlobalControls();
+  }
 
- // Dispatch custom event for dynamic components (e.g. opportunities catalog)
- window.dispatchEvent(new CustomEvent('hyt:langChanged', { detail: { lang, isRtl } }));
- }
+  applyLanguage(lang = "en") {
+    this.currentLang = "en";
+    localStorage.setItem("hyt_lang", "en");
 
- toggleLanguage() {
- const nextLang = this.currentLang === 'ar' ? 'en' : 'ar';
- this.applyLanguage(nextLang);
- }
+    document.documentElement.lang = "en";
+    document.documentElement.dir = "ltr";
+    document.documentElement.classList.add("ltr-layout");
+    document.documentElement.classList.remove("rtl-layout");
 
- applyTheme(theme) {
- this.theme = theme;
- localStorage.setItem('hyt_theme', theme);
- document.documentElement.setAttribute('data-theme', theme);
+    // Translate all data-i18n elements
+    const elements = document.querySelectorAll("[data-i18n]");
+    elements.forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (HYT_TRANSLATIONS.en && HYT_TRANSLATIONS.en[key]) {
+        const val = HYT_TRANSLATIONS.en[key];
+        if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+          el.placeholder = val;
+        } else if (el.tagName === "OPTION") {
+          el.textContent = val;
+        } else if (el.tagName === "TITLE") {
+          document.title = val;
+        } else {
+          el.innerHTML = val;
+        }
+      }
+    });
 
- const themeToggleBtn = document.getElementById('hyt-theme-toggle');
- const isDark = theme === 'dark' || theme === 'abyss' || theme === 'reef' || theme === 'nebula' || theme === 'ember';
- if (themeToggleBtn) {
- const sunSvg = '<svg width="15"height="15"viewBox="0 0 24 24"fill="none"stroke="currentColor"stroke-width="2"stroke-linecap="round"stroke-linejoin="round"><circle cx="12"cy="12"r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
- const moonSvg = '<svg width="15"height="15"viewBox="0 0 24 24"fill="none"stroke="currentColor"stroke-width="2"stroke-linecap="round"stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
- themeToggleBtn.innerHTML = isDark ? sunSvg : moonSvg;
- themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
- }
+    // Translate all data-i18n-placeholder elements
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+      const key = el.getAttribute("data-i18n-placeholder");
+      if (HYT_TRANSLATIONS.en && HYT_TRANSLATIONS.en[key]) {
+        el.placeholder = HYT_TRANSLATIONS.en[key];
+      }
+    });
 
- const unifiedThemeIcon = document.getElementById('theme-btn-icon');
- if (unifiedThemeIcon) {
- const sunSvg = '<svg width="15"height="15"viewBox="0 0 24 24"fill="none"stroke="currentColor"stroke-width="2"stroke-linecap="round"stroke-linejoin="round"><circle cx="12"cy="12"r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
- const moonSvg = '<svg width="15"height="15"viewBox="0 0 24 24"fill="none"stroke="currentColor"stroke-width="2"stroke-linecap="round"stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
- unifiedThemeIcon.innerHTML = isDark ? sunSvg : moonSvg;
- }
+    // Dispatch custom event for dynamic components
+    window.dispatchEvent(new CustomEvent("hyt:langChanged", { detail: { lang: "en", isRtl: false } }));
+  }
 
- // Highlight active theme option in unified dropdown
- document.querySelectorAll('.theme-opt-btn').forEach(btn => {
- const optVal = btn.getAttribute('data-theme-val');
- if (optVal) {
- const isSelected = optVal === theme || (optVal === 'dark' && isDark) || (optVal === 'light' && !isDark);
- btn.classList.toggle('active', isSelected);
- }
- });
+  toggleLanguage() {
+    // Pure English architecture - no-op
+  }
 
- // Highlight active theme pill in theme gallery if present
- document.querySelectorAll('.theme-gallery-card').forEach(card => {
- const cardTheme = card.getAttribute('data-theme-id');
- card.classList.toggle('active', cardTheme === theme || (theme === 'dark' && cardTheme === 'abyss') || (theme === 'light' && cardTheme === 'daylight'));
- });
+  applyTheme(theme) {
+    this.theme = theme;
+    localStorage.setItem("hyt_theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
 
- window.dispatchEvent(new CustomEvent('hyt:themeChanged', { detail: { theme } }));
- }
+    const themeToggleBtn = document.getElementById("hyt-theme-toggle");
+    const isDark = theme === "dark" || theme === "abyss" || theme === "reef" || theme === "nebula" || theme === "ember";
+    if (themeToggleBtn) {
+      const sunSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
+      const moonSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+      themeToggleBtn.innerHTML = isDark ? sunSvg : moonSvg;
+      themeToggleBtn.setAttribute("aria-label", isDark ? "Switch to Light Mode" : "Switch to Dark Mode");
+    }
 
- toggleTheme() {
- const isCurrentDark = this.theme === 'dark' || this.theme === 'abyss' || this.theme === 'reef' || this.theme === 'nebula' || this.theme === 'ember';
- const nextTheme = isCurrentDark ? 'light' : 'dark';
- this.applyTheme(nextTheme);
- }
+    const unifiedThemeIcon = document.getElementById("theme-btn-icon");
+    if (unifiedThemeIcon) {
+      const sunSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
+      const moonSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+      unifiedThemeIcon.innerHTML = isDark ? sunSvg : moonSvg;
+    }
 
- bindGlobalControls() {
- const langBtn = document.getElementById('hyt-lang-toggle');
- if (langBtn) {
- langBtn.addEventListener('click', (e) => {
- e.preventDefault();
- this.toggleLanguage();
- });
- }
+    // Highlight active theme option in unified dropdown
+    document.querySelectorAll(".theme-opt-btn").forEach(btn => {
+      const optVal = btn.getAttribute("data-theme-val");
+      if (optVal) {
+        const isSelected = optVal === theme || (optVal === "dark" && isDark) || (optVal === "light" && !isDark);
+        btn.classList.toggle("active", isSelected);
+      }
+    });
 
- const themeBtn = document.getElementById('hyt-theme-toggle');
- if (themeBtn) {
- themeBtn.addEventListener('click', (e) => {
- e.preventDefault();
- this.toggleTheme();
- });
- }
- }
+    // Highlight active theme pill in theme gallery if present
+    document.querySelectorAll(".theme-gallery-card").forEach(card => {
+      const cardTheme = card.getAttribute("data-theme-id");
+      card.classList.toggle("active", cardTheme === theme || (theme === "dark" && cardTheme === "abyss") || (theme === "light" && cardTheme === "daylight"));
+    });
 
- t(key) {
- return (HYT_TRANSLATIONS[this.currentLang] && HYT_TRANSLATIONS[this.currentLang][key]) || key;
- }
+    window.dispatchEvent(new CustomEvent("hyt:themeChanged", { detail: { theme } }));
+  }
+
+  toggleTheme() {
+    const isCurrentDark = this.theme === "dark" || this.theme === "abyss" || this.theme === "reef" || this.theme === "nebula" || this.theme === "ember";
+    const nextTheme = isCurrentDark ? "light" : "dark";
+    this.applyTheme(nextTheme);
+  }
+
+  bindGlobalControls() {
+    const themeBtn = document.getElementById("hyt-theme-toggle");
+    if (themeBtn) {
+      themeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.toggleTheme();
+      });
+    }
+  }
+
+  t(key) {
+    return (HYT_TRANSLATIONS.en && HYT_TRANSLATIONS.en[key]) || key;
+  }
 }
 
 // Global instance
 window.hytI18n = new I18nManager();
 window.setHytTheme = function(theme) {
- if (window.hytI18n) window.hytI18n.applyTheme(theme);
+  if (window.hytI18n) window.hytI18n.applyTheme(theme);
 };
 window.toggleAppTheme = function(e) {
- if (e && e.stopPropagation) e.stopPropagation();
- if (window.hytI18n) window.hytI18n.toggleTheme();
+  if (e && e.stopPropagation) e.stopPropagation();
+  if (window.hytI18n) window.hytI18n.toggleTheme();
 };
 window.toggleThemeDropdown = function(e) {
- if (e && e.stopPropagation) e.stopPropagation();
- if (window.hytI18n) window.hytI18n.toggleTheme();
+  if (e && e.stopPropagation) e.stopPropagation();
+  if (window.hytI18n) window.hytI18n.toggleTheme();
 };
 window.setAppTheme = function(theme) {
- if (window.setHytTheme) window.setHytTheme(theme);
- const menu = document.getElementById('theme-dropdown-menu');
- if (menu) menu.classList.remove('show');
+  if (window.setHytTheme) window.setHytTheme(theme);
+  const menu = document.getElementById("theme-dropdown-menu");
+  if (menu) menu.classList.remove("show");
 };
 window.setAppThemeMode = function(mode) {
- if (window.hytI18n) {
- window.hytI18n.applyTheme(mode === 'light' ? 'light' : 'dark');
- }
- const menu = document.getElementById('theme-dropdown-menu');
- if (menu) menu.classList.remove('show');
+  if (window.hytI18n) {
+    window.hytI18n.applyTheme(mode === "light" ? "light" : "dark");
+  }
+  const menu = document.getElementById("theme-dropdown-menu");
+  if (menu) menu.classList.remove("show");
 };
 window.hytSignOut = function(e) {
- if (e && e.preventDefault) e.preventDefault();
- const savedLang = localStorage.getItem('hyt_lang') || 'en';
- const savedTheme = localStorage.getItem('hyt_theme') || 'dark';
+  if (e && e.preventDefault) e.preventDefault();
+  const savedTheme = localStorage.getItem("hyt_theme") || "dark";
 
- // Clear all user credentials and session variables
- localStorage.removeItem('user');
- localStorage.removeItem('role');
- localStorage.removeItem('user_role');
- localStorage.removeItem('user_name');
- localStorage.removeItem('user_email');
- localStorage.removeItem('faculty');
- localStorage.removeItem('department');
- localStorage.removeItem('auth_token');
- localStorage.removeItem('hyt_auth');
- localStorage.removeItem('hyt_user');
+  // Clear all user credentials and session variables
+  localStorage.removeItem("user");
+  localStorage.removeItem("role");
+  localStorage.removeItem("user_role");
+  localStorage.removeItem("user_name");
+  localStorage.removeItem("user_email");
+  localStorage.removeItem("faculty");
+  localStorage.removeItem("department");
+  localStorage.removeItem("auth_token");
+  localStorage.removeItem("hyt_auth");
+  localStorage.removeItem("hyt_user");
 
- // Preserve language and visual theme preferences
- localStorage.setItem('hyt_lang', savedLang);
- localStorage.setItem('hyt_theme', savedTheme);
+  // Preserve language and visual theme preferences
+  localStorage.setItem("hyt_lang", "en");
+  localStorage.setItem("hyt_theme", savedTheme);
 
- const isInPages = window.location.pathname.includes('/pages/');
- window.location.href = isInPages ? 'auth.html' : 'pages/auth.html';
+  const isInPages = window.location.pathname.includes("/pages/");
+  window.location.href = isInPages ? "auth.html" : "pages/auth.html";
 };
-document.addEventListener('click', (e) => {
- const themeMenu = document.getElementById('theme-dropdown-menu');
- if (themeMenu && !e.target.closest('#theme-dropdown-wrapper')) {
- themeMenu.classList.remove('show');
- }
+document.addEventListener("click", (e) => {
+  const themeMenu = document.getElementById("theme-dropdown-menu");
+  if (themeMenu && !e.target.closest("#theme-dropdown-wrapper")) {
+    themeMenu.classList.remove("show");
+  }
 });
-document.addEventListener('DOMContentLoaded', () => {
- window.hytI18n.init();
+document.addEventListener("DOMContentLoaded", () => {
+  window.hytI18n.init();
 });

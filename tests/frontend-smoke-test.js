@@ -66,21 +66,19 @@ async function run() {
         await page.goto(`http://127.0.0.1:${address.port}/index.html`);
         assert.match(await page.title(), /HuntYourTrack/, 'Landing page title should match HuntYourTrack');
         
-        // Initial Default Language must be Arabic (RTL) as instructed
+        // Initial Default Language must be English (LTR) (US33: 100% Pure English UI)
         const initialDir = await page.evaluate(() => document.documentElement.dir);
-        assert.equal(initialDir, 'rtl', 'Default initial document direction must be RTL (Arabic)');
+        assert.equal(initialDir, 'ltr', 'Default initial document direction must be LTR (English)');
+        const initialLang = await page.evaluate(() => document.documentElement.lang);
+        assert.equal(initialLang, 'en', 'Default initial document lang attribute must be "en"');
 
         // Hunter Radar Canvas verification
         const canvas = page.locator('#hunter-radar-canvas');
         assert.equal(await canvas.count(), 1, 'Track Hunter Interactive Radar Canvas must exist in Hero');
         
-        // Internationalization (i18n) toggle verification
+        // Language toggle button #hyt-lang-toggle must be eliminated (US33)
         const langToggle = page.locator('#hyt-lang-toggle');
-        assert.equal(await langToggle.count(), 1, 'Language toggle button must be present in header');
-        await langToggle.click();
-        assert.equal(await page.evaluate(() => document.documentElement.dir), 'ltr', 'Clicking language toggle should switch to English LTR');
-        await langToggle.click();
-        assert.equal(await page.evaluate(() => document.documentElement.dir), 'rtl', 'Clicking language toggle again should return to Arabic RTL');
+        assert.equal(await langToggle.count(), 0, 'Language toggle button #hyt-lang-toggle must be completely removed');
 
         // Unified Theme System verification (Direct Dark / Light toggle)
         const themeBtn = page.locator('#hyt-theme-btn');
@@ -167,13 +165,13 @@ async function run() {
         await facSelect.selectOption('engineering');
         await page.evaluate(() => onStudentFacultyChange('engineering'));
         const deptOptions = await page.locator('#student-dept-select option').allInnerTexts();
-        assert.ok(deptOptions.some(d => d.includes('هندسة')), 'Department options must dynamically update for Engineering');
+        assert.ok(deptOptions.some(d => d.includes('Engineering')), 'Department options must dynamically update for Engineering');
 
         // CV upload simulation
         await page.locator('.cv-drop-zone').click();
         await page.waitForTimeout(1400);
         const cvStatus = await page.locator('#cv-status-text').textContent();
-        assert.ok(cvStatus.includes('تم رفع السيرة الذاتية بنجاح'), 'CV upload simulation should confirm successful alignment');
+        assert.ok(cvStatus.includes('Resume uploaded successfully'), 'CV upload simulation should confirm successful alignment');
 
         // -------------------------------------------------------------
         // 5. TEST AUTHORIZED ADMIN CONSOLE (admin.html)
