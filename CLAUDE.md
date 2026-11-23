@@ -448,3 +448,30 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Installed `.claude/skills/unslop`:** Ensured `unslop` skill is directly accessible within `.claude/skills/unslop`.
   - **Test Compliance:** All 9 Playwright audit suites and smoke tests passed with 100% compliance (`npm test`).
 
+
+### 🟢 US38 & US39: Modular Backend Architecture, Hybrid Database Integration & Playwright E2E Security Audit Remediation (2026-11-23 20:30 UTC+2)
+
+- **Issues:** #113 (US38: Modular Backend Architecture & Hybrid Database Integration) & #114 (US39: Comprehensive Playwright E2E Security & Visual Motion Audit)
+- **Assignee:** `@abdulrhman-masoud` (Audited, remediated and unified by Lead Architect `@EngMohamedElabsy`)
+- **Deliverables:**
+  - **Modular Backend Architecture (`backend/`):**
+    - Refactored backend from monolithic script into clean modular structure (`routes/`, `controllers/`, and `middleware/`) using 100% native Node.js (0 external npm dependencies).
+    - `backend/server.js`: Lightweight HTTP dispatcher using WHATWG URL standards.
+    - `backend/middleware/`: CORS middleware (`cors.middleware.js`), in-memory sliding-window rate limiting (`rate-limit.middleware.js`), Bearer token & RBAC validation (`auth.middleware.js`), and centralized error handling (`error.middleware.js`).
+    - `backend/controllers/`: Dedicated controllers for auth/session (`auth.controller.js`), verified courses (`courses.controller.js`), opportunities & applications (`opportunities.controller.js`), and ATS keyword matching (`cv.controller.js`).
+    - `backend/routes/`: Isolated routers for auth (`auth.routes.js`), courses (`courses.routes.js`), opportunities (`opportunities.routes.js`), and CV parsing (`cv.routes.js`).
+  - **Modular Enterprise SQL Schemas (`database/sql/`):**
+    - Modularized DDL into dedicated multi-engine ANSI SQL schemas: `001_users_rbac.sql`, `002_student_profiles.sql`, `003_sessions.sql`, `004_applications.sql`, and `005_courses_catalog.sql`.
+  - **Hybrid NoSQL Catalogs (`database/nosql/`):**
+    - Created domain dictionary `database/nosql/ats_keywords.json` covering 7 faculties (AI/ML, Web, DevOps, Cybersecurity, Engineering CAD, Finance, Corporate Law).
+    - Created multi-faculty corporate postings `database/nosql/opportunities.json` (Vodafone, ITI, Siemens, PwC, Shalakany Law).
+    - Maintained verified course syllabi `database/nosql/courses-catalog.json`.
+  - **Playwright Test Runner & Spec Alignment (`tests/` & `playwright.config.ts`):**
+    - Resolved syntax and runtime errors in Playwright specs (`tests/guards.spec.ts`, `tests/motion.spec.ts`, `tests/navigation.spec.ts`, `tests/responsive.spec.ts`, `tests/security.spec.ts`).
+    - Added missing `@playwright/test` imports, fixed unseeded visual screenshot comparisons, and removed all non-English comments in compliance with Constitution Section 2.1.
+    - Updated `playwright.config.ts` to match port 8080 and python HTTP server.
+  - **Automated Verification & Git Hygiene:**
+    - Created `tests/backend-modular-api.test.js` validating all 8 modular backend endpoints, CORS, routers, and database schemas with 100% compliance.
+    - Added backend suite to `npm test` pipeline in `package.json`.
+    - Permanently deleted stale feature branches `US38-...` and `US39-...` from remote repository.
+    - Posted professional architectural reviews on GitHub Issues #113 and #114, marking both closed and transitioning to `Done` in Project #5.
