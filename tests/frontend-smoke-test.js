@@ -139,15 +139,13 @@ async function run() {
         await passwordToggle.click();
         assert.equal(await passwordInput.getAttribute('type'), 'password', 'Password must re-mask');
 
-        // Academic Jury Modal
-        await page.locator('#btn-jury-trigger').click();
-        const juryDialog = page.locator('#jury-dialog');
-        assert.equal(await juryDialog.evaluate(d => d.open), true, 'Academic Jury modal should open');
-        
-        // Select Student Persona via Jury Modal
-        await page.evaluate(() => selectJuryPersona('student'));
-        await page.waitForURL(/student\.html/);
-        assert.ok(page.url().includes('student.html'), 'Selecting Student persona should navigate to student.html');
+        // Navigate to Student Career Hub (direct student session replaces removed jury persona)
+        await page.evaluate(() => {
+            localStorage.setItem('user', 'student');
+            localStorage.setItem('role', 'student');
+            localStorage.setItem('user_email', 'student@damanhour.edu.eg');
+        });
+        await page.goto(`http://127.0.0.1:${address.port}/student.html`);
 
         // -------------------------------------------------------------
         // 4. TEST STUDENT CAREER HUB & ROLE ISOLATION (student.html)

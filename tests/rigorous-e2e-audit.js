@@ -151,6 +151,7 @@ async function runAudit() {
         // -------------------------------------------------------------------------------------------------
         console.log('\n--- [3/5] Testing Design Quality & Bespoke UI (Hunter Radar Canvas & Design Tokens) ---');
         await page.goto(`${baseUrl}/index.html`);
+        await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; }' });
 
         const radarCanvas = page.locator('#hunter-radar-canvas');
         assert.equal(await radarCanvas.count(), 1, '#hunter-radar-canvas must exist in the DOM');
@@ -266,12 +267,6 @@ async function runAudit() {
         const centerOffset = (1440 - desktopCardBox.width) / 2;
         const actualLeft = desktopCardBox.x;
         assert.ok(Math.abs(actualLeft - centerOffset) < 30, `Desktop auth card must be centered (expected ~${centerOffset}px, got ${actualLeft}px)`);
-
-        // Academic Jury Modal
-        const juryTrigger = page.locator('#btn-jury-trigger');
-        await juryTrigger.click();
-        const juryModalOpen = await page.locator('#jury-dialog').evaluate(dialog => dialog.open);
-        assert.equal(juryModalOpen, true, 'Academic Jury modal dialog must open');
 
         console.log('  ✓ auth.html is centered, constrained, and has 0 overflow on 375px mobile and 1440px desktop.');
 

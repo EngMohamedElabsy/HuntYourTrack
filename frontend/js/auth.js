@@ -87,51 +87,6 @@ function togglePasswordVisibility(inputId, btn) {
 }
 window.togglePasswordVisibility = togglePasswordVisibility;
 
-function openJuryModal() {
-    const dialog = document.getElementById('jury-dialog');
-    if (dialog) dialog.showModal();
-}
-window.openJuryModal = openJuryModal;
-
-function closeJuryModal() {
-    const dialog = document.getElementById('jury-dialog');
-    if (dialog) dialog.close();
-}
-window.closeJuryModal = closeJuryModal;
-
-function selectJuryPersona(persona) {
-    closeJuryModal();
-    
-
-    if (persona === 'admin') {
-        localStorage.setItem('user', 'admin');
-        localStorage.setItem('role', 'admin');
-        localStorage.setItem('user_email', 'admin@damanhour.edu.eg');
-        localStorage.setItem('user_name', 'Academic Admin');
-        localStorage.setItem('faculty', 'Computers & Artificial Intelligence');
-        showToast('Admin Academic session activated', 'success');
-        setTimeout(() => { window.location.href = 'admin.html'; }, 800);
-    } else if (persona === 'employer') {
-        localStorage.setItem('user', 'employer');
-        localStorage.setItem('role', 'employer');
-        localStorage.setItem('user_email', 'partner@techcorp.eg');
-        localStorage.setItem('user_name', 'TechCorp Organizer');
-        localStorage.setItem('faculty', 'Corporate Partner Hub');
-        showToast('Employer Organizer session activated', 'success');
-        setTimeout(() => { window.location.href = 'index.html#opportunities'; }, 800);
-    } else {
-        localStorage.setItem('user', 'student');
-        localStorage.setItem('role', 'student');
-        localStorage.setItem('user_email', 'student@damanhour.edu.eg');
-        localStorage.setItem('user_name', 'Academic Student');
-        localStorage.setItem('faculty', 'Faculty of Computers & Artificial Intelligence');
-        localStorage.setItem('department', 'Computer Science (CS)');
-        showToast('Student session activated', 'success');
-        setTimeout(() => { window.location.href = 'student.html'; }, 800);
-    }
-}
-window.selectJuryPersona = selectJuryPersona;
-
 function handleLoginSubmit(e) {
     e.preventDefault();
     const email = document.getElementById('login-email').value.trim().toLowerCase();

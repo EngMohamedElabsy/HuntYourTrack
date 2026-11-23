@@ -209,32 +209,6 @@ body.auth-page {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-/* Jury Trigger Strip */
-.jury-access-strip {
-    margin-bottom: 1.25rem;
-}
-
-.btn-jury-trigger {
-    width: 100%;
-    min-height: 38px;
-    background: rgba(99, 102, 241, 0.06);
-    border: 1px dashed var(--color-primary);
-    border-radius: 10px;
-    color: var(--color-primary-dark);
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    transition: all 180ms ease;
-}
-
-.btn-jury-trigger:hover {
-    background: rgba(99, 102, 241, 0.12);
-}
-
 /* Password Input with Show/Hide */
 .password-wrapper {
     position: relative;
