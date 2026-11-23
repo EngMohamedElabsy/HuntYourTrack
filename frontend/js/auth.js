@@ -107,8 +107,14 @@ const KNOWN_REDIRECT_PAGES = new Set([
     'post-internship.html',
     'applicants-review.html',
     'admin.html',
+    'workflow.html',
     'index.html'
 ]);
+const ROLE_ALLOWED_PAGES = {
+    student: new Set(['student.html', 'index.html']),
+    employer: new Set(['employer.html', 'employer-dashboard.html', 'post-internship.html', 'applicants-review.html', 'index.html']),
+    admin: new Set(['admin.html', 'workflow.html', 'student.html', 'employer.html', 'employer-dashboard.html', 'post-internship.html', 'applicants-review.html', 'index.html'])
+};
 let authRequestInFlight = false;
 
 function setAuthStatus(message, state) {
@@ -132,38 +138,49 @@ function validateCredentials(email, password) {
     return '';
 }
 
-function getSafeRedirectTarget(fallback) {
+function getSafeRedirectTarget(fallback, role) {
+    const defaultTarget = fallback || (role && ROLE_REDIRECTS[role]) || ROLE_REDIRECTS.student;
     const target = new URLSearchParams(window.location.search).get('redirect');
-    if (!target) return fallback;
+    if (!target) return defaultTarget;
 
     const trimmed = target.trim();
-    if (!trimmed) return fallback;
-    if (/^[a-z][a-z0-9+.-]*:/i.test(trimmed)) return fallback;
-    if (trimmed.startsWith('//') || trimmed.startsWith('\\\\')) return fallback;
-    if (/[\u0000-\u001f\u007f]/.test(trimmed)) return fallback;
+    if (!trimmed) return defaultTarget;
+    if (/^[a-z][a-z0-9+.-]*:/i.test(trimmed)) return defaultTarget;
+    if (trimmed.startsWith('//') || trimmed.startsWith('\\\\')) return defaultTarget;
+    if (/[\u0000-\u001f\u007f]/.test(trimmed)) return defaultTarget;
 
     try {
         const resolved = new URL(trimmed, window.location.href);
-        if (resolved.origin !== window.location.origin) return fallback;
+        if (resolved.origin !== window.location.origin) return defaultTarget;
 
-        let pathname = resolved.pathname;
+        const pathname = resolved.pathname;
         const fileName = pathname.split('/').pop().toLowerCase();
-        if (!fileName || fileName === 'auth' || fileName === 'auth.html') return fallback;
+        if (!fileName || fileName === 'auth' || fileName === 'auth.html') return defaultTarget;
 
-        if (!fileName.includes('.')) {
-            if (!KNOWN_REDIRECT_PAGES.has(`${fileName}.html`)) return fallback;
-            pathname = `${pathname}.html`;
+        const normalizedName = fileName.endsWith('.html') ? fileName : `${fileName}.html`;
+
+        // Strict destination whitelist enforcement
+        if (!KNOWN_REDIRECT_PAGES.has(normalizedName)) return defaultTarget;
+
+        // Enforce role-based access authorization to avoid cross-role redirect loops
+        const userRole = role && ROLE_ALLOWED_PAGES[role] ? role : 'student';
+        const allowedPages = ROLE_ALLOWED_PAGES[userRole];
+        if (!allowedPages.has(normalizedName)) return defaultTarget;
+
+        // Resolve root landing page path correctly from pages/ subfolder
+        if (normalizedName === 'index.html') {
+            return `../index.html${resolved.search}${resolved.hash}`;
         }
 
-        return `${pathname}${resolved.search}${resolved.hash}`;
+        return `${normalizedName}${resolved.search}${resolved.hash}`;
     } catch (err) {
-        return fallback;
+        return defaultTarget;
     }
 }
 
 function redirectAfterAuth(role) {
     const fallback = ROLE_REDIRECTS[role] || ROLE_REDIRECTS.student;
-    window.location.href = getSafeRedirectTarget(fallback);
+    window.location.href = getSafeRedirectTarget(fallback, role);
 }
 
 async function handleLoginSubmit(e) {

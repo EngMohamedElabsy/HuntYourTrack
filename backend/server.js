@@ -278,13 +278,20 @@ function sendJSON(req, res, statusCode, data, extraHeaders) {
     }
     res.statusCode = statusCode;
     res.setHeader('Content-Type', 'application/json');
+    if (statusCode === 413) {
+        res.setHeader('Connection', 'close');
+    }
     applyCors(req, res);
     if (extraHeaders) {
         for (const [headerName, headerValue] of Object.entries(extraHeaders)) {
             res.setHeader(headerName, headerValue);
         }
     }
-    res.end(JSON.stringify(data));
+    res.end(JSON.stringify(data), () => {
+        if (statusCode === 413 && req.socket && typeof req.socket.destroy === 'function') {
+            req.socket.destroy();
+        }
+    });
 }
 
 function sendAuthJSON(req, res, statusCode, data, extraHeaders) {
@@ -293,6 +300,28 @@ function sendAuthJSON(req, res, statusCode, data, extraHeaders) {
 
 function readJsonBody(req) {
     return new Promise((resolve) => {
+        let settled = false;
+        function finish(result) {
+            if (settled) return;
+            settled = true;
+            resolve(result);
+        }
+
+        const rawContentLength = req.headers['content-length'];
+        if (rawContentLength !== undefined) {
+            const contentLength = Number(rawContentLength);
+            if (!Number.isFinite(contentLength) || contentLength < 0) {
+                if (typeof req.pause === 'function') req.pause();
+                finish({ ok: false, status: 400, error: 'Invalid Content-Length header' });
+                return;
+            }
+            if (contentLength > MAX_BODY_BYTES) {
+                if (typeof req.pause === 'function') req.pause();
+                finish({ ok: false, status: 413, error: 'Request body too large' });
+                return;
+            }
+        }
+
         let totalBytes = 0;
         let tooLarge = false;
         const chunks = [];
@@ -303,64 +332,85 @@ function readJsonBody(req) {
             if (totalBytes > MAX_BODY_BYTES) {
                 tooLarge = true;
                 chunks.length = 0;
+                if (typeof req.pause === 'function') req.pause();
+                finish({ ok: false, status: 413, error: 'Request body too large' });
                 return;
             }
             chunks.push(chunk);
         });
 
         req.on('end', () => {
-            if (tooLarge) {
-                resolve({ ok: false, status: 413, error: 'Request body too large' });
-                return;
-            }
+            if (tooLarge || settled) return;
             const raw = Buffer.concat(chunks).toString('utf8');
             if (!raw.trim()) {
-                resolve({ ok: true, data: {} });
+                finish({ ok: true, data: {} });
                 return;
             }
             try {
                 const data = JSON.parse(raw);
                 if (!data || typeof data !== 'object' || Array.isArray(data)) {
-                    resolve({ ok: false, status: 400, error: 'Invalid JSON payload' });
+                    finish({ ok: false, status: 400, error: 'Invalid JSON payload' });
                     return;
                 }
-                resolve({ ok: true, data });
+                finish({ ok: true, data });
             } catch (err) {
-                resolve({ ok: false, status: 400, error: 'Invalid JSON payload' });
+                finish({ ok: false, status: 400, error: 'Invalid JSON payload' });
             }
         });
 
         req.on('error', () => {
-            resolve({ ok: false, status: 400, error: 'Invalid request body' });
+            if (settled) return;
+            finish({ ok: false, status: 400, error: 'Invalid request body' });
+        });
+
+        req.on('close', () => {
+            if (settled) return;
+            if (!req.complete) {
+                finish({ ok: false, status: 400, error: 'Request connection terminated prematurely' });
+            }
         });
     });
 }
 
 function getClientIp(req) {
-    return (req.socket && req.socket.remoteAddress) || 'unknown';
+    const rawIp = (req.socket && req.socket.remoteAddress) || '127.0.0.1';
+    return rawIp.replace(/^::ffff:/, '');
 }
+
+const MAX_RATE_LIMIT_BUCKETS = 10000;
 
 function pruneRateLimitBuckets(now) {
     for (const [bucketKey, bucket] of rateLimitBuckets) {
         if (bucket.resetAt <= now) rateLimitBuckets.delete(bucketKey);
     }
+    if (rateLimitBuckets.size >= MAX_RATE_LIMIT_BUCKETS) {
+        const excess = rateLimitBuckets.size - MAX_RATE_LIMIT_BUCKETS + 500;
+        let evicted = 0;
+        for (const bucketKey of rateLimitBuckets.keys()) {
+            rateLimitBuckets.delete(bucketKey);
+            evicted += 1;
+            if (evicted >= excess) break;
+        }
+    }
 }
 
-function checkRateLimit(req, scope) {
+function checkRateLimit(req, scope, maxRequests = RATE_LIMIT_MAX_REQUESTS, windowMs = RATE_LIMIT_WINDOW_MS) {
     const now = Date.now();
     rateLimitChecks += 1;
-    if (rateLimitChecks % 200 === 0) pruneRateLimitBuckets(now);
+    if (rateLimitChecks % 100 === 0 || rateLimitBuckets.size >= MAX_RATE_LIMIT_BUCKETS) {
+        pruneRateLimitBuckets(now);
+    }
 
     const bucketKey = `${getClientIp(req)}|${scope}`;
     const bucket = rateLimitBuckets.get(bucketKey);
 
     if (!bucket || bucket.resetAt <= now) {
-        rateLimitBuckets.set(bucketKey, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+        rateLimitBuckets.set(bucketKey, { count: 1, resetAt: now + windowMs });
         return { allowed: true };
     }
 
     bucket.count += 1;
-    if (bucket.count > RATE_LIMIT_MAX_REQUESTS) {
+    if (bucket.count > maxRequests) {
         return {
             allowed: false,
             retryAfterSeconds: Math.max(1, Math.ceil((bucket.resetAt - now) / 1000))
@@ -376,7 +426,7 @@ function rateLimitResponse(req, res, retryAfterSeconds) {
 }
 
 async function handleRegister(req, res) {
-    const rateResult = checkRateLimit(req, 'register');
+    const rateResult = checkRateLimit(req, 'register', RATE_LIMIT_MAX_REQUESTS);
     if (!rateResult.allowed) {
         rateLimitResponse(req, res, rateResult.retryAfterSeconds);
         return;
@@ -392,8 +442,23 @@ async function handleRegister(req, res) {
     const name = typeof body.name === 'string' ? body.name.trim() : '';
     const email = typeof body.email === 'string' ? normalizeEmail(body.email) : '';
     const password = typeof body.password === 'string' ? body.password : '';
-    const requestedRole = body.role;
-    const role = requestedRole === 'employer' ? 'employer' : 'student';
+
+    if (body.role !== undefined && typeof body.role !== 'string') {
+        sendAuthJSON(req, res, 400, { error: 'Invalid role specified.' });
+        return;
+    }
+    const rawRole = typeof body.role === 'string' ? body.role.trim().toLowerCase() : '';
+
+    if (rawRole === 'admin') {
+        sendAuthJSON(req, res, 400, { error: 'Admin accounts cannot be self-registered.' });
+        return;
+    }
+    if (rawRole && rawRole !== 'student' && rawRole !== 'employer') {
+        sendAuthJSON(req, res, 400, { error: 'Invalid role specified.' });
+        return;
+    }
+    const role = rawRole === 'employer' ? 'employer' : 'student';
+
     const faculty = typeof body.faculty === 'string' && body.faculty.trim()
         ? body.faculty.trim().slice(0, 80)
         : 'computers-ai';
@@ -478,6 +543,12 @@ async function handleLogin(req, res) {
 }
 
 function handleMe(req, res) {
+    const rateResult = checkRateLimit(req, 'me', 120);
+    if (!rateResult.allowed) {
+        rateLimitResponse(req, res, rateResult.retryAfterSeconds);
+        return;
+    }
+
     const authHeader = req.headers.authorization || '';
     const headerMatch = /^Bearer\s+(.+)$/i.exec(authHeader);
     if (!headerMatch) {
@@ -571,6 +642,12 @@ async function handleRequest(req, res) {
     }
 
     if (pathname === '/api/v1/cv/parse-keywords' && req.method === 'POST') {
+        const rateResult = checkRateLimit(req, 'cv', 30);
+        if (!rateResult.allowed) {
+            rateLimitResponse(req, res, rateResult.retryAfterSeconds);
+            return;
+        }
+
         const bodyResult = await readJsonBody(req);
         if (!bodyResult.ok) {
             sendJSON(req, res, bodyResult.status, { error: bodyResult.error });

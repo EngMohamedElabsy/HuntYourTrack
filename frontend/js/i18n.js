@@ -562,8 +562,22 @@ window.setAppThemeMode = function(mode) {
 window.hytSignOut = function(e) {
   if (e && e.preventDefault) e.preventDefault();
   const savedTheme = localStorage.getItem("hyt_theme") || "dark";
+  const savedLang = localStorage.getItem("hyt_lang") || "en";
 
-  // Clear all user credentials and session variables
+  // Clear authentication token from sessionStorage and API client
+  if (window.HYT_API && typeof window.HYT_API.logout === "function") {
+    window.HYT_API.logout();
+  }
+  try {
+    window.sessionStorage.removeItem("hyt_token");
+    window.sessionStorage.removeItem("hyt_student_faculty");
+    window.sessionStorage.removeItem("hyt_student_dept");
+  } catch (err) {
+    // sessionStorage might be restricted in some environments
+  }
+  window.HYT_SESSION = null;
+
+  // Clear all legacy user credentials and session variables
   localStorage.removeItem("user");
   localStorage.removeItem("role");
   localStorage.removeItem("user_role");
@@ -575,8 +589,8 @@ window.hytSignOut = function(e) {
   localStorage.removeItem("hyt_auth");
   localStorage.removeItem("hyt_user");
 
-  // Preserve language and visual theme preferences
-  localStorage.setItem("hyt_lang", "en");
+  // Strictly preserve language and visual theme preferences
+  localStorage.setItem("hyt_lang", savedLang);
   localStorage.setItem("hyt_theme", savedTheme);
 
   const isInPages = window.location.pathname.includes("/pages/");

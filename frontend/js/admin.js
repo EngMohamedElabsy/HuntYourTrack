@@ -77,10 +77,18 @@ function handleAdminLogout(event) {
         window.hytSignOut(event);
     } else {
         if (event) event.preventDefault();
-        localStorage.removeItem('user');
-        localStorage.removeItem('role');
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('user_email');
+        if (window.HYT_API && typeof window.HYT_API.logout === 'function') {
+            window.HYT_API.logout();
+        }
+        try {
+            window.sessionStorage.removeItem('hyt_token');
+        } catch (err) {}
+        window.HYT_SESSION = null;
+        const savedTheme = localStorage.getItem('hyt_theme') || 'dark';
+        const savedLang = localStorage.getItem('hyt_lang') || 'en';
+        ['user', 'role', 'user_role', 'user_name', 'user_email', 'faculty', 'department', 'auth_token', 'hyt_auth', 'hyt_user'].forEach((k) => localStorage.removeItem(k));
+        localStorage.setItem('hyt_theme', savedTheme);
+        localStorage.setItem('hyt_lang', savedLang);
         window.location.href = 'auth.html';
     }
 }

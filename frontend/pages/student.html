@@ -509,6 +509,7 @@
  currentStudent = user || null;
  renderStudentIdentity();
  updateStudentLabels();
+ restoreStudentFacultySelection();
  }
 
  function renderStudentIdentity() {
@@ -584,10 +585,31 @@
  function saveStudentFacultySelection() {
  const fac = document.getElementById('student-faculty-select').value;
  const dept = document.getElementById('student-dept-select').value;
- localStorage.setItem('faculty', fac);
- localStorage.setItem('department', dept);
- const isEn = document.documentElement.lang === 'en';
+ try {
+     sessionStorage.setItem('hyt_student_faculty', fac);
+     sessionStorage.setItem('hyt_student_dept', dept);
+ } catch (err) {}
  showStudentToast("Academic specialization updated successfully! Compatible tracks aligned", "success");
+ }
+
+ function restoreStudentFacultySelection() {
+ let savedFac, savedDept;
+ try {
+     savedFac = sessionStorage.getItem('hyt_student_faculty');
+     savedDept = sessionStorage.getItem('hyt_student_dept');
+ } catch (err) {}
+ if (!savedFac && currentStudent && currentStudent.faculty) {
+     savedFac = currentStudent.faculty;
+ }
+ const facSelect = document.getElementById('student-faculty-select');
+ if (facSelect && savedFac && facSelect.querySelector('option[value="' + savedFac + '"]')) {
+     facSelect.value = savedFac;
+     onStudentFacultyChange(savedFac);
+     const deptSelect = document.getElementById('student-dept-select');
+     if (deptSelect && savedDept && deptSelect.querySelector('option[value="' + savedDept + '"]')) {
+         deptSelect.value = savedDept;
+     }
+ }
  }
 
  function simulateCvUpload() {
@@ -614,7 +636,20 @@
  if (window.hytSignOut) {
  window.hytSignOut(e);
  } else {
- localStorage.clear();
+ if (window.HYT_API && typeof window.HYT_API.logout === 'function') {
+     window.HYT_API.logout();
+ }
+ try {
+     sessionStorage.removeItem('hyt_token');
+     sessionStorage.removeItem('hyt_student_faculty');
+     sessionStorage.removeItem('hyt_student_dept');
+ } catch (err) {}
+ window.HYT_SESSION = null;
+ const savedTheme = localStorage.getItem('hyt_theme') || 'dark';
+ const savedLang = localStorage.getItem('hyt_lang') || 'en';
+ ['user', 'role', 'user_role', 'user_name', 'user_email', 'faculty', 'department', 'auth_token', 'hyt_auth', 'hyt_user'].forEach((k) => localStorage.removeItem(k));
+ localStorage.setItem('hyt_theme', savedTheme);
+ localStorage.setItem('hyt_lang', savedLang);
  window.location.href = 'auth.html';
  }
  }

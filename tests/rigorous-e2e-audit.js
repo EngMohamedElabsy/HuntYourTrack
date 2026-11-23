@@ -69,6 +69,29 @@ async function runAudit() {
         await page.route('https://fonts.googleapis.com/**', (route) => route.abort());
         await page.route('https://fonts.gstatic.com/**', (route) => route.abort());
 
+        let activeAuditRole = 'guest';
+        await page.route('**/api/v1/auth/me', (route) => {
+            if (activeAuditRole === 'student') {
+                route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({
+                        user: { id: 1, email: 'student@damanhour.edu.eg', name: 'Student Test', role: 'student' }
+                    })
+                });
+            } else if (activeAuditRole === 'admin') {
+                route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({
+                        user: { id: 99, email: 'elabsy@damanhour.edu.eg', name: 'Academic Admin', role: 'admin' }
+                    })
+                });
+            } else {
+                route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ error: 'Authentication required' }) });
+            }
+        });
+
         await page.goto(`${baseUrl}/index.html`);
         await page.waitForTimeout(200);
 
@@ -124,7 +147,9 @@ async function runAudit() {
         console.log('  ✓ Guest view is completely isolated from admin and developer tools.');
 
         // 2b. Student view leak test
+        activeAuditRole = 'student';
         await page.evaluate(() => {
+            sessionStorage.setItem('hyt_token', 'test-student-token');
             localStorage.setItem('user', 'student');
             localStorage.setItem('role', 'student');
             localStorage.setItem('user_email', 'student@damanhour.edu.eg');
@@ -203,8 +228,12 @@ async function runAudit() {
         // AUDIT 4: Route Guarding Effectiveness (Immediate Hard Redirection)
         // -------------------------------------------------------------------------------------------------
         console.log('\n--- [4/5] Testing Route Guarding Effectiveness ---');
+        activeAuditRole = 'guest';
         // Clear all session storage & cookies
-        await page.evaluate(() => localStorage.clear());
+        await page.evaluate(() => {
+            try { sessionStorage.clear(); } catch(e) {}
+            localStorage.clear();
+        });
 
         // 4a. Direct URL injection test on admin.html
         await page.goto(`${baseUrl}/admin.html`);
@@ -217,13 +246,24 @@ async function runAudit() {
         assert.ok(page.url().includes('auth.html?redirect=student'), 'Direct access to student.html without auth must redirect immediately to auth.html');
 
         // 4c. Non-admin student trying to access admin.html
+        activeAuditRole = 'student';
         await page.evaluate(() => {
+            sessionStorage.setItem('hyt_token', 'test-student-token');
             localStorage.setItem('user', 'student');
             localStorage.setItem('role', 'student');
         });
         await page.goto(`${baseUrl}/admin.html`);
         await page.waitForURL(/auth\.html/);
         assert.ok(page.url().includes('auth.html?redirect=admin'), 'Student role attempting direct URL access to admin.html must be redirected instantly');
+
+        // 4d. Direct URL injection test on workflow.html
+        activeAuditRole = 'guest';
+        await page.evaluate(() => {
+            try { sessionStorage.clear(); } catch(e) {}
+        });
+        await page.goto(`${baseUrl}/workflow.html`);
+        await page.waitForURL(/auth\.html/);
+        assert.ok(page.url().includes('auth.html?redirect=workflow'), 'Direct access to workflow.html without auth must redirect immediately to auth.html');
         console.log('  ✓ Strict JavaScript route guards in <head> block unauthorized access before DOM painting.');
 
         // -------------------------------------------------------------------------------------------------
@@ -300,7 +340,10 @@ async function runAudit() {
         // AUDIT 7: Sign-Out Language & Theme Preference Persistence
         // -------------------------------------------------------------------------------------------------
         console.log('\n--- [7/8] Testing Sign-Out Language & Theme Persistence ---');
+        activeAuditRole = 'student';
+        await page.goto(`${baseUrl}/index.html`);
         await page.evaluate(() => {
+            sessionStorage.setItem('hyt_token', 'test-student-token');
             localStorage.setItem('user_role', 'student');
             localStorage.setItem('user_name', 'Student Test');
             localStorage.setItem('user_email', 'student@damanhour.edu.eg');
@@ -319,9 +362,11 @@ async function runAudit() {
         const postLogoutLang = await page.evaluate(() => localStorage.getItem('hyt_lang'));
         const postLogoutTheme = await page.evaluate(() => localStorage.getItem('hyt_theme'));
         const postLogoutRole = await page.evaluate(() => localStorage.getItem('user_role'));
+        const postLogoutToken = await page.evaluate(() => sessionStorage.getItem('hyt_token'));
         assert.equal(postLogoutLang, 'en', 'User selected language (en) must be preserved upon sign out');
         assert.equal(postLogoutTheme, 'nebula', 'User selected theme (nebula) must be preserved upon sign out');
         assert.equal(postLogoutRole, null, 'User role session variable must be wiped');
+        assert.equal(postLogoutToken, null, 'Session token must be wiped from sessionStorage upon sign out');
         console.log('  ✓ Signing out clears session credentials while preserving user language and theme preferences.');
 
         // -------------------------------------------------------------------------------------------------

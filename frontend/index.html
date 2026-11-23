@@ -816,12 +816,25 @@
         window.toggleUserDropdown = toggleUserDropdown;
 
         function hytSignOut(e) {
-            if (window.hytI18n && window.hytSignOut) {
+            if (window.hytSignOut && window.hytSignOut !== hytSignOut) {
                 window.hytSignOut(e);
-            } else {
-                localStorage.clear();
-                window.location.reload();
+                return;
             }
+            if (window.HYT_API && typeof window.HYT_API.logout === 'function') {
+                window.HYT_API.logout();
+            }
+            try {
+                window.sessionStorage.removeItem('hyt_token');
+                window.sessionStorage.removeItem('hyt_student_faculty');
+                window.sessionStorage.removeItem('hyt_student_dept');
+            } catch (err) {}
+            window.HYT_SESSION = null;
+            const savedTheme = localStorage.getItem('hyt_theme') || 'dark';
+            const savedLang = localStorage.getItem('hyt_lang') || 'en';
+            ['user', 'role', 'user_role', 'user_name', 'user_email', 'faculty', 'department', 'auth_token', 'hyt_auth', 'hyt_user'].forEach((k) => localStorage.removeItem(k));
+            localStorage.setItem('hyt_theme', savedTheme);
+            localStorage.setItem('hyt_lang', savedLang);
+            window.location.reload();
         }
         window.hytSignOut = hytSignOut;
 

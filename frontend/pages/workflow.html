@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ <!-- Shared API + Server-Verified Route Guard (US35) -->
+ <script src="../js/api.js"></script>
+ <script src="../js/guard.js" data-allowed-roles="admin"></script>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>HuntYourTrack · System Architecture & Connected Workflow Graph</title>
@@ -35,7 +38,10 @@
  <div class="admin-profile">
  <div class="avatar" style="background: #6366F1; color: white;">️</div>
  <span style="color: #E2E8F0;">Lead Academic Admin</span>
- <a href="auth.html" title="Sign Out" style="color: #94A3B8; text-decoration: none; margin-left: 0.5rem;"></a>
+ <button type="button" id="workflow-logout-btn" title="Sign Out" onclick="handleWorkflowLogout(event)" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; border-radius: 6px;">
+ <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+ <span>Sign Out</span>
+ </button>
  </div>
 
  <!-- Mobile Hamburger Toggle -->
@@ -555,6 +561,24 @@
  }, 3500);
  }
  window.showWorkflowToast = showWorkflowToast;
+
+ function handleWorkflowLogout(e) {
+ if (e && e.preventDefault) e.preventDefault();
+ if (window.HYT_API && typeof window.HYT_API.logout === 'function') {
+ window.HYT_API.logout();
+ }
+ try {
+ sessionStorage.removeItem('hyt_token');
+ } catch (err) {}
+ window.HYT_SESSION = null;
+ const savedTheme = localStorage.getItem('hyt_theme') || 'dark';
+ const savedLang = localStorage.getItem('hyt_lang') || 'en';
+ ['user', 'role', 'user_role', 'user_name', 'user_email', 'faculty', 'department', 'auth_token', 'hyt_auth', 'hyt_user'].forEach((k) => localStorage.removeItem(k));
+ localStorage.setItem('hyt_theme', savedTheme);
+ localStorage.setItem('hyt_lang', savedLang);
+ window.location.href = 'auth.html';
+ }
+ window.handleWorkflowLogout = handleWorkflowLogout;
  </script>
 </body>
 </html>
