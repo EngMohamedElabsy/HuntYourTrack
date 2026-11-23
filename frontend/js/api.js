@@ -1,7 +1,7 @@
 /**
- * HuntYourTrack — Client API Layer
- * Provides unified interface for fetching courses, roadmaps, and parsing CV keywords.
- * Works seamlessly with backend server (`http://localhost:3000`) and falls back gracefully
+ * HuntYourTrack — Client API Layer (v2.1 Modular Architecture)
+ * Provides unified interface for fetching courses, roadmaps, opportunities, and parsing CV keywords.
+ * Works seamlessly with modular backend server (`http://localhost:3000`) and falls back gracefully
  * to local catalog data for GitHub Pages / offline usage.
  */
 
@@ -149,6 +149,25 @@
                 return FALLBACK_COURSES.filter(c => c.track === track);
             }
             return FALLBACK_COURSES;
+        },
+
+        /**
+         * Fetch opportunities with optional discipline filter
+         * @param {string} [discipline]
+         * @returns {Promise<Array>}
+         */
+        async getOpportunities(discipline) {
+            try {
+                const query = discipline ? `?discipline=${encodeURIComponent(discipline)}` : '';
+                const res = await fetch(`${API_BASE_URL}/opportunities${query}`, { method: 'GET' });
+                if (res.ok) {
+                    const data = await res.json();
+                    return data.opportunities || [];
+                }
+            } catch (e) {
+                // Silently fall back
+            }
+            return (window.DEFAULT_OPPORTUNITIES || []);
         },
 
         /**

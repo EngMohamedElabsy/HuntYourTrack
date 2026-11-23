@@ -1,0 +1,37 @@
+{
+  "ai-deeplearning": [
+    "python", "pytorch", "tensorflow", "keras", "scikit-learn", "machine learning",
+    "deep learning", "cnn", "yolo", "transformer", "nlp", "pandas", "numpy",
+    "opencv", "huggingface", "neural networks", "llm", "langchain", "prompt engineering"
+  ],
+  "fullstack-web": [
+    "javascript", "typescript", "react", "vue", "node.js", "express", "mongodb",
+    "postgresql", "mysql", "html5", "css3", "tailwind", "rest api", "graphql", "redis",
+    "next.js", "state management", "jwt", "prisma", "docker"
+  ],
+  "cloud-devops": [
+    "docker", "kubernetes", "terraform", "aws", "gcp", "azure", "ci/cd",
+    "github actions", "ansible", "linux", "bash", "nginx", "prometheus", "grafana",
+    "helm", "cloudformation", "microservices", "iac"
+  ],
+  "cybersecurity": [
+    "wireshark", "nmap", "metasploit", "siem", "splunk", "burp suite", "owasp",
+    "penetration testing", "soc", "linux hardening", "cryptography", "tcp/ip",
+    "incident response", "malware", "vulnerability assessment", "threat modeling"
+  ],
+  "engineering-cad": [
+    "autocad", "solidworks", "matlab", "ansys", "catia", "thermodynamics",
+    "fluid mechanics", "finite element analysis", "plc", "scada", "embedded c",
+    "microcontrollers", "robotics", "circuit design"
+  ],
+  "business-finance": [
+    "financial modeling", "dcf valuation", "corporate finance", "accounting",
+    "advanced excel", "power bi", "tableau", "investment banking", "portfolio management",
+    "risk assessment", "equity research", "ifrs"
+  ],
+  "law-corporate": [
+    "commercial arbitration", "intellectual property", "contract law",
+    "corporate compliance", "mergers and acquisitions", "due diligence",
+    "international trade law", "legal drafting", "litigation", "gdpr"
+  ]
+}
