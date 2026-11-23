@@ -56,46 +56,21 @@ let searchQuery = '';
 let currentRejectEmployerId = null;
 
 /**
- * Role Authorization Guard (US14)
- * Restricts access to administrative console for non-admin accounts
+ * Render the authenticated administrator identity from the guarded session.
  */
-function enforceAdminAuthorization() {
-    const user = localStorage.getItem('user');
-    const role = localStorage.getItem('role');
-    const isAdmin = (user === 'admin' || role === 'admin');
+function applyAdminIdentity(session) {
+    if (!session) return;
+    const label = session.name && session.email
+        ? `${session.name} (${session.email})`
+        : (session.name || session.email || 'Administrator');
 
-    const barrier = document.getElementById('admin-guard-barrier');
-    const mainContainer = document.querySelector('.admin-container');
+    const userDisplay = document.getElementById('admin-user-display');
+    if (userDisplay) userDisplay.textContent = label;
 
-    if (!isAdmin) {
-        if (barrier) {
-            barrier.style.display = 'flex';
-        }
-        if (mainContainer) {
-            mainContainer.setAttribute('aria-hidden', 'true');
-            mainContainer.style.filter = 'blur(6px)';
-            mainContainer.style.pointerEvents = 'none';
-        }
-        return false;
-    } else {
-        if (barrier) {
-            barrier.style.display = 'none';
-        }
-        if (mainContainer) {
-            mainContainer.removeAttribute('aria-hidden');
-            mainContainer.style.filter = 'none';
-            mainContainer.style.pointerEvents = 'auto';
-        }
-        const userEmail = localStorage.getItem('user_email');
-        const userDisplay = document.getElementById('admin-user-display');
-        if (userDisplay && userEmail) {
-            const userName = localStorage.getItem('user_name') || 'Academic Admin';
-            userDisplay.textContent = `${userName} (${userEmail})`;
-        }
-        return true;
-    }
+    const mobileDisplay = document.getElementById('mobile-admin-user-display');
+    if (mobileDisplay) mobileDisplay.textContent = label;
 }
-window.enforceAdminAuthorization = enforceAdminAuthorization;
+window.applyAdminIdentity = applyAdminIdentity;
 
 function handleAdminLogout(event) {
     if (window.hytSignOut) {
@@ -111,15 +86,17 @@ function handleAdminLogout(event) {
 }
 window.handleAdminLogout = handleAdminLogout;
 
-// Initialize
+// Initialize after the shared route guard confirms an admin session.
 document.addEventListener('DOMContentLoaded', () => {
-    const isAuthorized = enforceAdminAuthorization();
-    if (isAuthorized) {
+    const ready = window.HYT_AUTH_READY || Promise.resolve(window.HYT_SESSION || null);
+    ready.then((session) => {
+        if (!session) return;
+        applyAdminIdentity(session);
         renderKPIs();
         renderUsersTable();
         renderVerificationQueue();
         setupEventListeners();
-    }
+    });
 });
 
 // Setup Listeners

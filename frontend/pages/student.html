@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-theme="light">
 <head>
- <!-- Immediate Strict Route Guard (US17) -->
- <script>
- (function() {
- var user = localStorage.getItem('user');
- if (!user) {
- window.location.replace('auth.html?redirect=student&error=login_required');
- }
- })();
- </script>
+ <!-- Shared API + Server-Verified Route Guard (US35) -->
+ <script src="../js/api.js"></script>
+ <script src="../js/guard.js" data-allowed-roles="student"></script>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta name="theme-color" content="#EEF2FF">
@@ -505,19 +499,35 @@
 
  <!-- Scripts -->
  <script src="../js/i18n.js"></script>
- <script src="../js/api.js"></script>
  <script src="../js/opportunities.js"></script>
  <script src="../js/ocean-background.js"></script>
  <script>
- // Load student session data
- const userEmail = localStorage.getItem('user_email') || 'student@damanhour.edu.eg';
- const userName = localStorage.getItem('user_name') || userEmail.split('@')[0];
- const userFaculty = localStorage.getItem('faculty') || 'computers';
- const userDept = localStorage.getItem('department') || 'cs';
+ // Server-verified student session and localized faculty data
+ let currentStudent = null;
 
- document.getElementById('user-display').textContent = userName;
- document.getElementById('mobile-user-display').textContent = userName;
- // Faculty department mapping with full bilingual support
+ function applyStudentSession(user) {
+ currentStudent = user || null;
+ renderStudentIdentity();
+ updateStudentLabels();
+ }
+
+ function renderStudentIdentity() {
+ const displayName = currentStudent
+ ? (currentStudent.name || currentStudent.email || 'Student')
+ : 'Student';
+ const userDisplay = document.getElementById('user-display');
+ const mobileDisplay = document.getElementById('mobile-user-display');
+ if (userDisplay) {
+ userDisplay.removeAttribute('data-i18n');
+ userDisplay.textContent = displayName;
+ }
+ if (mobileDisplay) {
+ mobileDisplay.removeAttribute('data-i18n');
+ mobileDisplay.textContent = displayName;
+ }
+ }
+
+ // Faculty department mapping
      const FACULTY_DEPTS = {
         computers: [
             { val: "cs", label: "Computer Science (CS)" },
@@ -543,25 +553,33 @@
     };
 
  function updateStudentLabels() {
- const isEn = document.documentElement.lang === 'en';
  const welcomeHeading = document.getElementById('welcome-heading');
+ const displayName = currentStudent
+ ? (currentStudent.name || currentStudent.email || 'Student')
+ : 'Student';
  if (welcomeHeading) {
- welcomeHeading.textContent = "Welcome back, " + userName + "!";
+ welcomeHeading.removeAttribute('data-i18n');
+ welcomeHeading.textContent = "Welcome back, " + displayName + "!";
  }
- const currentFac = document.getElementById('student-faculty-select').value;
- onStudentFacultyChange(currentFac);
+ renderStudentIdentity();
+ const facSelect = document.getElementById('student-faculty-select');
+ if (facSelect) onStudentFacultyChange(facSelect.value);
  }
 
  function onStudentFacultyChange(fac) {
  const deptSelect = document.getElementById('student-dept-select');
  const depts = FACULTY_DEPTS[fac] || FACULTY_DEPTS.computers;
- const isArabic = document.documentElement.lang === 'ar';
  const currentVal = deptSelect.value;
  deptSelect.innerHTML = depts.map(d => '<option value="' + d.val + '" ' + (d.val === currentVal ? "selected" : "") + ">" + d.label + "</option>").join("");
  }
 
  updateStudentLabels();
  window.addEventListener('hyt:langChanged', updateStudentLabels);
+ if (window.HYT_AUTH_READY) {
+ window.HYT_AUTH_READY.then(applyStudentSession);
+ } else {
+ document.addEventListener('hyt:session-ready', (event) => applyStudentSession(event.detail));
+ }
 
  function saveStudentFacultySelection() {
  const fac = document.getElementById('student-faculty-select').value;

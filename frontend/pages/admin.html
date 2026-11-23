@@ -1,16 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <!-- Immediate Strict Route Guard (US17) -->
- <script>
- (function() {
- var user = localStorage.getItem('user');
- var role = localStorage.getItem('role');
- if (user !== 'admin' && role !== 'admin') {
- window.location.replace('auth.html?redirect=admin&error=unauthorized');
- }
- })();
- </script>
+ <!-- Shared API + Server-Verified Route Guard (US35) -->
+ <script src="../js/api.js"></script>
+ <script src="../js/guard.js" data-allowed-roles="admin"></script>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>HuntYourTrack · Admin Control Panel & Verification Hub</title>
@@ -94,7 +87,7 @@
  
  <div class="admin-profile">
  <div class="avatar" style="background: rgba(99, 102, 241, 0.2); color: var(--color-foreground); border: 1px solid rgba(99, 102, 241, 0.4);">🛡️</div>
- <span id="admin-user-display" style="font-weight: 600; font-size: 0.85rem;">Academic Admin</span>
+ <span id="admin-user-display" style="font-weight: 600; font-size: 0.85rem;"></span>
  <button type="button" id="admin-logout-btn" title="Sign Out" onclick="handleAdminLogout(event)" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.35rem;">
      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
      <span data-i18n="navSignOut">Sign Out</span>
@@ -112,7 +105,7 @@
  <div class="mobile-drawer" id="admin-mobile-drawer">
  <div style="padding-bottom: 0.75rem; border-bottom: 1px solid #E2E8F0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
  <div class="avatar">️</div>
- <span style="font-weight: 600; font-size: 0.9rem;">Lead Academic Admin</span>
+ <span id="mobile-admin-user-display" style="font-weight: 600; font-size: 0.9rem;"></span>
  </div>
  <a href="../index.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> Product Landing</a>
  <a href="student.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> Student Career Hub</a>
@@ -121,26 +114,6 @@
  <a href="components.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> UI Component Kit</a>
  <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #E2E8F0;">
  <button onclick="handleAdminLogout(event)" class="btn btn-secondary" style="width: 100%;">Sign Out</button>
- </div>
- </div>
-
- <!-- Role Authorization Guard Barrier (US14) -->
- <div id="admin-guard-barrier" class="admin-guard-overlay" style="display: none;" role="alertdialog" aria-modal="true" aria-labelledby="guard-title">
- <div class="guard-card">
- <div class="guard-icon">️</div>
- <span class="guard-badge">Security Access Guard</span>
- <h2 id="guard-title">Administrative Authorization Required</h2>
- <p class="guard-desc">
- Access to the Executive Control Center is restricted to authenticated Faculty Administrators of Damanhour University.
- Your current session does not possess administrative clearance.
- </p>
- <div class="guard-actions">
- <a href="auth.html" class="btn btn-primary"> Authenticate as Administrator</a>
- <a href="../index.html" class="btn btn-secondary">← Back to Product Home</a>
- </div>
- <div class="guard-footer">
- <span>HuntYourTrack Security Engine · Role-Based Access Control (RBAC)</span>
- </div>
  </div>
  </div>
 

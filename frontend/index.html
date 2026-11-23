@@ -587,7 +587,7 @@
                 <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-foreground);" data-i18n="empHeading">Are You an Employer Seeking Top Engineering Talent?</h2>
                 <p style="font-size: 1rem; color: var(--color-muted-foreground); line-height: 1.6; margin-bottom: 2rem;" data-i18n="empSub">Partner with Damanhour University to publish summer internships and certified training tracks. Receive pre-screened, skills-matched applicant profiles.</p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="pages/employer.html?demo=true" class="btn btn-primary" style="padding: 0.85rem 1.75rem;" data-i18n="empDashboardBtn">Employer / Partner Portal</a>
+                    <a href="pages/employer.html" class="btn btn-primary" style="padding: 0.85rem 1.75rem;" data-i18n="empDashboardBtn">Employer / Partner Portal</a>
                     <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="padding: 0.85rem 1.75rem;" data-i18n="empPostBtn">Post Internship Now</button>
                     <a href="pages/auth.html" class="btn btn-secondary" style="padding: 0.85rem 1.75rem;" data-i18n="empRegisterBtn">Register Corporate Account →</a>
                 </div>
@@ -837,61 +837,73 @@
             }
         });
 
-        // Adjust navbar buttons based on active session
-        function updateNavSession() {
-            const userRole = localStorage.getItem('user');
-            const userEmail = localStorage.getItem('user_email');
-            const isEn = (document.documentElement.lang === 'en');
-            let storedName = localStorage.getItem("user_name");
-            if (!storedName || storedName === "User" || storedName === "Student Account") {
-                storedName = userEmail ? userEmail.split("@")[0] : "Student Account";
+        // Adjust navbar buttons based on the server-verified session
+        function escapeNavHtml(value) {
+            return String(value == null ? '' : value).replace(/[&<>"']/g, (character) => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[character]));
+        }
+
+        async function getNavSessionUser() {
+            if (!window.HYT_API || typeof window.HYT_API.me !== 'function' || !window.HYT_API.getToken()) {
+                return null;
             }
-            const userName = storedName || (userEmail ? userEmail.split("@")[0] : "Student Account");
+            try {
+                return await window.HYT_API.me();
+            } catch (err) {
+                return null;
+            }
+        }
+
+        async function updateNavSession() {
+            const session = await getNavSessionUser();
+            window.HYT_SESSION = session;
+
             const navActions = document.getElementById('nav-auth-actions');
             const mobileAuthActions = document.getElementById('mobile-auth-actions');
+            const portalConfig = {
+                student: { target: 'pages/student.html', label: 'Student Portal', badge: 'Student' },
+                employer: { target: 'pages/employer.html', label: 'Employer Portal', badge: 'Partner' },
+                admin: { target: 'pages/admin.html', label: 'Admin Console', badge: 'Admin' }
+            };
+            const role = session && session.role ? String(session.role).toLowerCase() : '';
+            const config = portalConfig[role];
 
-            if (userRole) {
-                let portalTarget = 'pages/student.html';
-                let portalLabel = "Student Portal";
-            let roleBadge = "Student";
-
-                if (userRole === 'admin') {
-                    portalTarget = 'pages/admin.html';
-                    portalLabel = "Admin Console";
-                roleBadge = "Admin";
-                } else if (userRole === 'employer') {
-                    portalTarget = 'pages/employer.html';
-                    portalLabel = "Employer Portal";
-                roleBadge = "Partner";
-                }
-
-                let displayName = roleBadge;
-                if (storedName && !["Student Account", "User", "Academic Student"].includes(storedName)) {
-                    displayName = storedName.split(' ')[0];
-                }
-
+            if (session && config) {
+                const fullName = session.name || session.email || config.badge;
+                const displayName = session.name
+                    ? session.name.split(' ')[0]
+                    : (session.email ? session.email.split('@')[0] : config.badge);
+                const email = session.email || '';
+                const safeDisplayName = escapeNavHtml(displayName);
+                const safeFullName = escapeNavHtml(fullName);
+                const safeEmail = escapeNavHtml(email);
                 const signOutLabel = "Sign Out";
                 const sessionHtml = `
                     <div class="user-profile-menu-wrapper" id="user-profile-menu-wrapper">
                         <button class="nav-user-pill" type="button" onclick="toggleUserDropdown(event)" aria-label="User Menu">
                             <span class="user-avatar-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-                            <span class="user-name-text">${displayName}</span>
+                            <span class="user-name-text">${safeDisplayName}</span>
                             <span class="dropdown-caret">▾</span>
                         </button>
                         <div class="user-menu-dropdown" id="user-menu-dropdown">
                             <div class="user-dropdown-header">
-                                <strong>${userName}</strong>
-                                <span class="user-role-badge">${roleBadge}</span>
-                                <small>${userEmail || ''}</small>
+                                <strong>${safeFullName}</strong>
+                                <span class="user-role-badge">${config.badge}</span>
+                                <small>${safeEmail}</small>
                             </div>
-                            <a href="${portalTarget}" class="user-dropdown-item">${portalLabel}</a>
+                            <a href="${config.target}" class="user-dropdown-item">${config.label}</a>
                             <button type="button" class="user-dropdown-item signout-item" onclick="hytSignOut()">${signOutLabel}</button>
                         </div>
                     </div>
                 `;
 
                 const mobileSessionHtml = `
-                    <a href="${portalTarget}" class="btn btn-primary" style="width: 100%;">${portalLabel}</a>
+                    <a href="${config.target}" class="btn btn-primary" style="width: 100%;">${config.label}</a>
                     <button onclick="hytSignOut()" class="btn btn-secondary" style="width: 100%;">${signOutLabel}</button>
                 `;
 
@@ -1073,12 +1085,19 @@
             if (mobileDrawer) mobileDrawer.classList.remove('open');
         }
 
-        // Modal Publish Opportunity Handlers with Employer Role Guard
-        function openPublishOpportunityModal() {
-            const role = localStorage.getItem('role') || localStorage.getItem('user_role');
-            const user = localStorage.getItem('user');
-            const isEmployer = (role === 'employer' || user === 'employer');
-            if (!isEmployer) {
+        // Modal Publish Opportunity Handlers with Server-Verified Employer Role Guard
+        async function openPublishOpportunityModal() {
+            let session = window.HYT_SESSION;
+            if (!session && window.HYT_API && window.HYT_API.getToken()) {
+                try {
+                    session = await window.HYT_API.me();
+                    window.HYT_SESSION = session;
+                } catch (err) {
+                    session = null;
+                }
+            }
+            const role = session && session.role ? String(session.role).toLowerCase() : '';
+            if (role !== 'employer') {
                 if (window.showToast) {
                     window.showToast(
                         'Publishing opportunities is reserved for verified partner organizers. Redirecting to employer sign in...',
@@ -1086,7 +1105,7 @@
                     );
                 }
                 setTimeout(() => {
-                    window.location.href = 'pages/auth.html?role=employer';
+                    window.location.href = 'pages/auth.html?redirect=employer';
                 }, 1200);
                 return;
             }
