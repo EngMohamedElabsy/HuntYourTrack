@@ -2,7 +2,7 @@
 
 **Project:** HuntYourTrack (Graduation Project 2026)
 **Institution:** Faculty of Computers & Information, Damanhour University (CS Department)
-**Generated At:** `2026-11-23 04:41:47 UTC`
+**Generated At:** `2026-11-23 04:44:47 UTC`
 **Sprint Deadline:** **Sunday, November 1, 2026**
 
 ---
@@ -23,15 +23,14 @@ Sprint Completion Velocity: [████████████████░
 
 ### 👤 Mohamed Yasser Elabsy (@EngMohamedElabsy)
 - **Role:** `Lead Architect & Core/Admin`
-- **Assigned Stories:** **25** Issues
-- **Completion Status:** 🟢 **22 Done** (88%) · 🔵 **0 In Progress** · ⚪ **3 Todo**
+- **Assigned Stories:** **24** Issues
+- **Completion Status:** 🟢 **22 Done** (92%) · 🔵 **0 In Progress** · ⚪ **2 Todo**
 - **Engineering Badge:** 🚀 Early Achiever (Ahead of Schedule)
 
 | Issue # | Story Title | State | Deadline | Time Limit Alert | Verified |
 | :---: | :--- | :---: | :---: | :---: | :---: |
 | **#114** | US39: Playwright E2E Verification Suite | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
 | **#113** | US38: Backend-Ready Frontend Architecture | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
-| **#112** | US37: Guest-First Landing & Role-Based Auth Flow | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
 | **#109** | US34: Class Central & Roadmap Course Aggregator with Visual Syllabi | 🟢 Done | Nov 1, 2026 | 🟢 Delivered on Time | ✅ Fully Verified |
 | **#108** | US33: Remove Arabic Language & Unify 100% English UI | 🟢 Done | Nov 1, 2026 | 🟢 Delivered on Time | ✅ Fully Verified |
 | **#106** | US32: Dark/Light Contrast Harmonization, Clean Top Navigation & Guest Experience Polish | 🟢 Done | Nov 1, 2026 | 🟢 Delivered on Time | ✅ Fully Verified |
@@ -57,13 +56,14 @@ Sprint Completion Velocity: [████████████████░
 
 ### 👤 Hager Khaled (@hager678)
 - **Role:** `Student Experience & Auth`
-- **Assigned Stories:** **2** Issues
-- **Completion Status:** 🟢 **0 Done** (0%) · 🔵 **0 In Progress** · ⚪ **2 Todo**
+- **Assigned Stories:** **3** Issues
+- **Completion Status:** 🟢 **0 Done** (0%) · 🔵 **0 In Progress** · ⚪ **3 Todo**
 - **Engineering Badge:** ⏳ In Progress
 
 | Issue # | Story Title | State | Deadline | Time Limit Alert | Verified |
 | :---: | :--- | :---: | :---: | :---: | :---: |
-| **#111** | US36: motionsite.ai Minimalist Navigation & Icon-Driven System | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
+| **#112** | US37: motionsite.ai Interactive Landing & 3D Tilt Micro-Motions | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
+| **#111** | US36: motionsites.ai Minimalist Navigation & Icon-Driven System | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
 | **#110** | US35: Secure Authentication Flow & Zero Debug Leaks | ⚪ Todo | Nov 1, 2026 | ⚪ Pending Start (Due Nov 1) | 🔄 Awaiting Finish |
 
 ### 👤 Abdulrahman Masoud (@abdulrhman-masoud)
