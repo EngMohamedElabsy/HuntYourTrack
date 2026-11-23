@@ -229,7 +229,6 @@ const HYT_TRANSLATIONS = {
  authAccessSub:"Access your personalized career roadmap and dashboard.",
  authJoinFuture:"Create New Account",
  authJoinSub:"Choose your faculty and track to start your career hunting journey.",
- juryAccessBtn:"️ Academic Jury & Evaluation Access",
  loginEmailLabel:"University Email",
  loginPasswordLabel:"Password",
  enterPlatformBtn:"Enter Platform →",
@@ -238,16 +237,6 @@ const HYT_TRANSLATIONS = {
  signupRoleLabel:"Account Role",
  signupPassLabel:"Password (8+ characters)",
  createAccountBtn:"Create Account & Activate Track →",
- juryModalTitle:"Academic Jury & Defense Access",
- juryModalDesc:"Choose a representative demo persona for rapid evaluation and role verification:",
- adminPersonaTitle:"️ Lead Academic Administrator",
- adminPersonaSub:"admin@damanhour.edu.eg · Full Administrative Clearance",
- studentPersonaTitle:"‍ Enrolled Student Persona",
- studentPersonaSub:"student@damanhour.edu.eg · Track discovery and roadmap view",
- employerPersonaTitle:"Corporate Partner Persona",
- employerPersonaSub:"partner@techcorp.eg · Publishing & managing listings",
- selectPersonaBtn:"Select",
- closeModalBtn:"Close Dialog",
 
  // Footer
  footerAboutTitle:"HuntYourTrack",
@@ -285,7 +274,6 @@ const HYT_TRANSLATIONS = {
  deptLawIp:"Tech Intellectual Property Law",
  roleStudentOpt:"Student Explorer Account",
  roleEmployerOpt:"Employer Partner Account",
- juryStatusChip:"️ Academic Defense 2026",
 
  // Modal Opportunity Publishing
  modalOppChip:"Post New Opportunity",
@@ -401,7 +389,6 @@ const HYT_TRANSLATIONS = {
 
  // Missing Global/Portal Keys
  authNamePh:"Full Name (e.g. Alex Johnson)",
- authDemoHeading:"Select an evaluation persona for rapid testing and interface isolation verification:",
  footerGradDesc:"Graduation Project 2026 · Faculty of Computers & Information, Damanhour University (CS Department).",
  shuffleHuntBtn:"Shuffle & Hunt Tracks",
 
@@ -575,8 +562,22 @@ window.setAppThemeMode = function(mode) {
 window.hytSignOut = function(e) {
   if (e && e.preventDefault) e.preventDefault();
   const savedTheme = localStorage.getItem("hyt_theme") || "dark";
+  const savedLang = localStorage.getItem("hyt_lang") || "en";
 
-  // Clear all user credentials and session variables
+  // Clear authentication token from sessionStorage and API client
+  if (window.HYT_API && typeof window.HYT_API.logout === "function") {
+    window.HYT_API.logout();
+  }
+  try {
+    window.sessionStorage.removeItem("hyt_token");
+    window.sessionStorage.removeItem("hyt_student_faculty");
+    window.sessionStorage.removeItem("hyt_student_dept");
+  } catch (err) {
+    // sessionStorage might be restricted in some environments
+  }
+  window.HYT_SESSION = null;
+
+  // Clear all legacy user credentials and session variables
   localStorage.removeItem("user");
   localStorage.removeItem("role");
   localStorage.removeItem("user_role");
@@ -588,8 +589,8 @@ window.hytSignOut = function(e) {
   localStorage.removeItem("hyt_auth");
   localStorage.removeItem("hyt_user");
 
-  // Preserve language and visual theme preferences
-  localStorage.setItem("hyt_lang", "en");
+  // Strictly preserve language and visual theme preferences
+  localStorage.setItem("hyt_lang", savedLang);
   localStorage.setItem("hyt_theme", savedTheme);
 
   const isInPages = window.location.pathname.includes("/pages/");

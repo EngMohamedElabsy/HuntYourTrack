@@ -201,14 +201,21 @@ function openOpportunityApply(oppId) {
     const opp = window.hytOpportunities.getById(oppId);
     if (!opp) return;
 
-    
-    const title = isArabic ? (opp.titleAr || opp.title) : (opp.titleEn || opp.title);
-    const orgName = isArabic ? (opp.orgNameAr || opp.orgName) : (opp.orgNameEn || opp.orgName);
+    const escapeHtml = (value) => String(value == null ? '' : value).replace(/[&<>"']/g, (character) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    }[character]));
 
-    // Saved student data or defaults
-    const studentName = localStorage.getItem('user_name') || 'University Student';
-    const studentEmail = localStorage.getItem('user_email') || 'student@damanhour.edu.eg';
-    const studentFaculty = localStorage.getItem('faculty') || 'Faculty of Computers & AI';
+    const title = opp.titleEn || opp.title || '';
+    const orgName = opp.orgNameEn || opp.orgName || '';
+
+    // Identity comes exclusively from the server-verified session
+    const session = window.HYT_SESSION || null;
+    const studentName = session ? (session.name || session.email || 'Student') : 'Not signed in';
+    const studentEmail = session ? (session.email || '') : '';
 
     const existing = document.getElementById('hyt-opp-apply-modal');
     if (existing) existing.remove();
@@ -234,11 +241,11 @@ function openOpportunityApply(oppId) {
                 <div class="panel" style="padding: 1rem; margin-bottom: 1.25rem; font-size: 0.86rem;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
                         <span style="color: var(--color-muted-foreground);">Candidate:</span>
-                        <span style="font-weight: 600;">${studentName}</span>
+                        <span style="font-weight: 600;">${escapeHtml(studentName)}</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
-                        <span style="color: var(--color-muted-foreground);">Faculty:</span>
-                        <span style="font-weight: 600;">${studentFaculty}</span>
+                        <span style="color: var(--color-muted-foreground);">Email:</span>
+                        <span style="font-weight: 600;">${escapeHtml(studentEmail || 'Not signed in')}</span>
                     </div>
                     <div style="display: flex; justify-content: space-between;">
                         <span style="color: var(--color-muted-foreground);">ATS Match:</span>

@@ -4,6 +4,9 @@
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title data-i18n="authPageTitle">HuntYourTrack · Student & Partner Portal Access</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="alternate icon" href="../assets/logo.png">
  <!-- Fonts -->
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,11 +75,6 @@
  <button class="tab-btn" id="btn-signup" type="button" role="tab" aria-selected="false" onclick="switchAuthTab('signup')" data-i18n="authJoinFuture">Create New Account</button>
  </div>
 
- <!-- Discrete Academic Jury Evaluation Trigger -->
- <div class="jury-access-strip">
- <button type="button" class="btn-jury-trigger" id="btn-jury-trigger" onclick="openJuryModal()" aria-haspopup="dialog" aria-expanded="false" data-i18n="juryAccessBtn">️ Academic Jury & Evaluation Access</button>
- </div>
-
  <!-- Forms Area -->
  <div class="auth-forms-container">
  
@@ -84,7 +82,7 @@
  <form id="login-form" class="auth-form" onsubmit="handleLoginSubmit(event)">
  <div class="form-group">
  <label for="login-email" data-i18n="loginEmailLabel">University Email</label>
- <input id="login-email" name="email" type="email" class="form-control" placeholder="student@damanhour.edu.eg" autocomplete="email" required>
+ <input id="login-email" name="email" type="email" class="form-control" placeholder="name@university.edu" autocomplete="email" required>
  </div>
 
  <div class="form-group">
@@ -160,55 +158,11 @@
  </div>
  </main>
 
- <!-- Academic Jury Evaluation Dialog Modal -->
- <dialog class="modal" id="jury-dialog" style="max-width: 520px; border-radius: 24px; padding: 2rem;">
- <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
- <div>
- <span class="hunter-status-chip" data-i18n="juryStatusChip">️ Academic Defense 2026</span>
- <h3 style="margin-top: 0.5rem; font-size: 1.25rem;" data-i18n="juryModalTitle">Academic Jury & Defense Access</h3>
- </div>
- <button type="button" onclick="closeJuryModal()" class="nav-util-btn" style="border: none; font-size: 1.25rem;">&times;</button>
- </div>
- <p style="font-size: 0.88rem; color: var(--color-muted-foreground); margin-bottom: 1.25rem; line-height: 1.5;" data-i18n="juryModalDesc">Choose a representative demo persona for rapid evaluation and role verification:</p>
-
- <div style="display: flex; flex-direction: column; gap: 0.75rem;">
- <!-- Admin -->
- <div onclick="selectJuryPersona('admin')" style="padding: 0.85rem; border: 1px solid var(--color-border); border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; background: var(--color-muted); transition: all 180ms ease;">
- <div>
- <div style="font-weight: 700; font-size: 0.95rem;" data-i18n="adminPersonaTitle">️ Lead Academic Administrator</div>
- <div style="font-size: 0.8rem; color: #64748B;" data-i18n="adminPersonaSub">admin@damanhour.edu.eg · Full Administrative Clearance</div>
- </div>
- <span class="btn btn-primary" style="min-height: 34px; padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-i18n="selectPersonaBtn">Select</span>
- </div>
-
- <!-- Student -->
- <div onclick="selectJuryPersona('student')" style="padding: 0.85rem; border: 1px solid var(--color-border); border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; background: var(--color-muted); transition: all 180ms ease;">
- <div>
- <div style="font-weight: 700; font-size: 0.95rem;" data-i18n="studentPersonaTitle">‍ Enrolled Student Persona</div>
- <div style="font-size: 0.8rem; color: #64748B;" data-i18n="studentPersonaSub">student@damanhour.edu.eg · Track discovery and roadmap view</div>
- </div>
- <span class="btn btn-secondary" style="min-height: 34px; padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-i18n="selectPersonaBtn">Select</span>
- </div>
-
- <!-- Employer -->
- <div onclick="selectJuryPersona('employer')" style="padding: 0.85rem; border: 1px solid var(--color-border); border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; background: var(--color-muted); transition: all 180ms ease;">
- <div>
- <div style="font-weight: 700; font-size: 0.95rem;" data-i18n="employerPersonaTitle">Corporate Partner Persona</div>
- <div style="font-size: 0.8rem; color: #64748B;" data-i18n="employerPersonaSub">partner@techcorp.eg · Publishing & managing listings</div>
- </div>
- <span class="btn btn-secondary" style="min-height: 34px; padding: 0.3rem 0.8rem; font-size: 0.8rem;" data-i18n="selectPersonaBtn">Select</span>
- </div>
- </div>
-
- <div style="margin-top: 1.5rem; text-align: left;">
- <button type="button" onclick="closeJuryModal()" class="btn btn-secondary" style="width: 100%;" data-i18n="closeModalBtn">Close Dialog</button>
- </div>
- </dialog>
-
  <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
  <!-- Scripts -->
  <script src="../js/i18n.js"></script>
+ <script src="../js/api.js"></script>
  <script src="../js/ocean-background.js"></script>
  <script src="../js/auth.js"></script>
 </body>

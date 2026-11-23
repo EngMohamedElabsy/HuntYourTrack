@@ -87,107 +87,217 @@ function togglePasswordVisibility(inputId, btn) {
 }
 window.togglePasswordVisibility = togglePasswordVisibility;
 
-function openJuryModal() {
-    const dialog = document.getElementById('jury-dialog');
-    if (dialog) dialog.showModal();
+const AUTH_EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ROLE_REDIRECTS = {
+    student: 'student.html',
+    employer: 'employer.html',
+    admin: 'admin.html'
+};
+const AUTH_ERROR_MESSAGES = {
+    session_expired: 'Your session has expired. Please sign in again.',
+    login_required: 'Please sign in to continue.',
+    unauthorized: 'Please sign in to continue.',
+    forbidden: 'You do not have access to that page.',
+    auth_unavailable: 'Unable to verify your session. Please sign in again.'
+};
+const KNOWN_REDIRECT_PAGES = new Set([
+    'student.html',
+    'employer.html',
+    'employer-dashboard.html',
+    'post-internship.html',
+    'applicants-review.html',
+    'admin.html',
+    'workflow.html',
+    'index.html'
+]);
+const ROLE_ALLOWED_PAGES = {
+    student: new Set(['student.html', 'index.html']),
+    employer: new Set(['employer.html', 'employer-dashboard.html', 'post-internship.html', 'applicants-review.html', 'index.html']),
+    admin: new Set(['admin.html', 'workflow.html', 'student.html', 'employer.html', 'employer-dashboard.html', 'post-internship.html', 'applicants-review.html', 'index.html'])
+};
+let authRequestInFlight = false;
+
+function setAuthStatus(message, state) {
+    const status = document.getElementById('auth-status');
+    if (!status) return;
+    status.textContent = message || '';
+    status.classList.remove('error', 'success');
+    if (state === 'error' || state === 'success') status.classList.add(state);
 }
-window.openJuryModal = openJuryModal;
 
-function closeJuryModal() {
-    const dialog = document.getElementById('jury-dialog');
-    if (dialog) dialog.close();
+function setFormBusy(button, busy) {
+    if (!button) return;
+    button.disabled = busy;
+    if (busy) button.setAttribute('aria-busy', 'true');
+    else button.removeAttribute('aria-busy');
 }
-window.closeJuryModal = closeJuryModal;
 
-function selectJuryPersona(persona) {
-    closeJuryModal();
-    
+function validateCredentials(email, password) {
+    if (!AUTH_EMAIL_PATTERN.test(email)) return 'Please enter a valid email address.';
+    if (!password || password.length < 8) return 'Password must be at least 8 characters.';
+    return '';
+}
 
-    if (persona === 'admin') {
-        localStorage.setItem('user', 'admin');
-        localStorage.setItem('role', 'admin');
-        localStorage.setItem('user_email', 'admin@damanhour.edu.eg');
-        localStorage.setItem('user_name', 'Academic Admin');
-        localStorage.setItem('faculty', 'Computers & Artificial Intelligence');
-        showToast('Admin Academic session activated', 'success');
-        setTimeout(() => { window.location.href = 'admin.html'; }, 800);
-    } else if (persona === 'employer') {
-        localStorage.setItem('user', 'employer');
-        localStorage.setItem('role', 'employer');
-        localStorage.setItem('user_email', 'partner@techcorp.eg');
-        localStorage.setItem('user_name', 'TechCorp Organizer');
-        localStorage.setItem('faculty', 'Corporate Partner Hub');
-        showToast('Employer Organizer session activated', 'success');
-        setTimeout(() => { window.location.href = 'index.html#opportunities'; }, 800);
-    } else {
-        localStorage.setItem('user', 'student');
-        localStorage.setItem('role', 'student');
-        localStorage.setItem('user_email', 'student@damanhour.edu.eg');
-        localStorage.setItem('user_name', 'Academic Student');
-        localStorage.setItem('faculty', 'Faculty of Computers & Artificial Intelligence');
-        localStorage.setItem('department', 'Computer Science (CS)');
-        showToast('Student session activated', 'success');
-        setTimeout(() => { window.location.href = 'student.html'; }, 800);
+function getSafeRedirectTarget(fallback, role) {
+    const defaultTarget = fallback || (role && ROLE_REDIRECTS[role]) || ROLE_REDIRECTS.student;
+    const target = new URLSearchParams(window.location.search).get('redirect');
+    if (!target) return defaultTarget;
+
+    const trimmed = target.trim();
+    if (!trimmed) return defaultTarget;
+    if (/^[a-z][a-z0-9+.-]*:/i.test(trimmed)) return defaultTarget;
+    if (trimmed.startsWith('//') || trimmed.startsWith('\\\\')) return defaultTarget;
+    if (/[\u0000-\u001f\u007f]/.test(trimmed)) return defaultTarget;
+
+    try {
+        const resolved = new URL(trimmed, window.location.href);
+        if (resolved.origin !== window.location.origin) return defaultTarget;
+
+        const pathname = resolved.pathname;
+        const fileName = pathname.split('/').pop().toLowerCase();
+        if (!fileName || fileName === 'auth' || fileName === 'auth.html') return defaultTarget;
+
+        const normalizedName = fileName.endsWith('.html') ? fileName : `${fileName}.html`;
+
+        // Strict destination whitelist enforcement
+        if (!KNOWN_REDIRECT_PAGES.has(normalizedName)) return defaultTarget;
+
+        // Enforce role-based access authorization to avoid cross-role redirect loops
+        const userRole = role && ROLE_ALLOWED_PAGES[role] ? role : 'student';
+        const allowedPages = ROLE_ALLOWED_PAGES[userRole];
+        if (!allowedPages.has(normalizedName)) return defaultTarget;
+
+        // Resolve root landing page path correctly from pages/ subfolder
+        if (normalizedName === 'index.html') {
+            return `../index.html${resolved.search}${resolved.hash}`;
+        }
+
+        return `${normalizedName}${resolved.search}${resolved.hash}`;
+    } catch (err) {
+        return defaultTarget;
     }
 }
-window.selectJuryPersona = selectJuryPersona;
 
-function handleLoginSubmit(e) {
+function redirectAfterAuth(role) {
+    const fallback = ROLE_REDIRECTS[role] || ROLE_REDIRECTS.student;
+    window.location.href = getSafeRedirectTarget(fallback, role);
+}
+
+async function handleLoginSubmit(e) {
     e.preventDefault();
-    const email = document.getElementById('login-email').value.trim().toLowerCase();
-    
-    const status = document.getElementById('auth-status');
+    if (authRequestInFlight) return;
 
-    if (email.includes('admin') || email === 'admin@damanhour.edu.eg') {
-        localStorage.setItem('user', 'admin');
-        localStorage.setItem('role', 'admin');
-        localStorage.setItem('user_email', email);
-        localStorage.setItem('user_name', 'Academic Admin');
-        showToast('Welcome to Admin Console!', 'success');
-        setTimeout(() => { window.location.href = 'admin.html'; }, 800);
-    } else if (email.includes('employer') || email.includes('partner') || email.includes('hr')) {
-        localStorage.setItem('user', 'employer');
-        localStorage.setItem('role', 'employer');
-        localStorage.setItem('user_email', email);
-        localStorage.setItem('user_name', 'Partner Organizer');
-        showToast('Welcome to Employer Portal!', 'success');
-        setTimeout(() => { window.location.href = 'employer.html'; }, 800);
-    } else {
-        localStorage.setItem('user', 'student');
-        localStorage.setItem('role', 'student');
-        localStorage.setItem('user_email', email);
-        localStorage.setItem('user_name', email.split('@')[0]);
-        localStorage.setItem('faculty', 'Faculty of Computers & Artificial Intelligence');
-        localStorage.setItem('department', 'Computer Science (CS)');
-        showToast('Signed in! Redirecting to Student Hub', 'success');
-        setTimeout(() => { window.location.href = 'student.html'; }, 800);
+    const emailInput = document.getElementById('login-email');
+    const passwordInput = document.getElementById('login-password');
+    const submitButton = document.getElementById('login-submit-btn');
+    const email = (emailInput ? emailInput.value : '').trim().toLowerCase();
+    const password = passwordInput ? passwordInput.value : '';
+
+    const validationError = validateCredentials(email, password);
+    if (validationError) {
+        setAuthStatus(validationError, 'error');
+        showToast(validationError, 'danger');
+        return;
+    }
+
+    const api = window.HYT_API;
+    if (!api) {
+        const unavailableMessage = 'Authentication service is unavailable. Please reload the page.';
+        setAuthStatus(unavailableMessage, 'error');
+        showToast(unavailableMessage, 'danger');
+        return;
+    }
+
+    authRequestInFlight = true;
+    setFormBusy(submitButton, true);
+    setAuthStatus('Signing in...', '');
+
+    try {
+        const user = await api.login(email, password);
+        const role = user && user.role;
+        if (!role || !ROLE_REDIRECTS[role]) {
+            throw new Error('Your account role is not supported.');
+        }
+        setAuthStatus('Signed in successfully. Redirecting...', 'success');
+        showToast(`Welcome back, ${user.name || email}.`, 'success');
+        setTimeout(() => redirectAfterAuth(role), 600);
+    } catch (error) {
+        const message = error && error.message ? error.message : 'Sign in failed. Please try again.';
+        setAuthStatus(message, 'error');
+        showToast(message, 'danger');
+    } finally {
+        authRequestInFlight = false;
+        setFormBusy(submitButton, false);
     }
 }
 window.handleLoginSubmit = handleLoginSubmit;
 
-function handleSignupSubmit(e) {
+async function handleSignupSubmit(e) {
     e.preventDefault();
-    const name = document.getElementById('signup-name').value.trim();
-    const email = document.getElementById('signup-email').value.trim().toLowerCase();
-    const faculty = document.getElementById('signup-faculty').value;
-    const dept = document.getElementById('signup-dept').value;
-    const role = document.getElementById('signup-role').value;
-    
+    if (authRequestInFlight) return;
 
-    localStorage.setItem('user', role);
-    localStorage.setItem('role', role);
-    localStorage.setItem('user_name', name);
-    localStorage.setItem('user_email', email);
-    localStorage.setItem('faculty', faculty);
-    localStorage.setItem('department', dept);
+    const nameInput = document.getElementById('signup-name');
+    const emailInput = document.getElementById('signup-email');
+    const passwordInput = document.getElementById('signup-password');
+    const facultySelect = document.getElementById('signup-faculty');
+    const deptSelect = document.getElementById('signup-dept');
+    const roleSelect = document.getElementById('signup-role');
+    const submitButton = document.getElementById('signup-submit-btn');
 
-    showToast(`Welcome ${name}! Account created successfully`, 'success');
-    
-    setTimeout(() => {
-        if (role === 'admin') window.location.href = 'admin.html';
-        else if (role === 'employer') window.location.href = 'index.html#opportunities';
-        else window.location.href = 'student.html';
-    }, 900);
+    const name = (nameInput ? nameInput.value : '').trim();
+    const email = (emailInput ? emailInput.value : '').trim().toLowerCase();
+    const password = passwordInput ? passwordInput.value : '';
+    const faculty = facultySelect ? facultySelect.value : 'computers';
+    const department = deptSelect ? deptSelect.value : '';
+    const role = roleSelect ? roleSelect.value : 'student';
+
+    if (!name || name.length > 120) {
+        const nameError = 'Please enter your full name (max 120 characters).';
+        setAuthStatus(nameError, 'error');
+        showToast(nameError, 'danger');
+        return;
+    }
+
+    const validationError = validateCredentials(email, password);
+    if (validationError) {
+        setAuthStatus(validationError, 'error');
+        showToast(validationError, 'danger');
+        return;
+    }
+
+    if (role !== 'student' && role !== 'employer') {
+        const roleError = 'Admin accounts are provisioned by the platform and cannot be self-registered.';
+        setAuthStatus(roleError, 'error');
+        showToast(roleError, 'danger');
+        return;
+    }
+
+    const api = window.HYT_API;
+    if (!api) {
+        const unavailableMessage = 'Authentication service is unavailable. Please reload the page.';
+        setAuthStatus(unavailableMessage, 'error');
+        showToast(unavailableMessage, 'danger');
+        return;
+    }
+
+    authRequestInFlight = true;
+    setFormBusy(submitButton, true);
+    setAuthStatus('Creating your account...', '');
+
+    try {
+        const user = await api.register({ name, email, password, role, faculty, department });
+        const userRole = user && user.role ? user.role : 'student';
+        setAuthStatus('Account created successfully. Redirecting...', 'success');
+        showToast(`Welcome, ${user.name || name}.`, 'success');
+        setTimeout(() => redirectAfterAuth(userRole), 600);
+    } catch (error) {
+        const message = error && error.message ? error.message : 'Account creation failed. Please try again.';
+        setAuthStatus(message, 'error');
+        showToast(message, 'danger');
+    } finally {
+        authRequestInFlight = false;
+        setFormBusy(submitButton, false);
+    }
 }
 window.handleSignupSubmit = handleSignupSubmit;
 
@@ -197,10 +307,18 @@ function showToast(message, type = 'info') {
 
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-    toast.innerHTML = `
-        <span>${message}</span>
-        <button class="toast-close-btn" onclick="this.parentElement.remove()">&times;</button>
-    `;
+
+    const text = document.createElement('span');
+    text.textContent = message;
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'toast-close-btn';
+    closeButton.setAttribute('aria-label', 'Dismiss notification');
+    closeButton.innerHTML = '&times;';
+    closeButton.addEventListener('click', () => toast.remove());
+
+    toast.append(text, closeButton);
     container.appendChild(toast);
 
     setTimeout(() => {
@@ -220,5 +338,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const facultySelect = document.getElementById('signup-faculty');
     if (facultySelect) {
         updateDepartmentOptions(facultySelect.value);
+    }
+
+    const errorParam = new URLSearchParams(window.location.search).get('error');
+    if (errorParam) {
+        const message = AUTH_ERROR_MESSAGES[errorParam] || errorParam.slice(0, 200);
+        setAuthStatus(message, 'error');
     }
 });

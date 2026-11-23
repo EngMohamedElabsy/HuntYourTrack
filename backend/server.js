@@ -22,6 +22,7 @@ const { opportunitiesRoutes } = require('./routes/opportunities.routes');
 const { cvRoutes } = require('./routes/cv.routes');
 
 const PORT = process.env.PORT || 3000;
+const MAX_BODY_BYTES = 16 * 1024; // 16KB security limit
 
 function createServer() {
     return http.createServer((req, res) => {
@@ -50,24 +51,45 @@ function createServer() {
             });
         }
 
-        // 4. Ingest Body for POST/PUT requests
+        // 4. Content-Length Header Guard
+        const rawContentLength = req.headers['content-length'];
+        if (rawContentLength !== undefined) {
+            const contentLength = Number(rawContentLength);
+            if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
+                res.writeHead(413, { 'Content-Type': 'application/json', 'Connection': 'close' });
+                res.end(JSON.stringify({ error: 'Request body too large (max 16KB)' }), () => {
+                    if (req.socket && typeof req.socket.destroy === 'function') req.socket.destroy();
+                });
+                return;
+            }
+        }
+
+        // 5. Ingest Body for POST/PUT requests
         let body = '';
+        let tooLarge = false;
+
         req.on('data', chunk => {
+            if (tooLarge) return;
             body += chunk;
-            // Guard against oversized payload (max 1MB)
-            if (body.length > 1e6) {
-                req.socket.destroy();
+            if (Buffer.byteLength(body) > MAX_BODY_BYTES) {
+                tooLarge = true;
+                res.writeHead(413, { 'Content-Type': 'application/json', 'Connection': 'close' });
+                res.end(JSON.stringify({ error: 'Request body too large (max 16KB)' }), () => {
+                    if (req.socket && typeof req.socket.destroy === 'function') req.socket.destroy();
+                });
             }
         });
 
         req.on('end', () => {
-            // 5. Dispatch to Modular Routers
+            if (tooLarge) return;
+
+            // 6. Dispatch to Modular Routers
             if (authRoutes(req, res, pathname, query, body)) return;
             if (coursesRoutes(req, res, pathname, query, body)) return;
             if (opportunitiesRoutes(req, res, pathname, query, body)) return;
             if (cvRoutes(req, res, pathname, query, body)) return;
 
-            // 6. Fallback 404
+            // 7. Fallback 404
             return handleNotFound(res, `Route ${pathname}`);
         });
     });
@@ -81,4 +103,5 @@ if (require.main === module) {
     });
 }
 
-module.exports = { server, createServer };
+module.exports = server;
+module.exports.createServer = createServer;

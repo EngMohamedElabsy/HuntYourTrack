@@ -60,6 +60,29 @@ async function run() {
         await page.route('https://fonts.googleapis.com/**', (route) => route.abort());
         await page.route('https://fonts.gstatic.com/**', (route) => route.abort());
 
+        let activeMockRole = 'student';
+        await page.route('**/api/v1/auth/me', (route) => {
+            if (activeMockRole === 'student') {
+                route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({
+                        user: { id: 1, email: 'student@damanhour.edu.eg', name: 'Student Account', role: 'student' }
+                    })
+                });
+            } else if (activeMockRole === 'admin') {
+                route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({
+                        user: { id: 99, email: 'elabsy@damanhour.edu.eg', name: 'Academic Admin', role: 'admin' }
+                    })
+                });
+            } else {
+                route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ error: 'Authentication required' }) });
+            }
+        });
+
         // -------------------------------------------------------------
         // 1. TEST PRODUCT LANDING PAGE & UNIFIED SHELL (index.html)
         // -------------------------------------------------------------
@@ -139,15 +162,15 @@ async function run() {
         await passwordToggle.click();
         assert.equal(await passwordInput.getAttribute('type'), 'password', 'Password must re-mask');
 
-        // Academic Jury Modal
-        await page.locator('#btn-jury-trigger').click();
-        const juryDialog = page.locator('#jury-dialog');
-        assert.equal(await juryDialog.evaluate(d => d.open), true, 'Academic Jury modal should open');
-        
-        // Select Student Persona via Jury Modal
-        await page.evaluate(() => selectJuryPersona('student'));
-        await page.waitForURL(/student\.html/);
-        assert.ok(page.url().includes('student.html'), 'Selecting Student persona should navigate to student.html');
+        // Navigate to Student Career Hub (direct student session replaces removed jury persona)
+        activeMockRole = 'student';
+        await page.evaluate(() => {
+            sessionStorage.setItem('hyt_token', 'test-student-token');
+            localStorage.setItem('user', 'student');
+            localStorage.setItem('role', 'student');
+            localStorage.setItem('user_email', 'student@damanhour.edu.eg');
+        });
+        await page.goto(`http://127.0.0.1:${address.port}/student.html`);
 
         // -------------------------------------------------------------
         // 4. TEST STUDENT CAREER HUB & ROLE ISOLATION (student.html)
@@ -176,7 +199,9 @@ async function run() {
         // -------------------------------------------------------------
         // 5. TEST AUTHORIZED ADMIN CONSOLE (admin.html)
         // -------------------------------------------------------------
+        activeMockRole = 'admin';
         await page.evaluate(() => {
+            sessionStorage.setItem('hyt_token', 'test-admin-token');
             localStorage.setItem('user', 'admin');
             localStorage.setItem('role', 'admin');
             localStorage.setItem('user_email', 'elabsy@damanhour.edu.eg');

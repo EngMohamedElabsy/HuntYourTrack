@@ -1,6 +1,6 @@
 /**
  * HuntYourTrack — Client API Layer (v2.1 Modular Architecture)
- * Provides unified interface for fetching courses, roadmaps, opportunities, and parsing CV keywords.
+ * Provides unified interface for authentication, courses, roadmaps, opportunities, and CV keyword parsing.
  * Works seamlessly with modular backend server (`http://localhost:3000`) and falls back gracefully
  * to local catalog data for GitHub Pages / offline usage.
  */
@@ -8,9 +8,76 @@
 (function (window) {
     'use strict';
 
-    const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:3000/api/v1'
-        : '/api/v1';
+    const API_BASE = (window.HYT_API_BASE || 'http://localhost:3000/api/v1').replace(/\/+$/, '');
+    const TOKEN_KEY = 'hyt_token';
+
+    function getToken() {
+        try {
+            return window.sessionStorage.getItem(TOKEN_KEY) || '';
+        } catch (err) {
+            return '';
+        }
+    }
+
+    function setToken(token) {
+        try {
+            window.sessionStorage.setItem(TOKEN_KEY, token);
+        } catch (err) {
+            // Session storage unavailable; the session remains memory-only.
+        }
+    }
+
+    function clearToken() {
+        try {
+            window.sessionStorage.removeItem(TOKEN_KEY);
+        } catch (err) {
+            // Nothing to clear when session storage is unavailable.
+        }
+    }
+
+    async function apiRequest(path, options) {
+        const config = options || {};
+        const headers = { Accept: 'application/json' };
+        const hasBody = config.body !== undefined;
+
+        if (hasBody) headers['Content-Type'] = 'application/json';
+        if (config.auth) {
+            const token = getToken();
+            if (token) headers.Authorization = `Bearer ${token}`;
+        }
+
+        let response;
+        try {
+            response = await fetch(`${API_BASE}${path}`, {
+                method: config.method || 'GET',
+                headers,
+                body: hasBody ? JSON.stringify(config.body) : undefined
+            });
+        } catch (err) {
+            const networkError = new Error('Unable to reach the server. Please try again.');
+            networkError.status = 0;
+            throw networkError;
+        }
+
+        let data = null;
+        const raw = await response.text();
+        if (raw) {
+            try {
+                data = JSON.parse(raw);
+            } catch (err) {
+                data = null;
+            }
+        }
+
+        if (!response.ok) {
+            const requestError = new Error((data && data.error) || 'Request failed. Please try again.');
+            requestError.status = response.status;
+            if (response.status === 401 && config.auth) clearToken();
+            throw requestError;
+        }
+
+        return data;
+    }
 
     // Offline fallback catalog (Class Central & Top Universities Verified Courses)
     const FALLBACK_COURSES = [
@@ -130,6 +197,71 @@
 
     const ApiService = {
         /**
+         * Return the in-memory session token (sessionStorage only)
+         * @returns {string}
+         */
+        getToken,
+
+        /**
+         * Sign in and persist the server-issued token for this tab session
+         * @param {string} email
+         * @param {string} password
+         * @returns {Promise<Object>} server-returned user (id, email, name, role)
+         */
+        async login(email, password) {
+            const data = await apiRequest('/auth/login', {
+                method: 'POST',
+                body: { email, password }
+            });
+            if (!data || !data.token || !data.user) {
+                throw new Error('Unexpected server response. Please try again.');
+            }
+            setToken(data.token);
+            return data.user;
+        },
+
+        /**
+         * Create an account and persist the server-issued token for this tab session
+         * @param {Object} payload name, email, password, role, faculty, department
+         * @returns {Promise<Object>} server-returned user (id, email, name, role)
+         */
+        async register(payload) {
+            const data = await apiRequest('/auth/register', {
+                method: 'POST',
+                body: payload
+            });
+            if (!data || !data.token || !data.user) {
+                throw new Error('Unexpected server response. Please try again.');
+            }
+            setToken(data.token);
+            return data.user;
+        },
+
+        /**
+         * Resolve the current identity from the server
+         * @returns {Promise<Object>} user (id, email, name, role)
+         */
+        async me() {
+            if (!getToken()) {
+                const authError = new Error('Authentication required.');
+                authError.status = 401;
+                throw authError;
+            }
+            const data = await apiRequest('/auth/me', { auth: true });
+            if (!data || !data.user) {
+                throw new Error('Unexpected server response. Please try again.');
+            }
+            return data.user;
+        },
+
+        /**
+         * Discard the session token; theme and language preferences are untouched
+         */
+        logout() {
+            clearToken();
+        },
+
+        /**
          * Fetch courses catalog with optional track filter
          * @param {string} [track]
          * @returns {Promise<Array>}
@@ -137,7 +269,7 @@
         async getCourses(track) {
             try {
                 const query = track ? `?track=${encodeURIComponent(track)}` : '';
-                const res = await fetch(`${API_BASE_URL}/courses${query}`, { method: 'GET' });
+                const res = await fetch(`${API_BASE}/courses${query}`, { method: 'GET' });
                 if (res.ok) {
                     const data = await res.json();
                     return data.courses || [];
@@ -177,7 +309,7 @@
          */
         async parseCvKeywords(cvText) {
             try {
-                const res = await fetch(`${API_BASE_URL}/cv/parse-keywords`, {
+                const res = await fetch(`${API_BASE}/cv/parse-keywords`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ text: cvText })

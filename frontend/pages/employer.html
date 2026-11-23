@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-theme="light">
 <head>
- <!-- Strict Route Guard (US17) -->
- <script>
- (function() {
- var params = new URLSearchParams(window.location.search);
- if (params.get('demo') === 'true') {
- localStorage.setItem('user', 'employer');
- localStorage.setItem('role', 'employer');
- localStorage.setItem('user_name', 'TechCorp Organizer');
- localStorage.setItem('user_email', 'hr@techcorp.com');
- }
- var user = localStorage.getItem('user');
- if (!user) {
- window.location.replace('auth.html?redirect=employer&error=login_required');
- }
- })();
- </script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="alternate icon" href="../assets/logo.png">
+ <!-- Shared API + Server-Verified Route Guard (US35) -->
+ <script src="../js/api.js"></script>
+ <script src="../js/guard.js" data-allowed-roles="employer"></script>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta name="theme-color" content="#EEF2FF">

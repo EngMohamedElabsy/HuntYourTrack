@@ -431,6 +431,10 @@ class OpportunitiesManager {
                 return `
                     <article class="opp-card opp-card-modern" data-faculty="${opp.facultyTrack || "general"}" data-id="${opp.id}">
                         <div>
+                            ${opp.imageUrl ? `
+                            <div class="opp-card-thumbnail" style="width: 100%; height: 130px; border-radius: 12px; overflow: hidden; margin-bottom: 0.9rem; background: var(--color-muted); border: 1px solid var(--color-border);">
+                                <img src="${opp.imageUrl}" alt="${title}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='assets/logo.png'; this.style.objectFit='contain'; this.style.padding='1rem';" />
+                            </div>` : ''}
                             <div class="opp-header-row">
                                 <div class="opp-brand-info">
                                     <div class="opp-brand-logo">
