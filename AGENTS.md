@@ -475,3 +475,53 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
     - Added backend suite to `npm test` pipeline in `package.json`.
     - Permanently deleted stale feature branches `US38-...` and `US39-...` from remote repository.
     - Posted professional architectural reviews on GitHub Issues #113 and #114, marking both closed and transitioning to `Done` in Project #5.
+
+### 🟢 US35: Secure Authentication Flow, Scrypt Hashing & Zero Debug Leaks (2026-11-23 23:30 UTC+2)
+
+- **Issue:** #110 (US35: Secure Authentication Flow & Zero Debug Leaks)
+- **PR:** #122 (Squashed and merged into `main`)
+- **Assignee:** `@hager678` (Audited, hardened, and merged by Lead Architect `@EngMohamedElabsy`)
+- **Deliverables:**
+  - Removed all exposed debug quick-login persona buttons and bypass accounts from `frontend/pages/auth.html` and `frontend/js/auth.js`.
+  - Upgraded authentication to enterprise cryptography: `scrypt` password hashing with random 16-byte salt, timing-safe equality verification (`crypto.timingSafeEqual`), and HMAC-SHA256 session token signing.
+  - Implemented zero user enumeration with constant-time dummy password hashing on non-existent users and unified error responses (`"Invalid email or password."`).
+  - Added strict payload size protection (16KB ceiling with HTTP 413) and CORS origin whitelisting.
+  - Hardened `<head>` client-side route guards (`frontend/js/guard.js`) executing before DOM painting.
+  - Auth test suites: 8 security test suites and 11 browser E2E flow test suites passed with 100% compliance.
+
+### 🟢 US36: motionsites.ai Minimalist Navigation & Icon-Driven System (2026-11-24 03:55 UTC+2)
+
+- **Issue:** #111 (US36: motionsites.ai Minimalist Navigation & Icon-Driven System)
+- **PR:** #124 (Squashed and merged into `main`)
+- **Assignees:** `@hager678`, `@EngMohamedElabsy`
+- **Deliverables:**
+  - Floating frosted glassmorphism navbar (`backdrop-filter: blur(16px)`) with subtle scroll-elevation shadow across all platform pages.
+  - Pure icon-driven theme controls: Transformed theme toggles across `index.html`, `student.html`, `admin.html`, and `employer.html` into pure Sun/Moon SVG vector icons without 'Theme' or 'Appearance' text clutter or dropdown popups.
+  - Micro-styled accessible tooltips with spring bezier curve `cubic-bezier(0.16, 1, 0.3, 1)`.
+  - Zero-emoji architecture: Purged makeshift emoji characters from navigation badges, table headers, and i18n dictionaries.
+  - All 9 Playwright audit suites and smoke tests passed with 100% compliance.
+
+### 🟢 US37: motionsites.ai Interactive Landing, 3D Tilt Micro-Motions & Dashboards Overhaul (2026-11-24 06:20 UTC+2)
+
+- **Issue:** #112 (US37: motionsites.ai Interactive Landing & 3D Tilt Micro-Motions)
+- **PR:** #125 (Squashed and merged into `main`)
+- **Assignees:** `@hager678`, `@EngMohamedElabsy`
+- **Deliverables:**
+  - **motionsites.ai 60fps 3D Card Tilt Engine (`frontend/js/components.js`, `frontend/css/landing.css`):**
+    - Cursor-tracking 3D rotation (`perspective(1000px) rotateX(...) rotateY(...)`) applied dynamically to career track cards, course cards, opportunity cards, and dashboard metrics.
+    - Scroll reveal intersection observer with spring cubic-bezier transitions (`cubic-bezier(0.16, 1, 0.3, 1)`).
+  - **Student Career Hub Overhaul (`frontend/pages/student.html`):**
+    - High-contrast, unslop-compliant welcome hero and 4-metric overview grid.
+    - Interactive ATS Profile Assessment card with circular SVG gauge (92/100 readiness score) and domain competence breakdown.
+    - Extracted ATS keywords list with market recommendations (+Kubernetes, +System Design).
+    - Multi-stage recruitment pipeline tracker (Applied -> Shortlisted -> Interview -> Offer) with visual progress steps.
+    - Student opportunity/postings activity summary.
+  - **Admin Control Center Overhaul (`frontend/pages/admin.html`):**
+    - Executive KPI cards with 3D tilt, corporate moderation queue, and user oversight.
+    - Zero makeshift emojis, replaced with clean Lucide/Heroicon SVGs.
+  - **Image Fallback Protection:**
+    - Standardized card thumbnails with aspect ratio enforcement and `onerror` fallback to `assets/logo.png`.
+  - **Full Sprint 1 Delivery:**
+    - Overall Sprint 1 Completion reached **100%** (30 of 30 User Stories Done).
+    - Closed all backlog issues on GitHub and moved cards to `Done` in Project #5.
+    - Generated updated `docs/TEAM_METRICS.md` verifying 100% velocity across all 3 team members.
