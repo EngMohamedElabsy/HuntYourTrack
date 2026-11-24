@@ -13,7 +13,11 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    transition: background 0.3s ease, border-color 0.3s ease;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-nav.scrolled {
+    box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="dark"] .landing-nav,
@@ -23,6 +27,14 @@
 [data-theme="ember"] .landing-nav {
     background: var(--glass-strong);
     border-bottom: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .landing-nav.scrolled,
+[data-theme="abyss"] .landing-nav.scrolled,
+[data-theme="reef"] .landing-nav.scrolled,
+[data-theme="nebula"] .landing-nav.scrolled,
+[data-theme="ember"] .landing-nav.scrolled {
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
 }
 
 .nav-container {
@@ -1150,12 +1162,38 @@
 }
 
 .nav-icon-only-btn {
-    padding: 0.42rem 0.65rem !important;
-    min-width: 38px;
+    width: 38px;
     height: 38px;
+    min-width: 38px;
+    padding: 0 !important;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
+    color: var(--color-foreground);
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.nav-icon-only-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.nav-icon-only-btn:active {
+    transform: scale(0.92);
+}
+
+.nav-icon-only-btn svg {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-icon-only-btn:hover svg {
+    transform: rotate(20deg) scale(1.12);
 }
 
 .nav-auth-btn {

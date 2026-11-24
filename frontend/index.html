@@ -54,8 +54,8 @@
 
                 
 
-                <!-- Single-Click Theme & Appearance Toggle (Sun/Moon Pure B&W - Zero Popup) -->
-                <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Theme & Appearance" onclick="toggleAppTheme(event)" title="Theme & Appearance (Dark / Light)">
+                <!-- Single-Click Theme & Appearance Toggle (Sun/Moon Pure Vector - Zero Popup Clutter) -->
+                <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Toggle Dark/Light Mode" onclick="toggleAppTheme(event)" title="Toggle Dark/Light Mode" data-tooltip="Toggle Mode">
                     <span id="theme-btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
                 </button>
 
@@ -79,8 +79,10 @@
             <a href="#employers" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navEmployers">For Employers</a>
             
             <div style="display: flex; gap: 0.5rem; margin: 1rem 0;">
-                
-                <button onclick="window.hytI18n.toggleTheme(); closeMobileDrawer();" class="nav-util-btn" style="flex: 1;" data-i18n="themeToggleLabel">Theme</button>
+                <button onclick="window.hytI18n.toggleTheme(); closeMobileDrawer();" class="btn btn-secondary" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;" aria-label="Toggle Dark/Light Mode">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                    <span data-i18n="themeToggleLabel">Appearance</span>
+                </button>
             </div>
 
             <div class="nav-cta-group" id="mobile-auth-actions" style="display: flex; flex-direction: column; gap: 0.5rem;">
