@@ -24,15 +24,27 @@
  }
 
  .navbar {
- background: var(--color-card);
+ background: var(--glass-strong);
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
  border-bottom: 1px solid var(--color-border);
- padding: 1rem 2rem;
+ padding: 0.85rem 2rem;
  display: flex;
  align-items: center;
  justify-content: space-between;
  position: sticky;
  top: 0;
  z-index: 100;
+ transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+ }
+
+ .navbar.scrolled {
+ box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+ }
+
+ [data-theme="dark"] .navbar.scrolled,
+ [data-theme="abyss"] .navbar.scrolled {
+ box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
  }
 
  .navbar-brand {
@@ -67,35 +79,49 @@
 
  .dashboard-content {
  flex: 1;
- max-width: 1200px;
+ max-width: 1240px;
  width: 100%;
  margin: 2rem auto;
  padding: 0 1.5rem;
  }
 
  .welcome-card {
- background: linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #818CF8 100%);
- color: #FFFFFF;
- border-radius: 24px;
- padding: 2.5rem;
+ background: var(--color-card);
+ border: 1px solid var(--color-border);
+ color: var(--color-foreground);
+ border-radius: 20px;
+ padding: 2rem 2.25rem;
  margin-bottom: 2rem;
- box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.2);
+ box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
  display: flex;
  justify-content: space-between;
  align-items: center;
  flex-wrap: wrap;
  gap: 1.5rem;
+ position: relative;
+ overflow: hidden;
+ }
+
+ .welcome-card::before {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 4px;
+ height: 100%;
+ background: linear-gradient(180deg, #00F2FE 0%, #6366F1 100%);
  }
 
  .welcome-card h1 {
  font-family: var(--font-heading);
- font-size: 1.85rem;
- margin-bottom: 0.5rem;
+ font-size: 1.75rem;
+ margin-bottom: 0.4rem;
+ font-weight: 800;
  }
 
  .welcome-card p {
- color: #E0E7FF;
- font-size: 0.95rem;
+ color: var(--color-muted-foreground);
+ font-size: 0.92rem;
  max-width: 650px;
  line-height: 1.6;
  }
@@ -103,27 +129,27 @@
  .stats-grid {
  display: grid;
  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
- gap: 1.5rem;
+ gap: 1.25rem;
  margin-bottom: 2rem;
  }
 
  .stat-card {
  background: var(--color-card);
  border: 1px solid var(--color-border);
- border-radius: 20px;
+ border-radius: 16px;
  padding: 1.5rem;
- box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
- transition: transform 0.2s ease, box-shadow 0.2s ease;
+ box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+ transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
  }
 
  .stat-card:hover {
  transform: translateY(-3px);
- box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+ box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.08);
  }
 
  .stat-card .stat-label {
  color: var(--color-muted-foreground);
- font-size: 0.82rem;
+ font-size: 0.8rem;
  font-weight: 600;
  text-transform: uppercase;
  letter-spacing: 0.5px;
@@ -133,8 +159,249 @@
  .stat-card .stat-val {
  font-family: var(--font-heading);
  font-size: 2rem;
+ font-weight: 800;
+ color: var(--color-foreground);
+ line-height: 1;
+ }
+
+ /* ATS Score & Evaluation Card */
+ .ats-evaluation-card {
+ background: var(--color-card);
+ border: 1px solid var(--color-border);
+ border-radius: 20px;
+ padding: 1.75rem;
+ margin-bottom: 2rem;
+ box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.04);
+ }
+
+ .ats-grid-layout {
+ display: grid;
+ grid-template-columns: 200px 1fr;
+ gap: 2rem;
+ align-items: center;
+ margin-top: 1.25rem;
+ }
+
+ @media (max-width: 768px) {
+ .ats-grid-layout {
+ grid-template-columns: 1fr;
+ }
+ }
+
+ .ats-meter-box {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding: 1.5rem;
+ background: var(--color-muted);
+ border-radius: 16px;
+ border: 1px solid var(--color-border);
+ text-align: center;
+ }
+
+ .ats-circle-gauge {
+ position: relative;
+ width: 110px;
+ height: 110px;
+ }
+
+ .ats-circle-gauge svg {
+ transform: rotate(-90deg);
+ width: 110px;
+ height: 110px;
+ }
+
+ .ats-circle-gauge circle {
+ fill: none;
+ stroke-width: 8;
+ stroke-linecap: round;
+ }
+
+ .ats-gauge-bg {
+ stroke: var(--color-border);
+ }
+
+ .ats-gauge-val {
+ stroke: #10B981;
+ stroke-dasharray: 283;
+ stroke-dashoffset: 20;
+ transition: stroke-dashoffset 1s ease;
+ }
+
+ .ats-meter-text {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ font-family: var(--font-heading);
+ font-size: 1.6rem;
+ font-weight: 800;
+ color: var(--color-foreground);
+ }
+
+ .ats-breakdown-row {
+ display: flex;
+ flex-direction: column;
+ gap: 1rem;
+ }
+
+ .ats-bar-item {
+ display: flex;
+ flex-direction: column;
+ gap: 0.35rem;
+ }
+
+ .ats-bar-header {
+ display: flex;
+ justify-content: space-between;
+ font-size: 0.85rem;
+ font-weight: 600;
+ color: var(--color-foreground);
+ }
+
+ .ats-bar-track {
+ width: 100%;
+ height: 8px;
+ background: var(--color-muted);
+ border-radius: 999px;
+ overflow: hidden;
+ }
+
+ .ats-bar-fill {
+ height: 100%;
+ border-radius: 999px;
+ transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+ }
+
+ /* Applications Pipeline Cards */
+ .pipeline-section {
+ margin-bottom: 2rem;
+ }
+
+ .pipeline-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+ gap: 1.25rem;
+ margin-top: 1rem;
+ }
+
+ .pipeline-card {
+ background: var(--color-card);
+ border: 1px solid var(--color-border);
+ border-radius: 16px;
+ padding: 1.25rem;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ gap: 1rem;
+ box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+ transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+ }
+
+ .pipeline-card:hover {
+ transform: translateY(-3px);
+ box-shadow: 0 10px 20px -4px rgba(0, 0, 0, 0.08);
+ }
+
+ .pipeline-card-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: flex-start;
+ gap: 0.75rem;
+ }
+
+ .pipeline-company {
+ font-size: 0.8rem;
+ font-weight: 600;
+ color: var(--color-muted-foreground);
+ }
+
+ .pipeline-role {
+ font-family: var(--font-heading);
+ font-size: 1rem;
  font-weight: 700;
  color: var(--color-foreground);
+ margin-top: 0.2rem;
+ }
+
+ .status-chip {
+ display: inline-flex;
+ align-items: center;
+ gap: 0.3rem;
+ font-size: 0.72rem;
+ font-weight: 700;
+ padding: 0.25rem 0.6rem;
+ border-radius: 999px;
+ white-space: nowrap;
+ }
+
+ .status-under-review {
+ background: rgba(245, 158, 11, 0.12);
+ color: #D97706;
+ border: 1px solid rgba(245, 158, 11, 0.25);
+ }
+
+ .status-shortlisted {
+ background: rgba(59, 130, 246, 0.12);
+ color: #2563EB;
+ border: 1px solid rgba(59, 130, 246, 0.25);
+ }
+
+ .status-interview {
+ background: rgba(139, 92, 246, 0.12);
+ color: #7C3AED;
+ border: 1px solid rgba(139, 92, 246, 0.25);
+ }
+
+ .status-offered {
+ background: rgba(16, 185, 129, 0.12);
+ color: #059669;
+ border: 1px solid rgba(16, 185, 129, 0.25);
+ }
+
+ /* Step Progression Bar */
+ .pipeline-progress-steps {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ position: relative;
+ margin-top: 0.5rem;
+ padding: 0 0.25rem;
+ }
+
+ .pipeline-progress-steps::before {
+ content: '';
+ position: absolute;
+ top: 50%;
+ left: 8px;
+ right: 8px;
+ height: 2px;
+ background: var(--color-border);
+ z-index: 1;
+ transform: translateY(-50%);
+ }
+
+ .progress-step-dot {
+ width: 14px;
+ height: 14px;
+ border-radius: 50%;
+ background: var(--color-card);
+ border: 2px solid var(--color-border);
+ position: relative;
+ z-index: 2;
+ transition: all 0.2s ease;
+ }
+
+ .progress-step-dot.active {
+ border-color: #10B981;
+ background: #10B981;
+ box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+ }
+
+ .progress-step-dot.completed {
+ border-color: #10B981;
+ background: #10B981;
  }
 
  /* Profile & Faculty Configuration Card */
@@ -155,21 +422,27 @@
  margin-top: 1rem;
  }
 
+ @media (max-width: 850px) {
+ .settings-grid {
+ grid-template-columns: 1fr;
+ }
+ }
+
  /* CV Upload Zone */
  .cv-drop-zone {
- border: 2px dashed var(--color-primary);
+ border: 2px dashed var(--color-border);
  border-radius: 16px;
  padding: 1.5rem;
  text-align: center;
- background: rgba(99, 102, 241, 0.04);
+ background: var(--color-muted);
  cursor: pointer;
  transition: all 200ms ease;
- margin-top: 1rem;
+ margin-top: 1.25rem;
  }
 
  .cv-drop-zone:hover {
- background: rgba(99, 102, 241, 0.08);
- border-color: var(--color-primary-dark);
+ border-color: var(--color-primary);
+ background: rgba(0, 242, 254, 0.05);
  }
 
  /* Roadmap Section */
@@ -184,7 +457,7 @@
 
  .progress-bar-container {
  width: 100%;
- height: 12px;
+ height: 10px;
  background: var(--color-muted);
  border-radius: 999px;
  overflow: hidden;
@@ -194,7 +467,7 @@
  .progress-bar-fill {
  height: 100%;
  width: 75%;
- background: linear-gradient(90deg, #6366F1, #16A34A);
+ background: linear-gradient(90deg, #00F2FE, #10B981);
  border-radius: 999px;
  }
 
@@ -214,7 +487,7 @@
  }
 
  .milestone-item.done {
- color: #16A34A;
+ color: #10B981;
  font-weight: 600;
  }
 
@@ -356,40 +629,240 @@
  <main class="dashboard-content">
  
  <!-- Welcome Banner -->
- <section class="welcome-card">
+ <section class="welcome-card tilt-target">
  <div>
  <h1 id="welcome-heading" data-i18n="studentWelcomeHeading">Welcome Back, Explorer!</h1>
  <p id="welcome-sub" data-i18n="studentWelcomeSub">Damanhour University · Your personalized roadmap and opportunities are ready based on your academic specialization.</p>
  </div>
  <div>
- <button class="btn btn-accent" onclick="showStudentToast("AI roadmap synchronized with latest academic benchmarks!")" data-i18n="syncRoadmapBtn">Sync AI Roadmap</button>
+ <button class="btn btn-accent" onclick="showStudentToast('AI roadmap synchronized with latest academic benchmarks!')" data-i18n="syncRoadmapBtn">Sync AI Roadmap</button>
  </div>
  </section>
 
- <!-- Quick Metrics -->
+ <!-- Quick Metrics Grid -->
  <section class="stats-grid">
- <div class="stat-card">
+ <div class="stat-card tilt-target">
  <div class="stat-label" data-i18n="studentMetricMatch">Academic Match Rate</div>
  <div class="stat-val" style="color: #6366F1;">94%</div>
  <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" id="matched-track-label" data-i18n="studentMetricTrackLabel">Software Engineering & AI Track</p>
  </div>
- <div class="stat-card">
+ <div class="stat-card tilt-target">
  <div class="stat-label" data-i18n="studentMetricApps">Active Applications</div>
- <div class="stat-val" style="color: #16A34A;">3</div>
- <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" data-i18n="studentMetricAppsSub">2 Under Review · 1 Shortlisted</p>
+ <div class="stat-val" style="color: #10B981;">4</div>
+ <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" data-i18n="studentMetricAppsSub">1 Under Review · 1 Shortlisted · 1 Interview · 1 Offer</p>
  </div>
- <div class="stat-card">
+ <div class="stat-card tilt-target">
  <div class="stat-label" data-i18n="studentMetricMilestones">Completed Milestones</div>
- <div class="stat-val" style="color: #D97706;">8 / 12</div>
+ <div class="stat-val" style="color: #F59E0B;">8 / 12</div>
  <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" data-i18n="studentMetricMilestonesSub">75% Track Completion Toward Graduation</p>
+ </div>
+ <div class="stat-card tilt-target">
+ <div class="stat-label">ATS Resume Score</div>
+ <div class="stat-val" style="color: #0284C7;">92/100</div>
+ <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;">Top 5% in Faculty of Computers & AI</p>
+ </div>
+ </section>
+
+ <!-- ATS Resume Evaluation & Real-Time Skills Matcher -->
+ <section class="ats-evaluation-card tilt-target">
+ <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+ <div>
+ <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--color-foreground);">ATS Resume Scoring & Market Alignment</h2>
+ <p style="font-size: 0.88rem; color: var(--color-muted-foreground);">AI analysis benchmarking your profile keywords against active 2026 enterprise job descriptions:</p>
+ </div>
+ <span class="status-chip status-offered" style="font-size: 0.78rem;">✓ High ATS Compatibility</span>
+ </div>
+
+ <div class="ats-grid-layout">
+ <div class="ats-meter-box">
+ <div class="ats-circle-gauge">
+ <svg viewBox="0 0 100 100">
+ <circle class="ats-gauge-bg" cx="50" cy="50" r="42" />
+ <circle class="ats-gauge-val" cx="50" cy="50" r="42" stroke-dashoffset="24" />
+ </svg>
+ <div class="ats-meter-text">92%</div>
+ </div>
+ <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-foreground); margin-top: 0.75rem;">Profile Strength</span>
+ <span style="font-size: 0.72rem; color: var(--color-muted-foreground);">Industry Ready</span>
+ </div>
+
+ <div class="ats-breakdown-row">
+ <div class="ats-bar-item">
+ <div class="ats-bar-header">
+ <span>Domain Core Knowledge</span>
+ <span style="color: #10B981;">96%</span>
+ </div>
+ <div class="ats-bar-track">
+ <div class="ats-bar-fill" style="width: 96%; background: #10B981;"></div>
+ </div>
+ </div>
+
+ <div class="ats-bar-item">
+ <div class="ats-bar-header">
+ <span>Tools & Frameworks Overlap</span>
+ <span style="color: #3B82F6;">91%</span>
+ </div>
+ <div class="ats-bar-track">
+ <div class="ats-bar-fill" style="width: 91%; background: #3B82F6;"></div>
+ </div>
+ </div>
+
+ <div class="ats-bar-item">
+ <div class="ats-bar-header">
+ <span>Cloud & Microservices Alignment</span>
+ <span style="color: #F59E0B;">88%</span>
+ </div>
+ <div class="ats-bar-track">
+ <div class="ats-bar-fill" style="width: 88%; background: #F59E0B;"></div>
+ </div>
+ </div>
+
+ <div style="margin-top: 0.5rem;">
+ <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-muted-foreground); text-transform: uppercase; margin-bottom: 0.4rem;">Detected ATS Keywords:</div>
+ <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+ <span class="tag-pill" style="font-size: 0.75rem; background: var(--color-muted); color: var(--color-foreground);">React 19</span>
+ <span class="tag-pill" style="font-size: 0.75rem; background: var(--color-muted); color: var(--color-foreground);">TypeScript</span>
+ <span class="tag-pill" style="font-size: 0.75rem; background: var(--color-muted); color: var(--color-foreground);">Node.js REST APIs</span>
+ <span class="tag-pill" style="font-size: 0.75rem; background: var(--color-muted); color: var(--color-foreground);">Docker</span>
+ <span class="tag-pill" style="font-size: 0.75rem; background: var(--color-muted); color: var(--color-foreground);">PostgreSQL</span>
+ <span class="tag-pill" style="font-size: 0.75rem; background: var(--color-muted); color: var(--color-foreground);">Python ML</span>
+ <span class="tag-pill" style="font-size: 0.75rem; background: rgba(16, 185, 129, 0.1); color: #059669; border: 1px dashed rgba(16, 185, 129, 0.3);">+ Recommended: Kubernetes</span>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- Applied Opportunities & Recruitment Tracker Pipeline -->
+ <section class="pipeline-section">
+ <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+ <div>
+ <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--color-foreground);">Application Status & Pipeline Tracker</h2>
+ <p style="font-size: 0.88rem; color: var(--color-muted-foreground);">Real-time review updates from corporate partners on your submitted applications:</p>
+ </div>
+ <span class="status-chip status-shortlisted">4 Active Submissions</span>
+ </div>
+
+ <div class="pipeline-grid">
+ <!-- Application 1 -->
+ <article class="pipeline-card tilt-target">
+ <div>
+ <div class="pipeline-card-header">
+ <div>
+ <span class="pipeline-company">Vodafone Intelligent Solutions</span>
+ <h3 class="pipeline-role">Cloud & DevOps Summer Internship</h3>
+ </div>
+ <span class="status-chip status-shortlisted">Shortlisted</span>
+ </div>
+ <p style="font-size: 0.82rem; color: var(--color-muted-foreground); margin: 0.5rem 0;">Smart Village · 8-12 weeks · Applied on Nov 12, 2026</p>
+ </div>
+ <div>
+ <div class="pipeline-progress-steps">
+ <span class="progress-step-dot completed" title="1. Applied"></span>
+ <span class="progress-step-dot active" title="2. Shortlisted"></span>
+ <span class="progress-step-dot" title="3. Interview"></span>
+ <span class="progress-step-dot" title="4. Decision"></span>
+ </div>
+ <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--color-muted-foreground); margin-top: 0.4rem;">
+ <span>Applied</span>
+ <strong style="color: #2563EB;">Shortlisted</strong>
+ <span>Interview</span>
+ <span>Offer</span>
+ </div>
+ </div>
+ </article>
+
+ <!-- Application 2 -->
+ <article class="pipeline-card tilt-target">
+ <div>
+ <div class="pipeline-card-header">
+ <div>
+ <span class="pipeline-company">ITIDA & ITI Egypt</span>
+ <h3 class="pipeline-role">Full-Stack Web & AI Graduation Track</h3>
+ </div>
+ <span class="status-chip status-interview">Interview Scheduled</span>
+ </div>
+ <p style="font-size: 0.82rem; color: var(--color-muted-foreground); margin: 0.5rem 0;">Cairo Tech Hub · Technical Defense scheduled for Nov 28</p>
+ </div>
+ <div>
+ <div class="pipeline-progress-steps">
+ <span class="progress-step-dot completed" title="1. Applied"></span>
+ <span class="progress-step-dot completed" title="2. Shortlisted"></span>
+ <span class="progress-step-dot active" title="3. Interview"></span>
+ <span class="progress-step-dot" title="4. Decision"></span>
+ </div>
+ <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--color-muted-foreground); margin-top: 0.4rem;">
+ <span>Applied</span>
+ <span>Shortlisted</span>
+ <strong style="color: #7C3AED;">Interview</strong>
+ <span>Offer</span>
+ </div>
+ </div>
+ </article>
+
+ <!-- Application 3 -->
+ <article class="pipeline-card tilt-target">
+ <div>
+ <div class="pipeline-card-header">
+ <div>
+ <span class="pipeline-company">Siemens Advanta</span>
+ <h3 class="pipeline-role">Embedded IoT & Robotics Engineering</h3>
+ </div>
+ <span class="status-chip status-under-review">Under Review</span>
+ </div>
+ <p style="font-size: 0.82rem; color: var(--color-muted-foreground); margin: 0.5rem 0;">Siemens R&D Center · Initial screening in progress</p>
+ </div>
+ <div>
+ <div class="pipeline-progress-steps">
+ <span class="progress-step-dot active" title="1. Applied"></span>
+ <span class="progress-step-dot" title="2. Shortlisted"></span>
+ <span class="progress-step-dot" title="3. Interview"></span>
+ <span class="progress-step-dot" title="4. Decision"></span>
+ </div>
+ <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--color-muted-foreground); margin-top: 0.4rem;">
+ <strong style="color: #D97706;">Reviewing</strong>
+ <span>Shortlisted</span>
+ <span>Interview</span>
+ <span>Offer</span>
+ </div>
+ </div>
+ </article>
+
+ <!-- Application 4 -->
+ <article class="pipeline-card tilt-target">
+ <div>
+ <div class="pipeline-card-header">
+ <div>
+ <span class="pipeline-company">PwC Middle East</span>
+ <h3 class="pipeline-role">FinTech & Valuation Analytics</h3>
+ </div>
+ <span class="status-chip status-offered">Offer Extended</span>
+ </div>
+ <p style="font-size: 0.82rem; color: var(--color-muted-foreground); margin: 0.5rem 0;">New Cairo Office · Formal offer letter issued</p>
+ </div>
+ <div>
+ <div class="pipeline-progress-steps">
+ <span class="progress-step-dot completed" title="1. Applied"></span>
+ <span class="progress-step-dot completed" title="2. Shortlisted"></span>
+ <span class="progress-step-dot completed" title="3. Interview"></span>
+ <span class="progress-step-dot active" title="4. Offer"></span>
+ </div>
+ <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--color-muted-foreground); margin-top: 0.4rem;">
+ <span>Applied</span>
+ <span>Shortlisted</span>
+ <span>Interview</span>
+ <strong style="color: #059669;">Accepted</strong>
+ </div>
+ </div>
+ </article>
  </div>
  </section>
 
  <!-- Academic Faculty & Department Customizer (Multi-Faculty Support US17) -->
- <section class="academic-settings-card">
+ <section class="academic-settings-card tilt-target">
  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
  <div>
- <h2 style="font-size: 1.25rem; font-weight: 700;" data-i18n="academicSettingsTitle">️ Academic Specialization & Faculty Identity</h2>
+ <h2 style="font-size: 1.25rem; font-weight: 700;" data-i18n="academicSettingsTitle">Academic Specialization & Faculty Identity</h2>
  <p style="font-size: 0.88rem; color: var(--color-muted-foreground);" data-i18n="academicSettingsSub">Select your faculty and department to dynamically adapt your roadmap and matched opportunities:</p>
  </div>
  <span class="hunter-status-chip" data-i18n="accreditedBadge">Accredited Pathway</span>
@@ -424,17 +897,17 @@
 
  <!-- CV Upload Zone -->
  <div class="cv-drop-zone" onclick="simulateCvUpload()">
- <span style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></span>
- <strong style="font-size: 1rem; color: var(--color-primary-dark);" data-i18n="cvDropTitle">Upload Resume / CV for AI Track Alignment</strong>
+ <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary); margin-bottom: 0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+ <strong style="font-size: 1rem; color: var(--color-foreground); display: block;" data-i18n="cvDropTitle">Upload Resume / CV for AI Track Alignment</strong>
  <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.25rem;" id="cv-status-text" data-i18n="cvDropSub">Supports PDF or DOCX · AI matches your skills with active partner internships automatically</p>
  </div>
  </section>
 
  <!-- Learning Roadmap -->
- <section class="roadmap-card">
+ <section class="roadmap-card tilt-target">
  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
- <h2 style="font-size: 1.25rem; font-weight: 700;" data-i18n="roadmapTitle">️ Personalized Learning Roadmap</h2>
- <span style="font-weight: 700; color: #16A34A;" data-i18n="roadmapProgress">75% Completed</span>
+ <h2 style="font-size: 1.25rem; font-weight: 700;" data-i18n="roadmapTitle">Personalized Learning Roadmap</h2>
+ <span style="font-weight: 700; color: #10B981;" data-i18n="roadmapProgress">75% Completed</span>
  </div>
  <p style="color: var(--color-muted-foreground); font-size: 0.88rem;" id="roadmap-track-target" data-i18n="roadmapTargetTrack">Target Track: Senior Software & AI Engineer (Class of 2026)</p>
  <div class="progress-bar-container">
@@ -444,8 +917,8 @@
  <li class="milestone-item done" data-i18n="milestone1">Core Fundamentals: Data Structures & Algorithms (Completed)</li>
  <li class="milestone-item done" data-i18n="milestone2">Modern Web Architecture & Design System Tokens (Completed)</li>
  <li class="milestone-item done" data-i18n="milestone3">Client-Side State & Micro-interactions with GSAP (Completed)</li>
- <li class="milestone-item" data-i18n="milestone4">○ Cloud Microservices & n8n Automation Workflows (In Progress)</li>
- <li class="milestone-item" data-i18n="milestone5">○ Final Graduation Defense & University Accreditation (Upcoming)</li>
+ <li class="milestone-item" data-i18n="milestone4">Cloud Microservices & Automation Workflows (In Progress)</li>
+ <li class="milestone-item" data-i18n="milestone5">Final Graduation Defense & University Accreditation (Upcoming)</li>
  </ul>
  </section>
 
@@ -468,6 +941,7 @@
  <script src="../js/i18n.js"></script>
  <script src="../js/opportunities.js"></script>
  <script src="../js/ocean-background.js"></script>
+ <script src="../js/components.js"></script>
  <script>
  // Server-verified student session and localized faculty data
  let currentStudent = null;

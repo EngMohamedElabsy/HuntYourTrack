@@ -428,13 +428,15 @@ class OpportunitiesManager {
                 const matchRingHtml = this.renderMatchRing(opp.matchScore || 90);
                 const skillsList = opp.skills || ["Core Competencies"];
 
+                const logoFallback = (typeof window !== 'undefined' && window.location.pathname.includes('/pages/')) ? '../assets/logo.png' : 'assets/logo.png';
+                const oppThumbnail = opp.imageUrl || logoFallback;
+
                 return `
-                    <article class="opp-card opp-card-modern" data-faculty="${opp.facultyTrack || "general"}" data-id="${opp.id}">
+                    <article class="opp-card opp-card-modern tilt-target" data-faculty="${opp.facultyTrack || "general"}" data-id="${opp.id}">
                         <div>
-                            ${opp.imageUrl ? `
                             <div class="opp-card-thumbnail" style="width: 100%; height: 130px; border-radius: 12px; overflow: hidden; margin-bottom: 0.9rem; background: var(--color-muted); border: 1px solid var(--color-border);">
-                                <img src="${opp.imageUrl}" alt="${title}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='assets/logo.png'; this.style.objectFit='contain'; this.style.padding='1rem';" />
-                            </div>` : ''}
+                                <img src="${oppThumbnail}" alt="${title}" loading="lazy" style="width: 100%; height: 100%; object-fit: ${opp.imageUrl ? 'cover' : 'contain'}; display: block; ${!opp.imageUrl ? 'padding: 1rem;' : ''}" onerror="this.onerror=null; this.src='${logoFallback}'; this.style.objectFit='contain'; this.style.padding='1rem';" />
+                            </div>
                             <div class="opp-header-row">
                                 <div class="opp-brand-info">
                                     <div class="opp-brand-logo">
@@ -517,6 +519,9 @@ class OpportunitiesManager {
         }
 
         container.innerHTML = gridHtml;
+        if (typeof window !== 'undefined' && window.init3DTiltCards) {
+            window.init3DTiltCards();
+        }
     }
 }
 

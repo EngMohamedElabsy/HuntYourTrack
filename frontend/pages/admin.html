@@ -72,16 +72,18 @@
 
  <!-- Admin Mobile Navigation Drawer -->
  <div class="mobile-drawer" id="admin-mobile-drawer">
- <div style="padding-bottom: 0.75rem; border-bottom: 1px solid #E2E8F0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
- <div class="avatar">️</div>
+ <div style="padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-border); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+ <div class="avatar" style="display: inline-flex; align-items: center; justify-content: center;">
+     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+ </div>
  <span id="mobile-admin-user-display" style="font-weight: 600; font-size: 0.9rem;"></span>
  </div>
- <a href="../index.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> Product Landing</a>
- <a href="student.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> Student Career Hub</a>
- <a href="admin.html" class="nav-drawer-link active" onclick="closeAdminDrawer()">️ Admin Console</a>
- <a href="workflow.html" class="nav-drawer-link" onclick="closeAdminDrawer()">️ System Architecture Map</a>
- <a href="components.html" class="nav-drawer-link" onclick="closeAdminDrawer()"> UI Component Kit</a>
- <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #E2E8F0;">
+ <a href="../index.html" class="nav-drawer-link" onclick="closeAdminDrawer()">Product Landing</a>
+ <a href="student.html" class="nav-drawer-link" onclick="closeAdminDrawer()">Student Career Hub</a>
+ <a href="admin.html" class="nav-drawer-link active" onclick="closeAdminDrawer()">Admin Console</a>
+ <a href="workflow.html" class="nav-drawer-link" onclick="closeAdminDrawer()">System Architecture Map</a>
+ <a href="components.html" class="nav-drawer-link" onclick="closeAdminDrawer()">UI Component Kit</a>
+ <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--color-border);">
  <button onclick="handleAdminLogout(event)" class="btn btn-secondary" style="width: 100%;">Sign Out</button>
  </div>
  </div>
@@ -90,31 +92,31 @@
  <main class="admin-container">
  <!-- Page Title & University Metadata -->
  <section class="page-header">
- <h1 class="page-title" data-i18n="adminPageTitle">Executive Control Center ️</h1>
+ <h1 class="page-title" data-i18n="adminPageTitle">Executive Control Center</h1>
  <p class="page-subtitle" data-i18n="adminPageSub">Faculty of Computers and Information · Damanhour University (CS Department). Platform Governance & Corporate Accreditation Engine.</p>
  </section>
 
  <!-- KPI Metrics Grid (US04) -->
  <section class="kpi-grid">
- <div class="kpi-card" style="--card-accent: #6366F1;">
+ <div class="kpi-card tilt-target" style="--card-accent: #6366F1;">
  <span class="kpi-label" data-i18n="adminKpi1Label">Registered Students</span>
  <div class="kpi-val" id="kpi-students">1,424</div>
  <span class="kpi-meta" data-i18n="adminKpi1Meta">↑ 12% enrollment growth this semester</span>
  </div>
 
- <div class="kpi-card" style="--card-accent: #16A34A;">
+ <div class="kpi-card tilt-target" style="--card-accent: #16A34A;">
  <span class="kpi-label" data-i18n="adminKpi2Label">Accredited Employers</span>
  <div class="kpi-val" id="kpi-employers">84</div>
  <span class="kpi-meta" data-i18n="adminKpi2Meta">Active corporate training partners</span>
  </div>
 
- <div class="kpi-card" style="--card-accent: #F59E0B;">
+ <div class="kpi-card tilt-target" style="--card-accent: #F59E0B;">
  <span class="kpi-label" data-i18n="adminKpi3Label">Pending Verifications</span>
  <div class="kpi-val" id="kpi-queue-count" style="color: #D97706;">3</div>
  <span class="kpi-meta" data-i18n="adminKpi3Meta">Entities awaiting accreditation review</span>
  </div>
 
- <div class="kpi-card" style="--card-accent: #0284C7;">
+ <div class="kpi-card tilt-target" style="--card-accent: #0284C7;">
  <span class="kpi-label" data-i18n="adminKpi4Label">AI Engine & Matching</span>
  <div class="kpi-val" style="color: #0284C7;">99.8%</div>
  <span class="kpi-meta" data-i18n="adminKpi4Meta">Operational · 312 Active Matched Internships</span>
@@ -127,7 +129,7 @@
  <button class="admin-tab-btn" data-tab="verification" onclick="switchAdminTab('verification')">
  <span data-i18n="adminTabQueue">Corporate Accreditation Queue</span> <span class="tab-badge" id="badge-queue-count">3</span>
  </button>
- <button class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')" data-i18n="adminTabSettings">️ Platform Configuration</button>
+ <button class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')" data-i18n="adminTabSettings">Platform Configuration</button>
  </div>
 
  <!-- TAB 1: User Management Data-Table (US04) -->
@@ -257,6 +259,7 @@
 
  <script src="../js/i18n.js"></script>
  <script src="../js/ocean-background.js"></script>
+ <script src="../js/components.js"></script>
  <script src="../js/admin.js"></script>
 </body>
 </html>
