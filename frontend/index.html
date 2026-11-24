@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#EEF2FF">
     <title data-i18n="mainPageTitle">HuntYourTrack · Career Track Navigation & Internship Matching Hub</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <link rel="alternate icon" href="assets/logo.png">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -748,7 +748,7 @@
                 container.innerHTML = courses.map(course => `
                     <article class="course-card tilt-target" data-track="${course.track}">
                         <div class="course-media">
-                            <img src="${course.thumbnail}" alt="${course.title}" loading="lazy" onerror="this.onerror=null; this.src='assets/logo.png'; this.style.objectFit='contain'; this.style.padding='1rem'; this.style.background='var(--color-muted)';" />
+                            <img src="${course.thumbnail}" alt="${course.title}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80';" />
                             <span class="course-provider-badge">${course.provider}</span>
                         </div>
                         <div class="course-content">

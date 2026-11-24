@@ -411,14 +411,9 @@ class TrackHunterCanvas {
             this.hookedNodes = this.nodes.filter(n => n.faculty === this.activeFaculty);
             if (this.hookedNodes.length > 0) this.renderHookedPanel(this.hookedNodes[0]);
         } else {
-            // Default: Hook primary tracks across key faculties
-            this.hookedNodes = [
-                this.nodes.find(n => n.id === 'cs-ai'),
-                this.nodes.find(n => n.id === 'cs-cloud'),
-                this.nodes.find(n => n.id === 'eng-mecha'),
-                this.nodes.find(n => n.id === 'bus-fintech')
-            ].filter(Boolean);
-            if (this.hookedNodes.length > 0) this.renderHookedPanel(this.hookedNodes[0]);
+            // Clean Initial State: No tracks auto-hooked by default (User explores freely)
+            this.hookedNodes = [];
+            this.renderHookedPanel(null);
         }
         this.updateLiveStatus();
     }
