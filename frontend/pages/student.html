@@ -314,49 +314,13 @@
  <!-- Utility Toggles -->
  
 
- <!-- Unified Theme & Appearance Dropdown -->
- <div class="theme-dropdown-wrapper" id="theme-dropdown-wrapper">
- <button id="hyt-theme-toggle" type="button" aria-label="Toggle Theme" style="display: none;"></button>
- <button id="hyt-theme-btn" class="nav-util-btn" type="button" aria-label="Theme & Appearance" onclick="toggleThemeDropdown(event)" title="Theme & Appearance">
- <span id="theme-btn-icon"></span> <span style="font-size: 0.8rem; margin-inline-start: 4px;" data-i18n="themeDropdownLabel">Appearance</span>
+ <!-- Single-Click Theme & Appearance Toggle (Sun/Moon Pure Vector - Zero Popup Clutter) -->
+ <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Toggle Dark/Light Mode" onclick="toggleAppTheme(event)" title="Toggle Dark/Light Mode" data-tooltip="Toggle Mode">
+     <span id="theme-btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
  </button>
- <div class="theme-dropdown-menu" id="theme-dropdown-menu">
- <div class="theme-menu-header" data-i18n="themeModesHeader">Lighting Mode</div>
- <button type="button" class="theme-opt-btn" data-theme-val="dark" onclick="setAppThemeMode('dark')">
- <span style="font-size: 0.95rem;"></span>
- <span data-i18n="themeDarkOption">Dark Mode (Night)</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="light" onclick="setAppThemeMode('light')">
- <span style="font-size: 0.95rem;"></span>
- <span data-i18n="themeLightOption">Light Mode (Daylight)</span>
- </button>
- <div class="theme-menu-divider"></div>
- <div class="theme-menu-header" data-i18n="themePalettesHeader">Curated Color Palettes</div>
- <button type="button" class="theme-opt-btn" data-theme-val="abyss" onclick="setAppTheme('abyss')">
- <span class="theme-swatch-dot" style="background: #00F2FE;"></span>
- <span data-i18n="themeAbyss">Abyss Deep</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="reef" onclick="setAppTheme('reef')">
- <span class="theme-swatch-dot" style="background: #10B981;"></span>
- <span data-i18n="themeReef">Coral Reef</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="nebula" onclick="setAppTheme('nebula')">
- <span class="theme-swatch-dot" style="background: #A78BFA;"></span>
- <span data-i18n="themeNebula">Deep Nebula</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="ember" onclick="setAppTheme('ember')">
- <span class="theme-swatch-dot" style="background: #FF6B4A;"></span>
- <span data-i18n="themeEmber">Solar Ember</span>
- </button>
- <button type="button" class="theme-opt-btn" data-theme-val="daylight" onclick="setAppTheme('daylight')">
- <span class="theme-swatch-dot" style="background: #0284C7;"></span>
- <span data-i18n="themeDaylight">️ Daylight Sky</span>
- </button>
- </div>
- </div>
 
  <span class="user-badge" id="student-badge">
- <span>‍</span> <span id="user-display" data-i18n="userDisplayStudent">Enrolled Student</span>
+     <span id="user-display" data-i18n="userDisplayStudent">Enrolled Student</span>
  </span>
  <button id="logout-btn" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; display: inline-flex; align-items: center; gap: 0.35rem;" data-i18n="navSignOut" onclick="handleStudentLogout(event)">Sign Out</button>
  </div>

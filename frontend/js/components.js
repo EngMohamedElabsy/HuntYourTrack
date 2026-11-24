@@ -10,6 +10,18 @@ if (document.getElementById('open-demo-modal') && demoModal) {
     document.getElementById('open-demo-modal').addEventListener('click', () => demoModal.showModal());
 }
 
+// Floating Glassmorphism Navbar Scroll Effect (US36 - motionsites.ai)
+if (typeof window !== 'undefined') {
+    const handleNavScroll = () => {
+        const nav = document.querySelector('.landing-nav, .navbar, .admin-navbar, .employer-nav, .auth-top-bar');
+        if (nav) {
+            nav.classList.toggle('scrolled', window.scrollY > 15);
+        }
+    };
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+    handleNavScroll();
+}
+
 /**
  * Universal Toast Notification System
  */
