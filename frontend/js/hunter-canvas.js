@@ -883,6 +883,7 @@ class TrackHunterCanvas {
         `;
 
         panel.classList.add('active');
+        if (window.init3DTiltCards) window.init3DTiltCards();
         setTimeout(() => {
             panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 50);

@@ -112,7 +112,7 @@ function openOpportunityDetails(oppId) {
                     <span style="font-weight: 700;">${stipend}</span>
                 </div>
                 <div class="opp-fact-pill" style="padding: 0.6rem 0.8rem;">
-                    <span class="fact-label">⏱️ Term:</span>
+                    <span class="fact-label">Term:</span>
                     <span style="font-weight: 700;">${term}</span>
                 </div>
                 <div class="opp-fact-pill" style="padding: 0.6rem 0.8rem;">
@@ -379,3 +379,92 @@ function toggleBookmarkOpportunity(oppId, btn) {
     }
 }
 window.toggleBookmarkOpportunity = toggleBookmarkOpportunity;
+
+/**
+ * motionsites.ai 3D Card Tilt Physics Engine (US37)
+ * Runs at 60fps with mousemove/mouseleave handling and smooth spring interpolation.
+ */
+function init3DTiltCards() {
+    if (typeof window === 'undefined') return;
+    const selector = '.track-card-3d-wrapper, .course-card, .opp-card, .stat-card, .kpi-card, .tilt-target, .academic-settings-card, .roadmap-card';
+    document.querySelectorAll(selector).forEach(card => {
+        if (card.dataset.tiltInitialized) return;
+        card.dataset.tiltInitialized = 'true';
+
+        let rafId = null;
+        let bounds = null;
+
+        const onMouseEnter = () => {
+            bounds = card.getBoundingClientRect();
+        };
+
+        const onMouseMove = (e) => {
+            if (!bounds) bounds = card.getBoundingClientRect();
+            const mouseX = e.clientX - bounds.left;
+            const mouseY = e.clientY - bounds.top;
+            const xPct = (mouseX / bounds.width) - 0.5;
+            const yPct = (mouseY / bounds.height) - 0.5;
+
+            // Subtle rotation (max 6-8 deg to preserve legibility and prevent overflow)
+            const rotX = -(yPct * 8).toFixed(2);
+            const rotY = (xPct * 8).toFixed(2);
+
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+                card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-2px)`;
+            });
+        };
+
+        const onMouseLeave = () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            bounds = null;
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+            card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+            setTimeout(() => {
+                card.style.transition = '';
+            }, 400);
+        };
+
+        card.addEventListener('mouseenter', onMouseEnter, { passive: true });
+        card.addEventListener('mousemove', onMouseMove, { passive: true });
+        card.addEventListener('mouseleave', onMouseLeave, { passive: true });
+    });
+}
+window.init3DTiltCards = init3DTiltCards;
+
+/**
+ * Scroll Reveal Observer (60fps IntersectionObserver)
+ */
+function initScrollReveals() {
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.section-wrapper, .course-card, .opp-card, .track-card-3d-wrapper, .stat-card, .kpi-card, .roadmap-card, .feature-card').forEach(el => {
+        el.classList.add('reveal-on-scroll');
+        observer.observe(el);
+    });
+}
+window.initScrollReveals = initScrollReveals;
+
+// Auto-initialize tilt & reveals on load & periodic check for dynamically injected cards
+if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            init3DTiltCards();
+            initScrollReveals();
+        });
+    } else {
+        init3DTiltCards();
+        initScrollReveals();
+    }
+    // Re-check periodically for async-loaded courses/opportunities
+    setTimeout(init3DTiltCards, 600);
+    setTimeout(init3DTiltCards, 1500);
+}
