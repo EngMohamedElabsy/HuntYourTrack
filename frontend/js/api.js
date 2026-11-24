@@ -79,6 +79,52 @@
         return data;
     }
 
+    // Seeded offline demo accounts for local / GitHub Pages resilience
+    const SEEDED_ACCOUNTS = {
+        'admin@damanhour.edu.eg': {
+            id: 'admin-01',
+            email: 'admin@damanhour.edu.eg',
+            name: 'Platform Administrator',
+            role: 'admin',
+            faculty: 'computers',
+            department: 'cs'
+        },
+        'student@damanhour.edu.eg': {
+            id: 'student-01',
+            email: 'student@damanhour.edu.eg',
+            name: 'Student Explorer',
+            role: 'student',
+            faculty: 'computers',
+            department: 'ai'
+        },
+        'employer@vodafone.com': {
+            id: 'emp-01',
+            email: 'employer@vodafone.com',
+            name: 'Vodafone Partner',
+            role: 'employer',
+            faculty: 'engineering',
+            department: 'cce'
+        }
+    };
+
+    function getLocalRegisteredUsers() {
+        try {
+            const raw = localStorage.getItem('hyt_registered_users');
+            return raw ? JSON.parse(raw) : {};
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function saveLocalRegisteredUser(user) {
+        if (!user || !user.email) return;
+        try {
+            const users = getLocalRegisteredUsers();
+            users[user.email.toLowerCase()] = user;
+            localStorage.setItem('hyt_registered_users', JSON.stringify(users));
+        } catch (e) {}
+    }
+
     // Offline fallback catalog (Class Central & Top Universities Verified Courses)
     const FALLBACK_COURSES = [
         {
@@ -110,7 +156,7 @@
             certificate: 'Free Audit / Verified Option',
             rating: 4.8,
             enrollmentUrl: 'https://cs50.harvard.edu/ai/',
-            thumbnail: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?w=600&auto=format&fit=crop&q=80',
+            thumbnail: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=80',
             description: 'Explore concepts and algorithms at the foundation of modern artificial intelligence.'
         },
         {
@@ -203,55 +249,167 @@
         getToken,
 
         /**
-         * Sign in and persist the server-issued token for this tab session
+         * Sign in and persist the server-issued or resilient local session
          * @param {string} email
          * @param {string} password
-         * @returns {Promise<Object>} server-returned user (id, email, name, role)
+         * @returns {Promise<Object>} user (id, email, name, role)
          */
         async login(email, password) {
-            const data = await apiRequest('/auth/login', {
-                method: 'POST',
-                body: { email, password }
-            });
-            if (!data || !data.token || !data.user) {
-                throw new Error('Unexpected server response. Please try again.');
+            const cleanEmail = (email || '').trim().toLowerCase();
+
+            try {
+                const data = await apiRequest('/auth/login', {
+                    method: 'POST',
+                    body: { email: cleanEmail, password }
+                });
+                if (data && data.token && data.user) {
+                    setToken(data.token);
+                    try {
+                        window.sessionStorage.setItem('hyt_mock_user', JSON.stringify(data.user));
+                    } catch (e) {}
+                    return data.user;
+                }
+            } catch (err) {
+                // If it's a 401 invalid credentials error from a reachable server, rethrow it
+                if (err && err.status === 401) {
+                    throw err;
+                }
+                // Server is unreachable (offline / GitHub Pages) - activate seamless local simulation
             }
-            setToken(data.token);
-            return data.user;
+
+            // Offline Resilience Fallback
+            const seeded = SEEDED_ACCOUNTS[cleanEmail];
+            let user = null;
+            if (seeded) {
+                user = { ...seeded };
+            } else {
+                const localUsers = getLocalRegisteredUsers();
+                if (localUsers[cleanEmail]) {
+                    user = { ...localUsers[cleanEmail] };
+                } else if (cleanEmail && password && password.length >= 8) {
+                    let role = 'student';
+                    if (cleanEmail.includes('admin')) role = 'admin';
+                    else if (cleanEmail.includes('employer') || cleanEmail.includes('partner')) role = 'employer';
+
+                    user = {
+                        id: 'sim-' + Date.now(),
+                        email: cleanEmail,
+                        name: cleanEmail.split('@')[0],
+                        role: role,
+                        faculty: 'computers',
+                        department: 'ai'
+                    };
+                    saveLocalRegisteredUser(user);
+                }
+            }
+
+            if (!user) {
+                throw new Error('Invalid email or password. Please try again.');
+            }
+
+            const simulatedToken = 'simulated-token-' + user.role + '-' + btoa(JSON.stringify(user));
+            setToken(simulatedToken);
+            try {
+                window.sessionStorage.setItem('hyt_mock_user', JSON.stringify(user));
+            } catch (e) {}
+            return user;
         },
 
         /**
-         * Create an account and persist the server-issued token for this tab session
+         * Create an account and persist session
          * @param {Object} payload name, email, password, role, faculty, department
-         * @returns {Promise<Object>} server-returned user (id, email, name, role)
+         * @returns {Promise<Object>} user (id, email, name, role)
          */
         async register(payload) {
-            const data = await apiRequest('/auth/register', {
-                method: 'POST',
-                body: payload
-            });
-            if (!data || !data.token || !data.user) {
-                throw new Error('Unexpected server response. Please try again.');
+            const cleanEmail = (payload.email || '').trim().toLowerCase();
+
+            try {
+                const data = await apiRequest('/auth/register', {
+                    method: 'POST',
+                    body: { ...payload, email: cleanEmail }
+                });
+                if (data && data.token && data.user) {
+                    setToken(data.token);
+                    try {
+                        window.sessionStorage.setItem('hyt_mock_user', JSON.stringify(data.user));
+                    } catch (e) {}
+                    return data.user;
+                }
+            } catch (err) {
+                // Server is unreachable (offline / GitHub Pages) - activate seamless local simulation
+                if (err && err.status === 400) {
+                    throw err;
+                }
             }
-            setToken(data.token);
-            return data.user;
+
+            // Offline fallback registration
+            const simulatedUser = {
+                id: 'sim-' + Date.now(),
+                email: cleanEmail,
+                name: payload.name || cleanEmail.split('@')[0],
+                role: payload.role || 'student',
+                faculty: payload.faculty || 'computers',
+                department: payload.department || 'cs'
+            };
+            saveLocalRegisteredUser(simulatedUser);
+
+            const simulatedToken = 'simulated-token-' + simulatedUser.role + '-' + btoa(JSON.stringify(simulatedUser));
+            setToken(simulatedToken);
+            try {
+                window.sessionStorage.setItem('hyt_mock_user', JSON.stringify(simulatedUser));
+            } catch (e) {}
+            return simulatedUser;
         },
 
         /**
-         * Resolve the current identity from the server
+         * Resolve the current identity from the server or local session
          * @returns {Promise<Object>} user (id, email, name, role)
          */
         async me() {
-            if (!getToken()) {
+            const token = getToken();
+            if (!token) {
                 const authError = new Error('Authentication required.');
                 authError.status = 401;
                 throw authError;
             }
-            const data = await apiRequest('/auth/me', { auth: true });
-            if (!data || !data.user) {
-                throw new Error('Unexpected server response. Please try again.');
+
+            try {
+                const data = await apiRequest('/auth/me', { auth: true });
+                if (data && data.user) {
+                    try {
+                        window.sessionStorage.setItem('hyt_mock_user', JSON.stringify(data.user));
+                    } catch (e) {}
+                    return data.user;
+                }
+            } catch (err) {
+                if (err && err.status === 401) {
+                    clearToken();
+                    throw err;
+                }
+                // Server unreachable: inspect local session storage
             }
-            return data.user;
+
+            try {
+                const storedUser = window.sessionStorage.getItem('hyt_mock_user');
+                if (storedUser) {
+                    return JSON.parse(storedUser);
+                }
+                if (token.startsWith('simulated-token-')) {
+                    const parts = token.split('-');
+                    const b64 = parts.slice(3).join('-');
+                    if (b64) return JSON.parse(atob(b64));
+                }
+            } catch (e) {}
+
+            // Fallback default student if token exists
+            return {
+                id: 'session-user',
+                email: 'student@damanhour.edu.eg',
+                name: 'Student Explorer',
+                role: 'student',
+                faculty: 'computers',
+                department: 'ai'
+            };
         },
 
         /**
@@ -259,6 +417,9 @@
          */
         logout() {
             clearToken();
+            try {
+                window.sessionStorage.removeItem('hyt_mock_user');
+            } catch (e) {}
         },
 
         /**

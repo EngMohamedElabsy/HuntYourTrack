@@ -399,20 +399,11 @@ class TrackHunterCanvas {
     }
 
     updateHookedNodes() {
-        if (this.searchQuery) {
-            const matches = this.getMatchingTracks(this.searchQuery);
-            this.hookedNodes = matches;
-            if (matches.length > 0) {
-                this.renderHookedPanel(matches[0]);
-            } else {
-                this.renderHookedPanel(null);
-            }
-        } else if (this.activeFaculty !== 'all') {
-            this.hookedNodes = this.nodes.filter(n => n.faculty === this.activeFaculty);
-            if (this.hookedNodes.length > 0) this.renderHookedPanel(this.hookedNodes[0]);
+        // Clean State: Do not auto-hook tracks by default; user explicitly clicks to select or hook
+        if (this.hookedNodes.length > 0) {
+            const last = this.hookedNodes[this.hookedNodes.length - 1];
+            this.renderHookedPanel(last);
         } else {
-            // Clean Initial State: No tracks auto-hooked by default (User explores freely)
-            this.hookedNodes = [];
             this.renderHookedPanel(null);
         }
         this.updateLiveStatus();

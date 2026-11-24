@@ -15,7 +15,8 @@ const HYT_TRANSLATIONS = {
 
  // Global Nav
  navTracks:"Career Tracks",
- navInternships:"Internships & Courses",
+ navCourses:"Courses & MOOCs",
+ navInternships:"Internships & Opportunities",
  navHunterRadar:"Track Radar",
  navHowItWorks:"How It Works",
  navEmployers:"For Employers",
@@ -47,6 +48,10 @@ const HYT_TRANSLATIONS = {
  heroBtnSignIn:"Sign in",
 
  // Metrics Strip
+ metricTracks:"Accredited Career Tracks",
+ metricFaculties:"University Disciplines",
+ metricOpportunities:"Verified MOOCs & Internships",
+ metricAccess:"Free Open Access",
  metricStudents:"Students & mentors",
  metricPartners:"Industry partners",
  metricMatchRate:"Average student fit",
@@ -259,6 +264,7 @@ const HYT_TRANSLATIONS = {
  facultyEngineering:"Faculty of Engineering",
  facultyCommerce:"Faculty of Commerce & Business Administration",
  facultyLaw:"Faculty of Law",
+ facultyOther:"Other / General Discipline",
  deptCs:"Computer Science (CS)",
  deptAi:"Artificial Intelligence (AI)",
  deptIs:"Information Systems (IS)",

@@ -24,8 +24,69 @@ const DEPARTMENT_MAP = {
     law: [
         { val: "cyberlaw", label: "Digital Law & Cybercrime Regulation" },
         { val: "techip", label: "Tech & AI Intellectual Property" }
+    ],
+    other: [
+        { val: "general", label: "General Track / Self-Learner" }
     ]
 };
+
+function getSavedEmails() {
+    try {
+        const raw = localStorage.getItem('hyt_saved_emails');
+        return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveEmail(email) {
+    if (!email) return;
+    try {
+        let list = getSavedEmails();
+        list = [email, ...list.filter(e => e.toLowerCase() !== email.toLowerCase())].slice(0, 5);
+        localStorage.setItem('hyt_saved_emails', JSON.stringify(list));
+    } catch (e) {}
+}
+
+function fillSavedEmail(email) {
+    const emailInput = document.getElementById('login-email');
+    if (emailInput) {
+        emailInput.value = email;
+        const passInput = document.getElementById('login-password');
+        if (passInput) passInput.focus();
+    }
+}
+window.fillSavedEmail = fillSavedEmail;
+
+function renderSavedEmailsPicker() {
+    const list = getSavedEmails();
+    const datalist = document.getElementById('saved-emails-list');
+    if (datalist) {
+        datalist.innerHTML = list.map(e => `<option value="${e}"></option>`).join('');
+    }
+
+    const container = document.getElementById('saved-accounts-container');
+    if (container) {
+        if (list.length === 0) {
+            container.style.display = 'none';
+            return;
+        }
+        container.style.display = 'block';
+        container.innerHTML = `
+            <div style="font-size: 0.78rem; font-weight: 600; color: var(--color-muted-foreground); margin-bottom: 0.4rem;">
+                Saved Accounts:
+            </div>
+            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                ${list.map(e => `
+                    <button type="button" class="tag-pill" style="font-size: 0.75rem; cursor: pointer; padding: 0.25rem 0.65rem; border: 1px solid var(--color-border); background: var(--color-muted); color: var(--color-foreground); border-radius: 999px;" onclick="window.fillSavedEmail('${e}')">
+                        ${e}
+                    </button>
+                `).join('')}
+            </div>
+        `;
+    }
+}
+window.renderSavedEmailsPicker = renderSavedEmailsPicker;
 
 function updateDepartmentOptions(facultyKey) {
     const deptSelect = document.getElementById('signup-dept');
@@ -218,6 +279,7 @@ async function handleLoginSubmit(e) {
         if (!role || !ROLE_REDIRECTS[role]) {
             throw new Error('Your account role is not supported.');
         }
+        saveEmail(email);
         setAuthStatus('Signed in successfully. Redirecting...', 'success');
         showToast(`Welcome back, ${user.name || email}.`, 'success');
         setTimeout(() => redirectAfterAuth(role), 600);
@@ -335,6 +397,7 @@ window.addEventListener('hyt:langChanged', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    renderSavedEmailsPicker();
     const facultySelect = document.getElementById('signup-faculty');
     if (facultySelect) {
         updateDepartmentOptions(facultySelect.value);

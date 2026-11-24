@@ -38,7 +38,8 @@
             <!-- Desktop Links -->
             <ul class="nav-menu">
                 <li><a href="#tracks" class="nav-link" data-i18n="navTracks">Career Tracks</a></li>
-                <li><a href="#opportunities" class="nav-link" data-i18n="navInternships">Internships & Courses</a></li>
+                <li><a href="#courses" class="nav-link" data-i18n="navCourses">Courses & MOOCs</a></li>
+                <li><a href="#opportunities" class="nav-link" data-i18n="navInternships">Internships</a></li>
                 <li><a href="#hunter-radar-section" class="nav-link" data-i18n="navHunterRadar">Track Radar</a></li>
                 <li><a href="#how-it-works" class="nav-link" data-i18n="navHowItWorks">How It Works</a></li>
             </ul>
@@ -73,7 +74,8 @@
         <!-- Mobile Drawer (Cleaned of developer links) -->
         <div class="mobile-drawer" id="mobile-drawer">
             <a href="#tracks" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navTracks">Career Tracks</a>
-            <a href="#opportunities" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navInternships">Internships & Courses</a>
+            <a href="#courses" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navCourses">Courses & MOOCs</a>
+            <a href="#opportunities" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navInternships">Internships</a>
             <a href="#hunter-radar-section" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHunterRadar">Track Radar</a>
             <a href="#how-it-works" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navHowItWorks">How It Works</a>
             <a href="#employers" class="nav-link" onclick="closeMobileDrawer()" data-i18n="navEmployers">For Employers</a>
@@ -119,20 +121,20 @@
                     <!-- Key Metrics Strip -->
                     <section class="metrics-strip" aria-label="Platform Statistics" style="width: 100%;">
                         <div class="metric-item">
-                            <div class="metric-number">136+</div>
-                            <div class="metric-label" data-i18n="metricRoles">Endorsed roles this cycle</div>
+                            <div class="metric-number">12+</div>
+                            <div class="metric-label" data-i18n="metricTracks">Accredited Career Tracks</div>
                         </div>
                         <div class="metric-item">
-                            <div class="metric-number">48</div>
-                            <div class="metric-label" data-i18n="metricPartners">Industry partners</div>
+                            <div class="metric-number">5</div>
+                            <div class="metric-label" data-i18n="metricFaculties">University Disciplines</div>
                         </div>
                         <div class="metric-item">
-                            <div class="metric-number">91%</div>
-                            <div class="metric-label" data-i18n="metricMatchRate">Average student fit</div>
+                            <div class="metric-number">50+</div>
+                            <div class="metric-label" data-i18n="metricOpportunities">Verified MOOCs & Internships</div>
                         </div>
                         <div class="metric-item">
-                            <div class="metric-number">2.4k</div>
-                            <div class="metric-label" data-i18n="metricStudents">Students & mentors</div>
+                            <div class="metric-number">100%</div>
+                            <div class="metric-label" data-i18n="metricAccess">Free Open Access</div>
                         </div>
                     </section>
                 </div>
@@ -298,25 +300,6 @@
             <div id="hooked-track-panel" class="hooked-track-panel"></div>
         </section>
 
-        <!-- Live Corporate Opportunities & Courses Catalog (Fed by opportunities.js) -->
-        <section class="section-wrapper" id="opportunities">
-            <div class="section-head">
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
-                    <div>
-                        <span class="section-badge" data-i18n="oppBadge">Accredited Partnerships</span>
-                        <h2 class="section-title" data-i18n="oppHeading">Active Internships & Training Courses</h2>
-                        <p class="section-subtitle" data-i18n="oppSub">Published directly by corporate partners and organizations with live deadline countdown timers.</p>
-                    </div>
-                    <div>
-                        <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="font-size: 0.9rem;" data-i18n="postOpportunityBtn">Post Opportunity (Employers & Organizers)</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Opportunities Grid Container -->
-            <div class="opportunities-grid" id="opportunities-catalog-container"></div>
-        </section>
-
         <!-- Verified Free Courses & Class Central MOOCs (US34) -->
         <section class="section-wrapper" id="courses">
             <div class="section-head">
@@ -336,6 +319,25 @@
 
             <!-- Courses Grid Container -->
             <div class="courses-grid" id="courses-catalog-container"></div>
+        </section>
+
+        <!-- Live Corporate Opportunities & Courses Catalog (Fed by opportunities.js) -->
+        <section class="section-wrapper" id="opportunities">
+            <div class="section-head">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <span class="section-badge" data-i18n="oppBadge">Accredited Partnerships</span>
+                        <h2 class="section-title" data-i18n="oppHeading">Active Internships & Training Courses</h2>
+                        <p class="section-subtitle" data-i18n="oppSub">Published directly by corporate partners and organizations with live deadline countdown timers.</p>
+                    </div>
+                    <div>
+                        <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="font-size: 0.9rem;" data-i18n="postOpportunityBtn">Post Opportunity (Employers & Organizers)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opportunities Grid Container -->
+            <div class="opportunities-grid" id="opportunities-catalog-container"></div>
         </section>
 
         <!-- Career Tracks Pathways (Across Multi-Faculties) -->
@@ -592,9 +594,7 @@
                 <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: var(--color-foreground);" data-i18n="empHeading">Are You an Employer Seeking Top Engineering Talent?</h2>
                 <p style="font-size: 1rem; color: var(--color-muted-foreground); line-height: 1.6; margin-bottom: 2rem;" data-i18n="empSub">Partner with Damanhour University to publish summer internships and certified training tracks. Receive pre-screened, skills-matched applicant profiles.</p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="pages/employer.html" class="btn btn-primary" style="padding: 0.85rem 1.75rem;" data-i18n="empDashboardBtn">Employer / Partner Portal</a>
-                    <button type="button" onclick="openPublishOpportunityModal()" class="btn btn-accent" style="padding: 0.85rem 1.75rem;" data-i18n="empPostBtn">Post Internship Now</button>
-                    <a href="pages/auth.html" class="btn btn-secondary" style="padding: 0.85rem 1.75rem;" data-i18n="empRegisterBtn">Register Corporate Account →</a>
+                    <a href="pages/employer.html" class="btn btn-primary" style="padding: 0.85rem 2.25rem; font-size: 1.05rem;" data-i18n="empDashboardBtn">Employer & Partner Portal →</a>
                 </div>
             </div>
         </section>
@@ -976,34 +976,32 @@
         function handleCommandSearch(query) {
             const list = document.getElementById('cmd-results-list');
             if (!list) return;
-            const isEn = (document.documentElement.lang === 'en');
             const q = (query || '').trim().toLowerCase();
 
             let matchedTracks = COMMAND_TRACKS.filter(t => {
                 if (!q) return true;
-                return t.titleAr.toLowerCase().includes(q) ||
-                       t.titleEn.toLowerCase().includes(q) ||
-                       t.facultyAr.toLowerCase().includes(q) ||
-                       t.facultyEn.toLowerCase().includes(q) ||
-                       t.id.toLowerCase().includes(q);
+                const title = (t.title || t.titleEn || t.titleAr || '').toLowerCase();
+                const faculty = (t.faculty || t.facultyEn || t.facultyAr || '').toLowerCase();
+                const id = (t.id || '').toLowerCase();
+                return title.includes(q) || faculty.includes(q) || id.includes(q);
             });
 
             let html = '';
             if (matchedTracks.length > 0) {
                 html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.25rem 0.75rem; text-transform: uppercase;">Career Tracks</div>`;
                 matchedTracks.forEach(t => {
-                    const title = isEn ? t.titleEn : t.titleAr;
-                    const faculty = isEn ? t.facultyEn : t.facultyAr;
+                    const title = t.title || t.titleEn || 'Career Track';
+                    const faculty = t.faculty || t.facultyEn || 'Discipline';
                     html += `
                         <div class="cmd-result-item" onclick="selectCommandTrack('${t.id}')">
                             <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                <span style="font-size: 1.25rem;">${t.icon}</span>
+                                <span class="tag-pill" style="font-size: 0.75rem; padding: 0.2rem 0.5rem; background: var(--color-muted); color: var(--color-primary); font-weight: 700;">${t.id.toUpperCase()}</span>
                                 <div>
                                     <div style="font-weight: 600; font-size: 0.95rem;">${title}</div>
                                     <small style="color: var(--color-muted-foreground); font-size: 0.78rem;">${faculty}</small>
                                 </div>
                             </div>
-                            <span style="font-size: 0.78rem; color: #6366F1; font-weight: 600;">Hook Track</span>
+                            <span style="font-size: 0.78rem; color: var(--color-primary); font-weight: 600;">View Track ↗</span>
                         </div>
                     `;
                 });
@@ -1019,15 +1017,18 @@
                 }).slice(0, 5);
 
                 if (opps.length > 0) {
-                    html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.5rem 0.75rem 0.25rem; text-transform: uppercase;">Internship Opportunities</div>`;
+                    html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.5rem 0.75rem 0.25rem; text-transform: uppercase;">Internships & MOOCs</div>`;
                     opps.forEach(o => {
+                        const oppTitle = o.title || o.titleEn || 'Opportunity';
+                        const oppOrg = o.orgName || o.orgNameEn || 'Accredited Partner';
+                        const oppType = o.type || 'Internship';
                         html += `
                             <div class="cmd-result-item" onclick="selectCommandOpportunity('${o.id}')">
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                    
+                                    <span class="tag-pill" style="font-size: 0.75rem; padding: 0.2rem 0.5rem; background: var(--color-muted); color: var(--color-accent); font-weight: 700;">OPP</span>
                                     <div>
-                                        <div style="font-weight: 600; font-size: 0.95rem;">${o.title}</div>
-                                        <small style="color: var(--color-muted-foreground); font-size: 0.78rem;">${o.orgName} · ${o.type}</small>
+                                        <div style="font-weight: 600; font-size: 0.95rem;">${oppTitle}</div>
+                                        <small style="color: var(--color-muted-foreground); font-size: 0.78rem;">${oppOrg} · ${oppType}</small>
                                     </div>
                                 </div>
                                 <span style="font-size: 0.78rem; color: #10B981; font-weight: 600;">View ↗</span>
@@ -1049,8 +1050,8 @@
             closeCommandSearch();
             const radarSection = document.getElementById('hunter-radar-section');
             if (radarSection) radarSection.scrollIntoView({ behavior: 'smooth' });
-            if (window.hytHunter && window.hytHunter.toggleTrackHook) {
-                window.hytHunter.toggleTrackHook(trackId);
+            if (window.hytHunter && window.hytHunter.focusTrack) {
+                window.hytHunter.focusTrack(trackId);
             }
         }
         window.selectCommandTrack = selectCommandTrack;

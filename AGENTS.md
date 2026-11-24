@@ -525,3 +525,14 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
     - Overall Sprint 1 Completion reached **100%** (30 of 30 User Stories Done).
     - Closed all backlog issues on GitHub and moved cards to `Done` in Project #5.
     - Generated updated `docs/TEAM_METRICS.md` verifying 100% velocity across all 3 team members.
+
+### 🟢 US39: Offline Auth Resilience, Saved Account Switcher & Catalog Flow Polish (2026-11-24 08:45 UTC+2)
+
+- **Deliverables:**
+  - **Offline & GitHub Pages Auth Resilience (`frontend/js/api.js`, `frontend/js/guard.js`):** Graceful offline simulation fallback when local backend (`localhost:3000`) is not running. Instant authentication for seeded accounts (`student@damanhour.edu.eg`, `admin@damanhour.edu.eg`, `employer@vodafone.com`) and local registered users with route guard compatibility.
+  - **Saved Account Quick Switcher (`frontend/pages/auth.html`, `frontend/js/auth.js`):** Persisted logged-in emails locally in `localStorage` (`hyt_saved_emails`) with dynamic quick-select chips and `<datalist>` auto-fill on the sign-in form.
+  - **Landing Page Section Hierarchy (`frontend/index.html`):** Re-ordered catalog sections so **Verified Free Courses & MOOCs** (`#courses`) appears before **Active Internships** (`#opportunities`), with synchronized navigation links.
+  - **CS50 Course Visual Sanitization (`database/nosql/courses-catalog.json`, `frontend/js/api.js`):** Replaced placeholder logo with verified high-resolution AI/Python cover image.
+  - **Single Primary Employer CTA (`frontend/index.html`):** Consolidated 3 redundant buttons in the employer section into a single, clean primary portal CTA.
+  - **Search & Canvas Fixes (`frontend/index.html`, `frontend/js/hunter-canvas.js`):** Eliminated 'undefined' text in command search results, removed intrusive 4-track auto-hooking on search/load.
+  - **Playwright Verification Suite (`tests/test-user-flow.spec.js`):** 100% test pass rate across section ordering, stats verification, search sanitization, external apply links, and offline auth simulation.

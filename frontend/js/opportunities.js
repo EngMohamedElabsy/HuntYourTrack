@@ -498,9 +498,9 @@ class OpportunitiesManager {
                             </div>
 
                             <div class="opp-footer-actions" style="display: flex; align-items: center; gap: 0.5rem;">
-                                <button type="button" class="btn btn-primary" onclick="window.openOpportunityApply('${opp.id}')" style="flex: 1; font-size: 0.88rem; font-weight: 700; padding: 0.45rem 1rem;">
+                                <a href="${opp.applyUrl || '#'}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="flex: 1; font-size: 0.88rem; font-weight: 700; padding: 0.45rem 1rem; text-align: center; text-decoration: none;">
                                     Apply Now →
-                                </button>
+                                </a>
                                 <button type="button" class="btn btn-secondary icon-action-btn" onclick="window.openOpportunityDetails('${opp.id}')" title="View Full Details" aria-label="View Full Details" style="padding: 0.45rem 0.65rem; display: inline-flex; align-items: center; justify-content: center;">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>

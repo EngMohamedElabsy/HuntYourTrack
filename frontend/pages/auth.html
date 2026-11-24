@@ -81,9 +81,12 @@
  <!-- Login Form -->
  <form id="login-form" class="auth-form" onsubmit="handleLoginSubmit(event)">
  <div class="form-group">
- <label for="login-email" data-i18n="loginEmailLabel">University Email</label>
- <input id="login-email" name="email" type="email" class="form-control" placeholder="name@university.edu" autocomplete="email" required>
+ <label for="login-email" data-i18n="loginEmailLabel">University / Work Email</label>
+ <input id="login-email" name="email" type="email" class="form-control" placeholder="name@university.edu" list="saved-emails-list" autocomplete="email" required>
+ <datalist id="saved-emails-list"></datalist>
  </div>
+
+ <div id="saved-accounts-container" style="display: none; margin-bottom: 1rem;"></div>
 
  <div class="form-group">
  <label for="login-password" data-i18n="loginPasswordLabel">Password</label>
@@ -95,28 +98,29 @@
  </div>
  </div>
 
- <button type="submit" class="btn btn-primary auth-submit-btn" id="login-submit-btn" data-i18n="enterPlatformBtn">Enter Platform →</button>
+ <button type="submit" class="btn btn-primary auth-submit-btn" id="login-submit-btn" data-i18n="navSignIn">Sign In</button>
  </form>
 
  <!-- Signup Form -->
  <form id="signup-form" class="auth-form form-hidden" onsubmit="handleSignupSubmit(event)">
  <div class="form-group">
  <label for="signup-name" data-i18n="signupNameLabel">Full Name</label>
- <input id="signup-name" name="name" type="text" class="form-control" placeholder="Full Name (e.g. Alex Morgan)" data-i18n="authNamePh" required>
+ <input id="signup-name" name="name" type="text" class="form-control" placeholder="Full Name" required>
  </div>
 
  <div class="form-group">
- <label for="signup-email" data-i18n="signupEmailLabel">University Email</label>
- <input id="signup-email" name="email" type="email" class="form-control" placeholder="name@damanhour.edu.eg" required>
+ <label for="signup-email" data-i18n="signupEmailLabel">University / Work Email</label>
+ <input id="signup-email" name="email" type="email" class="form-control" placeholder="name@university.edu" required>
  </div>
 
  <div class="form-group">
- <label for="signup-faculty" data-i18n="facultyLabel">Faculty:</label>
+ <label for="signup-faculty" data-i18n="facultyLabel">Faculty / Academic Track:</label>
  <select id="signup-faculty" name="faculty" class="form-control" onchange="updateDepartmentOptions(this.value)" required>
  <option value="computers" data-i18n="facultyComputers" selected>Faculty of Computers & Artificial Intelligence</option>
  <option value="engineering" data-i18n="facultyEngineering">Faculty of Engineering</option>
  <option value="commerce" data-i18n="facultyCommerce">Faculty of Commerce & Business Administration</option>
  <option value="law" data-i18n="facultyLaw">Faculty of Law</option>
+ <option value="other" data-i18n="facultyOther">Other / General Discipline</option>
  </select>
  </div>
 
