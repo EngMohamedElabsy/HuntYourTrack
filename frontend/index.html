@@ -37,11 +37,11 @@
 
             <!-- Desktop Links -->
             <ul class="nav-menu">
-                <li><a href="#tracks" class="nav-link" data-i18n="navTracks">Career Tracks</a></li>
+                <li><a href="pages/explore.html" class="nav-link">Explore All</a></li>
                 <li><a href="#courses" class="nav-link" data-i18n="navCourses">Courses & MOOCs</a></li>
                 <li><a href="#opportunities" class="nav-link" data-i18n="navInternships">Internships</a></li>
                 <li><a href="#hunter-radar-section" class="nav-link" data-i18n="navHunterRadar">Track Radar</a></li>
-                <li><a href="#how-it-works" class="nav-link" data-i18n="navHowItWorks">How It Works</a></li>
+                <li><a href="pages/profile.html" class="nav-link">Favorites</a></li>
             </ul>
 
             <!-- Controls & Auth CTAs -->
@@ -319,6 +319,9 @@
 
             <!-- Courses Grid Container -->
             <div class="courses-grid" id="courses-catalog-container"></div>
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="pages/explore.html?type=course" class="btn btn-secondary" style="padding: 0.7rem 1.5rem;">Browse All 15+ Free Courses &amp; Filters →</a>
+            </div>
         </section>
 
         <!-- Live Corporate Opportunities & Courses Catalog (Fed by opportunities.js) -->
@@ -708,6 +711,8 @@
                 <ul>
                     <li><a href="pages/student.html" data-i18n="footerStudentHubLink">Student Career Hub</a></li>
                     <li><a href="pages/auth.html" data-i18n="footerAuthLink">Auth & Evaluation Gateway</a></li>
+                    <li><a href="pages/prototype.html">9-Screen Prototype Journey</a></li>
+                    <li><a href="pages/explore.html">Explore Free MOOCs &amp; Internships</a></li>
                     <li><a href="https://engmohamedelabsy.github.io/HuntYourTrack/" data-i18n="footerCanonicalLink">Unified Canonical Portal</a></li>
                 </ul>
             </div>
@@ -729,6 +734,7 @@
     <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
     <script src="js/i18n.js"></script>
+    <script src="js/catalog-store.js"></script>
     <script src="js/api.js"></script>
     <script src="js/ocean-background.js"></script>
     <script src="js/hunter-canvas.js"></script>
@@ -768,10 +774,10 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="course-footer">
-                            <span class="tag-pill" style="font-size: 0.72rem; background: var(--color-muted); color: var(--color-foreground);">
-                                ${course.level || 'Beginner to Intermediate'}
-                            </span>
+                        <div class="course-footer" style="gap: 0.45rem;">
+                            <a href="pages/details.html?type=course&id=${encodeURIComponent(course.id)}" class="btn btn-secondary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;">
+                                Details
+                            </a>
                             <a href="${course.enrollmentUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">
                                 Enroll Free →
                             </a>
