@@ -95,7 +95,12 @@ async function run() {
         const searchResults = await page.$eval('#cmd-results-list', el => el.innerText);
         assert(!searchResults.toLowerCase().includes('undefined'), 'Search results must not contain undefined');
         assert(searchResults.toLowerCase().includes('full-stack'), 'Search results should contain Full-Stack');
-        console.log('  ✓ Command search palette returns clean results without "undefined".');
+        await page.fill('#cmd-search-input', 'AI');
+        await page.waitForTimeout(300);
+        const aiSearchResults = await page.$eval('#cmd-results-list', el => el.innerText);
+        assert(aiSearchResults.includes('CS50') && aiSearchResults.includes('Artificial Intelligence'), 'Command search for AI must return AI courses');
+        await page.click('#command-search-modal .cmd-modal-close-btn');
+        console.log('  ✓ Command search palette returns clean AI courses and tracks without "undefined".');
 
         // 5. Opportunities Apply button target
         console.log('Checking Opportunities Apply Link...');

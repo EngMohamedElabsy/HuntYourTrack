@@ -546,3 +546,14 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **US42 — Class Central Explore, Faceted Search/Filter & Unified Details (`frontend/pages/explore.html`, `frontend/pages/details.html`):** Built Screen 5 & 7 (`explore.html` with discipline, provider, level, sort, and search filters across MOOCs & Internships) and Screen 6 (`details.html` with full syllabus modules, provider certificate info, ratings, favorites, and external free enrollment/apply actions).
   - **US43 — Connected 9-Screen Journey & Interactive Prototype (`frontend/pages/profile.html`, `frontend/pages/prototype.html`, `frontend/index.html`):** Built Screen 9 (`profile.html` for Favorites, Enrolled Courses, Notifications & Settings), interactive 9-Screen Prototype Journey Map (`prototype.html`), and wired Home (`index.html`) directly into Explore, Details, and Profile.
   - **US44 — Playwright E2E Verification (`tests/test-9-screens-journey.spec.js`):** Verified all screens on 1440px Desktop and 375px Mobile (0 horizontal overflow, 0 JS errors), end-to-end connected user journey, and full `npm test` compliance.
+
+### 🟢 US45: 3-Color Contrast System, Concise Navbar, AI Search Enter-Key & Auth-Gated Persistence (2026-11-27 22:25 UTC+2)
+
+- **Issue:** #136 (US45)
+- **Deliverables:**
+  - **3-Color Design & Dark Mode Contrast Fix (`frontend/css/style.css`):** Replaced `#ffffff` `--color-primary` in Dark Mode and `#4F46E5` hover slop with a clean 3-color system (60% neutral slate, 30% high-contrast ink, 10% cobalt-sky `#0284C7` / `#0EA5E9` + emerald `#059669` / `#10B981`), guaranteeing crisp white button text on colored surfaces in both themes.
+  - **Unified Concise Navbar & Zero Tooltip Clutter (`index.html`, `explore.html`, `details.html`, `profile.html`, `student.html`, `employer.html`, `admin.html`):** Linked `landing.css` across all subpages, shortened nav labels (`Explore`, `Courses`, `Internships`, `Roadmaps`, `Favorites`), added dynamic `Sign In` / `Dashboard + Sign Out` header state, and removed `data-tooltip="Toggle Mode"` hover boxes.
+  - **AI Command Search & Enter-Key Navigation (`frontend/index.html`):** Integrated `HYT_CATALOG.getAllCourses()` into Command Search so typing `AI` displays matching free courses immediately and pressing `Enter` navigates directly to `details.html` or `explore.html`.
+  - **Auth-Gated Favorites & Per-User Persistence (`frontend/js/catalog-store.js`, `frontend/js/auth.js`):** Scoped saved favorites & enrollments per signed-in user email and redirected unauthenticated guests cleanly to `auth.html`.
+  - **Rich Class Central-Style Details (`frontend/pages/details.html`):** Added Pricing, Language & Pace, Duration, Credential facts grid, and course learning outcomes.
+  - **Verification:** Passed `node --check`, `test-9-screens-journey.spec.js`, `test-user-flow.spec.js`, and full `npm test`.

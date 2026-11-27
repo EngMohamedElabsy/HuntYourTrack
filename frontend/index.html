@@ -37,31 +37,29 @@
 
             <!-- Desktop Links -->
             <ul class="nav-menu">
-                <li><a href="pages/explore.html" class="nav-link">Explore All</a></li>
-                <li><a href="#courses" class="nav-link" data-i18n="navCourses">Courses & MOOCs</a></li>
-                <li><a href="#opportunities" class="nav-link" data-i18n="navInternships">Internships</a></li>
-                <li><a href="#hunter-radar-section" class="nav-link" data-i18n="navHunterRadar">Track Radar</a></li>
+                <li><a href="pages/explore.html" class="nav-link">Explore</a></li>
+                <li><a href="#courses" class="nav-link">Courses</a></li>
+                <li><a href="#opportunities" class="nav-link">Internships</a></li>
+                <li><a href="#hunter-radar-section" class="nav-link">Roadmaps</a></li>
                 <li><a href="pages/profile.html" class="nav-link">Favorites</a></li>
             </ul>
 
             <!-- Controls & Auth CTAs -->
             <div class="nav-cta-group">
                 <!-- Search Trigger Pill -->
-                <button type="button" class="nav-search-pill" id="nav-search-bar" onclick="openCommandSearch()" aria-label="Search Tracks & Opportunities" title="Search">
+                <button type="button" class="nav-search-pill" id="nav-search-bar" onclick="openCommandSearch()" aria-label="Search Tracks & Courses" title="Search">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-search-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                    <span class="nav-search-label" data-i18n="searchTrackPlaceholder">Search tracks or skills...</span>
-                    <kbd class="nav-search-kbd">ESC</kbd>
+                    <span class="nav-search-label" data-i18n="searchTrackPlaceholder">Search courses or tracks...</span>
+                    <kbd class="nav-search-kbd">Ctrl K</kbd>
                 </button>
 
-                
-
-                <!-- Single-Click Theme & Appearance Toggle (Sun/Moon Pure Vector - Zero Popup Clutter) -->
-                <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Toggle Dark/Light Mode" onclick="toggleAppTheme(event)" title="Toggle Dark/Light Mode" data-tooltip="Toggle Mode">
+                <!-- Single-Click Theme Toggle (Zero Tooltip Clutter) -->
+                <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Toggle Dark/Light Mode" onclick="toggleAppTheme(event)">
                     <span id="theme-btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
                 </button>
 
                 <div id="nav-auth-actions" style="display: flex; gap: 0.5rem; align-items: center;">
-                    <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.5rem 1.15rem; font-size: 0.88rem;" data-i18n="navUnifiedAuth">Enter Platform</a>
+                    <a href="pages/auth.html" class="btn btn-primary" style="padding: 0.5rem 1.15rem; font-size: 0.88rem;" data-i18n="navSignIn">Sign In</a>
                 </div>
             </div>
 
@@ -677,7 +675,7 @@
     <dialog class="cmd-palette-dialog" id="command-search-modal">
         <div class="cmd-search-input-box">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6; flex-shrink: 0;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="cmd-search-input" placeholder="Search career tracks or internship opportunities (Ctrl+K)..." data-i18n="cmdSearchPh" oninput="handleCommandSearch(this.value)" autocomplete="off">
+            <input type="text" id="cmd-search-input" placeholder="Search free courses, AI, tracks, or internships (Press Enter)..." oninput="handleCommandSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();submitCommandSearch();}" autocomplete="off">
             <button type="button" onclick="closeCommandSearch()" class="cmd-modal-close-btn" aria-label="Close Search">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
@@ -993,6 +991,41 @@
             });
 
             let html = '';
+
+            // Search Free Courses & MOOCs (Class Central Catalog)
+            if (window.HYT_CATALOG && typeof window.HYT_CATALOG.getAllCourses === 'function') {
+                const courses = window.HYT_CATALOG.getAllCourses().filter(c => {
+                    if (!q) return true;
+                    const hay = [
+                        c.title,
+                        c.provider,
+                        c.platform,
+                        c.track,
+                        c.description,
+                        ...(c.skills || [])
+                    ].join(' ').toLowerCase();
+                    return hay.includes(q);
+                }).slice(0, 6);
+
+                if (courses.length > 0) {
+                    html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.25rem 0.75rem; text-transform: uppercase;">Free Courses &amp; MOOCs</div>`;
+                    courses.forEach(c => {
+                        html += `
+                            <div class="cmd-result-item" onclick="selectCommandCourse('${c.id}')">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <span class="tag-pill" style="font-size: 0.72rem; padding: 0.2rem 0.5rem; background: rgba(16, 185, 129, 0.14); color: #10B981; font-weight: 700;">FREE</span>
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 0.95rem;">${c.title}</div>
+                                        <small style="color: var(--color-muted-foreground); font-size: 0.78rem;">${c.provider} · ${c.platform} · ★ ${c.rating}</small>
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.78rem; color: var(--color-primary); font-weight: 600;">Details ↗</span>
+                            </div>
+                        `;
+                    });
+                }
+            }
+
             if (matchedTracks.length > 0) {
                 html += `<div style="font-size: 0.78rem; font-weight: 700; color: var(--color-muted-foreground); padding: 0.25rem 0.75rem; text-transform: uppercase;">Career Tracks</div>`;
                 matchedTracks.forEach(t => {
@@ -1044,6 +1077,15 @@
                 }
             }
 
+            if (q && html) {
+                html += `
+                    <div class="cmd-result-item" style="border-top: 1px solid var(--color-border); margin-top: 0.35rem;" onclick="window.location.href='pages/explore.html?q=' + encodeURIComponent('${q.replace(/'/g, '')}')">
+                        <div style="font-weight: 600; font-size: 0.9rem; color: var(--color-primary);">Open full Explore &amp; Filters for "${q.replace(/</g, '&lt;')}"</div>
+                        <span style="font-size: 0.78rem; color: var(--color-primary); font-weight: 600;">Explore →</span>
+                    </div>
+                `;
+            }
+
             if (!html) {
                 html = `<div style="text-align: center; padding: 2rem; color: var(--color-muted-foreground);">No matching results found.</div>`;
             }
@@ -1051,6 +1093,27 @@
             list.innerHTML = html;
         }
         window.handleCommandSearch = handleCommandSearch;
+
+        function submitCommandSearch() {
+            const input = document.getElementById('cmd-search-input');
+            const q = (input ? input.value : '').trim();
+            const firstItem = document.querySelector('#cmd-results-list .cmd-result-item');
+            if (firstItem) {
+                firstItem.click();
+                return;
+            }
+            if (q) {
+                closeCommandSearch();
+                window.location.href = `pages/explore.html?q=${encodeURIComponent(q)}`;
+            }
+        }
+        window.submitCommandSearch = submitCommandSearch;
+
+        function selectCommandCourse(courseId) {
+            closeCommandSearch();
+            window.location.href = `pages/details.html?type=course&id=${encodeURIComponent(courseId)}`;
+        }
+        window.selectCommandCourse = selectCommandCourse;
 
         function selectCommandTrack(trackId) {
             closeCommandSearch();
