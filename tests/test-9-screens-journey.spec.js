@@ -110,14 +110,38 @@ async function run() {
         await page.waitForURL('**/pages/details.html*');
         console.log('  ✓ Screen 5/7 (Explore & Search) -> Screen 6 (Details) connected.');
 
-        // Step 4: Details -> Save Favorite -> Profile
+        // Step 4: Dark mode button contrast check
+        await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+        const btnContrast = await page.$eval('#details-primary-cta', el => {
+            const s = window.getComputedStyle(el);
+            return { bg: s.backgroundColor, color: s.color };
+        });
+        assert.notEqual(btnContrast.bg, btnContrast.color, 'Dark mode primary button must not have matching bg & text color');
+        console.log(`  ✓ Dark mode primary button contrast verified (${btnContrast.color} on ${btnContrast.bg}).`);
+
+        // Step 5: Guest Save -> Auth Gate -> Sign In -> Save Favorite -> Profile
         const detailsText = await page.locator('#details-root').innerText();
         assert(detailsText.includes('Syllabus') || detailsText.includes('Course'), 'Details page must display syllabus');
         await page.click('#details-fav-btn');
+        await page.waitForURL('**/pages/auth.html*');
+        await page.fill('#login-email', 'student@damanhour.edu.eg');
+        await page.fill('#login-password', 'StudentPass2026!');
+        await page.click('#login-submit-btn');
+        await page.waitForURL('**/pages/details.html*');
+        await page.click('#details-fav-btn');
         await page.goto(`${baseUrl}/pages/profile.html`);
         const favText = await page.locator('#profile-tab-content').innerText();
-        assert(favText.includes('CS50'), 'Saved CS50 course must appear in Profile Favorites');
-        console.log('  ✓ Screen 6 (Details) -> Screen 9 (Profile & Favorites) connected & persisted.');
+        assert(favText.includes('CS50'), 'Saved CS50 course must appear in Profile Favorites for signed-in user');
+        console.log('  ✓ Guest Auth Gate -> Sign In -> Screen 6 (Details) -> Screen 9 (Profile Favorites) persisted.');
+
+        // Step 6: Home Search for "AI" + Enter key
+        await page.goto(`${baseUrl}/index.html`);
+        await page.click('#nav-search-bar');
+        await page.fill('#cmd-search-input', 'AI');
+        await page.waitForTimeout(200);
+        await page.press('#cmd-search-input', 'Enter');
+        await page.waitForURL('**/pages/details.html*');
+        console.log('  ✓ Home Command Search "AI" + Enter key navigated directly to course details.');
 
         await journeyCtx.close();
         console.log('\n🎉 ALL 9-SCREEN JOURNEY, RESPONSIVENESS & INTERACTION CHECKS PASSED 100%!');

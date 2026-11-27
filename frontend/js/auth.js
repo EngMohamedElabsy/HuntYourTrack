@@ -169,12 +169,16 @@ const KNOWN_REDIRECT_PAGES = new Set([
     'applicants-review.html',
     'admin.html',
     'workflow.html',
+    'explore.html',
+    'details.html',
+    'profile.html',
+    'onboarding.html',
     'index.html'
 ]);
 const ROLE_ALLOWED_PAGES = {
-    student: new Set(['student.html', 'index.html']),
-    employer: new Set(['employer.html', 'employer-dashboard.html', 'post-internship.html', 'applicants-review.html', 'index.html']),
-    admin: new Set(['admin.html', 'workflow.html', 'student.html', 'employer.html', 'employer-dashboard.html', 'post-internship.html', 'applicants-review.html', 'index.html'])
+    student: new Set(['student.html', 'explore.html', 'details.html', 'profile.html', 'onboarding.html', 'index.html']),
+    employer: new Set(['employer.html', 'employer-dashboard.html', 'post-internship.html', 'applicants-review.html', 'explore.html', 'details.html', 'profile.html', 'index.html']),
+    admin: new Set(['admin.html', 'workflow.html', 'student.html', 'employer.html', 'employer-dashboard.html', 'post-internship.html', 'applicants-review.html', 'explore.html', 'details.html', 'profile.html', 'onboarding.html', 'index.html'])
 };
 let authRequestInFlight = false;
 

@@ -378,6 +378,33 @@
         }
     ];
 
+    function getCurrentUser() {
+        if (window.HYT_SESSION && window.HYT_SESSION.email) return window.HYT_SESSION;
+        try {
+            const raw = window.sessionStorage.getItem('hyt_mock_user');
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (parsed && parsed.email) return parsed;
+            }
+        } catch (e) {}
+        return null;
+    }
+
+    function isAuthenticated() {
+        try {
+            const hasToken = Boolean(window.sessionStorage.getItem('hyt_token'));
+            return hasToken && Boolean(getCurrentUser());
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function getUserScopedKey(baseKey) {
+        const user = getCurrentUser();
+        const suffix = user && user.email ? '_' + user.email.toLowerCase().replace(/[^a-z0-9@._-]/g, '') : '_guest';
+        return baseKey + suffix;
+    }
+
     function safeReadJson(key, fallback) {
         try {
             const raw = window.localStorage.getItem(key);
@@ -394,6 +421,17 @@
     }
 
     const CatalogStore = {
+        getCurrentUser,
+        isAuthenticated,
+        requireAuthForAction(redirectPage) {
+            if (isAuthenticated()) return true;
+            const target = redirectPage || (window.location.pathname.split('/').pop() + window.location.search) || 'explore.html';
+            const inPages = window.location.pathname.includes('/pages/');
+            const authPath = inPages ? 'auth.html' : 'pages/auth.html';
+            window.location.href = `${authPath}?error=login_required&redirect=${encodeURIComponent(target)}`;
+            return false;
+        },
+
         getAllCourses() {
             return FULL_COURSES_CATALOG.slice();
         },
@@ -418,7 +456,8 @@
         },
 
         getFavorites() {
-            const data = safeReadJson(FAVORITES_KEY, { courses: [], opportunities: [] });
+            if (!isAuthenticated()) return { courses: [], opportunities: [] };
+            const data = safeReadJson(getUserScopedKey(FAVORITES_KEY), { courses: [], opportunities: [] });
             return {
                 courses: Array.isArray(data.courses) ? data.courses : [],
                 opportunities: Array.isArray(data.opportunities) ? data.opportunities : []
@@ -426,12 +465,14 @@
         },
 
         isFavorite(type, id) {
+            if (!isAuthenticated()) return false;
             const favs = this.getFavorites();
             const bucket = type === 'internship' || type === 'opportunity' ? favs.opportunities : favs.courses;
             return bucket.includes(id);
         },
 
         toggleFavorite(type, id) {
+            if (!this.requireAuthForAction()) return false;
             const favs = this.getFavorites();
             const isOpp = type === 'internship' || type === 'opportunity';
             const list = isOpp ? favs.opportunities : favs.courses;
@@ -443,13 +484,14 @@
                 list.push(id);
                 added = true;
             }
-            safeWriteJson(FAVORITES_KEY, favs);
+            safeWriteJson(getUserScopedKey(FAVORITES_KEY), favs);
             window.dispatchEvent(new CustomEvent('hyt:favoritesChanged', { detail: { type, id, added, favs } }));
             return added;
         },
 
         getEnrolledCourses() {
-            const list = safeReadJson(ENROLLED_KEY, ['course-ai-01', 'course-web-01']);
+            if (!isAuthenticated()) return [];
+            const list = safeReadJson(getUserScopedKey(ENROLLED_KEY), ['course-ai-01']);
             return Array.isArray(list) ? list : [];
         },
 
@@ -458,10 +500,11 @@
         },
 
         enrollCourse(courseId) {
+            if (!this.requireAuthForAction()) return [];
             const list = this.getEnrolledCourses();
             if (!list.includes(courseId)) {
                 list.unshift(courseId);
-                safeWriteJson(ENROLLED_KEY, list);
+                safeWriteJson(getUserScopedKey(ENROLLED_KEY), list);
                 window.dispatchEvent(new CustomEvent('hyt:enrollmentChanged', { detail: { courseId, list } }));
             }
             return list;
@@ -522,6 +565,30 @@
         markAllNotificationsRead() {
             const ids = this.getNotifications().map(n => n.id);
             safeWriteJson(NOTIF_READ_KEY, ids);
+        },
+
+        renderHeaderAuth(containerId) {
+            const box = document.getElementById(containerId);
+            if (!box) return;
+            const user = getCurrentUser();
+            if (isAuthenticated() && user) {
+                const role = (user.role || 'student').toLowerCase();
+                const dashPage = role === 'admin' ? 'admin.html' : (role === 'employer' ? 'employer.html' : 'student.html');
+                box.innerHTML = `
+                    <a href="${dashPage}" class="btn btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.84rem;">Dashboard</a>
+                    <button type="button" class="btn btn-primary" style="padding: 0.45rem 0.9rem; font-size: 0.84rem;" onclick="window.HYT_CATALOG.signOut()">Sign Out</button>
+                `;
+            } else {
+                box.innerHTML = `<a href="auth.html" class="btn btn-primary" style="padding: 0.45rem 0.95rem; font-size: 0.85rem;">Sign In</a>`;
+            }
+        },
+
+        signOut() {
+            try {
+                window.sessionStorage.removeItem('hyt_token');
+                window.sessionStorage.removeItem('hyt_mock_user');
+            } catch (e) {}
+            window.location.href = 'auth.html';
         }
     };
 
