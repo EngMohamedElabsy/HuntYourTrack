@@ -438,10 +438,13 @@
             } catch (e) {
                 // Silently fall back to embedded verified catalog
             }
+            const source = (window.HYT_CATALOG && typeof window.HYT_CATALOG.getAllCourses === 'function')
+                ? window.HYT_CATALOG.getAllCourses()
+                : FALLBACK_COURSES;
             if (track) {
-                return FALLBACK_COURSES.filter(c => c.track === track);
+                return source.filter(c => c.track === track);
             }
-            return FALLBACK_COURSES;
+            return source;
         },
 
         /**
