@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HuntYourTrack · Welcome &amp; Onboarding</title>
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/screens.css">
+</head>
+<body class="gd-mesh-bg">
+    <header class="landing-nav" style="position: sticky; top: 0; z-index: 90;">
+        <div class="nav-container" style="display: flex; align-items: center; justify-content: space-between;">
+            <a href="../index.html" class="brand-wrapper" aria-label="HuntYourTrack Home">
+                <span class="brand-mark" style="width: 32px; height: 32px; border-radius: 9px;">
+                    <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 3" opacity="0.6"/><circle cx="16" cy="16" r="7.5" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="2.8" fill="currentColor"/></svg>
+                </span>
+                <span class="brand-title" style="font-size: 1.1rem;">HuntYourTrack</span>
+            </a>
+            <div style="display: flex; align-items: center; gap: 0.65rem;">
+                <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Toggle Dark/Light Mode" onclick="window.hytI18n && window.hytI18n.toggleTheme()">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </button>
+                <a href="auth.html" class="btn btn-secondary" style="padding: 0.45rem 0.95rem; font-size: 0.85rem;">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="onboarding-shell">
+        <div class="onboarding-card ms-fade-up">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                <span class="section-badge" id="step-label">Step 1 of 3 · Your Discipline</span>
+                <a href="../index.html" style="font-size: 0.84rem; color: var(--color-muted-foreground); text-decoration: none;">Skip to Home →</a>
+            </div>
+
+            <div class="onboarding-stepper" aria-hidden="true">
+                <div class="step-dot-pill active" id="dot-1"></div>
+                <div class="step-dot-pill" id="dot-2"></div>
+                <div class="step-dot-pill" id="dot-3"></div>
+            </div>
+
+            <!-- Step 1: Discipline -->
+            <section id="step-1" class="onboarding-step">
+                <h1 style="font-size: 1.65rem; margin: 0 0 0.5rem;">Choose your academic or career discipline</h1>
+                <p style="color: var(--color-muted-foreground); margin: 0;">We aggregate 100% free MOOCs and verified internships tailored to your track.</p>
+
+                <div class="choice-grid" id="faculty-choices">
+                    <button type="button" class="choice-card selected" data-value="computers-ai" onclick="selectFaculty(this)">
+                        <strong>Computing &amp; AI</strong>
+                        <small style="color: var(--color-muted-foreground);">CS, Machine Learning, Cybersecurity, Cloud, Web</small>
+                    </button>
+                    <button type="button" class="choice-card" data-value="engineering" onclick="selectFaculty(this)">
+                        <strong>Engineering</strong>
+                        <small style="color: var(--color-muted-foreground);">Embedded Systems, Mechatronics, Renewable Energy</small>
+                    </button>
+                    <button type="button" class="choice-card" data-value="business" onclick="selectFaculty(this)">
+                        <strong>Business &amp; FinTech</strong>
+                        <small style="color: var(--color-muted-foreground);">Financial Markets, Analytics, MIS</small>
+                    </button>
+                    <button type="button" class="choice-card" data-value="science" onclick="selectFaculty(this)">
+                        <strong>Science &amp; Biotech</strong>
+                        <small style="color: var(--color-muted-foreground);">Bioinformatics, Genomics, Nanotech</small>
+                    </button>
+                    <button type="button" class="choice-card" data-value="law" onclick="selectFaculty(this)">
+                        <strong>Law &amp; Governance</strong>
+                        <small style="color: var(--color-muted-foreground);">Tech Law, IP Rights, Cyber Regulation</small>
+                    </button>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end;">
+                    <button type="button" class="btn btn-primary" onclick="goStep(2)">Continue →</button>
+                </div>
+            </section>
+
+            <!-- Step 2: Career Goal -->
+            <section id="step-2" class="onboarding-step" style="display: none;">
+                <h1 style="font-size: 1.65rem; margin: 0 0 0.5rem;">What is your primary goal right now?</h1>
+                <p style="color: var(--color-muted-foreground); margin: 0;">HuntYourTrack combines Class Central-style free learning with real internship pipelines.</p>
+
+                <div class="choice-grid" id="goal-choices">
+                    <button type="button" class="choice-card selected" data-value="Free MOOCs & Certificates" onclick="selectGoal(this)">
+                        <strong>Learn for Free (MOOCs)</strong>
+                        <small style="color: var(--color-muted-foreground);">Discover top free courses from Harvard, Stanford &amp; Google</small>
+                    </button>
+                    <button type="button" class="choice-card" data-value="Summer Internships" onclick="selectGoal(this)">
+                        <strong>Land an Internship</strong>
+                        <small style="color: var(--color-muted-foreground);">Apply to verified corporate training &amp; internships</small>
+                    </button>
+                    <button type="button" class="choice-card" data-value="Full Career Roadmap" onclick="selectGoal(this)">
+                        <strong>Follow a Career Track</strong>
+                        <small style="color: var(--color-muted-foreground);">Step-by-step skill roadmap from beginner to job-ready</small>
+                    </button>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; gap: 0.75rem;">
+                    <button type="button" class="btn btn-secondary" onclick="goStep(1)">← Back</button>
+                    <button type="button" class="btn btn-primary" onclick="goStep(3)">Continue →</button>
+                </div>
+            </section>
+
+            <!-- Step 3: Skills & Launch -->
+            <section id="step-3" class="onboarding-step" style="display: none;">
+                <h1 style="font-size: 1.65rem; margin: 0 0 0.5rem;">Pick skills you want to build</h1>
+                <p style="color: var(--color-muted-foreground); margin: 0;">Select one or more skills to personalize your Explore catalog and Dashboard.</p>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.5rem 0 2rem;" id="skills-picker">
+                    <button type="button" class="skill-chip-toggle selected" onclick="toggleSkill(this)">Python</button>
+                    <button type="button" class="skill-chip-toggle selected" onclick="toggleSkill(this)">React &amp; Web</button>
+                    <button type="button" class="skill-chip-toggle" onclick="toggleSkill(this)">Machine Learning</button>
+                    <button type="button" class="skill-chip-toggle" onclick="toggleSkill(this)">Cybersecurity</button>
+                    <button type="button" class="skill-chip-toggle" onclick="toggleSkill(this)">Linux &amp; Cloud</button>
+                    <button type="button" class="skill-chip-toggle" onclick="toggleSkill(this)">Embedded C</button>
+                    <button type="button" class="skill-chip-toggle" onclick="toggleSkill(this)">Financial Analytics</button>
+                    <button type="button" class="skill-chip-toggle" onclick="toggleSkill(this)">Bioinformatics</button>
+                    <button type="button" class="skill-chip-toggle" onclick="toggleSkill(this)">Tech Law &amp; IP</button>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+                    <button type="button" class="btn btn-secondary" onclick="goStep(2)">← Back</button>
+                    <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-secondary" onclick="finishOnboarding('auth')">Sign In / Create Account</button>
+                        <button type="button" class="btn btn-primary" id="onboarding-finish-btn" onclick="finishOnboarding('explore')">Explore Free Courses &amp; Internships →</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/catalog-store.js"></script>
+    <script>
+        let selectedFaculty = 'computers-ai';
+        let selectedGoal = 'Free MOOCs & Certificates';
+
+        function selectFaculty(btn) {
+            document.querySelectorAll('#faculty-choices .choice-card').forEach(c => c.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedFaculty = btn.dataset.value;
+        }
+
+        function selectGoal(btn) {
+            document.querySelectorAll('#goal-choices .choice-card').forEach(c => c.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedGoal = btn.dataset.value;
+        }
+
+        function toggleSkill(btn) {
+            btn.classList.toggle('selected');
+        }
+
+        function goStep(step) {
+            [1, 2, 3].forEach(n => {
+                const el = document.getElementById('step-' + n);
+                const dot = document.getElementById('dot-' + n);
+                if (el) el.style.display = (n === step) ? 'block' : 'none';
+                if (dot) {
+                    dot.classList.toggle('active', n === step);
+                    dot.classList.toggle('done', n < step);
+                }
+            });
+            const labels = {
+                1: 'Step 1 of 3 · Your Discipline',
+                2: 'Step 2 of 3 · Career Goal',
+                3: 'Step 3 of 3 · Skills & Personalization'
+            };
+            const lbl = document.getElementById('step-label');
+            if (lbl) lbl.textContent = labels[step];
+        }
+
+        function finishOnboarding(target) {
+            const skills = Array.from(document.querySelectorAll('#skills-picker .skill-chip-toggle.selected'))
+                .map(el => el.textContent.trim());
+            if (window.HYT_CATALOG) {
+                window.HYT_CATALOG.saveOnboardingPrefs({
+                    faculty: selectedFaculty,
+                    goal: selectedGoal,
+                    skills
+                });
+            }
+            if (target === 'auth') {
+                window.location.href = 'auth.html?redirect=student.html';
+            } else {
+                window.location.href = `explore.html?faculty=${encodeURIComponent(selectedFaculty)}`;
+            }
+        }
+    </script>
+</body>
+</html>
