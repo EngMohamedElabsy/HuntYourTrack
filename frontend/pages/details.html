@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HuntYourTrack · Course &amp; Internship Details</title>
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/screens.css">
+</head>
+<body class="gd-mesh-bg">
+    <header class="landing-nav" style="position: sticky; top: 0; z-index: 90;">
+        <div class="nav-container" style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+            <a href="../index.html" class="brand-wrapper" aria-label="HuntYourTrack Home">
+                <span class="brand-mark" style="width: 32px; height: 32px; border-radius: 9px;">
+                    <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 3" opacity="0.6"/><circle cx="16" cy="16" r="7.5" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="2.8" fill="currentColor"/></svg>
+                </span>
+                <span class="brand-title" style="font-size: 1.1rem;">HuntYourTrack</span>
+            </a>
+
+            <nav class="nav-menu" aria-label="Primary Navigation">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="explore.html" class="nav-link">Explore Catalog</a></li>
+                <li><a href="student.html" class="nav-link">Dashboard</a></li>
+                <li><a href="profile.html" class="nav-link">Favorites &amp; Profile</a></li>
+            </nav>
+
+            <div style="display: flex; align-items: center; gap: 0.55rem;">
+                <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Toggle Dark/Light Mode" onclick="window.hytI18n && window.hytI18n.toggleTheme()">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </button>
+                <a href="explore.html" class="btn btn-secondary" style="padding: 0.45rem 0.95rem; font-size: 0.85rem;">← Back to Explore</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="details-shell">
+        <div style="margin-bottom: 1rem; font-size: 0.86rem; color: var(--color-muted-foreground);">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">Home</a> /
+            <a href="explore.html" style="color: inherit; text-decoration: none;">Explore</a> /
+            <span id="details-breadcrumb" style="color: var(--color-foreground); font-weight: 600;">Details</span>
+        </div>
+
+        <div class="details-grid" id="details-root">
+            <div class="details-hero-card">Loading details...</div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile App Navigation">
+        <a href="../index.html" class="mobile-bottom-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            <span>Home</span>
+        </a>
+        <a href="explore.html" class="mobile-bottom-link active">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Explore</span>
+        </a>
+        <a href="student.html" class="mobile-bottom-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+            <span>Hub</span>
+        </a>
+        <a href="profile.html" class="mobile-bottom-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/opportunities.js"></script>
+    <script src="../js/catalog-store.js"></script>
+    <script>
+        function renderDetailsPage() {
+            const store = window.HYT_CATALOG;
+            if (!store) return;
+
+            const params = new URLSearchParams(window.location.search);
+            let type = params.get('type') || 'course';
+            let id = params.get('id') || 'course-ai-02';
+
+            let item = type === 'internship'
+                ? store.getOpportunityById(id)
+                : store.getCourseById(id);
+
+            if (!item) {
+                type = 'course';
+                item = store.getAllCourses()[0];
+            }
+
+            const isCourse = type === 'course';
+            const title = isCourse ? item.title : (item.titleEn || item.title);
+            const provider = isCourse ? item.provider : (item.orgNameEn || item.orgName);
+            const desc = isCourse ? item.description : (item.descEn || item.desc);
+            const thumb = isCourse ? item.thumbnail : item.imageUrl;
+            const actionUrl = isCourse ? item.enrollmentUrl : item.applyUrl;
+            const isFav = store.isFavorite(type, item.id);
+            const isEnrolled = isCourse ? store.isEnrolled(item.id) : false;
+
+            document.title = `${title} · HuntYourTrack`;
+            const bc = document.getElementById('details-breadcrumb');
+            if (bc) bc.textContent = title;
+
+            const modules = isCourse
+                ? (item.syllabus || ['Core Concepts & Foundations', 'Applied Labs & Projects', 'Final Assessment'])
+                : (item.requirementsEn || ['Solid academic foundation', 'Relevant project portfolio']);
+
+            const benefits = isCourse
+                ? [`Platform: ${item.platform}`, `Cost: 100% Free Audit`, `Certificate: ${item.certificate || 'Available'}`, `Duration: ${item.duration}`]
+                : (item.benefitsEn || [`Stipend: ${item.stipendEn || item.stipend}`, `Term: ${item.termEn || item.term}`, `Location: ${item.locationEn || item.location}`]);
+
+            const root = document.getElementById('details-root');
+            root.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <article class="details-hero-card ms-fade-up">
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.9rem;">
+                            <span class="section-badge">${isCourse ? 'Free Aggregated MOOC' : 'Verified Internship'}</span>
+                            <span class="tag-pill" style="background: var(--color-muted); color: var(--color-foreground);">${provider}</span>
+                        </div>
+
+                        <h1 style="font-size: clamp(1.5rem, 3vw, 2.2rem); margin: 0 0 0.75rem;">${title}</h1>
+                        <p style="font-size: 1.02rem; color: var(--color-muted-foreground); line-height: 1.65; margin: 0 0 1.25rem;">
+                            ${desc}
+                        </p>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem; color: var(--color-foreground); font-weight: 600;">
+                            <span>★ ${isCourse ? item.rating : ((item.matchScore || 92) / 20).toFixed(1)} (${isCourse ? (item.reviewsCount || 2100) + ' reviews' : (item.matchScore || 92) + '% ATS Fit'})</span>
+                            <span>·</span>
+                            <span>${isCourse ? item.duration : (item.termEn || item.term)}</span>
+                            <span>·</span>
+                            <span>${isCourse ? item.level : (item.locationEn || item.location)}</span>
+                        </div>
+                    </article>
+
+                    <section class="details-section-card ms-fade-up">
+                        <h2 style="font-size: 1.25rem; margin: 0 0 1rem;">${isCourse ? 'Course Syllabus & Modules' : 'Key Requirements'}</h2>
+                        <div>
+                            ${modules.map((m, idx) => `
+                                <div class="syllabus-item">
+                                    <span class="tag-pill" style="background: var(--color-primary); color: #fff; font-weight: 700; min-width: 28px; text-align: center;">${idx + 1}</span>
+                                    <span style="font-weight: 500;">${m}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+
+                    <section class="details-section-card ms-fade-up">
+                        <h2 style="font-size: 1.25rem; margin: 0 0 0.85rem;">Skills You Will Gain</h2>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            ${(item.skills || ['Core Competencies']).map(s => `<span class="skill-pill">${s}</span>`).join('')}
+                        </div>
+                    </section>
+                </div>
+
+                <aside class="details-sticky-card ms-fade-up">
+                    <div style="border-radius: 14px; overflow: hidden; height: 175px; margin-bottom: 1.15rem; background: var(--color-muted);">
+                        <img src="${thumb || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80'}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                    </div>
+
+                    <div style="font-size: 1.35rem; font-weight: 800; color: var(--color-accent); margin-bottom: 0.35rem;">
+                        ${isCourse ? '100% Free Access' : (item.stipendEn || item.stipend || 'Verified Program')}
+                    </div>
+                    <p style="font-size: 0.84rem; color: var(--color-muted-foreground); margin: 0 0 1.15rem;">
+                        ${isCourse ? 'Aggregated directly from ' + item.platform : 'Endorsed corporate opportunity'}
+                    </p>
+
+                    <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+                        <a href="${actionUrl || '#'}" target="_blank" rel="noopener noreferrer" id="details-primary-cta" class="btn btn-primary" style="text-align: center; padding: 0.8rem 1rem;" onclick="handlePrimaryAction('${type}', '${item.id}')">
+                            ${isCourse ? (isEnrolled ? 'Continue Learning on Provider →' : 'Enroll Free on Provider →') : 'Apply Now on Partner Site →'}
+                        </a>
+
+                        <button type="button" id="details-fav-btn" class="btn ${isFav ? 'btn-accent' : 'btn-secondary'}" style="padding: 0.7rem 1rem;" onclick="handleDetailsFav('${type}', '${item.id}', this)">
+                            ${isFav ? 'Saved in Favorites ✓' : 'Save to Favorites'}
+                        </button>
+
+                        <a href="profile.html" class="btn btn-secondary" style="text-align: center; padding: 0.65rem 1rem; font-size: 0.85rem;">
+                            View Saved Favorites &amp; Progress
+                        </a>
+                    </div>
+
+                    <ul style="list-style: none; padding: 1rem 0 0; margin: 1rem 0 0; border-top: 1px solid var(--color-border); display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.84rem; color: var(--color-muted-foreground);">
+                        ${benefits.map(b => `<li>✓ ${b}</li>`).join('')}
+                    </ul>
+                </aside>
+            `;
+        }
+
+        function handlePrimaryAction(type, id) {
+            if (type === 'course' && window.HYT_CATALOG) {
+                window.HYT_CATALOG.enrollCourse(id);
+                const btn = document.getElementById('details-primary-cta');
+                if (btn) btn.textContent = 'Enrolled · Opening Provider →';
+            }
+        }
+
+        function handleDetailsFav(type, id, btn) {
+            if (!window.HYT_CATALOG) return;
+            const added = window.HYT_CATALOG.toggleFavorite(type, id);
+            btn.textContent = added ? 'Saved in Favorites ✓' : 'Save to Favorites';
+            btn.classList.toggle('btn-accent', added);
+            btn.classList.toggle('btn-secondary', !added);
+        }
+
+        document.addEventListener('DOMContentLoaded', renderDetailsPage);
+    </script>
+</body>
+</html>
