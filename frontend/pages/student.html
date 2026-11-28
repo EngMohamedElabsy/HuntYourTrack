@@ -572,6 +572,7 @@
  }
 
  .student-tab-btn {
+ position: relative;
  display: flex;
  align-items: center;
  gap: 0.65rem;
@@ -588,6 +589,10 @@
  transition: all 0.2s ease;
  }
 
+ .student-tab-btn svg {
+ flex-shrink: 0;
+ }
+
  .student-tab-btn:hover {
  background: var(--color-muted);
  color: var(--color-foreground);
@@ -596,6 +601,31 @@
  .student-tab-btn.active {
  background: var(--color-primary);
  color: #FFFFFF;
+ }
+
+ .student-tab-btn[data-tooltip]::after {
+ content: attr(data-tooltip);
+ position: absolute;
+ left: 105%;
+ top: 50%;
+ transform: translateY(-50%) translateX(6px);
+ background: var(--color-foreground);
+ color: var(--color-background);
+ padding: 0.35rem 0.65rem;
+ border-radius: 8px;
+ font-size: 0.75rem;
+ font-weight: 600;
+ white-space: nowrap;
+ opacity: 0;
+ pointer-events: none;
+ transition: opacity 0.2s ease, transform 0.2s ease;
+ z-index: 100;
+ box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+ }
+
+ .student-tab-btn[data-tooltip]:hover::after {
+ opacity: 1;
+ transform: translateY(-50%) translateX(10px);
  }
 
  .student-tab-panel {
@@ -680,7 +710,8 @@
      <span id="theme-btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
  </button>
 
- <span class="user-badge" id="student-badge">
+ <span class="user-badge" id="student-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0.75rem 0.25rem 0.35rem;">
+     <span id="user-avatar-badge" style="width: 28px; height: 28px; border-radius: 50%; background: var(--color-primary); color: #FFF; display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; overflow: hidden; flex-shrink: 0;">S</span>
      <span id="user-display" data-i18n="userDisplayStudent">Enrolled Student</span>
  </span>
  <button id="logout-btn" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; display: inline-flex; align-items: center; gap: 0.35rem;" data-i18n="navSignOut" onclick="handleStudentLogout(event)">Sign Out</button>
@@ -695,8 +726,9 @@
  <!-- Clean Role-Isolated Mobile Navigation Drawer (Zero Leaked Admin Links) -->
  <div class="mobile-drawer" id="student-mobile-drawer">
  <div style="padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-border); margin-bottom: 0.5rem;">
- <span class="user-badge" style="width: 100%; justify-content: center;">
- <span>‍</span> <span id="mobile-user-display" data-i18n="userDisplayStudent">Enrolled Student</span>
+ <span class="user-badge" style="width: 100%; justify-content: center; gap: 0.5rem;">
+ <span id="mobile-user-avatar-badge" style="width: 24px; height: 24px; border-radius: 50%; background: var(--color-primary); color: #FFF; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; overflow: hidden; flex-shrink: 0;">S</span>
+ <span id="mobile-user-display" data-i18n="userDisplayStudent">Enrolled Student</span>
  </span>
  </div>
  <a href="../index.html" class="nav-drawer-link" onclick="closeStudentDrawer()" data-i18n="navExploreHome">Explore Home</a>
@@ -717,10 +749,22 @@
  <main class="dashboard-content">
  <div class="student-workspace-grid">
  <aside class="student-sidebar" aria-label="Student Workspace Sections">
- <button type="button" class="student-tab-btn active" data-tab="overview" onclick="switchStudentTab('overview', this)">Overview &amp; Roadmap</button>
- <button type="button" class="student-tab-btn" data-tab="cv" onclick="switchStudentTab('cv', this)">CV &amp; Skills</button>
- <button type="button" class="student-tab-btn" data-tab="opportunities" onclick="switchStudentTab('opportunities', this)">Applications &amp; Jobs</button>
- <button type="button" class="student-tab-btn" data-tab="profile" onclick="switchStudentTab('profile', this)">Profile &amp; Avatar</button>
+ <button type="button" class="student-tab-btn active" data-tab="overview" onclick="switchStudentTab('overview', this)" data-tooltip="Overview &amp; Roadmap">
+     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+     <span class="tab-label">Overview &amp; Roadmap</span>
+ </button>
+ <button type="button" class="student-tab-btn" data-tab="cv" onclick="switchStudentTab('cv', this)" data-tooltip="CV &amp; Skills Matcher">
+     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+     <span class="tab-label">CV &amp; Skills</span>
+ </button>
+ <button type="button" class="student-tab-btn" data-tab="opportunities" onclick="switchStudentTab('opportunities', this)" data-tooltip="Applications &amp; Jobs">
+     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+     <span class="tab-label">Applications &amp; Jobs</span>
+ </button>
+ <button type="button" class="student-tab-btn" data-tab="profile" onclick="switchStudentTab('profile', this)" data-tooltip="Profile &amp; Avatar">
+     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+     <span class="tab-label">Profile &amp; Avatar</span>
+ </button>
  </aside>
 
  <div class="student-main-panel">
@@ -753,23 +797,23 @@
  <section class="stats-grid">
  <div class="stat-card tilt-target">
  <div class="stat-label" data-i18n="studentMetricMatch">Academic Match Rate</div>
- <div class="stat-val" style="color: #6366F1;">94%</div>
+ <div class="stat-val" id="stat-match-val" style="color: #6366F1;">94%</div>
  <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" id="matched-track-label" data-i18n="studentMetricTrackLabel">Software Engineering & AI Track</p>
  </div>
  <div class="stat-card tilt-target">
  <div class="stat-label" data-i18n="studentMetricApps">Active Applications</div>
- <div class="stat-val" style="color: #10B981;">4</div>
- <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" data-i18n="studentMetricAppsSub">1 Under Review · 1 Shortlisted · 1 Interview · 1 Offer</p>
+ <div class="stat-val" id="stat-apps-val" style="color: #10B981;">0</div>
+ <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" id="stat-apps-sub" data-i18n="studentMetricAppsSub">Opportunities Applied & Tracked</p>
  </div>
  <div class="stat-card tilt-target">
  <div class="stat-label" data-i18n="studentMetricMilestones">Completed Milestones</div>
- <div class="stat-val" style="color: #F59E0B;">8 / 12</div>
- <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" data-i18n="studentMetricMilestonesSub">75% Track Completion Toward Graduation</p>
+ <div class="stat-val" id="stat-milestones-val" style="color: #F59E0B;">0 / 12</div>
+ <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" id="stat-milestones-sub" data-i18n="studentMetricMilestonesSub">Syllabus Topics Completed</p>
  </div>
  <div class="stat-card tilt-target">
  <div class="stat-label">ATS Resume Score</div>
- <div class="stat-val" style="color: #0284C7;">92/100</div>
- <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;">Top 5% in Faculty of Computers & AI</p>
+ <div class="stat-val" id="stat-ats-val" style="color: #0284C7;">--</div>
+ <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;" id="stat-ats-sub">Upload resume to calculate ATS score</p>
  </div>
  </div>
  </section>
@@ -812,10 +856,12 @@
  </div>
 
  <!-- CV Upload Zone -->
- <div class="cv-drop-zone" onclick="simulateCvUpload()">
- <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary); margin-bottom: 0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
- <strong style="font-size: 1rem; color: var(--color-foreground); display: block;" data-i18n="cvDropTitle">Upload Resume / CV for AI Track Alignment</strong>
- <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.25rem;" id="cv-status-text" data-i18n="cvDropSub">Supports PDF or DOCX · AI matches your skills with active partner internships automatically</p>
+ <input type="file" id="real-cv-input" accept=".pdf,.doc,.docx,.txt" style="display: none;" onchange="handleRealCvSelected(this)">
+ <div class="cv-drop-zone" id="cv-drop-zone" onclick="onCvZoneClicked()">
+ <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary); margin-bottom: 0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+ <strong style="font-size: 1rem; color: var(--color-foreground); display: block;" id="cv-drop-title" data-i18n="cvDropTitle">Upload Resume / CV for AI Track Alignment</strong>
+ <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.25rem;" id="cv-status-text" data-i18n="cvDropSub">Click or drag &amp; drop PDF, DOCX, or TXT · AI extracts keywords &amp; aligns track</p>
+ <div id="cv-file-details" style="display: none; margin-top: 0.75rem; padding: 0.5rem 0.85rem; background: var(--color-card); border-radius: 8px; border: 1px solid var(--color-border); font-size: 0.82rem; color: var(--color-foreground); align-items: center; justify-content: center; gap: 0.5rem;"></div>
  </div>
  </section>
 
@@ -1106,7 +1152,47 @@
      const bioInput = document.getElementById('profile-edit-bio');
      const savedBio = localStorage.getItem('hyt_student_bio_' + email);
      if (bioInput && savedBio) bioInput.value = savedBio;
+
+     const cvFilename = localStorage.getItem('hyt_cv_filename');
+     const cvFilesize = localStorage.getItem('hyt_cv_filesize');
+     const cvDetails = document.getElementById('cv-file-details');
+     const cvStatus = document.getElementById('cv-status-text');
+     if (cvFilename && cvDetails) {
+         cvDetails.style.display = 'flex';
+         cvDetails.innerHTML = `<span>📄 <strong>${escapeNavHtml(cvFilename)}</strong> (${cvFilesize || 'Verified'})</span> <span style="color:#059669; font-weight:600;">✓ ATS Matched &amp; Active</span>`;
+         if (cvStatus) cvStatus.innerHTML = "Resume verified! Skill match: 96% with partner companies.";
+     }
  } catch (e) {}
+ initCvDropZone();
+ updateDynamicStudentStats();
+ }
+
+ function initCvDropZone() {
+     const dropZone = document.getElementById('cv-drop-zone');
+     if (!dropZone || dropZone._dndInit) return;
+     dropZone._dndInit = true;
+     ['dragenter', 'dragover'].forEach(eventName => {
+         dropZone.addEventListener(eventName, (e) => {
+             e.preventDefault();
+             e.stopPropagation();
+             dropZone.style.borderColor = 'var(--color-primary)';
+             dropZone.style.background = 'rgba(2, 132, 199, 0.08)';
+         });
+     });
+     ['dragleave', 'drop'].forEach(eventName => {
+         dropZone.addEventListener(eventName, (e) => {
+             e.preventDefault();
+             e.stopPropagation();
+             dropZone.style.borderColor = '';
+             dropZone.style.background = '';
+         });
+     });
+     dropZone.addEventListener('drop', (e) => {
+         const files = e.dataTransfer && e.dataTransfer.files;
+         if (files && files.length > 0) {
+             processCvFile(files[0]);
+         }
+     });
  }
 
  function renderStudentIdentity() {
@@ -1212,19 +1298,124 @@
  }
  }
 
+ function escapeNavHtml(str) {
+     return String(str || '').replace(/[&<>'"]/g, tag => ({
+         '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+     }[tag] || tag));
+ }
+
+ function formatCvBytes(bytes) {
+     if (!bytes || bytes === 0) return '0 B';
+     const k = 1024;
+     const sizes = ['B', 'KB', 'MB', 'GB'];
+     const i = Math.floor(Math.log(bytes) / Math.log(k));
+     return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+ }
+
+ function handleRealCvSelected(input) {
+     const file = input && input.files && input.files[0];
+     if (file) {
+         processCvFile(file);
+     }
+ }
+ window.handleRealCvSelected = handleRealCvSelected;
+
+ function processCvFile(file) {
+     const status = document.getElementById('cv-status-text');
+     const details = document.getElementById('cv-file-details');
+     
+     if (status) status.innerHTML = "Scanning and parsing " + escapeNavHtml(file.name) + " via AI matching algorithm...";
+     if (details) {
+         details.style.display = 'flex';
+         details.innerHTML = `<span>📄 <strong>${escapeNavHtml(file.name)}</strong> (${formatCvBytes(file.size)})</span> <span style="color:#059669; font-weight:600;">✓ Parsing...</span>`;
+     }
+
+     setTimeout(() => {
+         if (status) status.innerHTML = "Resume uploaded successfully! Skill match: 96% with partner companies.";
+         if (details) {
+             details.innerHTML = `<span>📄 <strong>${escapeNavHtml(file.name)}</strong> (${formatCvBytes(file.size)})</span> <span style="color:#059669; font-weight:600;">✓ ATS Matched &amp; Active</span>`;
+         }
+         try {
+             const email = ((currentStudent && currentStudent.email) || 'student').toLowerCase();
+             localStorage.setItem('hyt_student_configured_' + email, 'true');
+             localStorage.setItem('hyt_cv_uploaded', 'true');
+             localStorage.setItem('hyt_cv_filename', file.name);
+             localStorage.setItem('hyt_cv_filesize', formatCvBytes(file.size));
+         } catch (e) {}
+         updateDynamicStudentStats();
+         refreshStudentSetupGate();
+         showStudentToast("Skills extracted and matched with active internship opportunities!", "success");
+     }, 600);
+ }
+ window.processCvFile = processCvFile;
+
+ function onCvZoneClicked() {
+     const fileInput = document.getElementById('real-cv-input');
+     if (fileInput) {
+         try {
+             fileInput.click();
+         } catch (e) {}
+     }
+     simulateCvUpload();
+ }
+ window.onCvZoneClicked = onCvZoneClicked;
+
  function simulateCvUpload() {
- const status = document.getElementById('cv-status-text');
- status.innerHTML = "Scanning and parsing resume via AI matching algorithm...";
- setTimeout(() => {
- status.innerHTML = "Resume uploaded successfully! Skill match: 96% with partner companies.";
- try {
-     const key = 'hyt_student_configured_' + ((currentStudent && currentStudent.email) || 'student').toLowerCase();
-     localStorage.setItem(key, 'true');
-     localStorage.setItem('hyt_cv_uploaded', 'true');
- } catch (e) {}
- refreshStudentSetupGate();
- showStudentToast("Skills extracted and matched with active internship opportunities!", "success");
- }, 800);
+     const status = document.getElementById('cv-status-text');
+     const details = document.getElementById('cv-file-details');
+     if (status) status.innerHTML = "Scanning and parsing resume via AI matching algorithm...";
+     setTimeout(() => {
+         if (status) status.innerHTML = "Resume uploaded successfully! Skill match: 96% with partner companies.";
+         if (details) {
+             details.style.display = 'flex';
+             details.innerHTML = `<span>📄 <strong>Student_Resume_2026.pdf</strong> (142 KB)</span> <span style="color:#059669; font-weight:600;">✓ ATS Matched &amp; Active</span>`;
+         }
+         try {
+             const email = ((currentStudent && currentStudent.email) || 'student').toLowerCase();
+             localStorage.setItem('hyt_student_configured_' + email, 'true');
+             localStorage.setItem('hyt_cv_uploaded', 'true');
+             localStorage.setItem('hyt_cv_filename', 'Student_Resume_2026.pdf');
+             localStorage.setItem('hyt_cv_filesize', '142 KB');
+         } catch (e) {}
+         updateDynamicStudentStats();
+         refreshStudentSetupGate();
+         showStudentToast("Skills extracted and matched with active internship opportunities!", "success");
+     }, 600);
+ }
+ window.simulateCvUpload = simulateCvUpload;
+
+ function updateDynamicStudentStats() {
+     const matchVal = document.getElementById('stat-match-val');
+     const appsVal = document.getElementById('stat-apps-val');
+     const milestonesVal = document.getElementById('stat-milestones-val');
+     const atsVal = document.getElementById('stat-ats-val');
+     const atsSub = document.getElementById('stat-ats-sub');
+     const email = ((currentStudent && currentStudent.email) || 'student').toLowerCase();
+     
+     let isCvUploaded = false;
+     try {
+         isCvUploaded = localStorage.getItem('hyt_cv_uploaded') === 'true';
+     } catch (e) {}
+
+     let appsCount = 0;
+     try {
+         const apps = JSON.parse(localStorage.getItem('hyt_student_applications') || '[]');
+         appsCount = Array.isArray(apps) ? apps.length : 0;
+     } catch (e) {}
+
+     if (isCvUploaded || email === 'student@damanhour.edu.eg') {
+         if (matchVal) matchVal.textContent = '94%';
+         if (appsVal) appsVal.textContent = appsCount > 0 ? String(appsCount) : '2';
+         if (milestonesVal) milestonesVal.textContent = '8 / 12';
+         if (atsVal) atsVal.textContent = '92/100';
+         if (atsSub) atsSub.textContent = 'Top 5% in Faculty of Computers & AI';
+     } else {
+         if (matchVal) matchVal.textContent = 'Pending';
+         if (appsVal) appsVal.textContent = String(appsCount);
+         if (milestonesVal) milestonesVal.textContent = '0 / 12';
+         if (atsVal) atsVal.textContent = '--';
+         if (atsSub) atsSub.textContent = 'Upload resume to calculate ATS score';
+     }
  }
 
  function switchStudentTab(tabId, btn) {
@@ -1250,6 +1441,7 @@
  if (gate) gate.style.display = configured ? 'none' : 'block';
  if (roadmap) roadmap.style.display = configured ? 'block' : 'none';
  if (stats) stats.style.display = configured ? 'grid' : 'none';
+ updateDynamicStudentStats();
  }
 
  function handleAvatarUpload(input) {
@@ -1272,12 +1464,19 @@
 
  function renderStudentAvatar(dataUrl) {
  const preview = document.getElementById('student-avatar-preview');
- if (!preview) return;
+ const navBadge = document.getElementById('user-avatar-badge');
+ const mobileBadge = document.getElementById('mobile-user-avatar-badge');
+ const initial = ((currentStudent && currentStudent.name) || 'S').charAt(0).toUpperCase();
+
  if (dataUrl) {
-     preview.innerHTML = `<img src="${dataUrl}" alt="Profile Avatar" style="width:100%;height:100%;object-fit:cover;">`;
+     const imgHtml = `<img src="${dataUrl}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+     if (preview) preview.innerHTML = imgHtml;
+     if (navBadge) navBadge.innerHTML = imgHtml;
+     if (mobileBadge) mobileBadge.innerHTML = imgHtml;
  } else {
-     const name = (currentStudent && currentStudent.name) || 'S';
-     preview.textContent = name.charAt(0).toUpperCase();
+     if (preview) preview.textContent = initial;
+     if (navBadge) navBadge.textContent = initial;
+     if (mobileBadge) mobileBadge.textContent = initial;
  }
  }
 

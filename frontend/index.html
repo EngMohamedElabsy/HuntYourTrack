@@ -1137,10 +1137,18 @@
                 const safeFullName = escapeNavHtml(fullName);
                 const safeEmail = escapeNavHtml(email);
                 const signOutLabel = "Sign Out";
+                let avatarCircleHtml = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+                try {
+                    const savedAvatar = localStorage.getItem('hyt_avatar_' + (email || '').toLowerCase());
+                    if (savedAvatar) {
+                        avatarCircleHtml = `<img src="${savedAvatar}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+                    }
+                } catch (e) {}
+
                 const sessionHtml = `
                     <div class="user-profile-menu-wrapper" id="user-profile-menu-wrapper">
                         <button class="nav-user-pill" type="button" onclick="toggleUserDropdown(event)" aria-label="User Menu">
-                            <span class="user-avatar-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                            <span class="user-avatar-circle">${avatarCircleHtml}</span>
                             <span class="user-name-text">${safeDisplayName}</span>
                             <span class="dropdown-caret">▾</span>
                         </button>
