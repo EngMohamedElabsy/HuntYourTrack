@@ -577,4 +577,15 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Student Sidebar Tab Bar, CV-Gated Setup & Profile/Avatar Editor (`frontend/pages/student.html`):** Added responsive left sidebar tabs (`Overview & Roadmap`, `CV & Skills`, `Applications & Jobs`, `Profile & Avatar`), gated the roadmap behind CV upload or academic track selection for new students, and added local avatar photo upload + name/bio editing.
   - **Verification:** Passed `node --check`, `git check-ignore`, `test-9-screens-journey.spec.js`, `test-user-flow.spec.js`, and full `npm test`.
 
+### 🟢 US48: Realistic Desk-Sitting, Two-Handed Bow & Target-Stuck Arrow Animation (2026-11-28 15:45 UTC+2)
+
+- **Issue:** #142 (US48)
+- **Deliverables:**
+  - **Realistic Study Desk & Chair Sitting (`frontend/index.html`, `frontend/css/landing.css`):** Character sits at `(45px, 10px)` on study chair at the desk in Scene 1 studying rules and updating CV, then stands and steps forward to `(145px, 0px)` in Scene 2 & 3.
+  - **Front-Facing Thought Cloud (`frontend/index.html`):** Positioned thought bubble directly in front of character's head `(32, 45)` preventing any overlap behind him.
+  - **Target-Stuck Arrows Group (`frontend/index.html`, `frontend/css/landing.css`):** Added `#story-stuck-arrows` directly inside `#story-target` (`#story-target-stuck-1` at `(-28, -20)`, `#story-target-stuck-2` at `(-26, 22)`, `#story-target-bullseye-arrow` at `(0, 0)`), ensuring missed arrows physically embed and bob up and down with the oscillating target.
+  - **Eliminated Expanding Pulse Rings (`frontend/index.html`, `frontend/css/landing.css`):** Removed `#story-impact-pulse` and `bullseyePulse` keyframes completely, preserving clean solid impact with confetti streamers.
+  - **Verification:** Passed `node --check`, `npx oxlint`, `test-9-screens-journey.spec.js`, and full `npm test`.
+
+
 
