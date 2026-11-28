@@ -587,5 +587,16 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Eliminated Expanding Pulse Rings (`frontend/index.html`, `frontend/css/landing.css`):** Removed `#story-impact-pulse` and `bullseyePulse` keyframes completely, preserving clean solid impact with confetti streamers.
   - **Verification:** Passed `node --check`, `npx oxlint`, `test-9-screens-journey.spec.js`, and full `npm test`.
 
+### 🟢 US49: Student Compact Icon Sidebar, Topbar Avatar & Real CV File Upload (2026-11-28 16:15 UTC+2)
+
+- **Issue:** #143 (US49)
+- **Deliverables:**
+  - **Topbar Avatar & Student Identity (`frontend/pages/student.html`, `frontend/index.html`):** Added circular avatar photo badge (`#user-avatar-badge`) beside student name in navigation bars on both Student dashboard and Home portal, displaying initial or user profile photo seamlessly.
+  - **Compact Icon Sidebar with Hover Tooltips (`frontend/pages/student.html`):** Refactored student sidebar into SVG icon-equipped tab buttons (`Overview & Roadmap`, `CV & Skills`, `Applications & Jobs`, `Profile & Avatar`) with floating `[data-tooltip]` hover explanations.
+  - **Real CV File Chooser & Drag-and-Drop Zone (`frontend/pages/student.html`):** Implemented true `<input type="file" id="real-cv-input" accept=".pdf,.doc,.docx,.txt">` and Drag-and-Drop file intake (`#cv-drop-zone`), displaying verified filename, formatted size (`#cv-file-details`), and AST parsing feedback.
+  - **Dynamic Realistic Student Metrics (`frontend/pages/student.html`):** Cleaned up static completed metrics for unconfigured accounts; initialized new students to realistic pending states (0 completed milestones, 0 active applications, ATS score pending CV) and populated dynamically upon CV upload.
+  - **Verification:** Passed `node --check`, `npx oxlint`, `test-9-screens-journey.spec.js`, and full `npm test`.
+
+
 
 
