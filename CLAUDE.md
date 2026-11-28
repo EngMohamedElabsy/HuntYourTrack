@@ -605,6 +605,16 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Seamless Guest Favorites Persistence (`frontend/js/catalog-store.js`, `frontend/js/components.js`, `frontend/pages/profile.html`):** Synchronized `HYT_CATALOG.toggleFavorite()` with `hyt_saved_bookmarks` and user/guest scopes so unauthenticated guests bookmarking courses or internships have their items persisted immediately and displayed in Screen 9 (`profile.html` Favorites tab).
   - **Verification:** Passed `node --check`, `npx oxlint`, `test-9-screens-journey.spec.js`, and full `npm test`.
 
+### 🟢 US51: Fix Avatar Color/Sizing, Auto-Prune Expired Deadlines & 250+ Unified Catalog (2026-11-28 17:30 UTC+2)
+
+- **Issue:** #145 (US51)
+- **Deliverables:**
+  - **Company Logos Directory Cleared & Image Ready (`frontend/assets/logos/`):** Removed all placeholder manually sketched SVGs from `frontend/assets/logos/` per explicit user instruction; folder prepared for authentic image assets.
+  - **Profile Photo Grayscale Elimination & Topbar Avatar Sizing (`frontend/css/style.css`, `frontend/css/landing.css`, `frontend/pages/post-internship.html`, `frontend/pages/applicants-review.html`):** Removed global `img { filter: grayscale(1) ... }` rules across all CSS/HTML files to restore vibrant, full-color rendering for student avatars, company logos, and thumbnails without needing hover. Sized `.user-avatar-circle` to 28x28px circular badge in `.nav-user-pill` on the Home portal for seamless topbar alignment.
+  - **Automatic Pruning of Expired Deadlines (`frontend/js/opportunities.js`, `backend/controllers/opportunities.controller.js`, `database/nosql/opportunities.json`):** Implemented `pruneExpired()` in `OpportunitiesManager` and auto-filter in `opportunities.controller.js` so opportunities and courses whose deadline or end date has passed are automatically cleaned from memory and storage without manual intervention.
+  - **250+ Multi-Discipline Unified Course Catalog (`scripts/generate-250-courses.js`, `database/nosql/courses-catalog.json`, `frontend/js/catalog-store.js`):** Expanded verified free MOOC and internship offerings to 255 complete, high-quality entries across all 5 disciplines (Computers & AI, Engineering, Business, Science, Law) from world-class institutions (Google, Harvard, Stanford, MIT, DeepLearning.AI, IBM, Microsoft, AWS, Cisco, Yale, Wharton, TU Delft), with 100% synchronization between static GitHub Pages and the modular backend REST API.
+  - **Verification & Fast Rust Linter Validation:** Passed `node --check` across all modules, verified with `npx oxlint` and Node.js testing, passed all 9 screens with 0 errors in `tests/test-9-screens-journey.spec.js`, and achieved 100% compliance across `npm test`.
+
 
 
 

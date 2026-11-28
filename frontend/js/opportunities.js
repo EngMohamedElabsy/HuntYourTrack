@@ -21,7 +21,7 @@ const DEFAULT_OPPORTUNITIES = [
         descEn: "Hands-on engineering program focused on AWS/Azure, Kubernetes microservices, CI/CD automation pipelines, and enterprise reliability monitoring.",
         imageUrl: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
         startDate: "2026-11-05",
-        endDate: "2026-11-28",
+        endDate: "2026-12-28",
         applyUrl: "https://careers.vodafone.com/engineering-egypt",
         stipend: "EGP 8,500/mo",
         stipendEn: "EGP 8,500/mo (Paid)",
@@ -60,7 +60,7 @@ const DEFAULT_OPPORTUNITIES = [
         descEn: "Intensive 3-month accredited training path covering Next.js, Node.js, Generative AI integration, and production deployment at Smart Village tech labs.",
         imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80",
         startDate: "2026-11-01",
-        endDate: "2026-11-19",
+        endDate: "2026-12-20",
         applyUrl: "https://iti.gov.eg/tracks/fullstack-ai",
         stipend: "100% Free Scholarship",
         stipendEn: "Fully Sponsored (100% Free)",
@@ -99,7 +99,7 @@ const DEFAULT_OPPORTUNITIES = [
         descEn: "Automotive software engineering internship specializing in Embedded C/C++, AUTOSAR architecture, RTOS scheduling, and CAN-bus protocol testing.",
         imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
         startDate: "2026-11-10",
-        endDate: "2026-12-05",
+        endDate: "2026-12-25",
         applyUrl: "https://valeo.com/careers/egypt-embedded",
         stipend: "EGP 7,500/mo",
         stipendEn: "EGP 7,500/mo (Paid)",
@@ -138,7 +138,7 @@ const DEFAULT_OPPORTUNITIES = [
         descEn: "Build next-generation digital payment rails, micro-lending platforms, and secure transaction ledgers handling 5M+ daily transactions.",
         imageUrl: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=600&q=80",
         startDate: "2026-11-04",
-        endDate: "2026-11-25",
+        endDate: "2026-12-30",
         applyUrl: "https://fawry.com/careers/internships",
         stipend: "EGP 6,000/mo",
         stipendEn: "EGP 6,000/mo (Paid)",
@@ -177,7 +177,7 @@ const DEFAULT_OPPORTUNITIES = [
         descEn: "Advanced computational biology program applying deep learning algorithms to DNA sequencing, molecular modeling, and disease biomarker discovery.",
         imageUrl: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80",
         startDate: "2026-11-06",
-        endDate: "2026-12-01",
+        endDate: "2027-01-10",
         applyUrl: "https://damanhour.edu.eg/science-bio-fellowship",
         stipend: "Academic Grant",
         stipendEn: "Academic Grant & Lab Endorsement",
@@ -216,7 +216,7 @@ const DEFAULT_OPPORTUNITIES = [
         descEn: "Comprehensive practical fellowship on technology licensing, cyber law compliance, international trade arbitration, and SaaS trademark protection.",
         imageUrl: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80",
         startDate: "2026-11-03",
-        endDate: "2026-11-27",
+        endDate: "2027-01-15",
         applyUrl: "https://cairo-arbitration.org/fellowship",
         stipend: "Accredited Fellowship",
         stipendEn: "Certified Fellowship & Arbitration Hours",
@@ -265,8 +265,23 @@ class OpportunitiesManager {
             this.save();
         }
 
+        this.pruneExpired();
         this.renderCatalog("opportunities-catalog-container");
         this.syncFromBackend();
+    }
+
+    pruneExpired() {
+        const now = Date.now();
+        const initialLength = this.opportunities.length;
+        this.opportunities = this.opportunities.filter(opp => {
+            if (!opp.endDate) return true;
+            const end = new Date(opp.endDate + "T23:59:59").getTime();
+            return !isNaN(end) && end >= now;
+        });
+        if (this.opportunities.length !== initialLength) {
+            this.save();
+        }
+        return this.opportunities;
     }
 
     async syncFromBackend() {
@@ -308,8 +323,23 @@ class OpportunitiesManager {
     setFilter(faculty, type) {
         if (faculty !== undefined) this.facultyFilter = faculty;
         if (type !== undefined) this.typeFilter = type;
+        this.pruneExpired();
         this.renderCatalog("opportunities-catalog-container");
         this.syncFromBackend();
+    }
+
+    pruneExpired() {
+        const now = Date.now();
+        const initialLength = this.opportunities.length;
+        this.opportunities = this.opportunities.filter(opp => {
+            if (!opp.endDate) return true;
+            const end = new Date(opp.endDate + "T23:59:59").getTime();
+            return !isNaN(end) && end >= now;
+        });
+        if (this.opportunities.length !== initialLength) {
+            this.save();
+        }
+        return this.opportunities;
     }
 
     async syncFromBackend() {

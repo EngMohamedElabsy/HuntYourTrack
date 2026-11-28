@@ -17,6 +17,12 @@ function getOpportunitiesList(req, res, query = {}) {
         const raw = fs.readFileSync(OPPORTUNITIES_PATH, 'utf-8');
         let opportunities = JSON.parse(raw);
 
+        // Auto-prune expired deadlines unless explicitly requested otherwise
+        if (query.includeExpired !== 'true') {
+            const now = Date.now();
+            opportunities = opportunities.filter(o => !o.deadline || new Date(o.deadline + 'T23:59:59').getTime() >= now);
+        }
+
         if (query.discipline) {
             opportunities = opportunities.filter(o => o.discipline === query.discipline);
         }
