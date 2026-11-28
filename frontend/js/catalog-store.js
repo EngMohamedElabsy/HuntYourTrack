@@ -457,9 +457,13 @@
 
         getFavorites() {
             const data = safeReadJson(getUserScopedKey(FAVORITES_KEY), { courses: [], opportunities: [] });
+            // Also merge any guest / legacy bookmarks so unauthenticated saves persist seamlessly
+            const legacyBookmarks = safeReadJson('hyt_saved_bookmarks', []);
+            const currentOpps = Array.isArray(data.opportunities) ? data.opportunities : [];
+            const mergedOpps = Array.from(new Set([...currentOpps, ...(Array.isArray(legacyBookmarks) ? legacyBookmarks : [])]));
             return {
                 courses: Array.isArray(data.courses) ? data.courses : [],
-                opportunities: Array.isArray(data.opportunities) ? data.opportunities : []
+                opportunities: mergedOpps
             };
         },
 
@@ -482,6 +486,9 @@
                 added = true;
             }
             safeWriteJson(getUserScopedKey(FAVORITES_KEY), favs);
+            if (isOpp) {
+                safeWriteJson('hyt_saved_bookmarks', favs.opportunities);
+            }
             window.dispatchEvent(new CustomEvent('hyt:favoritesChanged', { detail: { type, id, added, favs } }));
             return added;
         },

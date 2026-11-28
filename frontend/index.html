@@ -1011,8 +1011,12 @@
             if (!window.HYT_CATALOG) return;
             const added = window.HYT_CATALOG.toggleFavorite('course', courseId);
             if (btn) {
-                btn.classList.toggle('btn-primary', added);
-                btn.classList.toggle('btn-secondary', !added);
+                btn.classList.toggle('active', added);
+                btn.style.color = added ? '#F59E0B' : '';
+                const svg = btn.querySelector('svg');
+                if (svg) svg.setAttribute('fill', added ? '#F59E0B' : 'none');
+                btn.title = added ? 'Saved Course' : 'Save Course';
+                btn.setAttribute('aria-label', added ? 'Saved Course' : 'Save Course');
             }
         }
         window.toggleCourseFavorite = toggleCourseFavorite;
