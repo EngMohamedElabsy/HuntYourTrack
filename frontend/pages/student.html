@@ -552,11 +552,95 @@
  border-bottom: 1px solid var(--color-border);
  }
 
+ .student-workspace-grid {
+ display: grid;
+ grid-template-columns: 240px 1fr;
+ gap: 1.5rem;
+ align-items: start;
+ }
+
+ .student-sidebar {
+ background: var(--color-card);
+ border: 1px solid var(--color-border);
+ border-radius: 18px;
+ padding: 1rem;
+ position: sticky;
+ top: 82px;
+ display: flex;
+ flex-direction: column;
+ gap: 0.4rem;
+ }
+
+ .student-tab-btn {
+ display: flex;
+ align-items: center;
+ gap: 0.65rem;
+ width: 100%;
+ text-align: left;
+ padding: 0.7rem 0.9rem;
+ border-radius: 12px;
+ border: 1px solid transparent;
+ background: transparent;
+ color: var(--color-muted-foreground);
+ font-weight: 600;
+ font-size: 0.9rem;
+ cursor: pointer;
+ transition: all 0.2s ease;
+ }
+
+ .student-tab-btn:hover {
+ background: var(--color-muted);
+ color: var(--color-foreground);
+ }
+
+ .student-tab-btn.active {
+ background: var(--color-primary);
+ color: #FFFFFF;
+ }
+
+ .student-tab-panel {
+ display: none;
+ }
+
+ .student-tab-panel.active {
+ display: block;
+ }
+
+ .profile-avatar-preview {
+ width: 76px;
+ height: 76px;
+ border-radius: 50%;
+ object-fit: cover;
+ border: 2px solid var(--color-primary);
+ background: var(--color-muted);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-weight: 800;
+ font-size: 1.5rem;
+ color: var(--color-primary);
+ overflow: hidden;
+ flex-shrink: 0;
+ }
+
  @media (max-width: 820px) {
  .navbar { padding: 0.75rem 1rem; }
  .navbar-actions { display: none; }
  .mobile-menu-btn { display: inline-flex; }
  .settings-grid { grid-template-columns: 1fr; }
+ .student-workspace-grid { grid-template-columns: 1fr; }
+ .student-sidebar {
+ position: static;
+ flex-direction: row;
+ overflow-x: auto;
+ padding: 0.65rem;
+ }
+ .student-tab-btn {
+ width: auto;
+ white-space: nowrap;
+ padding: 0.55rem 0.85rem;
+ font-size: 0.82rem;
+ }
  }
  </style>
 </head>
@@ -631,7 +715,29 @@
 
  <!-- Main Dashboard View -->
  <main class="dashboard-content">
- 
+ <div class="student-workspace-grid">
+ <aside class="student-sidebar" aria-label="Student Workspace Sections">
+ <button type="button" class="student-tab-btn active" data-tab="overview" onclick="switchStudentTab('overview', this)">Overview &amp; Roadmap</button>
+ <button type="button" class="student-tab-btn" data-tab="cv" onclick="switchStudentTab('cv', this)">CV &amp; Skills</button>
+ <button type="button" class="student-tab-btn" data-tab="opportunities" onclick="switchStudentTab('opportunities', this)">Applications &amp; Jobs</button>
+ <button type="button" class="student-tab-btn" data-tab="profile" onclick="switchStudentTab('profile', this)">Profile &amp; Avatar</button>
+ </aside>
+
+ <div class="student-main-panel">
+ <div id="student-tab-overview" class="student-tab-panel active">
+
+ <!-- Setup Gate Banner (Shown for new students who haven't uploaded CV or chosen department) -->
+ <section id="student-setup-gate" class="academic-settings-card" style="display: none; border-color: var(--color-primary);">
+ <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.4rem;">Personalize Your Track First</h2>
+ <p style="font-size: 0.9rem; color: var(--color-muted-foreground); margin-bottom: 1rem;">
+ Your roadmap is currently empty because you haven't uploaded your CV or selected your academic department yet.
+ </p>
+ <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+ <button type="button" class="btn btn-primary" onclick="switchStudentTab('cv', document.querySelector('.student-tab-btn[data-tab=cv]'))">Upload CV for AI Match</button>
+ <button type="button" class="btn btn-secondary" onclick="switchStudentTab('profile', document.querySelector('.student-tab-btn[data-tab=profile]'))">Select Faculty &amp; Department</button>
+ </div>
+ </section>
+
  <!-- Welcome Banner -->
  <section class="welcome-card tilt-target">
  <div>
@@ -665,8 +771,75 @@
  <div class="stat-val" style="color: #0284C7;">92/100</div>
  <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.4rem;">Top 5% in Faculty of Computers & AI</p>
  </div>
+ </div>
  </section>
 
+ <!-- Academic Faculty & Department Customizer (Multi-Faculty Support US17) -->
+ <section class="academic-settings-card tilt-target">
+ <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+ <div>
+ <h2 style="font-size: 1.25rem; font-weight: 700;" data-i18n="academicSettingsTitle">Academic Specialization & Faculty Identity</h2>
+ <p style="font-size: 0.88rem; color: var(--color-muted-foreground);" data-i18n="academicSettingsSub">Select your faculty and department to dynamically adapt your roadmap and matched opportunities:</p>
+ </div>
+ <span class="hunter-status-chip" data-i18n="accreditedBadge">Accredited Pathway</span>
+ </div>
+
+ <div class="settings-grid">
+ <div class="form-group" style="margin-bottom: 0;">
+ <label for="student-faculty-select" data-i18n="facultyLabel">Faculty:</label>
+ <select id="student-faculty-select" class="form-control" onchange="onStudentFacultyChange(this.value)">
+ <option value="computers" data-i18n="facultyComputers" selected>Faculty of Computers & Artificial Intelligence</option>
+ <option value="engineering" data-i18n="facultyEngineering">Faculty of Engineering</option>
+ <option value="commerce" data-i18n="facultyCommerce">Faculty of Commerce & Business Administration</option>
+ <option value="law" data-i18n="facultyLaw">Faculty of Law</option>
+ </select>
+ </div>
+
+ <div class="form-group" style="margin-bottom: 0;">
+ <label for="student-dept-select" data-i18n="departmentLabel">Academic Department:</label>
+ <select id="student-dept-select" class="form-control" onchange="onStudentDeptChange(this.value)">
+ <option value="cs" data-i18n="deptCs" selected>Computer Science (CS)</option>
+ <option value="ai" data-i18n="deptAi">Artificial Intelligence (AI)</option>
+ <option value="is" data-i18n="deptIs">Information Systems (IS)</option>
+ <option value="it" data-i18n="deptIt">Information Technology (IT)</option>
+ <option value="cyber" data-i18n="deptCyber">Cybersecurity</option>
+ </select>
+ </div>
+
+ <div>
+ <button class="btn btn-primary" onclick="saveStudentFacultySelection()" style="width: 100%;" data-i18n="saveFacultyBtn">Save & Update Track</button>
+ </div>
+ </div>
+
+ <!-- CV Upload Zone -->
+ <div class="cv-drop-zone" onclick="simulateCvUpload()">
+ <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary); margin-bottom: 0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+ <strong style="font-size: 1rem; color: var(--color-foreground); display: block;" data-i18n="cvDropTitle">Upload Resume / CV for AI Track Alignment</strong>
+ <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.25rem;" id="cv-status-text" data-i18n="cvDropSub">Supports PDF or DOCX · AI matches your skills with active partner internships automatically</p>
+ </div>
+ </section>
+
+ <!-- Learning Roadmap -->
+ <section class="roadmap-card tilt-target">
+ <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+ <h2 style="font-size: 1.25rem; font-weight: 700;" data-i18n="roadmapTitle">Personalized Learning Roadmap</h2>
+ <span style="font-weight: 700; color: #10B981;" data-i18n="roadmapProgress">75% Completed</span>
+ </div>
+ <p style="color: var(--color-muted-foreground); font-size: 0.88rem;" id="roadmap-track-target" data-i18n="roadmapTargetTrack">Target Track: Senior Software & AI Engineer (Class of 2026)</p>
+ <div class="progress-bar-container">
+ <div class="progress-bar-fill"></div>
+ </div>
+ <ul class="milestone-list">
+ <li class="milestone-item done" data-i18n="milestone1">Core Fundamentals: Data Structures & Algorithms (Completed)</li>
+ <li class="milestone-item done" data-i18n="milestone2">Modern Web Architecture & Design System Tokens (Completed)</li>
+ <li class="milestone-item done" data-i18n="milestone3">Client-Side State & Micro-interactions with GSAP (Completed)</li>
+ <li class="milestone-item" data-i18n="milestone4">Cloud Microservices & Automation Workflows (In Progress)</li>
+ <li class="milestone-item" data-i18n="milestone5">Final Graduation Defense & University Accreditation (Upcoming)</li>
+ </ul>
+ </section>
+ </div>
+
+ <div id="student-tab-cv" class="student-tab-panel">
  <!-- ATS Resume Evaluation & Real-Time Skills Matcher -->
  <section class="ats-evaluation-card tilt-target">
  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
@@ -735,8 +908,11 @@
  </div>
  </div>
  </div>
+ </div>
  </section>
+ </div>
 
+ <div id="student-tab-opportunities" class="student-tab-panel">
  <!-- Applied Opportunities & Recruitment Tracker Pipeline -->
  <section class="pipeline-section">
  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
@@ -862,70 +1038,6 @@
  </div>
  </section>
 
- <!-- Academic Faculty & Department Customizer (Multi-Faculty Support US17) -->
- <section class="academic-settings-card tilt-target">
- <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
- <div>
- <h2 style="font-size: 1.25rem; font-weight: 700;" data-i18n="academicSettingsTitle">Academic Specialization & Faculty Identity</h2>
- <p style="font-size: 0.88rem; color: var(--color-muted-foreground);" data-i18n="academicSettingsSub">Select your faculty and department to dynamically adapt your roadmap and matched opportunities:</p>
- </div>
- <span class="hunter-status-chip" data-i18n="accreditedBadge">Accredited Pathway</span>
- </div>
-
- <div class="settings-grid">
- <div class="form-group" style="margin-bottom: 0;">
- <label for="student-faculty-select" data-i18n="facultyLabel">Faculty:</label>
- <select id="student-faculty-select" class="form-control" onchange="onStudentFacultyChange(this.value)">
- <option value="computers" data-i18n="facultyComputers" selected>Faculty of Computers & Artificial Intelligence</option>
- <option value="engineering" data-i18n="facultyEngineering">Faculty of Engineering</option>
- <option value="commerce" data-i18n="facultyCommerce">Faculty of Commerce & Business Administration</option>
- <option value="law" data-i18n="facultyLaw">Faculty of Law</option>
- </select>
- </div>
-
- <div class="form-group" style="margin-bottom: 0;">
- <label for="student-dept-select" data-i18n="departmentLabel">Academic Department:</label>
- <select id="student-dept-select" class="form-control" onchange="onStudentDeptChange(this.value)">
- <option value="cs" data-i18n="deptCs" selected>Computer Science (CS)</option>
- <option value="ai" data-i18n="deptAi">Artificial Intelligence (AI)</option>
- <option value="is" data-i18n="deptIs">Information Systems (IS)</option>
- <option value="it" data-i18n="deptIt">Information Technology (IT)</option>
- <option value="cyber" data-i18n="deptCyber">Cybersecurity</option>
- </select>
- </div>
-
- <div>
- <button class="btn btn-primary" onclick="saveStudentFacultySelection()" style="width: 100%;" data-i18n="saveFacultyBtn">Save & Update Track</button>
- </div>
- </div>
-
- <!-- CV Upload Zone -->
- <div class="cv-drop-zone" onclick="simulateCvUpload()">
- <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary); margin-bottom: 0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
- <strong style="font-size: 1rem; color: var(--color-foreground); display: block;" data-i18n="cvDropTitle">Upload Resume / CV for AI Track Alignment</strong>
- <p style="font-size: 0.85rem; color: var(--color-muted-foreground); margin-top: 0.25rem;" id="cv-status-text" data-i18n="cvDropSub">Supports PDF or DOCX · AI matches your skills with active partner internships automatically</p>
- </div>
- </section>
-
- <!-- Learning Roadmap -->
- <section class="roadmap-card tilt-target">
- <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
- <h2 style="font-size: 1.25rem; font-weight: 700;" data-i18n="roadmapTitle">Personalized Learning Roadmap</h2>
- <span style="font-weight: 700; color: #10B981;" data-i18n="roadmapProgress">75% Completed</span>
- </div>
- <p style="color: var(--color-muted-foreground); font-size: 0.88rem;" id="roadmap-track-target" data-i18n="roadmapTargetTrack">Target Track: Senior Software & AI Engineer (Class of 2026)</p>
- <div class="progress-bar-container">
- <div class="progress-bar-fill"></div>
- </div>
- <ul class="milestone-list">
- <li class="milestone-item done" data-i18n="milestone1">Core Fundamentals: Data Structures & Algorithms (Completed)</li>
- <li class="milestone-item done" data-i18n="milestone2">Modern Web Architecture & Design System Tokens (Completed)</li>
- <li class="milestone-item done" data-i18n="milestone3">Client-Side State & Micro-interactions with GSAP (Completed)</li>
- <li class="milestone-item" data-i18n="milestone4">Cloud Microservices & Automation Workflows (In Progress)</li>
- <li class="milestone-item" data-i18n="milestone5">Final Graduation Defense & University Accreditation (Upcoming)</li>
- </ul>
- </section>
-
  <!-- Live Corporate Opportunities (Fed by opportunities.js with Deadlines) -->
  <section id="active-opportunities" style="margin-bottom: 3rem;">
  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.5rem;">
@@ -936,6 +1048,35 @@
  </div>
  <div class="opportunities-grid" id="opportunities-catalog-container"></div>
  </section>
+ </div>
+
+ <div id="student-tab-profile" class="student-tab-panel">
+ <section class="academic-settings-card">
+ <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.35rem;">Profile &amp; Avatar Settings</h2>
+ <p style="font-size: 0.88rem; color: var(--color-muted-foreground); margin-bottom: 1.25rem;">Update your profile photo, personal details, and academic specialization.</p>
+ <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+ <div class="profile-avatar-preview" id="student-avatar-preview">S</div>
+ <div>
+ <label for="student-avatar-input" class="btn btn-secondary" style="cursor: pointer; display: inline-block; font-size: 0.85rem;">Upload Profile Photo</label>
+ <input type="file" id="student-avatar-input" accept="image/*" style="display: none;" onchange="handleAvatarUpload(this)">
+ <p style="font-size: 0.78rem; color: var(--color-muted-foreground); margin-top: 0.4rem;">PNG or JPG · Saved locally to your profile</p>
+ </div>
+ </div>
+ <div class="settings-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 1rem;">
+ <div class="form-group" style="margin-bottom: 0;">
+ <label for="profile-edit-name">Full Name:</label>
+ <input type="text" id="profile-edit-name" class="form-control" placeholder="Your full name">
+ </div>
+ <div class="form-group" style="margin-bottom: 0;">
+ <label for="profile-edit-bio">Career Goal / Bio:</label>
+ <input type="text" id="profile-edit-bio" class="form-control" placeholder="e.g., AI &amp; Cloud Track Student">
+ </div>
+ </div>
+ <button type="button" class="btn btn-primary" onclick="saveStudentProfileDetails()">Save Profile Details</button>
+ </section>
+ </div>
+ </div>
+ </div>
  </main>
 
  <footer class="footer" data-i18n="footerRights">© 2026 HuntYourTrack · Damanhour University. All rights reserved.</footer>
@@ -955,6 +1096,17 @@
  renderStudentIdentity();
  updateStudentLabels();
  restoreStudentFacultySelection();
+ refreshStudentSetupGate();
+ try {
+     const email = ((currentStudent && currentStudent.email) || 'student').toLowerCase();
+     const savedAvatar = localStorage.getItem('hyt_avatar_' + email);
+     renderStudentAvatar(savedAvatar || '');
+     const nameInput = document.getElementById('profile-edit-name');
+     if (nameInput && currentStudent && currentStudent.name) nameInput.value = currentStudent.name;
+     const bioInput = document.getElementById('profile-edit-bio');
+     const savedBio = localStorage.getItem('hyt_student_bio_' + email);
+     if (bioInput && savedBio) bioInput.value = savedBio;
+ } catch (e) {}
  }
 
  function renderStudentIdentity() {
@@ -1033,7 +1185,10 @@
  try {
      sessionStorage.setItem('hyt_student_faculty', fac);
      sessionStorage.setItem('hyt_student_dept', dept);
+     const email = ((currentStudent && currentStudent.email) || 'student').toLowerCase();
+     localStorage.setItem('hyt_student_configured_' + email, 'true');
  } catch (err) {}
+ refreshStudentSetupGate();
  showStudentToast("Academic specialization updated successfully! Compatible tracks aligned", "success");
  }
 
@@ -1059,13 +1214,94 @@
 
  function simulateCvUpload() {
  const status = document.getElementById('cv-status-text');
- const isEn = document.documentElement.lang === 'en';
- status.innerHTML = "⏳ Scanning and parsing resume via AI matching algorithm...";
+ status.innerHTML = "Scanning and parsing resume via AI matching algorithm...";
  setTimeout(() => {
  status.innerHTML = "Resume uploaded successfully! Skill match: 96% with partner companies.";
-            showStudentToast("Skills extracted and matched with active internship opportunities!", "success");
- }, 1200);
+ try {
+     const key = 'hyt_student_configured_' + ((currentStudent && currentStudent.email) || 'student').toLowerCase();
+     localStorage.setItem(key, 'true');
+     localStorage.setItem('hyt_cv_uploaded', 'true');
+ } catch (e) {}
+ refreshStudentSetupGate();
+ showStudentToast("Skills extracted and matched with active internship opportunities!", "success");
+ }, 800);
  }
+
+ function switchStudentTab(tabId, btn) {
+ document.querySelectorAll('.student-tab-panel').forEach(p => p.classList.remove('active'));
+ document.querySelectorAll('.student-tab-btn').forEach(b => b.classList.remove('active'));
+ const panel = document.getElementById('student-tab-' + tabId);
+ if (panel) panel.classList.add('active');
+ if (btn) btn.classList.add('active');
+ }
+ window.switchStudentTab = switchStudentTab;
+
+ function refreshStudentSetupGate() {
+ const gate = document.getElementById('student-setup-gate');
+ const roadmap = document.querySelector('.roadmap-card');
+ const stats = document.querySelector('.stats-grid');
+ const email = ((currentStudent && currentStudent.email) || '').toLowerCase();
+ let configured = email === 'student@damanhour.edu.eg';
+ try {
+     if (localStorage.getItem('hyt_cv_uploaded') === 'true' || localStorage.getItem('hyt_student_configured_' + email) === 'true' || sessionStorage.getItem('hyt_student_faculty')) {
+         configured = true;
+     }
+ } catch (e) {}
+ if (gate) gate.style.display = configured ? 'none' : 'block';
+ if (roadmap) roadmap.style.display = configured ? 'block' : 'none';
+ if (stats) stats.style.display = configured ? 'grid' : 'none';
+ }
+
+ function handleAvatarUpload(input) {
+ const file = input && input.files && input.files[0];
+ if (!file) return;
+ const reader = new FileReader();
+ reader.onload = function (ev) {
+     const dataUrl = ev.target && ev.target.result;
+     if (!dataUrl) return;
+     try {
+         const key = 'hyt_avatar_' + ((currentStudent && currentStudent.email) || 'student').toLowerCase();
+         localStorage.setItem(key, dataUrl);
+     } catch (e) {}
+     renderStudentAvatar(dataUrl);
+     showStudentToast('Profile photo updated!', 'success');
+ };
+ reader.readAsDataURL(file);
+ }
+ window.handleAvatarUpload = handleAvatarUpload;
+
+ function renderStudentAvatar(dataUrl) {
+ const preview = document.getElementById('student-avatar-preview');
+ if (!preview) return;
+ if (dataUrl) {
+     preview.innerHTML = `<img src="${dataUrl}" alt="Profile Avatar" style="width:100%;height:100%;object-fit:cover;">`;
+ } else {
+     const name = (currentStudent && currentStudent.name) || 'S';
+     preview.textContent = name.charAt(0).toUpperCase();
+ }
+ }
+
+ function saveStudentProfileDetails() {
+ const nameInput = document.getElementById('profile-edit-name');
+ const bioInput = document.getElementById('profile-edit-bio');
+ const newName = nameInput ? nameInput.value.trim() : '';
+ const newBio = bioInput ? bioInput.value.trim() : '';
+ if (newName && currentStudent) {
+     currentStudent.name = newName;
+     try {
+         sessionStorage.setItem('hyt_mock_user', JSON.stringify(currentStudent));
+     } catch (e) {}
+     updateStudentLabels();
+ }
+ try {
+     const email = ((currentStudent && currentStudent.email) || 'student').toLowerCase();
+     localStorage.setItem('hyt_student_configured_' + email, 'true');
+     if (newBio) localStorage.setItem('hyt_student_bio_' + email, newBio);
+ } catch (e) {}
+ refreshStudentSetupGate();
+ showStudentToast('Profile details saved!', 'success');
+ }
+ window.saveStudentProfileDetails = saveStudentProfileDetails;
 
  function toggleStudentDrawer() {
  const drawer = document.getElementById('student-mobile-drawer');

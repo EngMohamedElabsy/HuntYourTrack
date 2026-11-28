@@ -136,13 +136,19 @@ async function run() {
         const homeChecks = await page.evaluate(() => {
             const icon = document.querySelector('link[rel="icon"]');
             const hasTrail = !!document.querySelector('#story-arrow-trail');
+            const hasOldDots = !!document.querySelector('#story-celebration-sparkles');
+            const hasDesk = !!document.querySelector('#story-desk');
+            const hasThought = !!document.querySelector('#story-thought-cloud');
+            const hasTwoHands = !!document.querySelector('#story-right-arm-group') && !!document.querySelector('#story-left-arm');
+            const hasConfetti = !!document.querySelector('#story-confetti');
             const hasBow = !!document.querySelector('#story-bow');
             const hasDoor = !!document.querySelector('#story-jobs-door');
             const hasFavIcon = !!document.querySelector('#hyt-fav-nav-btn');
-            return { iconHref: icon ? icon.getAttribute('href') : '', hasTrail, hasBow, hasDoor, hasFavIcon };
+            return { iconHref: icon ? icon.getAttribute('href') : '', hasTrail, hasOldDots, hasDesk, hasThought, hasTwoHands, hasConfetti, hasBow, hasDoor, hasFavIcon };
         });
         assert(homeChecks.iconHref.includes('assets/favicon.svg?v=2'), 'Home favicon must use assets/favicon.svg?v=2');
-        assert(!homeChecks.hasTrail, 'Dashed aim line (#story-arrow-trail) must be removed');
+        assert(!homeChecks.hasTrail && !homeChecks.hasOldDots, 'Dashed aim line and 3 dots must be removed');
+        assert(homeChecks.hasDesk && homeChecks.hasThought && homeChecks.hasTwoHands && homeChecks.hasConfetti, 'Desk, thought cloud, two-handed bow draw, and confetti must exist');
         assert(homeChecks.hasBow && homeChecks.hasDoor, 'Bow and JOBS door must be present in #story-stage');
         assert(homeChecks.hasFavIcon, 'Navbar bookmark favorites icon (#hyt-fav-nav-btn) must exist');
 
@@ -151,7 +157,18 @@ async function run() {
         await page.waitForTimeout(200);
         await page.press('#cmd-search-input', 'Enter');
         await page.waitForURL('**/pages/details.html*');
-        console.log('  ✓ Home Command Search "AI", Favicon, Bow/Door Animation & Navbar Icon verified.');
+        console.log('  ✓ Home Command Search "AI", Favicon, Desk/Bow/Confetti Animation & Navbar Icon verified.');
+
+        // Step 7: Strict Password Rejection Check on auth.html
+        await page.goto(`${baseUrl}/pages/auth.html`);
+        await page.fill('#login-email', 'student@damanhour.edu.eg');
+        await page.fill('#login-password', 'WrongPass999!');
+        await page.click('#login-submit-btn');
+        await page.waitForTimeout(500);
+        assert(page.url().includes('auth.html'), 'Wrong password MUST NOT redirect or log in');
+        const authStatusText = await page.locator('#auth-status').innerText();
+        assert(authStatusText.toLowerCase().includes('invalid'), 'Wrong password must display invalid credentials error');
+        console.log('  ✓ Strict Password Verification rejected wrong password cleanly.');
 
         await journeyCtx.close();
         console.log('\n🎉 ALL 9-SCREEN JOURNEY, RESPONSIVENESS & INTERACTION CHECKS PASSED 100%!');

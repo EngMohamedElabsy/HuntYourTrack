@@ -84,6 +84,7 @@
         'admin@damanhour.edu.eg': {
             id: 'admin-01',
             email: 'admin@damanhour.edu.eg',
+            password: 'AdminPass2026!',
             name: 'Platform Administrator',
             role: 'admin',
             faculty: 'computers',
@@ -92,6 +93,7 @@
         'student@damanhour.edu.eg': {
             id: 'student-01',
             email: 'student@damanhour.edu.eg',
+            password: 'StudentPass2026!',
             name: 'Student Explorer',
             role: 'student',
             faculty: 'computers',
@@ -100,6 +102,7 @@
         'employer@vodafone.com': {
             id: 'emp-01',
             email: 'employer@vodafone.com',
+            password: 'EmployerPass2026!',
             name: 'Vodafone Partner',
             role: 'employer',
             faculty: 'engineering',
@@ -277,34 +280,29 @@
                 // Server is unreachable (offline / GitHub Pages) - activate seamless local simulation
             }
 
-            // Offline Resilience Fallback
+            // Offline Resilience Fallback — strict password check required
             const seeded = SEEDED_ACCOUNTS[cleanEmail];
             let user = null;
             if (seeded) {
-                user = { ...seeded };
+                if (password !== seeded.password) {
+                    throw new Error('Invalid email or password. Please try again.');
+                }
+                const { password: _pwd, ...safeSeeded } = seeded;
+                user = safeSeeded;
             } else {
                 const localUsers = getLocalRegisteredUsers();
-                if (localUsers[cleanEmail]) {
-                    user = { ...localUsers[cleanEmail] };
-                } else if (cleanEmail && password && password.length >= 8) {
-                    let role = 'student';
-                    if (cleanEmail.includes('admin')) role = 'admin';
-                    else if (cleanEmail.includes('employer') || cleanEmail.includes('partner')) role = 'employer';
-
-                    user = {
-                        id: 'sim-' + Date.now(),
-                        email: cleanEmail,
-                        name: cleanEmail.split('@')[0],
-                        role: role,
-                        faculty: 'computers',
-                        department: 'ai'
-                    };
-                    saveLocalRegisteredUser(user);
+                const found = localUsers[cleanEmail];
+                if (found) {
+                    if (found.password && password !== found.password) {
+                        throw new Error('Invalid email or password. Please try again.');
+                    }
+                    const { password: _pwd, ...safeFound } = found;
+                    user = safeFound;
                 }
             }
 
             if (!user) {
-                throw new Error('Invalid email or password. Please try again.');
+                throw new Error('Invalid email or password. Please sign up if you do not have an account.');
             }
 
             const simulatedToken = 'simulated-token-' + user.role + '-' + btoa(JSON.stringify(user));
@@ -346,6 +344,7 @@
             const simulatedUser = {
                 id: 'sim-' + Date.now(),
                 email: cleanEmail,
+                password: payload.password,
                 name: payload.name || cleanEmail.split('@')[0],
                 role: payload.role || 'student',
                 faculty: payload.faculty || 'computers',
@@ -353,12 +352,13 @@
             };
             saveLocalRegisteredUser(simulatedUser);
 
-            const simulatedToken = 'simulated-token-' + simulatedUser.role + '-' + btoa(JSON.stringify(simulatedUser));
+            const { password: _pwd, ...safeUser } = simulatedUser;
+            const simulatedToken = 'simulated-token-' + safeUser.role + '-' + btoa(JSON.stringify(safeUser));
             setToken(simulatedToken);
             try {
-                window.sessionStorage.setItem('hyt_mock_user', JSON.stringify(simulatedUser));
+                window.sessionStorage.setItem('hyt_mock_user', JSON.stringify(safeUser));
             } catch (e) {}
-            return simulatedUser;
+            return safeUser;
         },
 
         /**

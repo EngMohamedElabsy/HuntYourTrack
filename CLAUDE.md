@@ -568,3 +568,13 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Backend-DB-Frontend Sync & Admin Dark Mode Contrast (`frontend/js/api.js`, `frontend/js/opportunities.js`, `frontend/css/admin.css`, `frontend/pages/auth.html`):** Fixed `API_BASE_URL` -> `API_BASE` in `api.js`, added `OpportunitiesManager.syncFromBackend()` in `opportunities.js`, fixed `[data-theme="dark"] .data-table` text/email contrast in `admin.css`, and simplified `auth.html`.
   - **Verification:** Passed `node --check`, `test-9-screens-journey.spec.js`, `test-user-flow.spec.js`, and full `npm test`.
 
+### 🟢 US47: Realistic Desk/Bow Storytelling, Strict Password Verification, Student Sidebar & Local Credentials (2026-11-28 14:15 UTC+2)
+
+- **Issue:** #140 (US47)
+- **Deliverables:**
+  - **Realistic Study Desk, Two-Handed Bow & Celebration Storytelling (`frontend/index.html`, `frontend/css/landing.css`, `frontend/js/story-animation.js`):** Added side study desk with open rulebook & lamp in Scene 1, floating thought cloud with concise 2–3 word planning captions, realistic two-handed bow hold + drawing arm (`#story-right-arm-group`), removed old 3 dots (`#story-celebration-sparkles`), added confetti & popped balloons celebration + optional Web Audio sound toggle (`#story-sound-toggle`).
+  - **Strict Password Verification & Local Credentials (`frontend/js/api.js`, `.gitignore`):** Fixed offline login resilience so seeded & registered accounts strictly validate passwords and unknown emails never auto-login; added `local-credentials.csv` to `.gitignore`.
+  - **Student Sidebar Tab Bar, CV-Gated Setup & Profile/Avatar Editor (`frontend/pages/student.html`):** Added responsive left sidebar tabs (`Overview & Roadmap`, `CV & Skills`, `Applications & Jobs`, `Profile & Avatar`), gated the roadmap behind CV upload or academic track selection for new students, and added local avatar photo upload + name/bio editing.
+  - **Verification:** Passed `node --check`, `git check-ignore`, `test-9-screens-journey.spec.js`, `test-user-flow.spec.js`, and full `npm test`.
+
+
