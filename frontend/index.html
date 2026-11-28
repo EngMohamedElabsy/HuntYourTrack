@@ -6,8 +6,7 @@
     <meta name="theme-color" content="#EEF2FF">
     <title data-i18n="mainPageTitle">HuntYourTrack · Career Track Navigation & Internship Matching Hub</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <link rel="alternate icon" type="image/png" href="assets/logo.png">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,25 +22,18 @@
         <div class="nav-container">
             <a href="index.html" class="brand-wrapper" aria-label="HuntYourTrack Home">
                 <span class="brand-mark">
-                    <svg class="brand-h-svg" width="26" height="26" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg class="brand-h-svg" width="24" height="24" viewBox="0 0 64 64" fill="none" aria-hidden="true">
                         <defs>
-                            <linearGradient id="navHGrad" x1="8" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
-                                <stop offset="0%" stop-color="#19F0E8"/>
-                                <stop offset="50%" stop-color="#0EA5E9"/>
-                                <stop offset="100%" stop-color="#1D4ED8"/>
-                            </linearGradient>
-                            <linearGradient id="navArrowGrad" x1="6" y1="42" x2="58" y2="20" gradientUnits="userSpaceOnUse">
-                                <stop offset="0%" stop-color="#0EA5E9"/>
-                                <stop offset="40%" stop-color="#BAE6FD"/>
-                                <stop offset="100%" stop-color="#FFFFFF"/>
-                            </linearGradient>
+                            <linearGradient id="hytNavL" x1="12" y1="8" x2="26" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22F5EA"/><stop offset="55%" stop-color="#06B6D4"/><stop offset="100%" stop-color="#0284C7"/></linearGradient>
+                            <linearGradient id="hytNavR" x1="36" y1="8" x2="50" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0EA5E9"/><stop offset="100%" stop-color="#1E3A8A"/></linearGradient>
+                            <linearGradient id="hytNavA" x1="4" y1="42" x2="59" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0EA5E9"/><stop offset="35%" stop-color="#BAE6FD"/><stop offset="100%" stop-color="#FFFFFF"/></linearGradient>
                         </defs>
-                        <g transform="skewX(-8) translate(7, 0)">
-                            <path d="M12 10C12 8.9 12.9 8 14 8H22C23.1 8 24 8.9 24 10V54C24 55.1 23.1 56 22 56H14C12.9 56 12 55.1 12 54V10Z" fill="url(#navHGrad)"/>
-                            <path d="M36 10C36 8.9 36.9 8 38 8H46C47.1 8 48 8.9 48 10V54C48 55.1 47.1 56 46 56H38C36.9 56 36 55.1 36 54V10Z" fill="url(#navHGrad)"/>
-                            <path d="M22 27H38V37H22V27Z" fill="url(#navHGrad)"/>
+                        <g transform="skewX(-9) translate(8, 0)">
+                            <path d="M12 16C12 11.6 15.6 8 20 8H24V48C24 52.4 20.4 56 16 56H12V16Z" fill="url(#hytNavL)"/>
+                            <path d="M22 28C27 23 34 22 39 24V33C34 31 27 32 22 36V28Z" fill="url(#hytNavR)"/>
+                            <path d="M37 8H45C47.2 8 49 9.8 49 12V48C49 52.4 45.4 56 41 56H37V8Z" fill="url(#hytNavR)"/>
                         </g>
-                        <path class="hyt-logo-arrow" d="M6 39.5C15 31 30 27.5 43.5 26.8L41.5 20.8L58.5 27.2L44.2 38.2L44.6 32C31.5 32.8 18 36 8.5 42.8C6.4 44.2 4.3 41.2 6 39.5Z" fill="url(#navArrowGrad)"/>
+                        <path class="hyt-logo-arrow" d="M5.5 39.5C13.5 31.5 29.5 27.5 43.5 26.8L41.8 20.6L59.2 27.2L44.2 38.4L44.8 32.1C31.2 32.8 17.5 36.2 8.2 42.6C5.8 44.1 3.7 41.3 5.5 39.5Z" fill="url(#hytNavA)"/>
                     </svg>
                 </span>
                 <span class="brand-title">
@@ -55,7 +47,6 @@
                 <li><a href="#courses" class="nav-link">Courses</a></li>
                 <li><a href="#opportunities" class="nav-link">Internships</a></li>
                 <li><a href="#hunter-radar-section" class="nav-link">Roadmaps</a></li>
-                <li><a href="pages/profile.html" class="nav-link">Favorites</a></li>
             </ul>
 
             <!-- Controls & Auth CTAs -->
@@ -66,6 +57,11 @@
                     <span class="nav-search-label" data-i18n="searchTrackPlaceholder">Search courses or tracks...</span>
                     <kbd class="nav-search-kbd">Ctrl K</kbd>
                 </button>
+
+                <!-- Saved Favorites Icon Button -->
+                <a href="pages/profile.html" id="hyt-fav-nav-btn" class="nav-util-btn nav-icon-only-btn" aria-label="Saved Favorites" title="Saved Favorites">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                </a>
 
                 <!-- Single-Click Theme Toggle (Zero Tooltip Clutter) -->
                 <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Toggle Dark/Light Mode" onclick="toggleAppTheme(event)">
@@ -100,7 +96,7 @@
             </div>
 
             <div class="nav-cta-group" id="mobile-auth-actions" style="display: flex; flex-direction: column; gap: 0.5rem;">
-                <a href="pages/auth.html" class="btn btn-primary" style="width: 100%;" data-i18n="navUnifiedAuth">Enter Platform</a>
+                <a href="pages/auth.html" class="btn btn-primary" style="width: 100%;" data-i18n="navUnifiedAuth">Sign In</a>
             </div>
         </div>
     </nav>
@@ -239,15 +235,15 @@
                         </div>
                         <div class="story-pills-row" role="tablist" aria-label="Journey Scenes">
                             <button type="button" class="story-scene-pill active" data-scene="1" onclick="setStoryScene(1, true)">1. Lost</button>
-                            <button type="button" class="story-scene-pill" data-scene="2" onclick="setStoryScene(2, true)">2. Guidance</button>
-                            <button type="button" class="story-scene-pill" data-scene="3" onclick="setStoryScene(3, true)">3. Bullseye</button>
-                            <button type="button" class="story-scene-pill" data-scene="4" onclick="setStoryScene(4, true)">4. Career Ready</button>
+                            <button type="button" class="story-scene-pill" data-scene="2" onclick="setStoryScene(2, true)">2. Trying &amp; Aiming</button>
+                            <button type="button" class="story-scene-pill" data-scene="3" onclick="setStoryScene(3, true)">3. Bullseye Hit</button>
+                            <button type="button" class="story-scene-pill" data-scene="4" onclick="setStoryScene(4, true)">4. Career Path</button>
                             <button type="button" class="btn btn-secondary" id="story-play-toggle" style="padding: 0.3rem 0.75rem; font-size: 0.76rem;" onclick="toggleStoryLoop()">Pause</button>
                         </div>
                     </div>
 
                     <div class="story-stage-viewport">
-                        <svg id="story-stage" class="story-svg" data-scene="1" viewBox="0 0 800 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated career journey from lost student following a glowing arrow to hitting the target and becoming career ready">
+                        <svg id="story-stage" class="story-svg" data-scene="1" viewBox="0 0 800 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated career journey from lost student trying with a bow and arrow to hitting the moving target and walking to career opportunities">
                             <defs>
                                 <linearGradient id="storyArrowGrad" x1="0%" y1="50%" x2="100%" y2="0%">
                                     <stop offset="0%" stop-color="#19F0E8"/>
@@ -255,86 +251,111 @@
                                     <stop offset="100%" stop-color="#1D4ED8"/>
                                 </linearGradient>
                                 <linearGradient id="storyGroundGrad" x1="0" y1="225" x2="800" y2="225" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0"/>
-                                    <stop offset="50%" stop-color="#0EA5E9" stop-opacity="0.38"/>
-                                    <stop offset="100%" stop-color="#EF4444" stop-opacity="0.35"/>
+                                    <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.15"/>
+                                    <stop offset="55%" stop-color="#0EA5E9" stop-opacity="0.55"/>
+                                    <stop offset="100%" stop-color="#10B981" stop-opacity="0.65"/>
                                 </linearGradient>
                             </defs>
 
-                            <!-- Ground Line -->
-                            <line x1="40" y1="225" x2="760" y2="225" stroke="url(#storyGroundGrad)" stroke-width="2" stroke-linecap="round"/>
+                            <!-- Ground & Career Path Road -->
+                            <line x1="40" y1="225" x2="760" y2="225" stroke="url(#storyGroundGrad)" stroke-width="3" stroke-linecap="round"/>
 
-                            <!-- Glowing Trajectory Path -->
-                            <path id="story-arrow-trail" d="M 100 120 Q 350 28 632 168" stroke="url(#storyArrowGrad)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-
-                            <!-- Red & White Bullseye Target (Right) -->
-                            <g id="story-target" transform="translate(650, 175)">
-                                <ellipse cx="0" cy="50" rx="44" ry="8" fill="#0F172A" opacity="0.16"/>
-                                <circle cx="0" cy="0" r="48" fill="#DC2626"/>
-                                <circle cx="0" cy="0" r="36" fill="#FFFFFF"/>
-                                <circle cx="0" cy="0" r="24" fill="#DC2626"/>
-                                <circle cx="0" cy="0" r="12" fill="#FFFFFF"/>
-                                <circle cx="0" cy="0" r="5" fill="#DC2626"/>
+                            <!-- Career / JOBS Door (Opens when Bullseye Hit in Scene 3/4) -->
+                            <g id="story-jobs-door" transform="translate(718, 128)">
+                                <!-- Door Frame -->
+                                <rect x="-24" y="0" width="48" height="97" rx="6" fill="#0F172A" stroke="#0EA5E9" stroke-width="2"/>
+                                <!-- Door Interior Glow -->
+                                <rect x="-19" y="5" width="38" height="92" rx="4" fill="#10B981" opacity="0.22"/>
+                                <!-- Swinging Door Leaf -->
+                                <rect id="story-door-leaf" x="-19" y="5" width="38" height="92" rx="4" fill="#1E293B" stroke="#38BDF8" stroke-width="1.2"/>
+                                <!-- JOBS Sign -->
+                                <rect x="-28" y="-24" width="56" height="22" rx="7" fill="#10B981"/>
+                                <text x="0" y="-9" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="11" font-weight="800">JOBS</text>
                             </g>
 
-                            <!-- Impact Pulse Ring -->
-                            <circle id="story-impact-pulse" cx="650" cy="175" r="54" stroke="#0EA5E9" stroke-width="3.5" fill="none"/>
+                            <!-- Moving Red & White Bullseye Target (Right-Center) -->
+                            <g id="story-target" transform="translate(565, 165)">
+                                <circle cx="0" cy="0" r="44" fill="#DC2626"/>
+                                <circle cx="0" cy="0" r="32" fill="#FFFFFF"/>
+                                <circle cx="0" cy="0" r="21" fill="#DC2626"/>
+                                <circle cx="0" cy="0" r="10" fill="#FFFFFF"/>
+                                <circle cx="0" cy="0" r="4.5" fill="#DC2626"/>
+                                <!-- Impact Pulse Ring -->
+                                <circle id="story-impact-pulse" cx="0" cy="0" r="50" stroke="#0EA5E9" stroke-width="3.5" fill="none"/>
+                            </g>
 
-                            <!-- Flying Guidance Arrow -->
+                            <!-- Celebration Sparkles -->
+                            <g id="story-celebration-sparkles" fill="#F59E0B">
+                                <circle cx="120" cy="70" r="3.5"/>
+                                <circle cx="178" cy="66" r="4"/>
+                                <circle cx="150" cy="54" r="3"/>
+                            </g>
+
+                            <!-- Real Feathered Arrow (Shaft + Fletching Feathers + Sharp Tip) -->
                             <g id="story-guide-arrow">
-                                <path d="M-28 6C-14 -2 6 -5 22 -5L19 -13L42 -3L21 10L22 2C7 2 -11 5 -24 11C-28 13 -31 8 -28 6Z" fill="url(#storyArrowGrad)"/>
+                                <line x1="-38" y1="0" x2="10" y2="0" stroke="#0F172A" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="-38" y1="0" x2="10" y2="0" stroke="#38BDF8" stroke-width="1.5" stroke-linecap="round"/>
+                                <polygon points="-38,0 -46,-6 -34,-5" fill="#EF4444"/>
+                                <polygon points="-38,0 -46,6 -34,5" fill="#EF4444"/>
+                                <polygon points="18,0 6,-5.5 8.5,0 6,5.5" fill="#0EA5E9" stroke="#0F172A" stroke-width="1"/>
                             </g>
 
-                            <!-- Stylized Student -> Professional Character -->
-                            <g id="story-character" transform="translate(115, 0)">
+                            <!-- Stylized Character with Connected Neck, Full Face & Proper Shoes -->
+                            <g id="story-character" transform="translate(150, 0)">
                                 <ellipse cx="0" cy="225" rx="22" ry="5" fill="#0F172A" opacity="0.18"/>
 
-                                <!-- Legs -->
-                                <rect x="-11" y="178" width="9" height="44" rx="4.5" fill="#1E3A8A"/>
-                                <rect x="2" y="178" width="9" height="44" rx="4.5" fill="#1E3A8A"/>
+                                <!-- Legs & Detailed Shoes -->
+                                <rect x="-11" y="178" width="9" height="40" rx="4.5" fill="#1E3A8A"/>
+                                <rect x="2" y="178" width="9" height="40" rx="4.5" fill="#1E3A8A"/>
+                                <path d="M-14 218 H-1 C1 218 2 223 -1 224 H-14 C-16 224 -16 218 -14 218 Z" fill="#0F172A"/>
+                                <path d="M1 218 H14 C16 218 16 224 14 224 H1 C-1 224 -1 218 1 218 Z" fill="#0F172A"/>
 
                                 <!-- Scene 1-3 Casual Student Hoodie -->
                                 <g id="story-casual-outfit">
-                                    <rect x="-17" y="128" width="34" height="54" rx="12" fill="#0EA5E9"/>
-                                    <path d="M-17 140 L-26 168" stroke="#0EA5E9" stroke-width="9" stroke-linecap="round"/>
-                                    <path d="M17 140 L26 168" stroke="#0EA5E9" stroke-width="9" stroke-linecap="round"/>
+                                    <rect x="-17" y="130" width="34" height="52" rx="12" fill="#0EA5E9"/>
+                                    <path d="M-17 140 L-24 166" stroke="#0EA5E9" stroke-width="8" stroke-linecap="round"/>
+                                    <path d="M16 140 L29 144" stroke="#0EA5E9" stroke-width="8" stroke-linecap="round"/>
                                 </g>
 
-                                <!-- Scene 4 Confident Professional Suit + Shirt + Tie + Briefcase -->
+                                <!-- Realistic Bow (Visible when aiming/shooting in Scenes 2 & 3) -->
+                                <g id="story-bow" transform="translate(30, 144)">
+                                    <path d="M0 -26 Q16 0 0 26" stroke="#92400E" stroke-width="4" stroke-linecap="round" fill="none"/>
+                                    <line x1="0" y1="-26" x2="0" y2="26" stroke="#CBD5E1" stroke-width="1.5"/>
+                                </g>
+
+                                <!-- Scene 4 Confident Professional Shirt + Tie + Briefcase -->
                                 <g id="story-pro-outfit">
-                                    <!-- Crisp White Shirt -->
-                                    <rect x="-17" y="128" width="34" height="54" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
-                                    <!-- Cyan/Blue Tie -->
-                                    <polygon points="0,132 -4,142 0,168 4,142" fill="#0EA5E9"/>
-                                    <!-- Belt -->
+                                    <rect x="-17" y="130" width="34" height="52" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+                                    <polygon points="0,133 -4,143 0,168 4,143" fill="#0EA5E9"/>
                                     <rect x="-16" y="176" width="32" height="5" rx="2" fill="#92400E"/>
-                                    <!-- Arms -->
-                                    <path d="M-17 136 L-27 166" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
-                                    <path d="M17 136 L27 166" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+                                    <path d="M-17 138 L-26 168" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+                                    <path d="M17 138 L27 166" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
                                     <!-- Briefcase -->
-                                    <g transform="translate(26, 166)">
-                                        <rect x="-11" y="0" width="24" height="18" rx="4" fill="#1E293B"/>
-                                        <path d="M-4 0 V-4 H6 V0" stroke="#0EA5E9" stroke-width="2" fill="none"/>
+                                    <g transform="translate(-32, 166)">
+                                        <rect x="-10" y="0" width="22" height="17" rx="4" fill="#1E293B"/>
+                                        <path d="M-3 0 V-4 H5 V0" stroke="#0EA5E9" stroke-width="2" fill="none"/>
                                     </g>
                                 </g>
 
-                                <!-- Head + Glasses -->
-                                <g id="story-character-head">
-                                    <circle cx="0" cy="108" r="18" fill="#FDBA74"/>
-                                    <!-- Hair -->
-                                    <path d="M-18 106 C-18 90 18 90 18 106 C14 96 -14 96 -18 106 Z" fill="#451A03"/>
-                                    <!-- Glasses -->
-                                    <rect x="-11" y="104" width="9" height="7" rx="2" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.5"/>
-                                    <rect x="2" y="104" width="9" height="7" rx="2" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.5"/>
-                                    <line x1="-2" y1="107" x2="2" y2="107" stroke="#0F172A" stroke-width="1.5"/>
-                                    <circle cx="-6.5" cy="107.5" r="1.5" fill="#0F172A"/>
-                                    <circle cx="6.5" cy="107.5" r="1.5" fill="#0F172A"/>
-                                </g>
+                                <!-- Connected Neck -->
+                                <rect x="-5" y="121" width="10" height="12" rx="4" fill="#FDBA74"/>
 
-                                <!-- Floating Question Marks (Scene 1) -->
-                                <g id="story-question-marks" fill="#0EA5E9" font-family="sans-serif" font-weight="800" font-size="16">
-                                    <text x="-28" y="84">?</text>
-                                    <text x="18" y="78">?</text>
+                                <!-- Full Detailed Face (Eyes, Nose, Smile, Hair, Well-Aligned Glasses) -->
+                                <g id="story-character-head">
+                                    <circle cx="0" cy="106" r="18" fill="#FDBA74"/>
+                                    <!-- Hair -->
+                                    <path d="M-18 102 C-18 85 18 85 18 102 C14 94 -14 94 -18 102 Z" fill="#451A03"/>
+                                    <!-- Glasses -->
+                                    <rect x="-12" y="100" width="10" height="8" rx="2.5" fill="rgba(255,255,255,0.65)" stroke="#0F172A" stroke-width="1.5"/>
+                                    <rect x="2" y="100" width="10" height="8" rx="2.5" fill="rgba(255,255,255,0.65)" stroke="#0F172A" stroke-width="1.5"/>
+                                    <line x1="-2" y1="104" x2="2" y2="104" stroke="#0F172A" stroke-width="1.5"/>
+                                    <!-- Eyes -->
+                                    <circle cx="-7" cy="104" r="1.6" fill="#0F172A"/>
+                                    <circle cx="7" cy="104" r="1.6" fill="#0F172A"/>
+                                    <!-- Nose -->
+                                    <path d="M0 105 L1.5 110 L-1 110.5" stroke="#C2410C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <!-- Smile -->
+                                    <path d="M-5 114 Q0 118 5 114" stroke="#9A3412" stroke-width="1.6" stroke-linecap="round" fill="none"/>
                                 </g>
                             </g>
                         </svg>
@@ -430,12 +451,12 @@
             <div id="hooked-track-panel" class="hooked-track-panel"></div>
         </section>
 
-        <!-- Verified Free Courses & Class Central MOOCs (US34) -->
+        <!-- Verified Free Courses -->
         <section class="section-wrapper" id="courses">
             <div class="section-head">
                 <span class="section-badge" data-i18n="coursesBadge">Verified Global Syllabi</span>
-                <h2 class="section-title" data-i18n="coursesHeading">Accredited Free Courses & MOOCs</h2>
-                <p class="section-subtitle" data-i18n="coursesSub">Aggregated from Class Central, Stanford, Harvard, MIT, Google, and IBM with duration, free audits, and verified tracks.</p>
+                <h2 class="section-title" data-i18n="coursesHeading">Courses</h2>
+                <p class="section-subtitle" data-i18n="coursesSub">Free courses aggregated from Stanford, Harvard, MIT, Google, and IBM with ratings and verified certificates.</p>
             </div>
 
             <!-- Course Track Filter Chips -->
@@ -460,7 +481,7 @@
                 <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
                     <div>
                         <span class="section-badge" data-i18n="oppBadge">Accredited Partnerships</span>
-                        <h2 class="section-title" data-i18n="oppHeading">Active Internships & Training Courses</h2>
+                        <h2 class="section-title" data-i18n="oppHeading">Internships</h2>
                         <p class="section-subtitle" data-i18n="oppSub">Published directly by corporate partners and organizations with live deadline countdown timers.</p>
                     </div>
                     <div>
@@ -905,19 +926,32 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="course-footer" style="gap: 0.45rem;">
-                            <a href="pages/details.html?type=course&id=${encodeURIComponent(course.id)}" class="btn btn-secondary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;">
-                                Details
-                            </a>
-                            <a href="${course.enrollmentUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.82rem;">
+                        <div class="course-footer" style="display: flex; align-items: center; gap: 0.45rem;">
+                            <a href="${course.enrollmentUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="flex: 1; text-align: center; padding: 0.45rem 0.9rem; font-size: 0.84rem; font-weight: 700;">
                                 Enroll Free →
                             </a>
+                            <a href="pages/details.html?type=course&id=${encodeURIComponent(course.id)}" class="btn btn-secondary icon-action-btn" title="Course Details" aria-label="Course Details" style="padding: 0.45rem 0.65rem; display: inline-flex; align-items: center; justify-content: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            </a>
+                            <button type="button" class="btn btn-secondary bookmark-btn icon-action-btn" onclick="toggleCourseFavorite('${course.id}', this)" title="Save Course" aria-label="Save Course" style="padding: 0.45rem 0.65rem; display: inline-flex; align-items: center; justify-content: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                            </button>
                         </div>
                     </article>
                 `).join('');
                 if (window.init3DTiltCards) window.init3DTiltCards();
             }
         }
+
+        function toggleCourseFavorite(courseId, btn) {
+            if (!window.HYT_CATALOG) return;
+            const added = window.HYT_CATALOG.toggleFavorite('course', courseId);
+            if (btn) {
+                btn.classList.toggle('btn-primary', added);
+                btn.classList.toggle('btn-secondary', !added);
+            }
+        }
+        window.toggleCourseFavorite = toggleCourseFavorite;
 
         function filterCoursesByTrack(track, btn) {
             document.querySelectorAll('.course-filter-btn').forEach(b => b.classList.remove('active'));
@@ -1066,8 +1100,8 @@
                 if (navActions) navActions.innerHTML = sessionHtml;
                 if (mobileAuthActions) mobileAuthActions.innerHTML = mobileSessionHtml;
             } else {
-                const guestHtml = `<a href="pages/auth.html" class="btn btn-primary nav-auth-btn" data-i18n="navUnifiedAuth">Enter Platform</a>`;
-                const mobileGuestHtml = `<a href="pages/auth.html" class="btn btn-primary nav-auth-btn" style="width: 100%;" data-i18n="navUnifiedAuth">Enter Platform</a>`;
+                const guestHtml = `<a href="pages/auth.html" class="btn btn-primary nav-auth-btn" data-i18n="navUnifiedAuth">Sign In</a>`;
+                const mobileGuestHtml = `<a href="pages/auth.html" class="btn btn-primary nav-auth-btn" style="width: 100%;" data-i18n="navUnifiedAuth">Sign In</a>`;
                 if (navActions) navActions.innerHTML = guestHtml;
                 if (mobileAuthActions) mobileAuthActions.innerHTML = mobileGuestHtml;
             }

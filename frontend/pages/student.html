@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr" data-theme="light">
 <head>
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
     
  <!-- Shared API + Server-Verified Route Guard (US35) -->
  <script src="../js/api.js"></script>
@@ -567,13 +567,19 @@
  <header class="navbar">
  <a href="../index.html" class="navbar-brand brand-wrapper" aria-label="HuntYourTrack Home">
      <span class="brand-mark" style="width: 32px; height: 32px; border-radius: 9px;">
-         <svg class="brand-reticle-svg" width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-             <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 3" opacity="0.6"/>
-             <circle cx="16" cy="16" r="7.5" stroke="currentColor" stroke-width="2"/>
-             <circle cx="16" cy="16" r="2.8" fill="currentColor"/>
-             <path d="M16 2V6M16 26V30M2 16H6M26 16H30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-             <path d="M21 11L27 5M27 5H23M27 5V9" stroke="#00F2FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-         </svg>
+         <svg class="brand-h-svg" width="24" height="24" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="hytNavL" x1="12" y1="8" x2="26" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22F5EA"/><stop offset="55%" stop-color="#06B6D4"/><stop offset="100%" stop-color="#0284C7"/></linearGradient>
+                            <linearGradient id="hytNavR" x1="36" y1="8" x2="50" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0EA5E9"/><stop offset="100%" stop-color="#1E3A8A"/></linearGradient>
+                            <linearGradient id="hytNavA" x1="4" y1="42" x2="59" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0EA5E9"/><stop offset="35%" stop-color="#BAE6FD"/><stop offset="100%" stop-color="#FFFFFF"/></linearGradient>
+                        </defs>
+                        <g transform="skewX(-9) translate(8, 0)">
+                            <path d="M12 16C12 11.6 15.6 8 20 8H24V48C24 52.4 20.4 56 16 56H12V16Z" fill="url(#hytNavL)"/>
+                            <path d="M22 28C27 23 34 22 39 24V33C34 31 27 32 22 36V28Z" fill="url(#hytNavR)"/>
+                            <path d="M37 8H45C47.2 8 49 9.8 49 12V48C49 52.4 45.4 56 41 56H37V8Z" fill="url(#hytNavR)"/>
+                        </g>
+                        <path class="hyt-logo-arrow" d="M5.5 39.5C13.5 31.5 29.5 27.5 43.5 26.8L41.8 20.6L59.2 27.2L44.2 38.4L44.8 32.1C31.2 32.8 17.5 36.2 8.2 42.6C5.8 44.1 3.7 41.3 5.5 39.5Z" fill="url(#hytNavA)"/>
+                    </svg>
      </span>
      <span class="brand-title" dir="ltr" style="font-size: 1.15rem; display: inline-flex; direction: ltr; unicode-bidi: isolate;">
          <span class="brand-word-hunt">Hunt</span><span class="brand-word-your">Your</span><span class="brand-word-track">Track</span>

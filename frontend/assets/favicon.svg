@@ -1,32 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
-    <linearGradient id="hytHGrad" x1="8" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#19F0E8"/>
-      <stop offset="48%" stop-color="#0EA5E9"/>
+    <linearGradient id="hytLeftGrad" x1="12" y1="8" x2="26" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22F5EA"/>
+      <stop offset="55%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    <linearGradient id="hytRightGrad" x1="36" y1="8" x2="50" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="50%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+    <linearGradient id="hytArchGrad" x1="18" y1="30" x2="46" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0284C7"/>
       <stop offset="100%" stop-color="#1D4ED8"/>
     </linearGradient>
-    <linearGradient id="hytArrowGrad" x1="6" y1="42" x2="58" y2="20" gradientUnits="userSpaceOnUse">
+    <linearGradient id="hytArrowMain" x1="4" y1="42" x2="59" y2="22" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#0EA5E9"/>
-      <stop offset="35%" stop-color="#BAE6FD"/>
+      <stop offset="30%" stop-color="#BAE6FD"/>
       <stop offset="100%" stop-color="#FFFFFF"/>
     </linearGradient>
-    <filter id="hytSoftShadow" x="-10%" y="-10%" width="125%" height="125%">
-      <feDropShadow dx="0" dy="2" stdDeviation="1.8" flood-color="#0B1F4D" flood-opacity="0.28"/>
+    <filter id="hytDrop" x="-12%" y="-12%" width="128%" height="128%">
+      <feDropShadow dx="0" dy="2" stdDeviation="1.6" flood-color="#0B1F4D" flood-opacity="0.32"/>
     </filter>
   </defs>
 
-  <!-- Slanted Bold H -->
-  <g transform="skewX(-8) translate(7, 0)">
-    <!-- Left Pillar -->
-    <path d="M12 10C12 8.9 12.9 8 14 8H22C23.1 8 24 8.9 24 10V54C24 55.1 23.1 56 22 56H14C12.9 56 12 55.1 12 54V10Z" fill="url(#hytHGrad)"/>
-    <!-- Right Pillar -->
-    <path d="M36 10C36 8.9 36.9 8 38 8H46C47.1 8 48 8.9 48 10V54C48 55.1 47.1 56 46 56H38C36.9 56 36 55.1 36 54V10Z" fill="url(#hytHGrad)"/>
-    <!-- Crossbar -->
-    <path d="M22 27H38V37H22V27Z" fill="url(#hytHGrad)"/>
+  <!-- Slanted Bold H with Curved Arch Crossbar -->
+  <g transform="skewX(-9) translate(8, 0)">
+    <!-- Left Pillar (curved top-left & bottom-left) -->
+    <path d="M12 16C12 11.6 15.6 8 20 8H24V48C24 52.4 20.4 56 16 56H12V16Z" fill="url(#hytLeftGrad)"/>
+    <!-- Diagonal Cyan Fold Accent on Left Pillar -->
+    <path d="M12 42C16 37 21 34 24 33V48C24 52.4 20.4 56 16 56H12V42Z" fill="#0284C7" opacity="0.45"/>
+    <!-- Curved Sweeping Crossbar -->
+    <path d="M22 28C27 23 34 22 39 24V33C34 31 27 32 22 36V28Z" fill="url(#hytArchGrad)"/>
+    <!-- Right Pillar (curved top-right & bottom-right) -->
+    <path d="M37 8H45C47.2 8 49 9.8 49 12V48C49 52.4 45.4 56 41 56H37V8Z" fill="url(#hytRightGrad)"/>
   </g>
 
-  <!-- Dynamic Swooshing Arrow -->
-  <g filter="url(#hytSoftShadow)">
-    <path d="M6 39.5C15 31 30 27.5 43.5 26.8L41.5 20.8L58.5 27.2L44.2 38.2L44.6 32C31.5 32.8 18 36 8.5 42.8C6.4 44.2 4.3 41.2 6 39.5Z" fill="url(#hytArrowGrad)"/>
+  <!-- Dynamic Swooshing White & Ice-Blue Arrow -->
+  <g filter="url(#hytDrop)">
+    <path d="M5.5 39.5C13.5 31.5 29.5 27.5 43.5 26.8L41.8 20.6L59.2 27.2L44.2 38.4L44.8 32.1C31.2 32.8 17.5 36.2 8.2 42.6C5.8 44.1 3.7 41.3 5.5 39.5Z" fill="url(#hytArrowMain)"/>
   </g>
 </svg>

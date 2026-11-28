@@ -557,3 +557,14 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Auth-Gated Favorites & Per-User Persistence (`frontend/js/catalog-store.js`, `frontend/js/auth.js`):** Scoped saved favorites & enrollments per signed-in user email and redirected unauthenticated guests cleanly to `auth.html`.
   - **Rich Class Central-Style Details (`frontend/pages/details.html`):** Added Pricing, Language & Pace, Duration, Credential facts grid, and course learning outcomes.
   - **Verification:** Passed `node --check`, `test-9-screens-journey.spec.js`, `test-user-flow.spec.js`, and full `npm test`.
+
+### 🟢 US46: Exact H+Arrow Favicon, Realistic Bow Storytelling, Guest Favorites Cache & Backend Sync (2026-11-28 12:38 UTC+2)
+
+- **Issue:** #138 (US46)
+- **Deliverables:**
+  - **Exact Slanted H + Arch Crossbar & Arrow Logo (`frontend/assets/favicon.svg`, all HTML pages):** Removed legacy `frontend/assets/logo.png` and all `logo.png` references across `frontend/` so GitHub Pages and all 16 HTML pages serve `assets/favicon.svg?v=2` and the matching inline SVG.
+  - **Realistic Bow & Arrow Storytelling Animation (`frontend/index.html`, `frontend/css/landing.css`, `frontend/js/story-animation.js`):** Removed the dashed aim line (`#story-arrow-trail`), anchored the student at `x=145` with connected neck, full facial features, and proper shoes, added an oscillating target (`targetBobUpDown`), 3 feathered-arrow bow shots (2 misses + bullseye on shot 3), joyful jump celebration, career transformation into shirt/tie/briefcase, and sprint through the opening `JOBS` door.
+  - **Minimal Headings, Bookmark Icon & Guest Web Cache (`frontend/index.html`, `frontend/js/catalog-store.js`, `frontend/js/i18n.js`, `frontend/pages/explore.html`, `frontend/pages/details.html`, `frontend/pages/profile.html`):** Simplified section headings (`Courses`, `Internships`), replaced `"Enter Platform"` with `"Sign In"`, added the `#hyt-fav-nav-btn` bookmark icon next to `#hyt-theme-btn`, added Info (`i`) + Save (Bookmark) buttons to Home course cards, and enabled unauthenticated guests to save favorites & enroll via `_guest` `localStorage` web cache.
+  - **Backend-DB-Frontend Sync & Admin Dark Mode Contrast (`frontend/js/api.js`, `frontend/js/opportunities.js`, `frontend/css/admin.css`, `frontend/pages/auth.html`):** Fixed `API_BASE_URL` -> `API_BASE` in `api.js`, added `OpportunitiesManager.syncFromBackend()` in `opportunities.js`, fixed `[data-theme="dark"] .data-table` text/email contrast in `admin.css`, and simplified `auth.html`.
+  - **Verification:** Passed `node --check`, `test-9-screens-journey.spec.js`, `test-user-flow.spec.js`, and full `npm test`.
+
