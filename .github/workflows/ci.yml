@@ -32,7 +32,7 @@ jobs:
           const fs = require('fs');
           const required = [
             'frontend/index.html',
-            'frontend/assets/logo.png',
+            'frontend/assets/favicon.svg',
             'frontend/pages/student.html',
             'frontend/pages/auth.html',
             'frontend/pages/admin.html',
