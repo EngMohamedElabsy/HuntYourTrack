@@ -266,6 +266,31 @@ class OpportunitiesManager {
         }
 
         this.renderCatalog("opportunities-catalog-container");
+        this.syncFromBackend();
+    }
+
+    async syncFromBackend() {
+        if (!window.HYT_API || typeof window.HYT_API.getOpportunities !== "function") return;
+        try {
+            const res = await window.HYT_API.getOpportunities();
+            if (res && res.ok && Array.isArray(res.data) && res.data.length > 0) {
+                const byId = new Map(this.opportunities.map(o => [o.id, o]));
+                let changed = false;
+                for (const item of res.data) {
+                    if (!byId.has(item.id)) {
+                        byId.set(item.id, item);
+                        changed = true;
+                    }
+                }
+                if (changed) {
+                    this.opportunities = Array.from(byId.values());
+                    this.save();
+                    this.renderCatalog("opportunities-catalog-container");
+                }
+            }
+        } catch (e) {
+            // Offline / static GitHub Pages mode uses localStorage cache gracefully
+        }
     }
 
     save() {
@@ -284,6 +309,31 @@ class OpportunitiesManager {
         if (faculty !== undefined) this.facultyFilter = faculty;
         if (type !== undefined) this.typeFilter = type;
         this.renderCatalog("opportunities-catalog-container");
+        this.syncFromBackend();
+    }
+
+    async syncFromBackend() {
+        if (!window.HYT_API || typeof window.HYT_API.getOpportunities !== "function") return;
+        try {
+            const res = await window.HYT_API.getOpportunities();
+            if (res && res.ok && Array.isArray(res.data) && res.data.length > 0) {
+                const byId = new Map(this.opportunities.map(o => [o.id, o]));
+                let changed = false;
+                for (const item of res.data) {
+                    if (!byId.has(item.id)) {
+                        byId.set(item.id, item);
+                        changed = true;
+                    }
+                }
+                if (changed) {
+                    this.opportunities = Array.from(byId.values());
+                    this.save();
+                    this.renderCatalog("opportunities-catalog-container");
+                }
+            }
+        } catch (e) {
+            // Offline / static GitHub Pages mode uses localStorage cache gracefully
+        }
     }
 
     calculateCountdown(endDateStr) {

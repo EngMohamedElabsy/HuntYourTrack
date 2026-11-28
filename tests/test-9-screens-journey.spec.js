@@ -119,29 +119,39 @@ async function run() {
         assert.notEqual(btnContrast.bg, btnContrast.color, 'Dark mode primary button must not have matching bg & text color');
         console.log(`  ✓ Dark mode primary button contrast verified (${btnContrast.color} on ${btnContrast.bg}).`);
 
-        // Step 5: Guest Save -> Auth Gate -> Sign In -> Save Favorite -> Profile
+        // Step 5: Guest Save (localStorage web cache) -> Profile Favorites
         const detailsText = await page.locator('#details-root').innerText();
         assert(detailsText.includes('Syllabus') || detailsText.includes('Course'), 'Details page must display syllabus');
         await page.click('#details-fav-btn');
-        await page.waitForURL('**/pages/auth.html*');
-        await page.fill('#login-email', 'student@damanhour.edu.eg');
-        await page.fill('#login-password', 'StudentPass2026!');
-        await page.click('#login-submit-btn');
-        await page.waitForURL('**/pages/details.html*');
-        await page.click('#details-fav-btn');
-        await page.goto(`${baseUrl}/pages/profile.html`);
+        const favBtnText = await page.locator('#details-fav-btn').innerText();
+        assert(favBtnText.includes('Saved'), 'Guest Save button must confirm saved state immediately');
+        await page.click('#hyt-fav-nav-btn');
+        await page.waitForURL('**/pages/profile.html*');
         const favText = await page.locator('#profile-tab-content').innerText();
-        assert(favText.includes('CS50'), 'Saved CS50 course must appear in Profile Favorites for signed-in user');
-        console.log('  ✓ Guest Auth Gate -> Sign In -> Screen 6 (Details) -> Screen 9 (Profile Favorites) persisted.');
+        assert(favText.includes('CS50'), 'Saved CS50 course must appear in Profile Favorites for guest cache');
+        console.log('  ✓ Guest localStorage Cache Save -> Screen 9 (Profile Favorites) persisted.');
 
-        // Step 6: Home Search for "AI" + Enter key
+        // Step 6: Home Search for "AI" + Enter key, Favicon & Storytelling Animation check
         await page.goto(`${baseUrl}/index.html`);
+        const homeChecks = await page.evaluate(() => {
+            const icon = document.querySelector('link[rel="icon"]');
+            const hasTrail = !!document.querySelector('#story-arrow-trail');
+            const hasBow = !!document.querySelector('#story-bow');
+            const hasDoor = !!document.querySelector('#story-jobs-door');
+            const hasFavIcon = !!document.querySelector('#hyt-fav-nav-btn');
+            return { iconHref: icon ? icon.getAttribute('href') : '', hasTrail, hasBow, hasDoor, hasFavIcon };
+        });
+        assert(homeChecks.iconHref.includes('assets/favicon.svg?v=2'), 'Home favicon must use assets/favicon.svg?v=2');
+        assert(!homeChecks.hasTrail, 'Dashed aim line (#story-arrow-trail) must be removed');
+        assert(homeChecks.hasBow && homeChecks.hasDoor, 'Bow and JOBS door must be present in #story-stage');
+        assert(homeChecks.hasFavIcon, 'Navbar bookmark favorites icon (#hyt-fav-nav-btn) must exist');
+
         await page.click('#nav-search-bar');
         await page.fill('#cmd-search-input', 'AI');
         await page.waitForTimeout(200);
         await page.press('#cmd-search-input', 'Enter');
         await page.waitForURL('**/pages/details.html*');
-        console.log('  ✓ Home Command Search "AI" + Enter key navigated directly to course details.');
+        console.log('  ✓ Home Command Search "AI", Favicon, Bow/Door Animation & Navbar Icon verified.');
 
         await journeyCtx.close();
         console.log('\n🎉 ALL 9-SCREEN JOURNEY, RESPONSIVENESS & INTERACTION CHECKS PASSED 100%!');

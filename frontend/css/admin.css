@@ -382,6 +382,17 @@
     vertical-align: middle;
 }
 
+[data-theme="dark"] .data-table td,
+[data-theme="dark"] .data-table td a,
+[data-theme="dark"] .data-table td span {
+    color: #F8FAFC;
+}
+
+[data-theme="dark"] .data-table td small,
+[data-theme="dark"] .data-table th {
+    color: #CBD5E1;
+}
+
 .data-table tr:hover {
     background-color: var(--color-muted);
 }

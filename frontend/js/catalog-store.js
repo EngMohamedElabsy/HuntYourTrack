@@ -456,7 +456,6 @@
         },
 
         getFavorites() {
-            if (!isAuthenticated()) return { courses: [], opportunities: [] };
             const data = safeReadJson(getUserScopedKey(FAVORITES_KEY), { courses: [], opportunities: [] });
             return {
                 courses: Array.isArray(data.courses) ? data.courses : [],
@@ -465,14 +464,12 @@
         },
 
         isFavorite(type, id) {
-            if (!isAuthenticated()) return false;
             const favs = this.getFavorites();
             const bucket = type === 'internship' || type === 'opportunity' ? favs.opportunities : favs.courses;
             return bucket.includes(id);
         },
 
         toggleFavorite(type, id) {
-            if (!this.requireAuthForAction()) return false;
             const favs = this.getFavorites();
             const isOpp = type === 'internship' || type === 'opportunity';
             const list = isOpp ? favs.opportunities : favs.courses;
@@ -490,7 +487,6 @@
         },
 
         getEnrolledCourses() {
-            if (!isAuthenticated()) return [];
             const list = safeReadJson(getUserScopedKey(ENROLLED_KEY), ['course-ai-01']);
             return Array.isArray(list) ? list : [];
         },
@@ -500,7 +496,6 @@
         },
 
         enrollCourse(courseId) {
-            if (!this.requireAuthForAction()) return [];
             const list = this.getEnrolledCourses();
             if (!list.includes(courseId)) {
                 list.unshift(courseId);

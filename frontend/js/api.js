@@ -455,7 +455,7 @@
         async getOpportunities(discipline) {
             try {
                 const query = discipline ? `?discipline=${encodeURIComponent(discipline)}` : '';
-                const res = await fetch(`${API_BASE_URL}/opportunities${query}`, { method: 'GET' });
+                const res = await fetch(`${API_BASE}/opportunities${query}`, { method: 'GET' });
                 if (res.ok) {
                     const data = await res.json();
                     return data.opportunities || [];

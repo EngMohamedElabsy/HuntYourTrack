@@ -7,9 +7,9 @@
 
     const SCENE_CAPTIONS = {
         1: '1. Lost: Exploring open possibilities without a clear roadmap.',
-        2: '2. Guidance: Spotting the HuntYourTrack arrow pointing to the right courses.',
-        3: '3. Bullseye: Locking onto the exact skills & verified internships.',
-        4: '4. Career Ready: Transformed into a confident, industry-ready professional.'
+        2: '2. Aiming: Raising the bow and locking onto the right track.',
+        3: '3. Bullseye: Releasing the arrow straight into the career target.',
+        4: '4. Career Ready: Confident professional standing beside your target.'
     };
 
     let currentScene = 1;

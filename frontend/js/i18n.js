@@ -27,7 +27,7 @@ const HYT_TRANSLATIONS = {
  navAdminPortal:"Admin Console",
  navSignOut:"Sign Out",
  navExploreHome:"Explore Home",
- navUnifiedAuth:"Enter Platform",
+ navUnifiedAuth:"Sign In",
  cmdSearchPh:"Search career tracks or internship opportunities (e.g. Full-Stack, AI, Python)...",
  cmdSearchBadge:"Unified Fast Search",
  cmdSearchEmpty:"No matching results found",
@@ -97,7 +97,7 @@ const HYT_TRANSLATIONS = {
 
  // Opportunities Catalog Section
  oppBadge:"Accredited Partnerships",
- oppHeading:"Active Internships & Training Courses",
+ oppHeading:"Internships",
  oppSub:"Published directly by corporate partners and organizations with live deadline countdown timers.",
  postOpportunityBtn:"Post Opportunity (Employers & Organizers)",
  targetFacultiesLabel:"Target Faculties:",

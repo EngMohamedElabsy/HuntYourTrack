@@ -2164,59 +2164,87 @@
 
 /* Scene-driven 60fps SVG transforms */
 #story-character {
-    transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform;
 }
 
-#story-stage[data-scene="1"] #story-character {
-    transform: translate(115px, 0px);
+/* Character stands in place while aiming & shooting (Scenes 1-3), then runs to JOBS door (Scene 4) */
+#story-stage[data-scene="1"] #story-character,
+#story-stage[data-scene="2"] #story-character,
+#story-stage[data-scene="3"] #story-character {
+    transform: translate(145px, 0px);
 }
 
-#story-stage[data-scene="2"] #story-character {
-    transform: translate(310px, 0px);
+#story-stage[data-scene="3"] #story-character {
+    animation: storyCelebrateJump 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.75s 1;
 }
 
-#story-stage[data-scene="3"] #story-character,
+@keyframes storyCelebrateJump {
+    0%, 100% { transform: translate(145px, 0px); }
+    45% { transform: translate(145px, -22px); }
+}
+
 #story-stage[data-scene="4"] #story-character {
-    transform: translate(505px, 0px);
+    transform: translate(715px, 0px);
+    opacity: 0;
+    transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease 0.95s;
 }
 
-#story-character-head {
-    transform-origin: 0px -74px;
+/* Moving Bullseye Target (bobs up & down in Scenes 1 & 2, locks center on Bullseye Hit) */
+#story-target {
+    transition: transform 0.5s ease;
 }
 
-#story-stage[data-scene="1"] #story-character-head {
-    animation: storyLookAround 1.8s ease-in-out infinite;
+#story-stage[data-scene="1"] #story-target,
+#story-stage[data-scene="2"] #story-target {
+    animation: targetBobUpDown 1.8s ease-in-out infinite;
 }
 
-@keyframes storyLookAround {
-    0%, 100% { transform: rotate(0deg) translateX(0px); }
-    25% { transform: rotate(-6deg) translateX(-2px); }
-    75% { transform: rotate(6deg) translateX(2px); }
+@keyframes targetBobUpDown {
+    0%, 100% { transform: translate(565px, 138px); }
+    50% { transform: translate(565px, 192px); }
 }
 
-#story-question-marks {
-    transition: opacity 0.35s ease;
+#story-stage[data-scene="3"] #story-target,
+#story-stage[data-scene="4"] #story-target {
+    transform: translate(565px, 165px);
 }
 
-#story-stage[data-scene="1"] #story-question-marks {
-    opacity: 1;
-    animation: floatQuestion 1.5s ease-in-out infinite;
-}
-
-#story-stage:not([data-scene="1"]) #story-question-marks {
+/* Bow appears cleanly when aiming and shooting (Scenes 2 & 3) */
+#story-bow {
+    transition: opacity 0.3s ease;
     opacity: 0;
 }
 
-@keyframes floatQuestion {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-6px); }
+#story-stage[data-scene="2"] #story-bow,
+#story-stage[data-scene="3"] #story-bow {
+    opacity: 1;
 }
 
-/* Outfit transformation: Casual -> Pro Suit + Tie + Briefcase */
+/* Celebration Sparkles */
+#story-celebration-sparkles {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#story-stage[data-scene="3"] #story-celebration-sparkles {
+    opacity: 1;
+}
+
+/* JOBS Door opens in Scene 4 */
+#story-door-leaf {
+    transform-origin: -19px 51px;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#story-stage[data-scene="4"] #story-door-leaf {
+    transform: scaleX(0.22);
+}
+
+/* Outfit transformation: Casual -> Pro Shirt + Tie + Briefcase */
 #story-casual-outfit,
 #story-pro-outfit {
-    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #story-stage[data-scene="4"] #story-casual-outfit {
@@ -2233,26 +2261,36 @@
     transform: scale(1);
 }
 
-/* Glowing Arrow Trajectory */
+/* Realistic Bow -> Moving Target Arrow Attempts (Misses in Scene 2, Bullseye in Scene 3) */
 #story-guide-arrow {
-    transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
     will-change: transform, opacity;
 }
 
 #story-stage[data-scene="1"] #story-guide-arrow {
     opacity: 0;
-    transform: translate(60px, 60px) scale(0.75) rotate(-18deg);
+    transform: translate(175px, 144px) rotate(0deg);
 }
 
 #story-stage[data-scene="2"] #story-guide-arrow {
     opacity: 1;
-    transform: translate(315px, 65px) scale(1) rotate(-8deg);
+    animation: arrowMultiAttempt 2.3s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes arrowMultiAttempt {
+    0%   { transform: translate(172px, 144px) rotate(-6deg); opacity: 1; }
+    35%  { transform: translate(552px, 112px) rotate(8deg); opacity: 1; }
+    45%  { transform: translate(552px, 112px) rotate(8deg); opacity: 0; }
+    50%  { transform: translate(172px, 144px) rotate(4deg); opacity: 1; }
+    85%  { transform: translate(552px, 214px) rotate(12deg); opacity: 1; }
+    100% { transform: translate(552px, 214px) rotate(12deg); opacity: 0; }
 }
 
 #story-stage[data-scene="3"] #story-guide-arrow,
 #story-stage[data-scene="4"] #story-guide-arrow {
     opacity: 1;
-    transform: translate(598px, 142px) scale(0.95) rotate(10deg);
+    animation: none;
+    transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translate(552px, 165px) rotate(4deg);
 }
 
 #story-arrow-trail {

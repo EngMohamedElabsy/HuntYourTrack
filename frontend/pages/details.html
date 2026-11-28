@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HuntYourTrack · Course &amp; Internship Details</title>
-    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/landing.css">
     <link rel="stylesheet" href="../css/screens.css">
@@ -16,15 +16,16 @@
                 <span class="brand-mark">
                     <svg class="brand-h-svg" width="24" height="24" viewBox="0 0 64 64" fill="none" aria-hidden="true">
                         <defs>
-                            <linearGradient id="detHGrad" x1="8" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#19F0E8"/><stop offset="50%" stop-color="#0EA5E9"/><stop offset="100%" stop-color="#1D4ED8"/></linearGradient>
-                            <linearGradient id="detArrowGrad" x1="6" y1="42" x2="58" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0EA5E9"/><stop offset="40%" stop-color="#BAE6FD"/><stop offset="100%" stop-color="#FFFFFF"/></linearGradient>
+                            <linearGradient id="hytNavL" x1="12" y1="8" x2="26" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22F5EA"/><stop offset="55%" stop-color="#06B6D4"/><stop offset="100%" stop-color="#0284C7"/></linearGradient>
+                            <linearGradient id="hytNavR" x1="36" y1="8" x2="50" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0EA5E9"/><stop offset="100%" stop-color="#1E3A8A"/></linearGradient>
+                            <linearGradient id="hytNavA" x1="4" y1="42" x2="59" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0EA5E9"/><stop offset="35%" stop-color="#BAE6FD"/><stop offset="100%" stop-color="#FFFFFF"/></linearGradient>
                         </defs>
-                        <g transform="skewX(-8) translate(7, 0)">
-                            <path d="M12 10C12 8.9 12.9 8 14 8H22C23.1 8 24 8.9 24 10V54C24 55.1 23.1 56 22 56H14C12.9 56 12 55.1 12 54V10Z" fill="url(#detHGrad)"/>
-                            <path d="M36 10C36 8.9 36.9 8 38 8H46C47.1 8 48 8.9 48 10V54C48 55.1 47.1 56 46 56H38C36.9 56 36 55.1 36 54V10Z" fill="url(#detHGrad)"/>
-                            <path d="M22 27H38V37H22V27Z" fill="url(#detHGrad)"/>
+                        <g transform="skewX(-9) translate(8, 0)">
+                            <path d="M12 16C12 11.6 15.6 8 20 8H24V48C24 52.4 20.4 56 16 56H12V16Z" fill="url(#hytNavL)"/>
+                            <path d="M22 28C27 23 34 22 39 24V33C34 31 27 32 22 36V28Z" fill="url(#hytNavR)"/>
+                            <path d="M37 8H45C47.2 8 49 9.8 49 12V48C49 52.4 45.4 56 41 56H37V8Z" fill="url(#hytNavR)"/>
                         </g>
-                        <path class="hyt-logo-arrow" d="M6 39.5C15 31 30 27.5 43.5 26.8L41.5 20.8L58.5 27.2L44.2 38.2L44.6 32C31.5 32.8 18 36 8.5 42.8C6.4 44.2 4.3 41.2 6 39.5Z" fill="url(#detArrowGrad)"/>
+                        <path class="hyt-logo-arrow" d="M5.5 39.5C13.5 31.5 29.5 27.5 43.5 26.8L41.8 20.6L59.2 27.2L44.2 38.4L44.8 32.1C31.2 32.8 17.5 36.2 8.2 42.6C5.8 44.1 3.7 41.3 5.5 39.5Z" fill="url(#hytNavA)"/>
                     </svg>
                 </span>
                 <span class="brand-title"><span class="brand-word-hunt">Hunt</span><span class="brand-word-your">Your</span><span class="brand-word-track">Track</span></span>
@@ -35,10 +36,12 @@
                 <li><a href="explore.html" class="nav-link">Explore</a></li>
                 <li><a href="../index.html#courses" class="nav-link">Courses</a></li>
                 <li><a href="../index.html#opportunities" class="nav-link">Internships</a></li>
-                <li><a href="profile.html" class="nav-link">Favorites</a></li>
             </ul>
 
             <div class="nav-cta-group">
+                <a href="profile.html" id="hyt-fav-nav-btn" class="nav-util-btn nav-icon-only-btn" aria-label="Saved Favorites" title="Saved Favorites">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </a>
                 <button id="hyt-theme-btn" class="nav-util-btn nav-icon-only-btn" type="button" aria-label="Toggle Dark/Light Mode" onclick="window.hytI18n && window.hytI18n.toggleTheme()">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
                 </button>
@@ -227,7 +230,7 @@
         }
 
         function handlePrimaryAction(type, id) {
-            if (type === 'course' && window.HYT_CATALOG && window.HYT_CATALOG.isAuthenticated()) {
+            if (type === 'course' && window.HYT_CATALOG) {
                 window.HYT_CATALOG.enrollCourse(id);
                 const btn = document.getElementById('details-primary-cta');
                 if (btn) btn.textContent = 'Enrolled · Opening Provider →';
@@ -236,10 +239,6 @@
 
         function handleDetailsFav(type, id, btn) {
             if (!window.HYT_CATALOG) return;
-            if (!window.HYT_CATALOG.isAuthenticated()) {
-                window.HYT_CATALOG.requireAuthForAction(`details.html?type=${encodeURIComponent(type)}&id=${encodeURIComponent(id)}`);
-                return;
-            }
             const added = window.HYT_CATALOG.toggleFavorite(type, id);
             btn.textContent = added ? 'Saved in Favorites ✓' : 'Save to Favorites';
             btn.classList.toggle('btn-accent', added);
