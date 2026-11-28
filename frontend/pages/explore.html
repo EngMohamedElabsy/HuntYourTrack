@@ -185,9 +185,14 @@
         function toggleCardFav(type, id, btn) {
             if (!window.HYT_CATALOG) return;
             const added = window.HYT_CATALOG.toggleFavorite(type, id);
-            btn.textContent = added ? 'Saved' : 'Save';
-            btn.classList.toggle('btn-primary', added);
-            btn.classList.toggle('btn-secondary', !added);
+            if (btn) {
+                btn.classList.toggle('active', added);
+                btn.style.color = added ? '#F59E0B' : '';
+                const svg = btn.querySelector('svg');
+                if (svg) svg.setAttribute('fill', added ? '#F59E0B' : 'none');
+                btn.title = added ? 'Saved to Favorites' : 'Save to Favorites';
+                btn.setAttribute('aria-label', added ? 'Saved to Favorites' : 'Save to Favorites');
+            }
         }
 
         function applyExploreFilters() {
@@ -298,10 +303,17 @@
                             <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.25rem;">
                                 ${(item.skills || []).slice(0, 3).map(s => `<span class="skill-pill" style="font-size: 0.72rem;">${s}</span>`).join('')}
                             </div>
-                            <div class="cc-card-actions">
-                                <a href="${detailsUrl}" class="btn btn-primary" style="flex: 1; text-align: center; padding: 0.45rem 0.75rem; font-size: 0.84rem;">View Details →</a>
-                                <button type="button" class="btn ${isFav ? 'btn-primary' : 'btn-secondary'}" style="padding: 0.45rem 0.8rem; font-size: 0.82rem;" onclick="toggleCardFav('${item._kind}', '${item.id}', this)">
-                                    ${isFav ? 'Saved' : 'Save'}
+                            <div class="cc-card-actions" style="display: flex; align-items: center; gap: 0.45rem;">
+                                <a href="${detailsUrl}" class="btn btn-primary" style="flex: 1; text-align: center; padding: 0.45rem 0.85rem; font-size: 0.84rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                                    </svg>
+                                    <span>View Details</span>
+                                </a>
+                                <button type="button" class="btn btn-secondary bookmark-btn icon-action-btn ${isFav ? 'active' : ''}" style="padding: 0.45rem 0.65rem; display: inline-flex; align-items: center; justify-content: center; ${isFav ? 'color: #F59E0B;' : ''}" onclick="toggleCardFav('${item._kind}', '${item.id}', this)" title="${isFav ? 'Saved to Favorites' : 'Save to Favorites'}" aria-label="Save to Favorites">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="${isFav ? '#F59E0B' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+                                    </svg>
                                 </button>
                             </div>
                         </div>

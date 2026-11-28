@@ -597,6 +597,15 @@ Claude and autonomous AI agents working in this repository MUST leverage the cur
   - **Dynamic Realistic Student Metrics (`frontend/pages/student.html`):** Cleaned up static completed metrics for unconfigured accounts; initialized new students to realistic pending states (0 completed milestones, 0 active applications, ATS score pending CV) and populated dynamically upon CV upload.
   - **Verification:** Passed `node --check`, `npx oxlint`, `test-9-screens-journey.spec.js`, and full `npm test`.
 
+### 🟢 US50: Course Cards (i) Info & Bookmark Icons with Seamless Guest Favorites (2026-11-28 16:30 UTC+2)
+
+- **Issue:** #144 (US50)
+- **Deliverables:**
+  - **Standardized (i) Info & Bookmark Ribbon Icons (`frontend/index.html`, `frontend/pages/explore.html`):** Replaced text labels on Explore and Home cards with `(i)` info icons and save bookmark ribbon icons (`#F59E0B` active fill), establishing visual consistency across all course and internship cards.
+  - **Seamless Guest Favorites Persistence (`frontend/js/catalog-store.js`, `frontend/js/components.js`, `frontend/pages/profile.html`):** Synchronized `HYT_CATALOG.toggleFavorite()` with `hyt_saved_bookmarks` and user/guest scopes so unauthenticated guests bookmarking courses or internships have their items persisted immediately and displayed in Screen 9 (`profile.html` Favorites tab).
+  - **Verification:** Passed `node --check`, `npx oxlint`, `test-9-screens-journey.spec.js`, and full `npm test`.
+
+
 
 
 

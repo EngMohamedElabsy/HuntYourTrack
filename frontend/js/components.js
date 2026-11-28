@@ -343,40 +343,35 @@ function submitApplication(oppId) {
 window.submitApplication = submitApplication;
 
 /**
- * Bookmark Opportunity
+ * Bookmark Opportunity (Seamless Guest & User Persistence)
  */
 function toggleBookmarkOpportunity(oppId, btn) {
-    
-    const bookmarks = JSON.parse(localStorage.getItem('hyt_saved_bookmarks') || '[]');
-    const index = bookmarks.indexOf(oppId);
-
-    if (index > -1) {
-        bookmarks.splice(index, 1);
-        localStorage.setItem('hyt_saved_bookmarks', JSON.stringify(bookmarks));
-        if (btn) {
-            btn.classList.remove('active');
-            btn.style.color = '';
-            const svg = btn.querySelector('svg');
-            if (svg) svg.setAttribute('fill', 'none');
-            const lbl = btn.querySelector('.bookmark-label');
-            if (lbl) lbl.textContent = 'Save';
-            btn.title = 'Save / Bookmark';
-        }
-        showToast('Removed from saved bookmarks', 'info');
+    let added = false;
+    if (window.HYT_CATALOG && typeof window.HYT_CATALOG.toggleFavorite === 'function') {
+        added = window.HYT_CATALOG.toggleFavorite('internship', oppId);
     } else {
-        bookmarks.push(oppId);
-        localStorage.setItem('hyt_saved_bookmarks', JSON.stringify(bookmarks));
-        if (btn) {
-            btn.classList.add('active');
-            btn.style.color = '#F59E0B';
-            const svg = btn.querySelector('svg');
-            if (svg) svg.setAttribute('fill', '#F59E0B');
-            const lbl = btn.querySelector('.bookmark-label');
-            if (lbl) lbl.textContent = 'Saved';
-            btn.title = 'Saved to Bookmarks';
+        const bookmarks = JSON.parse(localStorage.getItem('hyt_saved_bookmarks') || '[]');
+        const index = bookmarks.indexOf(oppId);
+        if (index > -1) {
+            bookmarks.splice(index, 1);
+            added = false;
+        } else {
+            bookmarks.push(oppId);
+            added = true;
         }
-        showToast('Opportunity saved to bookmarks', 'success');
+        localStorage.setItem('hyt_saved_bookmarks', JSON.stringify(bookmarks));
     }
+
+    if (btn) {
+        btn.classList.toggle('active', added);
+        btn.style.color = added ? '#F59E0B' : '';
+        const svg = btn.querySelector('svg');
+        if (svg) svg.setAttribute('fill', added ? '#F59E0B' : 'none');
+        const lbl = btn.querySelector('.bookmark-label');
+        if (lbl) lbl.textContent = added ? 'Saved' : 'Save';
+        btn.title = added ? 'Saved to Bookmarks' : 'Save Opportunity';
+    }
+    showToast(added ? 'Opportunity saved to bookmarks' : 'Removed from saved bookmarks', added ? 'success' : 'info');
 }
 window.toggleBookmarkOpportunity = toggleBookmarkOpportunity;
 
