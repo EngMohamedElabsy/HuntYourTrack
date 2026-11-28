@@ -6,7 +6,8 @@
     <meta name="theme-color" content="#EEF2FF">
     <title data-i18n="mainPageTitle">HuntYourTrack · Career Track Navigation & Internship Matching Hub</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="alternate icon" type="image/png" href="assets/logo.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,15 +23,28 @@
         <div class="nav-container">
             <a href="index.html" class="brand-wrapper" aria-label="HuntYourTrack Home">
                 <span class="brand-mark">
-                    <svg class="brand-reticle-svg" width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 3" opacity="0.6"/>
-                        <circle cx="16" cy="16" r="7.5" stroke="currentColor" stroke-width="2"/>
-                        <circle cx="16" cy="16" r="2.8" fill="currentColor"/>
-                        <path d="M16 2V6M16 26V30M2 16H6M26 16H30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M21 11L27 5M27 5H23M27 5V9" stroke="#00F2FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <svg class="brand-h-svg" width="26" height="26" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="navHGrad" x1="8" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#19F0E8"/>
+                                <stop offset="50%" stop-color="#0EA5E9"/>
+                                <stop offset="100%" stop-color="#1D4ED8"/>
+                            </linearGradient>
+                            <linearGradient id="navArrowGrad" x1="6" y1="42" x2="58" y2="20" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#0EA5E9"/>
+                                <stop offset="40%" stop-color="#BAE6FD"/>
+                                <stop offset="100%" stop-color="#FFFFFF"/>
+                            </linearGradient>
+                        </defs>
+                        <g transform="skewX(-8) translate(7, 0)">
+                            <path d="M12 10C12 8.9 12.9 8 14 8H22C23.1 8 24 8.9 24 10V54C24 55.1 23.1 56 22 56H14C12.9 56 12 55.1 12 54V10Z" fill="url(#navHGrad)"/>
+                            <path d="M36 10C36 8.9 36.9 8 38 8H46C47.1 8 48 8.9 48 10V54C48 55.1 47.1 56 46 56H38C36.9 56 36 55.1 36 54V10Z" fill="url(#navHGrad)"/>
+                            <path d="M22 27H38V37H22V27Z" fill="url(#navHGrad)"/>
+                        </g>
+                        <path class="hyt-logo-arrow" d="M6 39.5C15 31 30 27.5 43.5 26.8L41.5 20.8L58.5 27.2L44.2 38.2L44.6 32C31.5 32.8 18 36 8.5 42.8C6.4 44.2 4.3 41.2 6 39.5Z" fill="url(#navArrowGrad)"/>
                     </svg>
                 </span>
-                <span class="brand-title" dir="ltr" style="display: inline-flex; direction: ltr; unicode-bidi: isolate;">
+                <span class="brand-title">
                     <span class="brand-word-hunt">Hunt</span><span class="brand-word-your">Your</span><span class="brand-word-track">Track</span>
                 </span>
             </a>
@@ -211,6 +225,124 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Storytelling Motion Showcase: Lost Student -> Arrow -> Bullseye -> Career Ready -->
+            <div class="story-showcase-wrap" id="story-showcase-section">
+                <div class="story-showcase-card">
+                    <div class="story-header-row">
+                        <div>
+                            <span class="section-badge" style="margin-bottom: 0.25rem;">Your Career Journey</span>
+                            <h2 style="font-size: 1.15rem; margin: 0;">From Uncertain Student to Career-Ready Professional</h2>
+                        </div>
+                        <div class="story-pills-row" role="tablist" aria-label="Journey Scenes">
+                            <button type="button" class="story-scene-pill active" data-scene="1" onclick="setStoryScene(1, true)">1. Lost</button>
+                            <button type="button" class="story-scene-pill" data-scene="2" onclick="setStoryScene(2, true)">2. Guidance</button>
+                            <button type="button" class="story-scene-pill" data-scene="3" onclick="setStoryScene(3, true)">3. Bullseye</button>
+                            <button type="button" class="story-scene-pill" data-scene="4" onclick="setStoryScene(4, true)">4. Career Ready</button>
+                            <button type="button" class="btn btn-secondary" id="story-play-toggle" style="padding: 0.3rem 0.75rem; font-size: 0.76rem;" onclick="toggleStoryLoop()">Pause</button>
+                        </div>
+                    </div>
+
+                    <div class="story-stage-viewport">
+                        <svg id="story-stage" class="story-svg" data-scene="1" viewBox="0 0 800 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated career journey from lost student following a glowing arrow to hitting the target and becoming career ready">
+                            <defs>
+                                <linearGradient id="storyArrowGrad" x1="0%" y1="50%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#19F0E8"/>
+                                    <stop offset="55%" stop-color="#0EA5E9"/>
+                                    <stop offset="100%" stop-color="#1D4ED8"/>
+                                </linearGradient>
+                                <linearGradient id="storyGroundGrad" x1="0" y1="225" x2="800" y2="225" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0"/>
+                                    <stop offset="50%" stop-color="#0EA5E9" stop-opacity="0.38"/>
+                                    <stop offset="100%" stop-color="#EF4444" stop-opacity="0.35"/>
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Ground Line -->
+                            <line x1="40" y1="225" x2="760" y2="225" stroke="url(#storyGroundGrad)" stroke-width="2" stroke-linecap="round"/>
+
+                            <!-- Glowing Trajectory Path -->
+                            <path id="story-arrow-trail" d="M 100 120 Q 350 28 632 168" stroke="url(#storyArrowGrad)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+                            <!-- Red & White Bullseye Target (Right) -->
+                            <g id="story-target" transform="translate(650, 175)">
+                                <ellipse cx="0" cy="50" rx="44" ry="8" fill="#0F172A" opacity="0.16"/>
+                                <circle cx="0" cy="0" r="48" fill="#DC2626"/>
+                                <circle cx="0" cy="0" r="36" fill="#FFFFFF"/>
+                                <circle cx="0" cy="0" r="24" fill="#DC2626"/>
+                                <circle cx="0" cy="0" r="12" fill="#FFFFFF"/>
+                                <circle cx="0" cy="0" r="5" fill="#DC2626"/>
+                            </g>
+
+                            <!-- Impact Pulse Ring -->
+                            <circle id="story-impact-pulse" cx="650" cy="175" r="54" stroke="#0EA5E9" stroke-width="3.5" fill="none"/>
+
+                            <!-- Flying Guidance Arrow -->
+                            <g id="story-guide-arrow">
+                                <path d="M-28 6C-14 -2 6 -5 22 -5L19 -13L42 -3L21 10L22 2C7 2 -11 5 -24 11C-28 13 -31 8 -28 6Z" fill="url(#storyArrowGrad)"/>
+                            </g>
+
+                            <!-- Stylized Student -> Professional Character -->
+                            <g id="story-character" transform="translate(115, 0)">
+                                <ellipse cx="0" cy="225" rx="22" ry="5" fill="#0F172A" opacity="0.18"/>
+
+                                <!-- Legs -->
+                                <rect x="-11" y="178" width="9" height="44" rx="4.5" fill="#1E3A8A"/>
+                                <rect x="2" y="178" width="9" height="44" rx="4.5" fill="#1E3A8A"/>
+
+                                <!-- Scene 1-3 Casual Student Hoodie -->
+                                <g id="story-casual-outfit">
+                                    <rect x="-17" y="128" width="34" height="54" rx="12" fill="#0EA5E9"/>
+                                    <path d="M-17 140 L-26 168" stroke="#0EA5E9" stroke-width="9" stroke-linecap="round"/>
+                                    <path d="M17 140 L26 168" stroke="#0EA5E9" stroke-width="9" stroke-linecap="round"/>
+                                </g>
+
+                                <!-- Scene 4 Confident Professional Suit + Shirt + Tie + Briefcase -->
+                                <g id="story-pro-outfit">
+                                    <!-- Crisp White Shirt -->
+                                    <rect x="-17" y="128" width="34" height="54" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+                                    <!-- Cyan/Blue Tie -->
+                                    <polygon points="0,132 -4,142 0,168 4,142" fill="#0EA5E9"/>
+                                    <!-- Belt -->
+                                    <rect x="-16" y="176" width="32" height="5" rx="2" fill="#92400E"/>
+                                    <!-- Arms -->
+                                    <path d="M-17 136 L-27 166" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+                                    <path d="M17 136 L27 166" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+                                    <!-- Briefcase -->
+                                    <g transform="translate(26, 166)">
+                                        <rect x="-11" y="0" width="24" height="18" rx="4" fill="#1E293B"/>
+                                        <path d="M-4 0 V-4 H6 V0" stroke="#0EA5E9" stroke-width="2" fill="none"/>
+                                    </g>
+                                </g>
+
+                                <!-- Head + Glasses -->
+                                <g id="story-character-head">
+                                    <circle cx="0" cy="108" r="18" fill="#FDBA74"/>
+                                    <!-- Hair -->
+                                    <path d="M-18 106 C-18 90 18 90 18 106 C14 96 -14 96 -18 106 Z" fill="#451A03"/>
+                                    <!-- Glasses -->
+                                    <rect x="-11" y="104" width="9" height="7" rx="2" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.5"/>
+                                    <rect x="2" y="104" width="9" height="7" rx="2" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.5"/>
+                                    <line x1="-2" y1="107" x2="2" y2="107" stroke="#0F172A" stroke-width="1.5"/>
+                                    <circle cx="-6.5" cy="107.5" r="1.5" fill="#0F172A"/>
+                                    <circle cx="6.5" cy="107.5" r="1.5" fill="#0F172A"/>
+                                </g>
+
+                                <!-- Floating Question Marks (Scene 1) -->
+                                <g id="story-question-marks" fill="#0EA5E9" font-family="sans-serif" font-weight="800" font-size="16">
+                                    <text x="-28" y="84">?</text>
+                                    <text x="18" y="78">?</text>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="story-caption-bar">
+                        <span id="story-caption-text">1. Lost: Exploring open possibilities without a clear roadmap.</span>
+                        <a href="pages/onboarding.html" class="btn btn-primary" style="padding: 0.45rem 1rem; font-size: 0.82rem;">Start Guided Journey →</a>
                     </div>
                 </div>
             </div>
@@ -738,6 +870,7 @@
     <script src="js/hunter-canvas.js"></script>
     <script src="js/opportunities.js"></script>
     <script src="js/components.js"></script>
+    <script src="js/story-animation.js"></script>
     <script>
         // Verified Courses Catalog (US34)
         async function renderCoursesCatalog(trackFilter = '') {
