@@ -2210,7 +2210,16 @@
     transform: translate(565px, 165px);
 }
 
-/* Bow appears cleanly when aiming and shooting (Scenes 2 & 3) */
+/* Study Desk visible in Scene 1 */
+#story-desk {
+    transition: opacity 0.45s ease;
+}
+
+#story-stage:not([data-scene="1"]) #story-desk {
+    opacity: 0.25;
+}
+
+/* Bow & Two-Handed Draw Mechanics */
 #story-bow {
     transition: opacity 0.3s ease;
     opacity: 0;
@@ -2221,14 +2230,45 @@
     opacity: 1;
 }
 
-/* Celebration Sparkles */
-#story-celebration-sparkles {
-    opacity: 0;
-    transition: opacity 0.3s ease;
+#story-right-arm-group {
+    will-change: transform;
 }
 
-#story-stage[data-scene="3"] #story-celebration-sparkles {
+#story-stage[data-scene="2"] #story-right-arm-group {
+    animation: bowDrawArm 1.15s ease-in-out infinite;
+}
+
+#story-stage[data-scene="3"] #story-right-arm-group {
+    animation: bowDrawArmOnce 0.8s ease-out 1;
+}
+
+@keyframes bowDrawArm {
+    0%, 100% { transform: translateX(0px); }
+    45% { transform: translateX(-14px); }
+}
+
+@keyframes bowDrawArmOnce {
+    0% { transform: translateX(0px); }
+    45% { transform: translateX(-14px); }
+    75%, 100% { transform: translateX(0px); }
+}
+
+/* Celebration Confetti & Popped Balloons */
+#story-confetti {
+    opacity: 0;
+    transform-origin: 150px 80px;
+    transition: opacity 0.35s ease;
+}
+
+#story-stage[data-scene="3"] #story-confetti {
     opacity: 1;
+    animation: confettiPop 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s 1;
+}
+
+@keyframes confettiPop {
+    0% { opacity: 0; transform: scale(0.5) translateY(15px); }
+    65% { opacity: 1; transform: scale(1.08) translateY(-6px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 /* JOBS Door opens in Scene 4 */
@@ -2288,9 +2328,12 @@
 #story-stage[data-scene="3"] #story-guide-arrow,
 #story-stage[data-scene="4"] #story-guide-arrow {
     opacity: 1;
-    animation: none;
-    transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-    transform: translate(552px, 165px) rotate(4deg);
+    animation: arrowBullseyeFlight 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes arrowBullseyeFlight {
+    0% { transform: translate(172px, 144px) rotate(-3deg); opacity: 1; }
+    100% { transform: translate(552px, 165px) rotate(4deg); opacity: 1; }
 }
 
 #story-arrow-trail {

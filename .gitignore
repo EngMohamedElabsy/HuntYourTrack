@@ -34,3 +34,4 @@ dist-ssr
 .directory
 .serena/
 test-results/
+local-credentials.csv

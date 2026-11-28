@@ -234,10 +234,11 @@
                             <h2 style="font-size: 1.15rem; margin: 0;">From Uncertain Student to Career-Ready Professional</h2>
                         </div>
                         <div class="story-pills-row" role="tablist" aria-label="Journey Scenes">
-                            <button type="button" class="story-scene-pill active" data-scene="1" onclick="setStoryScene(1, true)">1. Lost</button>
-                            <button type="button" class="story-scene-pill" data-scene="2" onclick="setStoryScene(2, true)">2. Trying &amp; Aiming</button>
+                            <button type="button" class="story-scene-pill active" data-scene="1" onclick="setStoryScene(1, true)">1. Study &amp; Plan</button>
+                            <button type="button" class="story-scene-pill" data-scene="2" onclick="setStoryScene(2, true)">2. Aim &amp; Try</button>
                             <button type="button" class="story-scene-pill" data-scene="3" onclick="setStoryScene(3, true)">3. Bullseye Hit</button>
                             <button type="button" class="story-scene-pill" data-scene="4" onclick="setStoryScene(4, true)">4. Career Path</button>
+                            <button type="button" class="btn btn-secondary" id="story-sound-toggle" style="padding: 0.3rem 0.65rem; font-size: 0.76rem;" onclick="toggleStorySound()" title="Toggle Sound Effects">Sound: Off</button>
                             <button type="button" class="btn btn-secondary" id="story-play-toggle" style="padding: 0.3rem 0.75rem; font-size: 0.76rem;" onclick="toggleStoryLoop()">Pause</button>
                         </div>
                     </div>
@@ -259,6 +260,20 @@
 
                             <!-- Ground & Career Path Road -->
                             <line x1="40" y1="225" x2="760" y2="225" stroke="url(#storyGroundGrad)" stroke-width="3" stroke-linecap="round"/>
+
+                            <!-- Study Desk on the Side (Scene 1: Studying rules & planning) -->
+                            <g id="story-desk" transform="translate(52, 172)">
+                                <!-- Desk Top & Legs -->
+                                <rect x="0" y="14" width="64" height="6" rx="2" fill="#92400E"/>
+                                <rect x="6" y="20" width="5" height="33" rx="1.5" fill="#78350F"/>
+                                <rect x="53" y="20" width="5" height="33" rx="1.5" fill="#78350F"/>
+                                <!-- Open Rulebook -->
+                                <path d="M12 14 L26 11 L26 3 L12 6 Z" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1"/>
+                                <path d="M26 11 L40 14 L40 6 L26 3 Z" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1"/>
+                                <!-- Desk Lamp -->
+                                <path d="M52 14 L52 3 L45 -2" stroke="#475569" stroke-width="2" stroke-linecap="round" fill="none"/>
+                                <polygon points="40,-2 48,-6 50,1 42,3" fill="#0EA5E9"/>
+                            </g>
 
                             <!-- Career / JOBS Door (Opens when Bullseye Hit in Scene 3/4) -->
                             <g id="story-jobs-door" transform="translate(718, 128)">
@@ -284,11 +299,20 @@
                                 <circle id="story-impact-pulse" cx="0" cy="0" r="50" stroke="#0EA5E9" stroke-width="3.5" fill="none"/>
                             </g>
 
-                            <!-- Celebration Sparkles -->
-                            <g id="story-celebration-sparkles" fill="#F59E0B">
-                                <circle cx="120" cy="70" r="3.5"/>
-                                <circle cx="178" cy="66" r="4"/>
-                                <circle cx="150" cy="54" r="3"/>
+                            <!-- Confetti & Popped Balloons Celebration (Scene 3 Only) -->
+                            <g id="story-confetti">
+                                <!-- Left Popped Balloon + Streamers -->
+                                <ellipse cx="104" cy="72" rx="8" ry="10" fill="#0EA5E9" opacity="0.9"/>
+                                <path d="M104 82 Q100 92 106 100" stroke="#0EA5E9" stroke-width="1.5" fill="none"/>
+                                <!-- Right Popped Balloon + Streamers -->
+                                <ellipse cx="196" cy="68" rx="8" ry="10" fill="#10B981" opacity="0.9"/>
+                                <path d="M196 78 Q200 88 194 96" stroke="#10B981" stroke-width="1.5" fill="none"/>
+                                <!-- Confetti Ribbons around Target & Student -->
+                                <rect x="132" y="54" width="7" height="4" rx="1" fill="#F59E0B" transform="rotate(-25 135 56)"/>
+                                <rect x="166" y="48" width="7" height="4" rx="1" fill="#EC4899" transform="rotate(20 169 50)"/>
+                                <polygon points="528,108 534,102 537,111" fill="#F59E0B"/>
+                                <polygon points="598,112 605,107 603,116" fill="#10B981"/>
+                                <rect x="556" y="96" width="8" height="4" rx="1" fill="#0EA5E9" transform="rotate(15 560 98)"/>
                             </g>
 
                             <!-- Real Feathered Arrow (Shaft + Fletching Feathers + Sharp Tip) -->
@@ -300,8 +324,16 @@
                                 <polygon points="18,0 6,-5.5 8.5,0 6,5.5" fill="#0EA5E9" stroke="#0F172A" stroke-width="1"/>
                             </g>
 
-                            <!-- Stylized Character with Connected Neck, Full Face & Proper Shoes -->
+                            <!-- Stylized Character with Connected Neck, Full Face, Thought Cloud & Two-Handed Bow -->
                             <g id="story-character" transform="translate(150, 0)">
+                                <!-- Thought Cloud with 2-3 word planning text -->
+                                <g id="story-thought-cloud" transform="translate(0, 42)">
+                                    <circle cx="-18" cy="30" r="3" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="1.2"/>
+                                    <circle cx="-10" cy="22" r="4.5" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="1.2"/>
+                                    <rect x="-56" y="-8" width="124" height="26" rx="13" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="1.5"/>
+                                    <text id="story-thought-text" x="6" y="9" text-anchor="middle" fill="#0F172A" font-family="sans-serif" font-size="11" font-weight="700">Learn the rules</text>
+                                </g>
+
                                 <ellipse cx="0" cy="225" rx="22" ry="5" fill="#0F172A" opacity="0.18"/>
 
                                 <!-- Legs & Detailed Shoes -->
@@ -313,14 +345,20 @@
                                 <!-- Scene 1-3 Casual Student Hoodie -->
                                 <g id="story-casual-outfit">
                                     <rect x="-17" y="130" width="34" height="52" rx="12" fill="#0EA5E9"/>
-                                    <path d="M-17 140 L-24 166" stroke="#0EA5E9" stroke-width="8" stroke-linecap="round"/>
-                                    <path d="M16 140 L29 144" stroke="#0EA5E9" stroke-width="8" stroke-linecap="round"/>
+                                    <!-- Left Arm: Extends forward to hold the bow -->
+                                    <path id="story-left-arm" d="M14 140 L34 144" stroke="#0EA5E9" stroke-width="7.5" stroke-linecap="round"/>
+                                    <circle id="story-left-hand" cx="35" cy="144" r="4" fill="#FDBA74"/>
+                                    <!-- Right Arm: Draws bowstring back with fingers -->
+                                    <g id="story-right-arm-group">
+                                        <path d="M-14 140 L2 144 L22 144" stroke="#0284C7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        <circle cx="23" cy="144" r="3.8" fill="#FDBA74"/>
+                                    </g>
                                 </g>
 
-                                <!-- Realistic Bow (Visible when aiming/shooting in Scenes 2 & 3) -->
-                                <g id="story-bow" transform="translate(30, 144)">
-                                    <path d="M0 -26 Q16 0 0 26" stroke="#92400E" stroke-width="4" stroke-linecap="round" fill="none"/>
-                                    <line x1="0" y1="-26" x2="0" y2="26" stroke="#CBD5E1" stroke-width="1.5"/>
+                                <!-- Realistic Two-Handed Bow + Bending Bowstring (Scenes 2 & 3) -->
+                                <g id="story-bow" transform="translate(36, 144)">
+                                    <path d="M0 -26 Q18 0 0 26" stroke="#92400E" stroke-width="4" stroke-linecap="round" fill="none"/>
+                                    <path id="story-bowstring" d="M0 -26 Q0 0 0 26" stroke="#E2E8F0" stroke-width="1.8" fill="none"/>
                                 </g>
 
                                 <!-- Scene 4 Confident Professional Shirt + Tie + Briefcase -->
