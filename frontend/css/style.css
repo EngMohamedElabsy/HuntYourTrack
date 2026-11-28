@@ -1476,14 +1476,10 @@ select.form-control option {
     box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
 }
 
-/* Strict monochrome images and partner logos */
+/* Authentic vibrant brand logos and profile photos */
 img {
-    filter: grayscale(1) contrast(1.05);
-    transition: filter 0.25s ease;
-}
-
-img:hover {
-    filter: grayscale(0.5) contrast(1.05);
+    filter: none;
+    transition: transform 0.2s ease;
 }
 
 /* Modern Opportunity Card (US28) */
